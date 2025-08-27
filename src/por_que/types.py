@@ -1,6 +1,8 @@
+import os
 import struct
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import BinaryIO
 
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
@@ -10,6 +12,7 @@ from .enums import (
     Repetition,
     Type,
 )
+from .util import http
 
 
 @dataclass
@@ -72,47 +75,33 @@ class FileMetadata:
     key_value_metadata: dict[str, str] | None = None
 
     @classmethod
-    def from_file(cls, file_path: str) -> 'FileMetadata':
-        with open(file_path, 'rb') as f:
+    def from_file(cls, file_path: Path | str) -> 'FileMetadata':
+        file_path = Path(file_path)
+        with file_path.open('rb') as f:
             return cls.from_buffer(f)
 
     @classmethod
     def from_url(cls, url: str) -> 'FileMetadata':
-        # Get file size
-        resp = requests.head(url)
-        file_size = int(resp.headers.get('Content-Length', 0))
+        file_size = http.get_length(url)
 
-        if file_size == 0:
-            resp = requests.get(url, headers={'Range': 'bytes=0-0'})
-            if 'Content-Range' in resp.headers:
-                content_range = resp.headers['Content-Range']
-                file_size = int(content_range.split('/')[-1])
-
-        # Read footer
-        resp = requests.get(
-            url,
-            headers={'Range': f'bytes={file_size - FOOTER_SIZE}-{file_size - 1}'},
-        )
-        footer_length = struct.unpack('<I', resp.content[:4])[0]
-        magic = resp.content[4:8]
+        footer_bytes = http.get_bytes(url, file_size - FOOTER_SIZE, file_size)
+        footer_length = struct.unpack('<I', footer_bytes[:4])[0]
+        magic = footer_bytes[4:8]
 
         if magic != PARQUET_MAGIC:
-            raise ValueError(f'Not a Parquet file (magic: {magic})')
+            raise ValueError(f'Not a Parquet file (magic: {magic!r})')
 
-        footer_start = file_size - FOOTER_SIZE - footer_length
-        resp = requests.get(
-            url,
-            headers={'Range': f'bytes={footer_start}-{file_size - FOOTER_SIZE - 1}'},
+        return cls.from_bytes(
+            http.get_bytes(
+                url,
+                file_size - FOOTER_SIZE - footer_length,
+                file_size - FOOTER_SIZE,
+            ),
         )
-
-        return cls.from_bytes(resp.content)
 
     @classmethod
     def from_buffer(cls, buffer: BinaryIO) -> 'FileMetadata':
-        buffer.seek(0, 2)
-        file_size = buffer.tell()
-
-        buffer.seek(-FOOTER_SIZE, 2)
+        buffer.seek(-FOOTER_SIZE, os.SEEK_END)
         footer_data = buffer.read(FOOTER_SIZE)
         footer_length = struct.unpack('<I', footer_data[:4])[0]
         magic = footer_data[4:8]
@@ -120,7 +109,7 @@ class FileMetadata:
         if magic != PARQUET_MAGIC:
             raise ValueError(f'Not a Parquet file (magic: {magic!r})')
 
-        buffer.seek(-(FOOTER_SIZE + footer_length), 2)
+        buffer.seek(-(FOOTER_SIZE + footer_length), os.SEEK_END)
         footer_bytes = buffer.read(footer_length)
 
         return cls.from_bytes(footer_bytes)
@@ -132,7 +121,8 @@ class FileMetadata:
         reader = MetadataReader(footer_bytes)
         return reader()
 
-    def summary(self) -> str:
+    # TODO: refine/refactor, remove noqa
+    def summary(self) -> str:  # noqa: C901
         lines = [
             'Parquet File Metadata',
             '=' * 60,
@@ -150,7 +140,8 @@ class FileMetadata:
             for i, element in enumerate(self.schema):
                 if element.is_group():
                     lines.append(
-                        f'  {i:2}: {element.name} (GROUP, {element.num_children} children)',
+                        f'  {i:2}: {element.name} '
+                        f'(GROUP, {element.num_children} children)',
                     )
                 else:
                     rep = f' {element.repetition.name}' if element.repetition else ''
@@ -164,9 +155,11 @@ class FileMetadata:
             total_compressed = 0
             total_uncompressed = 0
 
-            for i, rg in enumerate(self.row_groups[:5]):  # Show first 5
+            for i, rg in enumerate(self.row_groups[:5]):
                 lines.append(
-                    f'  Group {i:2}: {rg.num_rows:,} rows, {len(rg.columns)} columns, {rg.total_byte_size:,} bytes',
+                    f'  Group {i:2}: {rg.num_rows:,} rows, '
+                    f'{len(rg.columns)} columns, '
+                    f'{rg.total_byte_size:,} bytes',
                 )
 
                 # Add compression info if available
@@ -199,7 +192,8 @@ class FileMetadata:
 
         return '\n'.join(lines)
 
-    def detailed_dump(self) -> str:
+    # TODO: refine/refactor, remove noqa
+    def detailed_dump(self) -> str:  # noqa: C901
         """Generate a comprehensive dump of all metadata"""
         lines = [
             'PARQUET FILE DETAILED METADATA DUMP',

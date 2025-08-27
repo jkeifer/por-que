@@ -56,21 +56,15 @@ class ThriftCompactReader:
 
     def read_string(self) -> str:
         length = self.read_varint()
+
         if length < 0 or self.pos + length > len(self.data):
             raise ValueError(f'Invalid string length {length} at position {self.pos}')
-        try:
-            result = self.read(length).decode('utf-8')
-            return result
-        except UnicodeDecodeError as e:
-            # This indicates position corruption - we're reading from wrong place
-            raise ValueError(
-                f'Position corruption: tried to read {length}-byte string at pos {self.pos}, got UTF-8 error: {e}',
-            )
+
+        return self.read(length).decode('utf-8')
 
     def read_bytes(self) -> bytes:
         length = self.read_varint()
-        result = self.read(length)
-        return result
+        return self.read(length)
 
     def skip(self, n: int) -> None:
         """Skip n bytes"""
@@ -108,7 +102,7 @@ class ThriftStructReader:
         self.last_field_id += field_delta
         return field_type, self.last_field_id
 
-    def skip_field(self, field_type: int) -> None:
+    def skip_field(self, field_type: int) -> None:  # noqa: C901
         """Skip a field based on its type"""
         if self.reader.at_end():
             return
@@ -117,8 +111,10 @@ class ThriftStructReader:
             field_type == ThriftFieldType.BOOL_TRUE
             or field_type == ThriftFieldType.BOOL_FALSE
         ):
-            pass  # No data to skip
-        elif field_type == ThriftFieldType.BYTE:
+            # No data to skip
+            return
+
+        if field_type == ThriftFieldType.BYTE:
             self.reader.skip(1)
         elif field_type in [
             ThriftFieldType.I16,
@@ -142,7 +138,8 @@ class ThriftStructReader:
         elif field_type == ThriftFieldType.LIST:
             self.skip_list()
         elif field_type == ThriftFieldType.SET:
-            self.skip_list()  # Same as list
+            # Same as list
+            self.skip_list()
         elif field_type == ThriftFieldType.MAP:
             self.skip_map()
 
@@ -153,7 +150,7 @@ class ThriftStructReader:
 
         header = int(self.reader.read())
         size = header >> 4  # Size from upper 4 bits
-        elem_type = header & 0x0F  # Type from lower 4 bits
+        elem_type = header & 0x0F  # Element type from lower 4 bits
 
         # If size == 15, read actual size from varint
         if size == 15:
@@ -195,7 +192,8 @@ class MetadataReader:
         """Read a list of elements"""
         header = int(self.reader.read())
         size = header >> 4  # Size from upper 4 bits
-        elem_type = header & 0x0F  # Type from lower 4 bits
+        # TODO: determine if we need element type for anything
+        _ = header & 0x0F  # Element type from lower 4 bits
 
         # If size == 15, read actual size from varint
         if size == 15:
@@ -238,7 +236,7 @@ class MetadataReader:
 
         return element
 
-    def read_column_metadata(self) -> ColumnMetadata:
+    def read_column_metadata(self) -> ColumnMetadata:  # noqa: C901
         """Read ColumnMetaData struct"""
         struct_reader = ThriftStructReader(self.reader)
         meta = ColumnMetadata(
@@ -265,17 +263,12 @@ class MetadataReader:
                 )
                 meta.encodings = []
                 for e in encodings:
-                    try:
-                        meta.encodings.append(Encoding(e))
-                    except ValueError:
-                        print(f'Warning: Invalid encoding {e}, skipping')
-                        # Use a default encoding or skip
-                        meta.encodings.append(Encoding.PLAIN)
+                    meta.encodings.append(Encoding(e))
             elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:
                 path_list = self.read_list(
                     lambda r: r.read_string(),
                 )
-                meta.path_in_schema = '.'.join(path_list)  # Join path components
+                meta.path_in_schema = '.'.join(path_list)
             elif field_id == ColumnMetadataFieldId.CODEC:
                 meta.codec = Compression(self.reader.read_i32())
             elif field_id == ColumnMetadataFieldId.NUM_VALUES:
