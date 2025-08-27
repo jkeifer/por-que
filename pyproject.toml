@@ -1,0 +1,92 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "por-que"
+description = "Pure-python parquet parser, for education"
+readme = "README.md"
+authors = [
+    {name = "Jarrett Keifer", email = "jkeifer0@gmail.com"},
+]
+requires-python = ">=3.13"
+license = {text = "Apache License 2.0"}
+dependencies = []
+dynamic = ["version"]
+
+[project.scripts]
+ipynb-scrubber = "por_que.cli:cli"
+
+[project.urls]
+Repository = 'https://github.com/jkeifer/por-que'
+
+[tool.uv]
+dev-dependencies = [
+    "mypy>=1.15.0",
+    "pre-commit>=4.2.0",
+    "pre-commit-hooks>=5.0.0",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.6",
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/por_que/__version__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/por_que"]
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
+select = [
+    'B',
+    'BLE',
+    'C4',
+    'C90',
+    'COM',
+    'DTZ',
+    'E',
+    'ERA',
+    'F',
+    'FA',
+    'G',
+    'I',
+    'INP',
+    'N',
+    'NPY',
+    'PT',
+    'PTH',
+    'RET',
+    'RUF',
+    'S',
+    'SIM',
+    'T20',
+    'UP',
+    'W',
+
+]
+
+[tool.ruff.lint.per-file-ignores]
+'__init__.py' = ['E402']
+'tests/**/*' = ['T201', 'S101', 'S603']
+
+[tool.ruff.lint.isort]
+lines-between-types = 1
+
+[tool.mypy]
+ignore_missing_imports = true
+scripts_are_modules = true
+
+[tool.pytest.ini_options]
+addopts="--cov=por-que"
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+sort = "Cover"
