@@ -34,7 +34,7 @@ class ThriftCompactReader:
         result = 0
         shift = 0
         while self.pos < len(self.data):
-            byte = int(self.read())
+            byte = int.from_bytes(self.read())
             result |= (byte & 0x7F) << shift
             if (byte & 0x80) == 0:
                 break
@@ -87,7 +87,7 @@ class ThriftStructReader:
         if self.reader.at_end():
             return ThriftFieldType.STOP, 0
 
-        byte = int(self.reader.read())
+        byte = int.from_bytes(self.reader.read())
 
         field_type = byte & 0x0F
         field_delta = byte >> 4
@@ -148,7 +148,7 @@ class ThriftStructReader:
         if self.reader.at_end():
             return
 
-        header = int(self.reader.read())
+        header = int.from_bytes(self.reader.read())
         size = header >> 4  # Size from upper 4 bits
         elem_type = header & 0x0F  # Element type from lower 4 bits
 
@@ -172,7 +172,7 @@ class ThriftStructReader:
         size = self.reader.read_varint()
 
         if size > 0:
-            types_byte = int(self.reader.read())
+            types_byte = int.from_bytes(self.reader.read())
             key_type = (types_byte >> 4) & 0x0F
             val_type = types_byte & 0x0F
 
@@ -190,20 +190,20 @@ class MetadataReader:
 
     def read_list(self, read_element_func) -> list:
         """Read a list of elements"""
-        header = int(self.reader.read())
+        header = int.from_bytes(self.read())
         size = header >> 4  # Size from upper 4 bits
         # TODO: determine if we need element type for anything
         _ = header & 0x0F  # Element type from lower 4 bits
 
         # If size == 15, read actual size from varint
         if size == 15:
-            size = self.reader.read_varint()
+            size = self.read_varint()
 
         elements = []
         for _ in range(size):
-            if self.reader.at_end():
+            if self.at_end():
                 break
-            elements.append(read_element_func(self.reader))
+            elements.append(read_element_func())
 
         return elements
 
@@ -218,19 +218,19 @@ class MetadataReader:
                 break
 
             if field_id == SchemaElementFieldId.TYPE:
-                element.type = Type(self.reader.read_i32())
+                element.type = Type(self.read_i32())
             elif field_id == SchemaElementFieldId.TYPE_LENGTH:
-                element.type_length = self.reader.read_i32()
+                element.type_length = self.read_i32()
             elif field_id == SchemaElementFieldId.REPETITION_TYPE:
                 element.repetition = Repetition(
-                    self.reader.read_i32(),
+                    self.read_i32(),
                 )
             elif field_id == SchemaElementFieldId.NAME:
-                element.name = self.reader.read_string()
+                element.name = self.read_string()
             elif field_id == SchemaElementFieldId.NUM_CHILDREN:
-                element.num_children = self.reader.read_i32()
+                element.num_children = self.read_i32()
             elif field_id == SchemaElementFieldId.CONVERTED_TYPE:
-                element.converted_type = self.reader.read_i32()
+                element.converted_type = self.read_i32()
             else:
                 struct_reader.skip_field(field_type)
 
@@ -256,33 +256,29 @@ class MetadataReader:
                 break
 
             if field_id == ColumnMetadataFieldId.TYPE:
-                meta.type = Type(self.reader.read_i32())
+                meta.type = Type(self.read_i32())
             elif field_id == ColumnMetadataFieldId.ENCODINGS:
-                encodings = self.read_list(
-                    lambda r: r.read_i32(),
-                )
+                encodings = self.read_list(self.read_i32)
                 meta.encodings = []
                 for e in encodings:
                     meta.encodings.append(Encoding(e))
             elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:
-                path_list = self.read_list(
-                    lambda r: r.read_string(),
-                )
+                path_list = self.read_list(self.read_string)
                 meta.path_in_schema = '.'.join(path_list)
             elif field_id == ColumnMetadataFieldId.CODEC:
-                meta.codec = Compression(self.reader.read_i32())
+                meta.codec = Compression(self.read_i32())
             elif field_id == ColumnMetadataFieldId.NUM_VALUES:
-                meta.num_values = self.reader.read_i64()
+                meta.num_values = self.read_i64()
             elif field_id == ColumnMetadataFieldId.TOTAL_UNCOMPRESSED_SIZE:
-                meta.total_uncompressed_size = self.reader.read_i64()
+                meta.total_uncompressed_size = self.read_i64()
             elif field_id == ColumnMetadataFieldId.TOTAL_COMPRESSED_SIZE:
-                meta.total_compressed_size = self.reader.read_i64()
+                meta.total_compressed_size = self.read_i64()
             elif field_id == ColumnMetadataFieldId.DATA_PAGE_OFFSET:
-                meta.data_page_offset = self.reader.read_i64()
+                meta.data_page_offset = self.read_i64()
             elif field_id == ColumnMetadataFieldId.INDEX_PAGE_OFFSET:
-                meta.index_page_offset = self.reader.read_i64()
+                meta.index_page_offset = self.read_i64()
             elif field_id == ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
-                meta.dictionary_page_offset = self.reader.read_i64()
+                meta.dictionary_page_offset = self.read_i64()
             else:
                 struct_reader.skip_field(field_type)
 
@@ -299,9 +295,9 @@ class MetadataReader:
                 break
 
             if field_id == ColumnChunkFieldId.FILE_PATH:
-                chunk.file_path = self.reader.read_string()
+                chunk.file_path = self.read_string()
             elif field_id == ColumnChunkFieldId.FILE_OFFSET:
-                chunk.file_offset = self.reader.read_i64()
+                chunk.file_offset = self.read_i64()
             elif field_id == ColumnChunkFieldId.META_DATA:
                 chunk.meta_data = self.read_column_metadata()
             else:
@@ -324,9 +320,9 @@ class MetadataReader:
                     self.read_column_chunk,
                 )
             elif field_id == RowGroupFieldId.TOTAL_BYTE_SIZE:
-                rg.total_byte_size = self.reader.read_i64()
+                rg.total_byte_size = self.read_i64()
             elif field_id == RowGroupFieldId.NUM_ROWS:
-                rg.num_rows = self.reader.read_i64()
+                rg.num_rows = self.read_i64()
             else:
                 struct_reader.skip_field(field_type)
 
@@ -344,9 +340,9 @@ class MetadataReader:
                 break
 
             if field_id == KeyValueFieldId.KEY:
-                key = self.reader.read_string()
+                key = self.read_string()
             elif field_id == KeyValueFieldId.VALUE:
-                value = self.reader.read_string()
+                value = self.read_string()
             else:
                 struct_reader.skip_field(field_type)
 
@@ -371,13 +367,13 @@ class MetadataReader:
                 break
 
             if field_id == FileMetadataFieldId.VERSION:
-                metadata.version = self.reader.read_i32()
+                metadata.version = self.read_i32()
             elif field_id == FileMetadataFieldId.SCHEMA:
                 metadata.schema = self.read_list(
                     self.read_schema_element,
                 )
             elif field_id == FileMetadataFieldId.NUM_ROWS:
-                metadata.num_rows = self.reader.read_i64()
+                metadata.num_rows = self.read_i64()
             elif field_id == FileMetadataFieldId.ROW_GROUPS:
                 metadata.row_groups = self.read_list(
                     self.read_row_group,
@@ -386,7 +382,7 @@ class MetadataReader:
                 kvs = self.read_list(self.read_key_value)
                 metadata.key_value_metadata = {k: v for k, v in kvs if k}
             elif field_id == FileMetadataFieldId.CREATED_BY:
-                metadata.created_by = self.reader.read_string()
+                metadata.created_by = self.read_string()
             else:
                 struct_reader.skip_field(field_type)
 
@@ -394,3 +390,30 @@ class MetadataReader:
 
     def __call__(self) -> FileMetadata:
         return self._read_file_metadata()
+
+    def read(self, length: int = 1) -> bytes:
+        return self.reader.read(length)
+
+    def read_varint(self) -> int:
+        return self.reader.read_varint()
+
+    def read_zigzag(self) -> int:
+        return self.reader.read_zigzag()
+
+    def read_bool(self) -> bool:
+        return self.reader.read_bool()
+
+    def read_i32(self) -> int:
+        return self.reader.read_i32()
+
+    def read_i64(self) -> int:
+        return self.reader.read_i64()
+
+    def read_string(self) -> str:
+        return self.reader.read_string()
+
+    def read_bytes(self) -> bytes:
+        return self.reader.read_bytes()
+
+    def at_end(self) -> bool:
+        return self.reader.at_end()

@@ -84,7 +84,7 @@ ignore_missing_imports = true
 scripts_are_modules = true
 
 [tool.pytest.ini_options]
-addopts="--cov=por-que"
+addopts="--cov=por_que"
 
 [tool.coverage.report]
 show_missing = true
