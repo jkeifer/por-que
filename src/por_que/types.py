@@ -74,6 +74,12 @@ class FileMetadata:
     created_by: str | None = None
     key_value_metadata: dict[str, str] | None = None
 
+    @staticmethod
+    def _validate_parquet_magic(magic: bytes) -> None:
+        """Validate that magic bytes match Parquet format."""
+        if magic != PARQUET_MAGIC:
+            raise ValueError(f'Not a Parquet file (magic: {magic!r})')
+
     @classmethod
     def from_file(cls, file_path: Path | str) -> 'FileMetadata':
         file_path = Path(file_path)
@@ -88,8 +94,7 @@ class FileMetadata:
         footer_length = struct.unpack('<I', footer_bytes[:4])[0]
         magic = footer_bytes[4:8]
 
-        if magic != PARQUET_MAGIC:
-            raise ValueError(f'Not a Parquet file (magic: {magic!r})')
+        cls._validate_parquet_magic(magic)
 
         return cls.from_bytes(
             http.get_bytes(
@@ -106,8 +111,7 @@ class FileMetadata:
         footer_length = struct.unpack('<I', footer_data[:4])[0]
         magic = footer_data[4:8]
 
-        if magic != PARQUET_MAGIC:
-            raise ValueError(f'Not a Parquet file (magic: {magic!r})')
+        cls._validate_parquet_magic(magic)
 
         buffer.seek(-(FOOTER_SIZE + footer_length), os.SEEK_END)
         footer_bytes = buffer.read(footer_length)
