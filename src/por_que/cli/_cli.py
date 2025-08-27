@@ -10,8 +10,8 @@ from click_option_group import (
     optgroup,
 )
 
-from .exceptions import PorQueError
-from .types import FileMetadata
+from por_que.exceptions import PorQueError
+from por_que.types import FileMetadata
 
 
 @dataclass
