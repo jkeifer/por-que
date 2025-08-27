@@ -15,10 +15,16 @@ dependencies = []
 dynamic = ["version"]
 
 [project.scripts]
-ipynb-scrubber = "por_que.cli:cli"
+porque = "por_que.cli:cli"
 
 [project.urls]
 Repository = 'https://github.com/jkeifer/por-que'
+
+[project.optional-dependencies]
+cli = [
+    "click>=8.2.1",
+    "click-option-group>=0.5.7",
+]
 
 [tool.uv]
 dev-dependencies = [
