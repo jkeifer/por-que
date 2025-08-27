@@ -27,7 +27,7 @@ class SchemaElement:
     def is_group(self) -> bool:
         return self.type is None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         if self.is_group():
             return f'Group({self.name}, children={self.num_children})'
         rep = f' {self.repetition.name}' if self.repetition else ''

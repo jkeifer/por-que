@@ -1,3 +1,6 @@
+from collections.abc import Callable
+from typing import TypeVar
+
 from por_que.enums import (
     ColumnChunkFieldId,
     ColumnMetadataFieldId,
@@ -24,12 +27,14 @@ from .thrift import (
     ThriftStructReader,
 )
 
+T = TypeVar('T')
+
 
 class MetadataReader:
     def __init__(self, metadata: bytes) -> None:
         self.reader = ThriftCompactReader(metadata)
 
-    def read_list(self, read_element_func) -> list:
+    def read_list(self, read_element_func: Callable[[], T]) -> list[T]:
         """Read a list of elements"""
         header = int.from_bytes(self.read())
         size = header >> 4  # Size from upper 4 bits
@@ -40,7 +45,7 @@ class MetadataReader:
         if size == 15:
             size = self.read_varint()
 
-        elements = []
+        elements: list[T] = []
         for _ in range(size):
             if self.at_end():
                 break
@@ -100,7 +105,6 @@ class MetadataReader:
                 meta.type = Type(self.read_i32())
             elif field_id == ColumnMetadataFieldId.ENCODINGS:
                 encodings = self.read_list(self.read_i32)
-                meta.encodings = []
                 for e in encodings:
                     meta.encodings.append(Encoding(e))
             elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:

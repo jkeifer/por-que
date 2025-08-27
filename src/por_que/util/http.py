@@ -6,7 +6,7 @@ def check_url(url: str) -> None:
         raise ValueError("URL must start with 'http:' or 'https:'")
 
 
-def get_length(url: str):
+def get_length(url: str) -> int:
     check_url(url)
 
     # security rule S310 mitigated by check_url() call
