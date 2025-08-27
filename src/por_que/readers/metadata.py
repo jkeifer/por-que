@@ -2,16 +2,9 @@ from collections.abc import Callable
 from typing import TypeVar
 
 from por_que.enums import (
-    ColumnChunkFieldId,
-    ColumnMetadataFieldId,
     Compression,
     Encoding,
-    FileMetadataFieldId,
-    KeyValueFieldId,
     Repetition,
-    RowGroupFieldId,
-    SchemaElementFieldId,
-    ThriftFieldType,
     Type,
 )
 from por_que.types import (
@@ -22,6 +15,21 @@ from por_que.types import (
     SchemaElement,
 )
 
+from .constants import (
+    DEFAULT_SCHEMA_NAME,
+    THRIFT_FIELD_TYPE_MASK,
+    THRIFT_SIZE_SHIFT,
+    THRIFT_SPECIAL_LIST_SIZE,
+)
+from .enums import (
+    ColumnChunkFieldId,
+    ColumnMetadataFieldId,
+    FileMetadataFieldId,
+    KeyValueFieldId,
+    RowGroupFieldId,
+    SchemaElementFieldId,
+    ThriftFieldType,
+)
 from .thrift import (
     ThriftCompactReader,
     ThriftStructReader,
@@ -37,12 +45,12 @@ class MetadataReader:
     def read_list(self, read_element_func: Callable[[], T]) -> list[T]:
         """Read a list of elements"""
         header = int.from_bytes(self.read())
-        size = header >> 4  # Size from upper 4 bits
+        size = header >> THRIFT_SIZE_SHIFT  # Size from upper 4 bits
         # TODO: determine if we need element type for anything
-        _ = header & 0x0F  # Element type from lower 4 bits
+        _ = header & THRIFT_FIELD_TYPE_MASK  # Element type from lower 4 bits
 
         # If size == 15, read actual size from varint
-        if size == 15:
+        if size == THRIFT_SPECIAL_LIST_SIZE:
             size = self.read_varint()
 
         elements: list[T] = []
@@ -56,7 +64,7 @@ class MetadataReader:
     def read_schema_element(self) -> SchemaElement:
         """Read a SchemaElement struct"""
         struct_reader = ThriftStructReader(self.reader)
-        element = SchemaElement(name='unknown')
+        element = SchemaElement(name=DEFAULT_SCHEMA_NAME)
 
         while True:
             field_type, field_id = struct_reader.read_field_header()

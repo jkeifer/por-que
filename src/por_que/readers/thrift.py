@@ -1,6 +1,13 @@
-from por_que.enums import (
-    ThriftFieldType,
+from .constants import (
+    DEFAULT_STRING_ENCODING,
+    THRIFT_FIELD_TYPE_MASK,
+    THRIFT_MAP_TYPE_SHIFT,
+    THRIFT_SIZE_SHIFT,
+    THRIFT_SPECIAL_LIST_SIZE,
+    THRIFT_VARINT_CONTINUE,
+    THRIFT_VARINT_MASK,
 )
+from .enums import ThriftFieldType
 
 
 class ThriftCompactReader:
@@ -18,8 +25,8 @@ class ThriftCompactReader:
         shift = 0
         while self.pos < len(self.data):
             byte = int.from_bytes(self.read())
-            result |= (byte & 0x7F) << shift
-            if (byte & 0x80) == 0:
+            result |= (byte & THRIFT_VARINT_MASK) << shift
+            if (byte & THRIFT_VARINT_CONTINUE) == 0:
                 break
             shift += 7
         return result
@@ -43,7 +50,7 @@ class ThriftCompactReader:
         if length < 0 or self.pos + length > len(self.data):
             raise ValueError(f'Invalid string length {length} at position {self.pos}')
 
-        return self.read(length).decode('utf-8')
+        return self.read(length).decode(DEFAULT_STRING_ENCODING)
 
     def read_bytes(self) -> bytes:
         length = self.read_varint()
@@ -72,7 +79,7 @@ class ThriftStructReader:
 
         byte = int.from_bytes(self.reader.read())
 
-        field_type = byte & 0x0F
+        field_type = byte & THRIFT_FIELD_TYPE_MASK
         field_delta = byte >> 4
 
         if field_delta == 0:
@@ -132,11 +139,11 @@ class ThriftStructReader:
             return
 
         header = int.from_bytes(self.reader.read())
-        size = header >> 4  # Size from upper 4 bits
-        elem_type = header & 0x0F  # Element type from lower 4 bits
+        size = header >> THRIFT_SIZE_SHIFT  # Size from upper 4 bits
+        elem_type = header & THRIFT_FIELD_TYPE_MASK  # Element type from lower 4 bits
 
         # If size == 15, read actual size from varint
-        if size == 15:
+        if size == THRIFT_SPECIAL_LIST_SIZE:
             size = self.reader.read_varint()
 
         # Skip all elements
@@ -156,8 +163,8 @@ class ThriftStructReader:
 
         if size > 0:
             types_byte = int.from_bytes(self.reader.read())
-            key_type = (types_byte >> 4) & 0x0F
-            val_type = types_byte & 0x0F
+            key_type = (types_byte >> THRIFT_MAP_TYPE_SHIFT) & THRIFT_FIELD_TYPE_MASK
+            val_type = types_byte & THRIFT_FIELD_TYPE_MASK
 
             skip_reader = ThriftStructReader(self.reader)
             for _ in range(size):
