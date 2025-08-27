@@ -12,6 +12,7 @@ from .enums import (
     Repetition,
     Type,
 )
+from .exceptions import ParquetMagicError
 from .util import http
 
 
@@ -78,7 +79,10 @@ class FileMetadata:
     def _validate_parquet_magic(magic: bytes) -> None:
         """Validate that magic bytes match Parquet format."""
         if magic != PARQUET_MAGIC:
-            raise ValueError(f'Not a Parquet file (magic: {magic!r})')
+            raise ParquetMagicError(
+                'Invalid Parquet magic bytes: '
+                f'expected {PARQUET_MAGIC!r}, got {magic!r}',
+            )
 
     @classmethod
     def from_file(cls, file_path: Path | str) -> 'FileMetadata':

@@ -15,6 +15,7 @@ from por_que.types import (
     SchemaElement,
 )
 
+from ..exceptions import ThriftParsingError
 from .constants import (
     DEFAULT_SCHEMA_NAME,
     THRIFT_FIELD_TYPE_MASK,
@@ -200,7 +201,10 @@ class MetadataReader:
                 struct_reader.skip_field(field_type)
 
         if key is None or value is None:
-            raise RuntimeError('Error parsing key/value pair')
+            raise ThriftParsingError(
+                'Incomplete key/value pair: missing key or value field. '
+                'This may indicate corrupted metadata.',
+            )
 
         return key, value
 

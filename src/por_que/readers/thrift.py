@@ -1,3 +1,4 @@
+from ..exceptions import InvalidStringLengthError
 from .constants import (
     DEFAULT_STRING_ENCODING,
     THRIFT_FIELD_TYPE_MASK,
@@ -48,7 +49,10 @@ class ThriftCompactReader:
         length = self.read_varint()
 
         if length < 0 or self.pos + length > len(self.data):
-            raise ValueError(f'Invalid string length {length} at position {self.pos}')
+            raise InvalidStringLengthError(
+                f'Invalid string length {length} at position {self.pos}. '
+                f'Length cannot be negative or exceed buffer bounds.',
+            )
 
         return self.read(length).decode(DEFAULT_STRING_ENCODING)
 

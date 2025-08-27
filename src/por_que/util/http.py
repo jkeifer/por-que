@@ -1,9 +1,11 @@
 import urllib.request
 
+from ..exceptions import ParquetNetworkError, ParquetUrlError
+
 
 def check_url(url: str) -> None:
     if not url.startswith(('http:', 'https:')):
-        raise ValueError("URL must start with 'http:' or 'https:'")
+        raise ParquetUrlError("URL must start with 'http:' or 'https:'")
 
 
 def get_length(url: str) -> int:
@@ -19,8 +21,9 @@ def get_length(url: str) -> int:
         content_range = response.headers.get('Content-Range', None)
 
         if content_range is None:
-            raise RuntimeError(
-                f'Unable to get Content-Range for url, cannot determine length: {url}',
+            raise ParquetNetworkError(
+                f'Server does not support range requests for URL: {url}. '
+                f'Unable to determine file length.',
             )
 
         return int(content_range.split('/')[-1])
@@ -30,8 +33,8 @@ def get_bytes(url: str, start: int, end: int) -> bytes:
     check_url(url)
 
     if start >= end:
-        raise ValueError(
-            f'Starting byte must be less than ending byte: {start} >= {end}',
+        raise ParquetUrlError(
+            f'Invalid byte range: start ({start}) must be less than end ({end})',
         )
 
     # security rule S310 mitigated by check_url() call
