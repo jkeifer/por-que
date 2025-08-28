@@ -1,3 +1,6 @@
+[![Tests](https://github.com/jkeifer/por-que/actions/workflows/ci.yml/badge.svg)](https://github.com/jkeifer/por-que/actions/workflows/ci.yml)
+[![PyPI version](https://badge.fury.io/py/por-que.svg)](https://badge.fury.io/py/por-que)
+
 # Por Qué: Pure-Python Parquet Parser
 
 ¿Por qué? ¿Por qué no?
