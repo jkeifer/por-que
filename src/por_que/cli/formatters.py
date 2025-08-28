@@ -12,7 +12,7 @@ def _format_basic_info(stats) -> list[str]:
         f'Version: {stats.version}',
         f'Created by: {stats.created_by or "unknown"}',
         f'Total rows: {stats.total_rows:,}',
-        f'Row groups: {stats.num_row_groups}',
+        f'Row Groups: {stats.num_row_groups}',
     ]
 
 
