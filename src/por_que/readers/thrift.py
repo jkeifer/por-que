@@ -1,3 +1,7 @@
+import struct
+
+from typing import Any
+
 from ..exceptions import InvalidStringLengthError
 from .constants import (
     DEFAULT_STRING_ENCODING,
@@ -96,6 +100,27 @@ class ThriftStructReader:
         self.last_field_id += field_delta
         return field_type, self.last_field_id
 
+    def read_value(self, field_type: int) -> Any:
+        """Read a value of a given type from the stream."""
+        match field_type:
+            case ThriftFieldType.BOOL_TRUE:
+                return True
+            case ThriftFieldType.BOOL_FALSE:
+                return False
+            case ThriftFieldType.BYTE:
+                return self.reader.read(1)
+            case ThriftFieldType.I16 | ThriftFieldType.I32:
+                return self.reader.read_i32()
+            case ThriftFieldType.I64:
+                return self.reader.read_i64()
+            case ThriftFieldType.DOUBLE:
+                return struct.unpack('<d', self.reader.read(8))[0]
+            case ThriftFieldType.BINARY:
+                return self.reader.read_bytes()
+            case _:
+                self.skip_field(field_type)
+                return None
+
     def skip_field(self, field_type: int) -> None:  # noqa: C901
         """Skip a field based on its type"""
         if self.reader.at_end():
@@ -162,7 +187,7 @@ class ThriftStructReader:
         if self.reader.at_end():
             return
 
-        self.reader.read()
+        # Maps always encode size as varint (unlike lists)
         size = self.reader.read_varint()
 
         if size > 0:

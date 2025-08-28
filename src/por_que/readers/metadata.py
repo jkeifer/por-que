@@ -91,22 +91,31 @@ class MetadataReader:
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == SchemaElementFieldId.TYPE:
-                element.type = Type(self.read_i32())
-            elif field_id == SchemaElementFieldId.TYPE_LENGTH:
-                element.type_length = self.read_i32()
-            elif field_id == SchemaElementFieldId.REPETITION_TYPE:
-                element.repetition = Repetition(
-                    self.read_i32(),
-                )
-            elif field_id == SchemaElementFieldId.NAME:
-                element.name = self.read_string()
-            elif field_id == SchemaElementFieldId.NUM_CHILDREN:
-                element.num_children = self.read_i32()
-            elif field_id == SchemaElementFieldId.CONVERTED_TYPE:
-                element.converted_type = ConvertedType(self.read_i32())
-            else:
-                struct_reader.skip_field(field_type)
+            # `read_value` returns the primitive value, or None if it's a
+            # complex type or should be skipped.
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                # This indicates a complex type that the caller must handle,
+                # or a type that was skipped.
+                continue
+
+            match field_id:
+                case SchemaElementFieldId.TYPE:
+                    element.type = Type(value)
+                case SchemaElementFieldId.TYPE_LENGTH:
+                    element.type_length = value
+                case SchemaElementFieldId.REPETITION_TYPE:
+                    element.repetition = Repetition(value)
+                case SchemaElementFieldId.NAME:
+                    element.name = value.decode('utf-8')
+                case SchemaElementFieldId.NUM_CHILDREN:
+                    element.num_children = value
+                case SchemaElementFieldId.CONVERTED_TYPE:
+                    element.converted_type = ConvertedType(value)
+                case _:
+                    # This case is not strictly necessary since `read_value`
+                    # already skipped unknown fields, but it's good practice.
+                    pass
 
         return element
 
@@ -129,33 +138,50 @@ class MetadataReader:
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == ColumnMetadataFieldId.TYPE:
-                meta.type = Type(self.read_i32())
-            elif field_id == ColumnMetadataFieldId.ENCODINGS:
-                encodings = self.read_list(self.read_i32)
-                for e in encodings:
-                    meta.encodings.append(Encoding(e))
-            elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:
-                path_list = self.read_list(self.read_string)
-                meta.path_in_schema = '.'.join(path_list)
-            elif field_id == ColumnMetadataFieldId.CODEC:
-                meta.codec = Compression(self.read_i32())
-            elif field_id == ColumnMetadataFieldId.NUM_VALUES:
-                meta.num_values = self.read_i64()
-            elif field_id == ColumnMetadataFieldId.TOTAL_UNCOMPRESSED_SIZE:
-                meta.total_uncompressed_size = self.read_i64()
-            elif field_id == ColumnMetadataFieldId.TOTAL_COMPRESSED_SIZE:
-                meta.total_compressed_size = self.read_i64()
-            elif field_id == ColumnMetadataFieldId.DATA_PAGE_OFFSET:
-                meta.data_page_offset = self.read_i64()
-            elif field_id == ColumnMetadataFieldId.INDEX_PAGE_OFFSET:
-                meta.index_page_offset = self.read_i64()
-            elif field_id == ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
-                meta.dictionary_page_offset = self.read_i64()
-            elif field_id == ColumnMetadataFieldId.STATISTICS:
-                meta.statistics = self.read_statistics(meta.type, meta.path_in_schema)
-            else:
-                struct_reader.skip_field(field_type)
+            # Handle complex types explicitly
+            if field_type == ThriftFieldType.LIST:
+                if field_id == ColumnMetadataFieldId.ENCODINGS:
+                    encodings = self.read_list(self.read_i32)
+                    for e in encodings:
+                        meta.encodings.append(Encoding(e))
+                elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:
+                    path_list = self.read_list(self.read_string)
+                    meta.path_in_schema = '.'.join(path_list)
+                else:
+                    struct_reader.skip_field(field_type)
+                continue
+            if field_type == ThriftFieldType.STRUCT:
+                if field_id == ColumnMetadataFieldId.STATISTICS:
+                    meta.statistics = self.read_statistics(
+                        meta.type,
+                        meta.path_in_schema,
+                    )
+                else:
+                    struct_reader.skip_field(field_type)
+                continue
+
+            # Handle primitive types with the generic reader
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                continue
+
+            match field_id:
+                case ColumnMetadataFieldId.TYPE:
+                    meta.type = Type(value)
+                case ColumnMetadataFieldId.CODEC:
+                    meta.codec = Compression(value)
+                case ColumnMetadataFieldId.NUM_VALUES:
+                    meta.num_values = value
+                case ColumnMetadataFieldId.TOTAL_UNCOMPRESSED_SIZE:
+                    meta.total_uncompressed_size = value
+                case ColumnMetadataFieldId.TOTAL_COMPRESSED_SIZE:
+                    meta.total_compressed_size = value
+                case ColumnMetadataFieldId.DATA_PAGE_OFFSET:
+                    meta.data_page_offset = value
+                case ColumnMetadataFieldId.INDEX_PAGE_OFFSET:
+                    meta.index_page_offset = value
+                case ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
+                    meta.dictionary_page_offset = value
 
         return meta
 
@@ -173,32 +199,43 @@ class MetadataReader:
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == StatisticsFieldId.MIN_VALUE:
-                raw_bytes = self.read_bytes()
-                stats.min_value = self._deserialize_value(
+            # MIN_VALUE and MAX_VALUE are special cases, they are BINARY
+            # but need custom deserialization.
+            if field_id in (StatisticsFieldId.MIN_VALUE, StatisticsFieldId.MAX_VALUE):
+                raw_bytes = struct_reader.read_value(field_type)
+                if raw_bytes is None:
+                    continue
+
+                deserialized = self._deserialize_value(
                     raw_bytes,
                     column_type,
                     path_in_schema,
                 )
-            elif field_id == StatisticsFieldId.MAX_VALUE:
-                raw_bytes = self.read_bytes()
-                stats.max_value = self._deserialize_value(
-                    raw_bytes,
-                    column_type,
-                    path_in_schema,
-                )
-            elif field_id == StatisticsFieldId.NULL_COUNT:
-                stats.null_count = self.read_i64()
-            elif field_id == StatisticsFieldId.DISTINCT_COUNT:
-                stats.distinct_count = self.read_i64()
-            elif (
-                field_id == StatisticsFieldId.MAX_VALUE_DELTA
-                or field_id == StatisticsFieldId.MIN_VALUE_DELTA
+                if field_id == StatisticsFieldId.MIN_VALUE:
+                    stats.min_value = deserialized
+                else:
+                    stats.max_value = deserialized
+                continue
+
+            # MAX_VALUE_DELTA and MIN_VALUE_DELTA are also special
+            if field_id in (
+                StatisticsFieldId.MAX_VALUE_DELTA,
+                StatisticsFieldId.MIN_VALUE_DELTA,
             ):
                 # Skip delta values - rarely used and complex
-                self.read_bytes()
-            else:
                 struct_reader.skip_field(field_type)
+                continue
+
+            # Handle all other primitive fields
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                continue
+
+            match field_id:
+                case StatisticsFieldId.NULL_COUNT:
+                    stats.null_count = value
+                case StatisticsFieldId.DISTINCT_COUNT:
+                    stats.distinct_count = value
 
         return stats
 
@@ -377,14 +414,22 @@ class MetadataReader:
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == ColumnChunkFieldId.FILE_PATH:
-                chunk.file_path = self.read_string()
-            elif field_id == ColumnChunkFieldId.FILE_OFFSET:
-                chunk.file_offset = self.read_i64()
-            elif field_id == ColumnChunkFieldId.META_DATA:
-                chunk.meta_data = self.read_column_metadata()
-            else:
-                struct_reader.skip_field(field_type)
+            if field_type == ThriftFieldType.STRUCT:
+                if field_id == ColumnChunkFieldId.META_DATA:
+                    chunk.meta_data = self.read_column_metadata()
+                else:
+                    struct_reader.skip_field(field_type)
+                continue
+
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                continue
+
+            match field_id:
+                case ColumnChunkFieldId.FILE_PATH:
+                    chunk.file_path = value.decode('utf-8')
+                case ColumnChunkFieldId.FILE_OFFSET:
+                    chunk.file_offset = value
 
         return chunk
 
@@ -398,16 +443,24 @@ class MetadataReader:
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == RowGroupFieldId.COLUMNS:
-                rg.columns = self.read_list(
-                    self.read_column_chunk,
-                )
-            elif field_id == RowGroupFieldId.TOTAL_BYTE_SIZE:
-                rg.total_byte_size = self.read_i64()
-            elif field_id == RowGroupFieldId.NUM_ROWS:
-                rg.num_rows = self.read_i64()
-            else:
-                struct_reader.skip_field(field_type)
+            if field_type == ThriftFieldType.LIST:
+                if field_id == RowGroupFieldId.COLUMNS:
+                    rg.columns = self.read_list(
+                        self.read_column_chunk,
+                    )
+                else:
+                    struct_reader.skip_field(field_type)
+                continue
+
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                continue
+
+            match field_id:
+                case RowGroupFieldId.TOTAL_BYTE_SIZE:
+                    rg.total_byte_size = value
+                case RowGroupFieldId.NUM_ROWS:
+                    rg.num_rows = value
 
         return rg
 
@@ -415,29 +468,50 @@ class MetadataReader:
         """Read a KeyValue pair"""
         struct_reader = ThriftStructReader(self.reader)
         key = None
-        value = None
+        val = None  # Renamed to avoid conflict with `value` from read_value
 
         while True:
             field_type, field_id = struct_reader.read_field_header()
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == KeyValueFieldId.KEY:
-                key = self.read_string()
-            elif field_id == KeyValueFieldId.VALUE:
-                value = self.read_string()
-            else:
-                struct_reader.skip_field(field_type)
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                continue
 
-        if key is None or value is None:
+            if field_id == KeyValueFieldId.KEY:
+                key = value.decode('utf-8')
+            elif field_id == KeyValueFieldId.VALUE:
+                val = value.decode('utf-8')
+
+        if key is None or val is None:
             raise ThriftParsingError(
                 'Incomplete key/value pair: missing key or value field. '
                 'This may indicate corrupted metadata.',
             )
 
-        return key, value
+        return key, val
 
-    def _read_file_metadata(self) -> FileMetadata:
+    def _read_schema_field(self) -> SchemaElement:
+        """Reads the schema field, which is a list of schema elements."""
+        schema_elements = self.read_list(self.read_schema_element)
+        elements_iter = iter(schema_elements)
+        schema = self.read_schema_tree(elements_iter)
+        # Cache the schema for use in statistics deserialization
+        self.schema = schema
+        return schema
+
+    def _read_row_groups_field(self) -> list[RowGroup]:
+        """Reads the row_groups field, which is a list of RowGroup structs."""
+        return self.read_list(self.read_row_group)
+
+    def _read_key_value_metadata_field(self) -> dict[str, str]:
+        """Reads the key_value_metadata field, which is a list of KeyValue structs."""
+        kvs = self.read_list(self.read_key_value)
+        return {k: v for k, v in kvs if k}
+
+    # TODO: fix complexity
+    def _read_file_metadata(self) -> FileMetadata:  # noqa: C901
         """Read the FileMetaData struct"""
         struct_reader = ThriftStructReader(self.reader)
         metadata = FileMetadata(
@@ -452,27 +526,33 @@ class MetadataReader:
             if field_type == ThriftFieldType.STOP:
                 break
 
-            if field_id == FileMetadataFieldId.VERSION:
-                metadata.version = self.read_i32()
-            elif field_id == FileMetadataFieldId.SCHEMA:
-                schema_elements = self.read_list(self.read_schema_element)
-                # Build nested tree structure
-                elements_iter = iter(schema_elements)
-                metadata.schema = self.read_schema_tree(elements_iter)
-                self.schema = metadata.schema
-            elif field_id == FileMetadataFieldId.NUM_ROWS:
-                metadata.num_rows = self.read_i64()
-            elif field_id == FileMetadataFieldId.ROW_GROUPS:
-                metadata.row_groups = self.read_list(
-                    self.read_row_group,
-                )
-            elif field_id == FileMetadataFieldId.KEY_VALUE_METADATA:
-                kvs = self.read_list(self.read_key_value)
-                metadata.key_value_metadata = {k: v for k, v in kvs if k}
-            elif field_id == FileMetadataFieldId.CREATED_BY:
-                metadata.created_by = self.read_string()
-            else:
-                struct_reader.skip_field(field_type)
+            # Dispatch to helpers for complex list types
+            if field_type == ThriftFieldType.LIST:
+                match field_id:
+                    case FileMetadataFieldId.SCHEMA:
+                        metadata.schema = self._read_schema_field()
+                    case FileMetadataFieldId.ROW_GROUPS:
+                        metadata.row_groups = self._read_row_groups_field()
+                    case FileMetadataFieldId.KEY_VALUE_METADATA:
+                        metadata.key_value_metadata = (
+                            self._read_key_value_metadata_field()
+                        )
+                    case _:
+                        struct_reader.skip_field(field_type)
+                continue
+
+            # Handle primitive types
+            value = struct_reader.read_value(field_type)
+            if value is None:
+                continue
+
+            match field_id:
+                case FileMetadataFieldId.VERSION:
+                    metadata.version = value
+                case FileMetadataFieldId.NUM_ROWS:
+                    metadata.num_rows = value
+                case FileMetadataFieldId.CREATED_BY:
+                    metadata.created_by = value.decode('utf-8')
 
         return metadata
 
