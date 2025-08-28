@@ -249,7 +249,7 @@ class FileMetadata:
 
     @classmethod
     def from_bytes(cls, footer_bytes: bytes) -> 'FileMetadata':
-        from .readers import MetadataReader
+        from .parsers.parquet.metadata import MetadataParser
 
-        reader = MetadataReader(footer_bytes)
-        return reader()
+        parser = MetadataParser(footer_bytes)
+        return parser.parse()

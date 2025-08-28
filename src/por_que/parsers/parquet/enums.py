@@ -1,25 +1,10 @@
 from enum import IntEnum
 
 
-# Thrift Compact Protocol field types
-class ThriftFieldType(IntEnum):
-    STOP = 0
-    BOOL_TRUE = 1
-    BOOL_FALSE = 2
-    BYTE = 3
-    I16 = 4
-    I32 = 5
-    I64 = 6
-    DOUBLE = 7
-    BINARY = 8
-    LIST = 9
-    SET = 10
-    MAP = 11
-    STRUCT = 12
-
-
 # Field IDs for Parquet Thrift structures
 class SchemaElementFieldId(IntEnum):
+    """Field IDs for SchemaElement struct in Parquet metadata."""
+
     TYPE = 1
     TYPE_LENGTH = 2
     REPETITION_TYPE = 3
@@ -29,6 +14,8 @@ class SchemaElementFieldId(IntEnum):
 
 
 class ColumnMetadataFieldId(IntEnum):
+    """Field IDs for ColumnMetaData struct in Parquet metadata."""
+
     TYPE = 1
     ENCODINGS = 2
     PATH_IN_SCHEMA = 3
@@ -44,18 +31,24 @@ class ColumnMetadataFieldId(IntEnum):
 
 
 class ColumnChunkFieldId(IntEnum):
+    """Field IDs for ColumnChunk struct in Parquet metadata."""
+
     FILE_PATH = 1
     FILE_OFFSET = 2
     META_DATA = 3
 
 
 class RowGroupFieldId(IntEnum):
+    """Field IDs for RowGroup struct in Parquet metadata."""
+
     COLUMNS = 1
     TOTAL_BYTE_SIZE = 2
     NUM_ROWS = 3
 
 
 class FileMetadataFieldId(IntEnum):
+    """Field IDs for FileMetaData struct in Parquet metadata."""
+
     VERSION = 1
     SCHEMA = 2
     NUM_ROWS = 3
@@ -65,11 +58,15 @@ class FileMetadataFieldId(IntEnum):
 
 
 class KeyValueFieldId(IntEnum):
+    """Field IDs for KeyValue struct in Parquet metadata."""
+
     KEY = 1
     VALUE = 2
 
 
 class StatisticsFieldId(IntEnum):
+    """Field IDs for Statistics struct in Parquet metadata."""
+
     MIN_VALUE = 1
     MAX_VALUE = 2
     NULL_COUNT = 3

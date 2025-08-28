@@ -6,6 +6,5 @@ THRIFT_SIZE_SHIFT = 4
 THRIFT_SPECIAL_LIST_SIZE = 15
 THRIFT_MAP_TYPE_SHIFT = 4
 
-# Default values for reader operations
-DEFAULT_SCHEMA_NAME = 'unknown'
+# Default values for thrift operations
 DEFAULT_STRING_ENCODING = 'utf-8'

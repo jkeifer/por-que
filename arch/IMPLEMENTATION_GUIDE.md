@@ -1,47 +1,51 @@
 # Implementation Guide: Step-by-Step Breakdown
 
-## Phase 1: Metadata Parser Refactoring
+> **📋 REORGANIZATION COMPLETE**: Phase 1 has been completed with a comprehensive package reorganization.
+> All parsing infrastructure moved from `readers/` to `parsers/` with proper naming (`ThriftCompactParser` not `ThriftCompactReader`).
 
-### Step 1: Create Base Infrastructure
-- [ ] Create `src/por_que/readers/` directory
-- [ ] Create `src/por_que/readers/base.py`
-  - [ ] Define `BaseParser` class with `__init__(self, reader: ThriftCompactReader)`
-  - [ ] Move primitive reading methods from `MetadataReader`:
+## Phase 1: Metadata Parser Refactoring ✅ **COMPLETED**
+
+### Step 1: Create Base Infrastructure ✅ **REORGANIZED**
+- [x] Create `src/por_que/parsers/` directory structure (`thrift/` and `parquet/` subdirs)
+- [x] Create `src/por_que/parsers/parquet/base.py`
+  - [x] Define `BaseParser` class with `__init__(self, parser: ThriftCompactParser)`
+  - [x] Move primitive reading methods from `MetadataReader`:
     - `read_i32()`, `read_i64()`, `read_bool()`, `read_string()`, `read_bytes()`
     - `read_list()`, `skip_field()`
-  - [ ] Add educational docstrings explaining Thrift compact protocol basics
+  - [x] Add educational docstrings explaining Thrift compact protocol basics
 
-### Step 2: Create Component Parsers
-- [ ] Create `src/por_que/readers/schema.py`
-  - [ ] Implement `SchemaParser(BaseParser)`
-  - [ ] Move `read_schema_element()` and `read_schema_tree()` from `MetadataReader`
-  - [ ]<boltEndCtag> Add comments explaining schema tree structure and field relationships
+### Step 2: Create Component Parsers ✅ **REORGANIZED**
+- [x] Create `src/por_que/parsers/parquet/schema.py`
+  - [x] Implement `SchemaParser(BaseParser)`
+  - [x] Move `read_schema_element()` and `read_schema_tree()` from `MetadataReader`
+  - [x] Add comments explaining schema tree structure and field relationships
 
-- [ ] Create `src/por_que/readers/statistics.py`
-  - [ ] Implement `StatisticsParser(BaseParser)`
-  - [ ] Move `read_statistics()` and all `_deserialize_*` helpers
-  - [ ] Document why statistics need special deserialization (logical vs physical types)
+- [x] Create `src/por_que/parsers/parquet/statistics.py`
+  - [x] Implement `RowGroupStatisticsParser(BaseParser)` *(renamed for clarity)*
+  - [x] Move `read_statistics()` and all `_deserialize_*` helpers
+  - [x] Document why statistics need special deserialization (logical vs physical types)
 
-- [ ] Create `src/por_que/readers/column.py`
-  - [ ] Implement `ColumnParser(BaseParser)`
-  - [ ] Move `read_column_chunk()` and `read_column_metadata()`
-  - [ ] Integrate with `StatisticsParser` for statistics fields
+- [x] Create `src/por_que/parsers/parquet/column.py`
+  - [x] Implement `ColumnParser(BaseParser)`
+  - [x] Move `read_column_chunk()` and `read_column_metadata()`
+  - [x] Integrate with `RowGroupStatisticsParser` for statistics fields
 
-- [ ] Create `src/por_que/readers/row_group.py`
-  - [ ] Implement `RowGroupParser(BaseParser)`
-  - [ ] Move `read_row_group()`
-  - [ ] Integrate with `ColumnParser` for column chunks
+- [x] Create `src/por_que/parsers/parquet/row_group.py`
+  - [x] Implement `RowGroupParser(BaseParser)`
+  - [x] Move `read_row_group()`
+  - [x] Integrate with `ColumnParser` for column chunks
 
-### Step 3: Create Metadata Orchestrator
-- [ ] Create `src/por_que/readers/metadata.py`
-  - [ ] Implement `MetadataParser` that composes all component parsers
-  - [ ] Implement main `parse()` method that returns `FileMetadata`
-  - [ ] Add tracing support: `parse(trace=False)`
+### Step 3: Create Metadata Orchestrator ✅ **REORGANIZED**
+- [x] Create `src/por_que/parsers/parquet/metadata.py`
+  - [x] Implement `MetadataParser` that composes all component parsers
+  - [x] Implement main `parse()` method that returns `FileMetadata`
+  - [x] Add tracing support: `parse(trace=False)`
 
-### Step 4: Integration and Cleanup
-- [ ] Update `FileMetadata.from_bytes()` to use new `MetadataParser`
-- [ ] Run all existing tests to ensure compatibility
-- [ ] Delete old `src/por_que/readers/metadata.py` (the monolithic one)
+### Step 4: Integration and Cleanup ✅ **COMPLETED**
+- [x] Update `FileMetadata.from_bytes()` to use new `MetadataParser`
+- [x] Run all existing tests to ensure compatibility
+- [x] Delete old `src/por_que/readers/` directory entirely
+- [x] **BONUS:** Full package reorganization with proper naming (`parsers` not `readers`)
 - [ ] Add unit tests for each new component parser
 
 ## Phase 2: Page-Level Parsing
@@ -53,7 +57,7 @@
   - [ ] `DataPageHeader`, `DataPageHeaderV2`, `DictionaryPageHeader` dataclasses
 
 ### Step 2: Implement Page Parser
-- [ ] Create `src/por_que/readers/page.py`
+- [ ] Create `src/por_que/parsers/parquet/page.py`
   - [ ] Implement `PageParser(BaseParser)`
   - [ ] Method: `read_page_header() -> PageHeader`
   - [ ] Method: `read_page_data(header: PageHeader) -> bytes`
@@ -67,7 +71,7 @@
 ## Phase 3: Data Decoding
 
 ### Step 1: Compression Support
-- [ ] Create `src/por_que/readers/compression.py`
+- [ ] Create `src/por_que/parsers/parquet/compression.py`
   - [ ] Function: `decompress(data: bytes, codec: Compression) -> bytes`
   - [ ] Implement UNCOMPRESSED (no-op)
   - [ ] Implement SNAPPY decompression
@@ -75,7 +79,7 @@
   - [ ] Add tests with sample compressed data
 
 ### Step 2: PLAIN Encoding
-- [ ] Create `src/por_que/readers/encoding.py`
+- [ ] Create `src/por_que/parsers/parquet/encoding.py`
   - [ ] Create base: `def decode_plain(data: bytes, type_info: SchemaElement) -> Iterator[Any]`
   - [ ] Implement for each physical type:
     - [ ] BOOLEAN (bit-packed)
@@ -106,25 +110,25 @@
   - [ ] Property: `row_groups: List[RowGroupReader]`
   - [ ] Method: `column(name: str) -> Iterator[Any]` for convenience
 
-- [ ] Create `src/por_que/readers/row_group.py` (enhance):
-  - [ ] `RowGroupReader` class
+- [ ] Create `src/por_que/readers/row_group.py` (user-facing readers):
+  - [ ] `RowGroupReader` class *(NOTE: These are user-facing readers, not internal parsers)*
   - [ ] Store row group metadata and file handle
   - [ ] Method: `column(name: str) -> ColumnChunkReader`
   - [ ] Method: `columns() -> List[str]`
 
 - [ ] Create `src/por_que/readers/column_chunk.py`:
-  - [ ] `ColumnChunkReader` class
+  - [ ] `ColumnChunkReader` class *(User-facing reader for lazy loading)*
   - [ ] Store column metadata, file handle, and schema info
   - [ ] Method: `read(trace=False) -> Iterator[Any]`
-  - [ ] Internal: Use `PageParser` to read pages
+  - [ ] Internal: Use `PageParser` from `parsers/parquet/page.py` to read pages
   - [ ] Internal: Handle dictionary pages vs data pages
   - [ ] Internal: Yield decoded values one page at a time
 
 ### Step 2: Implement File Parser
 - [ ] Create `src/por_que/readers/file.py`:
-  - [ ] `FileParser` class that creates `ParquetFile` instances
+  - [ ] `FileParser` class that creates `ParquetFile` instances *(Uses internal parsers)*
   - [ ] Read magic number and footer
-  - [ ] Use `MetadataParser` for metadata
+  - [ ] Use `MetadataParser` from `parsers/parquet/metadata.py` for metadata
   - [ ] Create `RowGroupReader` instances
 
 ### Step 3: Public API
@@ -240,7 +244,7 @@ Consider using GitHub Issues or a project board to track:
 - Known limitations or TODOs
 
 ### Milestone Checklist
-- [ ] Phase 1 Complete: Metadata parsing refactored
+- [x] Phase 1 Complete: Metadata parsing refactored
 - [ ] Phase 2 Complete: Can read page headers
 - [ ] Phase 3 Complete: Can decode PLAIN encoding
 - [ ] Phase 3 Enhanced: Dictionary encoding working
