@@ -112,7 +112,7 @@ def columns(ctx: MetadataContext):
 @metadata.command()
 @click.argument('key', required=False)
 @click.pass_obj
-def kv(ctx: MetadataContext, key: str | None):
+def keyvalue(ctx: MetadataContext, key: str | None):
     """Show key-value metadata keys, or value for specific key."""
     if key is None:
         # Show all available keys
