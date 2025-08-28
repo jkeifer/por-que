@@ -8,6 +8,7 @@ from typing import BinaryIO
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import (
     Compression,
+    ConvertedType,
     Encoding,
     Repetition,
     Type,
@@ -23,17 +24,76 @@ class SchemaElement:
     type: Type | None = None
     repetition: Repetition | None = None
     num_children: int = 0
-    converted_type: int | None = None
+    converted_type: ConvertedType | None = None
     type_length: int | None = None
+    children: dict[str, 'SchemaElement'] = field(default_factory=dict)
 
     def is_group(self) -> bool:
         return self.type is None
 
+    def get_logical_type(self, path_in_schema: str) -> ConvertedType | None:
+        """Look up logical type by dotted path from this element."""
+        parts = path_in_schema.split('.')
+        current = self
+
+        for part in parts:
+            if part not in current.children:
+                raise ValueError(f"Schema path '{path_in_schema}' not found in schema")
+            current = current.children[part]
+
+        return current.converted_type if not current.is_group() else None
+
+    def add_element(self, element: 'SchemaElement', path: str) -> None:
+        """Add an element to the schema at the specified dotted path."""
+        if '.' not in path:
+            # Direct child
+            self.children[path] = element
+        else:
+            # Nested path - find or create parent groups
+            parts = path.split('.')
+            element_name = parts[-1]
+
+            # Navigate to parent, creating groups as needed
+            current = self
+            for part in parts[:-1]:
+                if part not in current.children:
+                    # Create intermediate group
+                    group = SchemaElement(name=part)
+                    current.children[part] = group
+                current = current.children[part]
+
+            # Add the element to the final parent
+            current.children[element_name] = element
+
     def __repr__(self) -> str:
+        return self._repr_recursive(0)
+
+    def _repr_recursive(self, indent: int) -> str:
+        """Recursively build string representation of schema tree."""
+        spaces = '  ' * indent
         if self.is_group():
-            return f'Group({self.name}, children={self.num_children})'
+            result = f'{spaces}Group({self.name})'
+            if self.children:
+                result += ' {\n'
+                for child in self.children.values():
+                    result += child._repr_recursive(indent + 1) + '\n'
+                result += spaces + '}'
+            return result
         rep = f' {self.repetition.name}' if self.repetition else ''
-        return f'Column({self.name}: {self.type.name if self.type else "group"}{rep})'
+        logical = f' [{self.converted_type.name}]' if self.converted_type else ''
+        type_name = self.type.name if self.type else 'UNKNOWN'
+        type_name = 'UNKNOWN' if self.type is None else self.type.name
+        return f'{spaces}Column({self.name}: {type_name}{rep}{logical})'
+
+
+@dataclass
+class ColumnStatistics:
+    """Column statistics for predicate pushdown."""
+
+    min_value: str | int | float | bool | None = None
+    max_value: str | int | float | bool | None = None
+    null_count: int | None = None
+    distinct_count: int | None = None
 
 
 @dataclass
@@ -48,6 +108,7 @@ class ColumnMetadata:
     data_page_offset: int
     dictionary_page_offset: int | None = None
     index_page_offset: int | None = None
+    statistics: ColumnStatistics | None = None
 
 
 @dataclass
@@ -92,7 +153,7 @@ class RowGroup:
 @dataclass
 class FileMetadata:
     version: int
-    schema: list[SchemaElement]
+    schema: SchemaElement
     num_rows: int
     row_groups: list[RowGroup]
     created_by: str | None = None
@@ -132,7 +193,6 @@ class FileMetadata:
             created_by=self.created_by,
             total_rows=self.num_rows,
             num_row_groups=len(self.row_groups),
-            num_schema_elements=len(self.schema),
             total_columns=total_columns,
             min_rows_per_group=int(min_rows),
             max_rows_per_group=max_rows,

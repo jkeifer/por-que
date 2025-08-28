@@ -13,26 +13,10 @@ def _format_basic_info(stats) -> list[str]:
         f'Created by: {stats.created_by or "unknown"}',
         f'Total rows: {stats.total_rows:,}',
         f'Row groups: {stats.num_row_groups}',
-        f'Schema elements: {stats.num_schema_elements}',
     ]
 
 
-def _format_schema_element(element, index: int) -> str:
-    if element.is_group():
-        return f'  {index:2}: {element.name} (GROUP, {element.num_children} children)'
-
-    rep = f' {element.repetition.name}' if element.repetition else ''
-    type_name = element.type.name if element.type else 'unknown'
-    length_info = f' (length: {element.type_length})' if element.type_length else ''
-    converted_info = (
-        f' [converted: {element.converted_type}]' if element.converted_type else ''
-    )
-
-    return f'  {index:2}: {element.name}: {type_name}{length_info}{rep}{converted_info}'
-
-
 def _format_key_value_metadata_summary(metadata: FileMetadata) -> list[str]:
-    """Show just the available metadata keys for summary."""
     if not metadata.key_value_metadata:
         return []
 
@@ -41,6 +25,77 @@ def _format_key_value_metadata_summary(metadata: FileMetadata) -> list[str]:
     if keys:
         lines.append('Available keys:')
         lines.extend(f'  {key}' for key in keys)
+
+    return lines
+
+
+def _format_single_column_in_rowgroup(col, name: str, index: int) -> list[str]:
+    if not col.meta_data:
+        return [f'  {index:2}: {name} (no metadata)', '']
+
+    meta = col.meta_data
+    ratio = (
+        meta.total_compressed_size / meta.total_uncompressed_size
+        if meta.total_uncompressed_size > 0
+        else 0
+    )
+
+    lines = [
+        f'  {index:2}: {name}',
+        f'      Codec: {meta.codec.name}, Values: {meta.num_values:,}',
+        f'      Size: {meta.total_compressed_size:,}B compressed '
+        f'/ {meta.total_uncompressed_size:,}B uncompressed ({ratio:.2f}x)',
+    ]
+
+    # Add statistics if available
+    if meta.statistics:
+        stats_parts = []
+        if meta.statistics.null_count is not None:
+            stats_parts.append(f'{meta.statistics.null_count:,} nulls')
+        if meta.statistics.distinct_count is not None:
+            stats_parts.append(f'{meta.statistics.distinct_count:,} distinct')
+        if meta.statistics.min_value is not None:
+            stats_parts.append(f'min: {meta.statistics.min_value}')
+        if meta.statistics.max_value is not None:
+            stats_parts.append(f'max: {meta.statistics.max_value}')
+
+        if stats_parts:
+            lines.append(f'      Stats: {", ".join(stats_parts)}')
+
+    lines.append('')
+    return lines
+
+
+def _format_single_rowgroup(rg, group_index: int) -> list[str]:
+    rg_stats = rg.get_stats()
+    lines = [
+        _header(f'Row Group {group_index}'),
+        f'Rows: {rg_stats.num_rows:,}',
+        f'Total byte size: {rg_stats.total_byte_size:,}',
+        f'Columns: {rg_stats.num_columns}',
+    ]
+
+    if rg.columns:
+        lines.append('\nColumns:')
+        column_names = rg.column_names()
+        for i, name in enumerate(column_names):
+            col = rg.columns[i]
+            column_lines = _format_single_column_in_rowgroup(col, name, i)
+            lines.extend(column_lines)
+
+    return lines
+
+
+def _format_all_rowgroups_summary(metadata: FileMetadata) -> list[str]:
+    lines = [_header('Row Groups')]
+
+    for i, rg in enumerate(metadata.row_groups):
+        rg_stats = rg.get_stats()
+        lines.append(
+            f'  {i:2}: {rg_stats.num_rows:,} rows, {rg_stats.num_columns} cols, '
+            f'{rg_stats.total_byte_size:,} bytes '
+            f'(avg {rg_stats.avg_column_size:,}/col)',
+        )
 
     return lines
 
@@ -56,11 +111,10 @@ def format_summary(metadata: FileMetadata) -> str:
     if stats.compression.total_uncompressed > 0:
         lines.append(f'Compression ratio: {stats.compression.ratio:.3f}')
 
-    # Schema structure - all elements, one line each
+    # Schema structure - use the recursive representation
     if metadata.schema:
         lines.extend(['\nSchema Structure:', '-' * 40])
-        for i, element in enumerate(metadata.schema):
-            lines.append(_format_schema_element(element, i))
+        lines.append(str(metadata.schema))
 
     # Row groups - all groups, one line each
     if metadata.row_groups:
@@ -80,10 +134,7 @@ def format_summary(metadata: FileMetadata) -> str:
 
 def format_schema(metadata: FileMetadata) -> str:
     lines = [_header('Schema Structure')]
-
-    for i, element in enumerate(metadata.schema):
-        lines.append(_format_schema_element(element, i))
-
+    lines.append(str(metadata.schema))
     return '\n'.join(lines)
 
 
@@ -129,45 +180,11 @@ def format_rowgroups(metadata: FileMetadata, group: int | None = None) -> str:
             )
 
         rg = metadata.row_groups[group]
-        rg_stats = rg.get_stats()
-        lines = [
-            _header(f'Row Group {group}'),
-            f'Rows: {rg_stats.num_rows:,}',
-            f'Total byte size: {rg_stats.total_byte_size:,}',
-            f'Columns: {rg_stats.num_columns}',
-        ]
-
-        if rg.columns:
-            lines.append('\nColumns:')
-            column_names = rg.column_names()
-            for i, name in enumerate(column_names):
-                col = rg.columns[i]
-                if col.meta_data:
-                    codec = col.meta_data.codec.name
-                    compressed = col.meta_data.total_compressed_size
-                    uncompressed = col.meta_data.total_uncompressed_size
-                    values = col.meta_data.num_values
-                    ratio = compressed / uncompressed if uncompressed > 0 else 0
-                    lines.append(
-                        f'  {i:2}: {name} ({codec}, {values:,} values, '
-                        f'{compressed}B/{uncompressed}B C/UC ({ratio:.2f}x))',
-                    )
-                else:
-                    lines.append(f'  {i:2}: {name} (no metadata)')
-
+        lines = _format_single_rowgroup(rg, group)
         return '\n'.join(lines)
 
     # All row groups summary
-    lines = [_header('Row Groups')]
-
-    for i, rg in enumerate(metadata.row_groups):
-        rg_stats = rg.get_stats()
-        lines.append(
-            f'  {i:2}: {rg_stats.num_rows:,} rows, {rg_stats.num_columns} cols, '
-            f'{rg_stats.total_byte_size:,} bytes '
-            f'(avg {rg_stats.avg_column_size:,}/col)',
-        )
-
+    lines = _format_all_rowgroups_summary(metadata)
     return '\n'.join(lines)
 
 

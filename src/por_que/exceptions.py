@@ -22,6 +22,10 @@ class ThriftParsingError(ParquetFormatError):
     """Error parsing Thrift data structures."""
 
 
+class ParquetDataError(ParquetFormatError):
+    """Error deserializing Parquet data values."""
+
+
 class ParquetNetworkError(PorQueError, IOError):
     """Network-related error while fetching Parquet data."""
 

@@ -56,7 +56,6 @@ class FileStats:
     created_by: str | None
     total_rows: int
     num_row_groups: int
-    num_schema_elements: int
     total_columns: int
     min_rows_per_group: int
     max_rows_per_group: int

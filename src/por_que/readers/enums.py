@@ -40,6 +40,7 @@ class ColumnMetadataFieldId(IntEnum):
     DATA_PAGE_OFFSET = 9
     INDEX_PAGE_OFFSET = 10
     DICTIONARY_PAGE_OFFSET = 11
+    STATISTICS = 12
 
 
 class ColumnChunkFieldId(IntEnum):
@@ -66,3 +67,12 @@ class FileMetadataFieldId(IntEnum):
 class KeyValueFieldId(IntEnum):
     KEY = 1
     VALUE = 2
+
+
+class StatisticsFieldId(IntEnum):
+    MIN_VALUE = 1
+    MAX_VALUE = 2
+    NULL_COUNT = 3
+    DISTINCT_COUNT = 4
+    MAX_VALUE_DELTA = 5
+    MIN_VALUE_DELTA = 6
