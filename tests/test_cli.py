@@ -26,6 +26,14 @@ def test_cli_help(runner):
     assert 'Por Qué' in result.output
 
 
+def test_version_command(runner):
+    from por_que._version import get_version
+
+    result = runner.invoke(cli, ['version'])
+    assert result.exit_code == 0
+    assert result.output.strip() == get_version()
+
+
 def test_metadata_help(runner):
     result = runner.invoke(cli, ['metadata', '--help'])
     assert result.exit_code == 0

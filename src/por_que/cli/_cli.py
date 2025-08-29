@@ -10,6 +10,7 @@ from click_option_group import (
     optgroup,
 )
 
+from por_que._version import get_version
 from por_que.exceptions import PorQueError
 from por_que.types import FileMetadata
 
@@ -34,10 +35,15 @@ def load_metadata(path: Path | str) -> FileMetadata:
 
 
 @click.group()
-@click.version_option()
 def cli():
     """¿Por Qué? - pure-python parquet parsing"""
     pass
+
+
+@cli.command()
+def version():
+    """Show version information."""
+    click.echo(get_version())
 
 
 @cli.group()
