@@ -1,21 +1,14 @@
-import os
-import struct
+from dataclasses import asdict, dataclass, field
 
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import BinaryIO
-
-from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import (
     Compression,
     ConvertedType,
     Encoding,
+    PageType,
     Repetition,
     Type,
 )
-from .exceptions import ParquetMagicError
 from .stats import CompressionStats, FileStats, RowGroupStats
-from .util import http
 
 
 @dataclass
@@ -84,6 +77,10 @@ class SchemaElement:
         type_name = self.type.name if self.type else 'UNKNOWN'
         type_name = 'UNKNOWN' if self.type is None else self.type.name
         return f'{spaces}Column({self.name}: {type_name}{rep}{logical})'
+
+    def to_dict(self) -> dict:
+        """Convert SchemaElement to dictionary."""
+        return asdict(self)
 
 
 @dataclass
@@ -200,56 +197,87 @@ class FileMetadata:
             row_group_stats=row_group_stats,
         )
 
-    @staticmethod
-    def _validate_parquet_magic(magic: bytes) -> None:
-        """Validate that magic bytes match Parquet format."""
-        if magic != PARQUET_MAGIC:
-            raise ParquetMagicError(
-                'Invalid Parquet magic bytes: '
-                f'expected {PARQUET_MAGIC!r}, got {magic!r}',
-            )
+    def to_dict(self) -> dict:
+        """Convert FileMetadata to dictionary."""
+        return asdict(self)
 
-    @classmethod
-    def from_file(cls, file_path: Path | str) -> 'FileMetadata':
-        file_path = Path(file_path)
-        with file_path.open('rb') as f:
-            return cls.from_buffer(f)
 
-    @classmethod
-    def from_url(cls, url: str) -> 'FileMetadata':
-        file_size = http.get_length(url)
+# Page-level structures for Phase 2
 
-        footer_bytes = http.get_bytes(url, file_size - FOOTER_SIZE, file_size)
-        footer_length = struct.unpack('<I', footer_bytes[:4])[0]
-        magic = footer_bytes[4:8]
 
-        cls._validate_parquet_magic(magic)
+@dataclass
+class PageHeader:
+    """
+    Header information for all page types.
 
-        return cls.from_bytes(
-            http.get_bytes(
-                url,
-                file_size - FOOTER_SIZE - footer_length,
-                file_size - FOOTER_SIZE,
-            ),
-        )
+    Teaching Points:
+    - Every page starts with a PageHeader containing type and size information
+    - uncompressed_page_size tells us how much data after decompression
+    - compressed_page_size is the actual bytes to read from file
+    - CRC enables data integrity verification
+    """
 
-    @classmethod
-    def from_buffer(cls, buffer: BinaryIO) -> 'FileMetadata':
-        buffer.seek(-FOOTER_SIZE, os.SEEK_END)
-        footer_data = buffer.read(FOOTER_SIZE)
-        footer_length = struct.unpack('<I', footer_data[:4])[0]
-        magic = footer_data[4:8]
+    type: 'PageType'
+    uncompressed_page_size: int
+    compressed_page_size: int
+    crc: int | None = None
+    data_page_header: 'DataPageHeader | None' = None
+    dictionary_page_header: 'DictionaryPageHeader | None' = None
+    data_page_header_v2: 'DataPageHeaderV2 | None' = None
 
-        cls._validate_parquet_magic(magic)
 
-        buffer.seek(-(FOOTER_SIZE + footer_length), os.SEEK_END)
-        footer_bytes = buffer.read(footer_length)
+@dataclass
+class DataPageHeader:
+    """
+    Header for DATA_PAGE containing value and encoding information.
 
-        return cls.from_bytes(footer_bytes)
+    Teaching Points:
+    - num_values indicates how many actual values are stored in the page
+    - encoding specifies how the values are encoded (PLAIN, DICTIONARY, etc.)
+    - definition_level_encoding handles NULL value representation
+    - repetition_level_encoding handles nested/repeated field structure
+    """
 
-    @classmethod
-    def from_bytes(cls, footer_bytes: bytes) -> 'FileMetadata':
-        from .parsers.parquet.metadata import MetadataParser
+    num_values: int
+    encoding: Encoding
+    definition_level_encoding: Encoding
+    repetition_level_encoding: Encoding
 
-        parser = MetadataParser(footer_bytes)
-        return parser.parse()
+
+@dataclass
+class DataPageHeaderV2:
+    """
+    Header for DATA_PAGE_V2 with separate definition/repetition level sizes.
+
+    Teaching Points:
+    - V2 separates definition and repetition level data for efficiency
+    - num_nulls provides quick NULL count without scanning all values
+    - num_rows differs from num_values when dealing with repeated fields
+    - is_compressed applies only to the value data, not levels
+    """
+
+    num_values: int
+    num_nulls: int
+    num_rows: int
+    encoding: Encoding
+    definition_levels_byte_length: int
+    repetition_levels_byte_length: int
+    is_compressed: bool
+
+
+@dataclass
+class DictionaryPageHeader:
+    """
+    Header for DICTIONARY_PAGE containing dictionary encoding information.
+
+    Teaching Points:
+    - Dictionary pages must appear before any data pages that reference them
+    - num_values is the size of the dictionary (number of unique values)
+    - encoding is typically PLAIN for dictionary values
+    - The dictionary maps integer indices to actual values for compression
+    - is_sorted indicates if dictionary values are in sorted order (optimization)
+    """
+
+    num_values: int
+    encoding: Encoding
+    is_sorted: bool | None = None

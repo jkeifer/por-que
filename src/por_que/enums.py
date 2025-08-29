@@ -73,3 +73,12 @@ class ConvertedType(IntEnum):
     JSON = 19
     BSON = 20
     INTERVAL = 21
+
+
+class PageType(IntEnum):
+    """Parquet page types."""
+
+    DATA_PAGE = 0
+    INDEX_PAGE = 1
+    DICTIONARY_PAGE = 2
+    DATA_PAGE_V2 = 3

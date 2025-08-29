@@ -5,33 +5,44 @@ from pathlib import Path
 
 import click
 
-from click_option_group import (
-    RequiredMutuallyExclusiveOptionGroup,
-    optgroup,
-)
-
 from por_que._version import get_version
-from por_que.exceptions import PorQueError
+from por_que.exceptions import ParquetNetworkError, ParquetUrlError, PorQueError
+from por_que.parquet_file import ParquetFile
+from por_que.protocols import ReadableSeekable
 from por_que.types import FileMetadata
+from por_que.util.http_file import HttpFile
 
 from . import formatters
 from .exceptions import InvalidValueError
 
 
+class ParquetFileType(click.ParamType):
+    """Click type that converts file path or URL to appropriate file-like object."""
+
+    name = 'parquet_file'
+
+    def convert(self, value, param, ctx):
+        # Check if it's a URL
+        if value.startswith(('http://', 'https://')):
+            try:
+                return HttpFile(value)
+            except ParquetUrlError as e:
+                self.fail(f'Invalid URL: {e}', param, ctx)
+            except ParquetNetworkError as e:
+                self.fail(f'Network error: {e}', param, ctx)
+        else:
+            # Treat as file path
+            try:
+                return Path(value).open('rb')
+            except FileNotFoundError:
+                self.fail(f'File not found: {value}', param, ctx)
+            except PermissionError:
+                self.fail(f'Permission denied: {value}', param, ctx)
+
+
 @dataclass
 class MetadataContext:
     metadata: FileMetadata
-
-
-def load_metadata(path: Path | str) -> FileMetadata:
-    """Load metadata from file or URL."""
-    try:
-        if isinstance(path, Path):
-            return FileMetadata.from_file(path)
-        return FileMetadata.from_url(path)
-    except PorQueError as e:
-        click.echo(f'Error: {e}', err=True)
-        sys.exit(1)
 
 
 @click.group()
@@ -47,31 +58,16 @@ def version():
 
 
 @cli.group()
-@optgroup.group(
-    'Parquet source file',
-    cls=RequiredMutuallyExclusiveOptionGroup,
-    help='A parquet file local path or remote HTTP(S) url',
-)
-@optgroup.option(
-    '-f',
-    '--file',
-    'file_path',
-    type=click.Path(exists=True, path_type=Path),
-    help='Path to Parquet file',
-)
-@optgroup.option('-u', '--url', help='HTTP(S) URL to Parquet file')
+@click.argument('file', type=ParquetFileType())
 @click.pass_context
-def metadata(ctx, file_path: Path | None, url: str | None):
+def metadata(ctx, file: ReadableSeekable):
     """Read and inspect Parquet file metadata."""
-    path = file_path if file_path else url
-    if path is None:
-        raise click.UsageError("Didn't get a file or a url")
-
-    # Load metadata and store in context
-    metadata_obj = load_metadata(
-        path,
-    )
-    ctx.obj = MetadataContext(metadata=metadata_obj)
+    try:
+        parquet_file = ParquetFile(file)
+        ctx.obj = MetadataContext(metadata=parquet_file.metadata)
+    except PorQueError as e:
+        click.echo(f'Error: {e}', err=True)
+        sys.exit(1)
 
 
 @metadata.command()

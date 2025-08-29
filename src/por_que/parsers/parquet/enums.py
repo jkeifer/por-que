@@ -73,3 +73,47 @@ class StatisticsFieldId(IntEnum):
     DISTINCT_COUNT = 4
     MAX_VALUE_DELTA = 5
     MIN_VALUE_DELTA = 6
+
+
+class PageHeaderFieldId(IntEnum):
+    """Field IDs for PageHeader struct."""
+
+    TYPE = 1
+    UNCOMPRESSED_PAGE_SIZE = 2
+    COMPRESSED_PAGE_SIZE = 3
+    CRC = 4
+    DATA_PAGE_HEADER = 5
+    INDEX_PAGE_HEADER = 6
+    DICTIONARY_PAGE_HEADER = 7
+    DATA_PAGE_HEADER_V2 = 8
+
+
+class DataPageHeaderFieldId(IntEnum):
+    """Field IDs for DataPageHeader struct."""
+
+    NUM_VALUES = 1
+    ENCODING = 2
+    DEFINITION_LEVEL_ENCODING = 3
+    REPETITION_LEVEL_ENCODING = 4
+    STATISTICS = 5
+
+
+class DataPageHeaderV2FieldId(IntEnum):
+    """Field IDs for DataPageHeaderV2 struct."""
+
+    NUM_VALUES = 1
+    NUM_NULLS = 2
+    NUM_ROWS = 3
+    ENCODING = 4
+    DEFINITION_LEVELS_BYTE_LENGTH = 5
+    REPETITION_LEVELS_BYTE_LENGTH = 6
+    IS_COMPRESSED = 7
+    STATISTICS = 8
+
+
+class DictionaryPageHeaderFieldId(IntEnum):
+    """Field IDs for DictionaryPageHeader struct."""
+
+    NUM_VALUES = 1
+    ENCODING = 2
+    IS_SORTED = 3

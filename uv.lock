@@ -24,18 +24,6 @@ wheels = [
 ]
 
 [[package]]
-name = "click-option-group"
-version = "0.5.7"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "click" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/b9/9f/1f917934da4e07ae7715a982347e3c2179556d8a58d1108c5da3e8f09c76/click_option_group-0.5.7.tar.gz", hash = "sha256:8dc780be038712fc12c9fecb3db4fe49e0d0723f9c171d7cda85c20369be693c", size = 22110, upload-time = "2025-03-24T13:24:55.897Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/93/27/bf74dc1494625c3b14dbcdb93740defd7b8c58dae3736be8d264f2a643fb/click_option_group-0.5.7-py3-none-any.whl", hash = "sha256:96b9f52f397ef4d916f81929bd6c1f85e89046c7a401a64e72a61ae74ad35c24", size = 11483, upload-time = "2025-03-24T13:24:54.611Z" },
-]
-
-[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -220,7 +208,6 @@ source = { editable = "." }
 [package.optional-dependencies]
 cli = [
     { name = "click" },
-    { name = "click-option-group" },
 ]
 
 [package.dev-dependencies]
@@ -234,10 +221,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "click", marker = "extra == 'cli'", specifier = ">=8.2.1" },
-    { name = "click-option-group", marker = "extra == 'cli'", specifier = ">=0.5.7" },
-]
+requires-dist = [{ name = "click", marker = "extra == 'cli'", specifier = ">=8.2.1" }]
 provides-extras = ["cli"]
 
 [package.metadata.requires-dev]
