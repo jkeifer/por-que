@@ -1,3 +1,4 @@
+exclude: "^tests/fixtures/metadata"
 repos:
   - repo: local
     hooks:

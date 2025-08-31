@@ -1,4 +1,4 @@
-from enum import IntEnum
+from enum import IntEnum, StrEnum, auto
 
 
 class Type(IntEnum):
@@ -75,6 +75,34 @@ class ConvertedType(IntEnum):
     INTERVAL = 21
 
 
+class GroupConvertedType(IntEnum):
+    MAP = 1
+    MAP_KEY_VALUE = 2
+    LIST = 3
+
+
+class ColumnConvertedType(IntEnum):
+    UTF8 = 0
+    ENUM = 4
+    DECIMAL = 5
+    DATE = 6
+    TIME_MILLIS = 7
+    TIME_MICROS = 8
+    TIMESTAMP_MILLIS = 9
+    TIMESTAMP_MICROS = 10
+    UINT_8 = 11
+    UINT_16 = 12
+    UINT_32 = 13
+    UINT_64 = 14
+    INT_8 = 15
+    INT_16 = 16
+    INT_32 = 17
+    INT_64 = 18
+    JSON = 19
+    BSON = 20
+    INTERVAL = 21
+
+
 class PageType(IntEnum):
     """Parquet page types."""
 
@@ -82,3 +110,11 @@ class PageType(IntEnum):
     INDEX_PAGE = 1
     DICTIONARY_PAGE = 2
     DATA_PAGE_V2 = 3
+
+
+class SchemaElementType(StrEnum):
+    """Internal type to classify schema elements."""
+
+    ROOT = auto()
+    GROUP = auto()
+    COLUMN = auto()

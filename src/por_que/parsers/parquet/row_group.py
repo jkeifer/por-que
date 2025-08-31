@@ -10,10 +10,10 @@ Teaching Points:
 
 import logging
 
-from por_que.types import RowGroup, SchemaElement
+from por_que.logical import RowGroup, SchemaRoot
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftStructParser
 
-from ..thrift.enums import ThriftFieldType
-from ..thrift.parser import ThriftStructParser
 from .base import BaseParser
 from .column import ColumnParser
 from .enums import RowGroupFieldId
@@ -32,7 +32,7 @@ class RowGroupParser(BaseParser):
     - Optimal size typically 128MB-1GB depending on use case
     """
 
-    def __init__(self, parser, schema: SchemaElement):
+    def __init__(self, parser, schema: SchemaRoot) -> None:
         """
         Initialize row group parser with schema context.
 
@@ -57,7 +57,12 @@ class RowGroupParser(BaseParser):
             RowGroup with metadata and column chunk information
         """
         struct_parser = ThriftStructParser(self.parser)
-        rg = RowGroup(columns=[], total_byte_size=0, num_rows=0)
+
+        # Collect values for frozen RowGroup construction
+        column_chunks_list = []
+        total_byte_size = 0
+        row_count = 0
+
         logger.debug('Reading row group')
 
         while True:
@@ -70,7 +75,7 @@ class RowGroupParser(BaseParser):
                     # Parse all column chunks in this row group
                     # Each column chunk contains data for one column across all rows
                     column_parser = ColumnParser(self.parser, self.schema)
-                    rg.columns = self.read_list(column_parser.read_column_chunk)
+                    column_chunks_list = self.read_list(column_parser.read_column_chunk)
                 else:
                     struct_parser.skip_field(field_type)
                 continue
@@ -83,16 +88,28 @@ class RowGroupParser(BaseParser):
                 case RowGroupFieldId.TOTAL_BYTE_SIZE:
                     # Total bytes for all column chunks in this row group
                     # Useful for memory estimation and I/O planning
-                    rg.total_byte_size = value
+                    total_byte_size = value
                 case RowGroupFieldId.NUM_ROWS:
                     # Number of rows (records) in this row group
                     # Same across all columns in the row group
-                    rg.num_rows = value
+                    row_count = value
+
+        # Convert column chunks list to dict keyed by path
+        column_chunks = {
+            chunk.metadata.path_in_schema: chunk for chunk in column_chunks_list
+        }
+
+        # Construct frozen RowGroup
+        rg = RowGroup(
+            column_chunks=column_chunks,
+            total_byte_size=total_byte_size,
+            row_count=row_count,
+        )
 
         logger.debug(
             'Read row group with %d columns, %d rows, %d bytes',
-            len(rg.columns),
-            rg.num_rows,
+            len(column_chunks_list),
+            rg.row_count,
             rg.total_byte_size,
         )
         return rg

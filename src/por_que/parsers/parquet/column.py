@@ -11,10 +11,10 @@ Teaching Points:
 import logging
 
 from por_que.enums import Compression, Encoding, Type
-from por_que.types import ColumnChunk, ColumnMetadata, SchemaElement
+from por_que.logical import ColumnChunk, ColumnMetadata, SchemaRoot
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftStructParser
 
-from ..thrift.enums import ThriftFieldType
-from ..thrift.parser import ThriftStructParser
 from .base import BaseParser
 from .enums import (
     ColumnChunkFieldId,
@@ -36,7 +36,7 @@ class ColumnParser(BaseParser):
     - Statistics provide query optimization without reading actual data
     """
 
-    def __init__(self, parser, schema: SchemaElement):
+    def __init__(self, parser, schema: SchemaRoot):
         """
         Initialize column parser with schema context for statistics.
 
@@ -55,13 +55,18 @@ class ColumnParser(BaseParser):
         - ColumnChunk is a container pointing to column data and metadata
         - file_path enables external file references (rarely used)
         - file_offset locates the column chunk within the file
-        - meta_data contains the detailed column information
+        - metadata contains the detailed column information
 
         Returns:
             ColumnChunk with metadata and file location info
         """
         struct_parser = ThriftStructParser(self.parser)
-        chunk = ColumnChunk(file_offset=0)
+
+        # Collect values for frozen ColumnChunk construction
+        file_offset: int | None = 0
+        metadata: ColumnMetadata | None = None
+        file_path: str | None = None
+
         logger.debug('Reading column chunk')
 
         while True:
@@ -71,7 +76,7 @@ class ColumnParser(BaseParser):
 
             if field_type == ThriftFieldType.STRUCT:
                 if field_id == ColumnChunkFieldId.META_DATA:
-                    chunk.meta_data = self.read_column_metadata()
+                    metadata = self.read_column_metadata()
                 else:
                     struct_parser.skip_field(field_type)
                 continue
@@ -82,11 +87,15 @@ class ColumnParser(BaseParser):
 
             match field_id:
                 case ColumnChunkFieldId.FILE_PATH:
-                    chunk.file_path = value.decode('utf-8')
+                    file_path = value.decode('utf-8')
                 case ColumnChunkFieldId.FILE_OFFSET:
-                    chunk.file_offset = value
+                    file_offset = value
 
-        return chunk
+        return ColumnChunk.new(
+            file_offset=file_offset,
+            metadata=metadata,
+            file_path=file_path,
+        )
 
     def read_column_metadata(self) -> ColumnMetadata:  # noqa: C901
         """
@@ -103,16 +112,18 @@ class ColumnParser(BaseParser):
             ColumnMetadata with complete column information
         """
         struct_parser = ThriftStructParser(self.parser)
-        meta = ColumnMetadata(
-            type=Type.BOOLEAN,
-            encodings=[],
-            path_in_schema='',
-            codec=Compression.UNCOMPRESSED,
-            num_values=0,
-            total_uncompressed_size=0,
-            total_compressed_size=0,
-            data_page_offset=0,
-        )
+        # Collect values for frozen ColumnMetadata construction
+        type_val = Type.BOOLEAN
+        encodings = []
+        path_in_schema = ''
+        codec = Compression.UNCOMPRESSED
+        num_values = 0
+        total_uncompressed_size = 0
+        total_compressed_size = 0
+        data_page_offset = 0
+        dictionary_page_offset = None
+        index_page_offset = None
+        statistics = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -123,13 +134,12 @@ class ColumnParser(BaseParser):
             if field_type == ThriftFieldType.LIST:
                 if field_id == ColumnMetadataFieldId.ENCODINGS:
                     # Encodings list shows data transformation methods applied
-                    encodings = self.read_list(self.read_i32)
-                    for e in encodings:
-                        meta.encodings.append(Encoding(e))
+                    encoding_ints = self.read_list(self.read_i32)
+                    encodings = [Encoding(e) for e in encoding_ints]
                 elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:
                     # Path connects this column back to schema structure
                     path_list = self.read_list(self.read_string)
-                    meta.path_in_schema = '.'.join(path_list)
+                    path_in_schema = '.'.join(path_list)
                 else:
                     struct_parser.skip_field(field_type)
                 continue
@@ -138,9 +148,9 @@ class ColumnParser(BaseParser):
                 if field_id == ColumnMetadataFieldId.STATISTICS:
                     # Statistics enable predicate pushdown optimization
                     stats_parser = RowGroupStatisticsParser(self.parser, self.schema)
-                    meta.statistics = stats_parser.read_statistics(
-                        meta.type,
-                        meta.path_in_schema,
+                    statistics = stats_parser.read_statistics(
+                        type_val,
+                        path_in_schema,
                     )
                 else:
                     struct_parser.skip_field(field_type)
@@ -153,27 +163,40 @@ class ColumnParser(BaseParser):
 
             match field_id:
                 case ColumnMetadataFieldId.TYPE:
-                    meta.type = Type(value)
+                    type_val = Type(value)
                 case ColumnMetadataFieldId.CODEC:
                     # Compression codec (UNCOMPRESSED, SNAPPY, GZIP, etc.)
-                    meta.codec = Compression(value)
+                    codec = Compression(value)
                 case ColumnMetadataFieldId.NUM_VALUES:
                     # Total number of values (excluding NULLs)
-                    meta.num_values = value
+                    num_values = value
                 case ColumnMetadataFieldId.TOTAL_UNCOMPRESSED_SIZE:
                     # Raw data size before compression
-                    meta.total_uncompressed_size = value
+                    total_uncompressed_size = value
                 case ColumnMetadataFieldId.TOTAL_COMPRESSED_SIZE:
                     # Data size after compression (actual bytes in file)
-                    meta.total_compressed_size = value
+                    total_compressed_size = value
                 case ColumnMetadataFieldId.DATA_PAGE_OFFSET:
                     # File offset where data pages begin
-                    meta.data_page_offset = value
+                    data_page_offset = value
                 case ColumnMetadataFieldId.INDEX_PAGE_OFFSET:
                     # File offset for index pages (optional optimization)
-                    meta.index_page_offset = value
+                    index_page_offset = value
                 case ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
                     # File offset for dictionary page (if dictionary encoding used)
-                    meta.dictionary_page_offset = value
+                    dictionary_page_offset = value
 
-        return meta
+        # Construct the frozen ColumnMetadata
+        return ColumnMetadata(
+            type=type_val,
+            encodings=encodings,
+            path_in_schema=path_in_schema,
+            codec=codec,
+            num_values=num_values,
+            total_uncompressed_size=total_uncompressed_size,
+            total_compressed_size=total_compressed_size,
+            data_page_offset=data_page_offset,
+            dictionary_page_offset=dictionary_page_offset,
+            index_page_offset=index_page_offset,
+            statistics=statistics,
+        )
