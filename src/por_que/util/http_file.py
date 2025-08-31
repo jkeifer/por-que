@@ -259,10 +259,12 @@ class HttpFile:
         self.close()
 
     def __repr__(self) -> str:
-        return (
-            f'HttpFile(url={self.url!r}, size={self._ohf._size}, '
-            f'pos={self._ohf._position})'
-        )
+        if self._opened:
+            return (
+                f'HttpFile(url={self.url!r}, opened=True, '
+                f'size={self._ohf._size}, pos={self._ohf._position})'
+            )
+        return f'HttpFile(url={self.url!r}, opened=False)'
 
     def read(self, size: int = -1) -> bytes:
         """
