@@ -37,17 +37,21 @@ por-que inspect <file> schema
 # Key-value metadata pairs
 por-que inspect <file> metadata
 
+# Column-level metadata and encoding information
+por-que inspect <file> columns
+
+# File statistics and compression info
+por-que inspect <file> stats
+
 # Details of specific row group
-por-que inspect <file> row-group <N>
+por-que inspect <file> rowgroup <N>
 
 # Details of specific column chunk
-por-que inspect <file> row-group <N> column <NAME>
+por-que inspect <file> rowgroup <N> column <NAME>
 
 # Details of specific page
-por-que inspect <file> row-group <N> column <NAME> page <N>
+por-que inspect <file> rowgroup <N> column <NAME> page <N>
 
-# Interactive explorer
-por-que explore <file>
 ```
 
 ### Data Sampling
@@ -56,13 +60,13 @@ por-que explore <file>
 por-que sample <file> [--rows <N>]
 
 # Sample from a specific row group
-por-que sample <file> row-group <N> [--rows <N>]
+por-que sample <file> rowgroup <N> [--rows <N>]
 
 # Sample specific columns from all row groups
 por-que sample <file> column <names> [--rows <N>]
 
 # Sample specific columns from a specific row group
-por-que sample <file> row-group <N> column <names> [--rows <N>]
+por-que sample <file> rowgroup <N> column <names> [--rows <N>]
 
 # Options:
 # --rows <N> / -r <N>: Number of rows to sample (default: 10)
@@ -85,13 +89,13 @@ por-que cache config --max-size <size>             # Set cache size limit (e.g.,
 por-que profile <file>
 
 # Profile a specific row group
-por-que profile <file> row-group <N>
+por-que profile <file> rowgroup <N>
 
 # Profile specific columns across all row groups
 por-que profile <file> column <names>
 
 # Profile specific columns from a specific row group
-por-que profile <file> row-group <N> column <names>
+por-que profile <file> rowgroup <N> column <names>
 ```
 
 # File comparison
@@ -114,17 +118,6 @@ por-que export <file> --format json --output metadata.json
 # --output / -o: Path to an output file.
 ```
 
-# Binary View
-```bash
-# View a file's top-level structure in binary
-por-que inspect <file> --binary
-
-# View a specific row group in binary
-por-que inspect <file> row-group <N> --binary
-
-# Options:
-# --binary / -b: Display raw, annotated binary representation instead of the default view.
-```
 
 ## File Input Support
 
@@ -146,7 +139,6 @@ POR_QUE_CACHE_MAX_SIZE=5GB     # Set cache size limit
 POR_QUE_VERBOSE=true           # Verbose output (same as -v)
 POR_QUE_QUIET=true             # Suppress non-essential output (same as -q)
 POR_QUE_OUTPUT_FORMAT=json     # Default output format (e.g., json)
-POR_QUE_BINARY_MODE=true       # Default to binary view for inspect commands
 ```
 
 ### Command-Specific
@@ -166,17 +158,18 @@ por-que inspect https://example.com/large.parquet --no-cache
 # View schema in JSON format
 por-que inspect data/users.parquet schema --format json
 
-# Interactive exploration
-por-que explore data/users.parquet
+# View detailed column information
+por-que inspect data/users.parquet columns
+
 
 # Sample 20 rows from row group 2
-por-que sample data/users.parquet row-group 2 --rows 20
+por-que sample data/users.parquet rowgroup 2 --rows 20
 
 # Short form
-por-que sample data/users.parquet row-group 2 -r 20
+por-que sample data/users.parquet rowgroup 2 -r 20
 
 # Profile a specific column from a specific row group
-por-que profile data/users.parquet row-group 0 column user_id
+por-que profile data/users.parquet rowgroup 0 column user_id
 
 # Profile multiple columns across all row groups
 por-que profile data/users.parquet column "user_id,email,created_at"
@@ -199,12 +192,13 @@ por-que
 ├── inspect <file>
 │   ├── schema
 │   ├── metadata
-│   └── row-group <N>
+│   ├── columns
+│   ├── stats
+│   └── rowgroup <N>
 │       └── column <NAME>
 │           └── page <N>
-├── explore <file>
 ├── sample <file>
-│   ├── row-group <N>
+│   ├── rowgroup <N>
 │   │   └── column <names>
 │   └── column <names>
 ├── cache
@@ -213,7 +207,7 @@ por-que
 │   ├── clear [<url> | --all]
 │   └── config
 ├── profile <file>
-│   ├── row-group <N>
+│   ├── rowgroup <N>
 │   │   └── column <names>
 │   └── column <names>
 ├── diff <file1> <file2>
@@ -223,10 +217,8 @@ por-que
 ## Notes
 
 1. All inspection commands support `--json` for machine-readable output
-2. All inspection commands support `--binary` for raw byte view with annotations
-3. The `explore` command provides an interactive menu that shows equivalent direct commands
-4. Remote files are automatically cached unless `--no-cache` is specified
-5. Commands are designed for progressive disclosure - start with `inspect` and drill down as needed
+2. Remote files are automatically cached unless `--no-cache` is specified
+3. Commands are designed for progressive disclosure - start with `inspect` and drill down as needed
 
 ## Format Support by Command
 
