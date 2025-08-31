@@ -3,6 +3,8 @@
 ## Overview
 This document provides a step-by-step implementation plan for the por-que CLI tool, organized into phases that align with the milestones defined in the CLI_DESIGN.md document.
 
+**Note:** Interactive exploration features (TUI explorer, binary view mode) have been removed in favor of a separate web-based viewer. The CLI focuses on data extraction and export, while the webapp handles visualization and exploration. See WEB_VIEWER_IMPLEMENTATION.md for the webapp plan.
+
 ## Key Risks and Dependencies
 This plan is subject to the following risks and dependencies that must be managed for successful delivery.
 
@@ -65,15 +67,6 @@ This plan is subject to the following risks and dependencies that must be manage
 - [ ] Display compression codecs per column
 - [ ] Show encoding information
 
-### 2.4 Interactive Explorer
-- [ ] Implement `por-que explore <file>` command
-- [ ] Create menu-driven navigation system
-- [ ] Implement state management for navigation history
-- [ ] Add "breadcrumb" display showing current location
-- [ ] Display equivalent direct commands for current view
-- [ ] Handle keyboard input (numbers, 'b' for back, 'q' for quit)
-- [ ] Show keyboard shortcuts in UI header
-- [ ] Add help text showing available navigation options
 
 ## Phase 3: Remote File Support and Caching
 
@@ -170,20 +163,14 @@ This plan is subject to the following risks and dependencies that must be manage
 - [ ] Implement `por-que export <file> --format <format>` command
 - [ ] Default output to stdout
 - [ ] Add `--output/-o <file>` option for file output
-- [ ] Add JSON export format for metadata (initial implementation)
+- [ ] Add JSON export format for metadata with byte offsets
+- [ ] Ensure JSON includes all structure information for webapp
 - [ ] Future formats (separate enhancement):
   - [ ] Add SQL DDL export for schema
   - [ ] Add Avro schema export
   - [ ] Add CSV export for sample data
 - [ ] Validate format parameter against supported formats per command
 
-### 5.4 Binary View Mode
-- [ ] Implement `--binary` flag for inspect commands
-- [ ] Create static, annotated hex dump visualization
-- [ ] Add Thrift protocol annotations
-- [ ] Highlight different sections with colors
-- [ ] Add offset information
-- [ ] Note: A fully interactive binary explorer is a potential future enhancement, not part of the initial scope.
 
 ## Phase 6: Polish and Educational Features
 
@@ -268,14 +255,13 @@ After the initial implementation with human/json formats:
 - Cache wrapper for HttpFile
 - Rich-based formatters
 - Environment variable support decorators
-- Interactive explorer state management
 
 ## Success Criteria
 
 - [ ] All commands work with both local and remote files
 - [ ] JSON output is available for all inspection commands
 - [ ] Cache management is transparent and efficient
-- [ ] Interactive explorer provides intuitive navigation
+- [ ] Export command produces comprehensive JSON for webapp visualization
 - [ ] Performance profiling provides actionable insights
 - [ ] Educational content helps users understand Parquet internals
 - [ ] Error messages are helpful and guide users to solutions
