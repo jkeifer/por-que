@@ -14,10 +14,10 @@ from datetime import UTC, date, datetime, timedelta
 
 from por_que.enums import ConvertedType, Type
 from por_que.exceptions import ParquetDataError, ThriftParsingError
-from por_que.types import ColumnStatistics, SchemaElement
+from por_que.logical import ColumnStatistics, SchemaRoot
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftStructParser
 
-from ..thrift.enums import ThriftFieldType
-from ..thrift.parser import ThriftStructParser
 from .base import BaseParser
 from .enums import StatisticsFieldId
 
@@ -35,7 +35,7 @@ class RowGroupStatisticsParser(BaseParser):
     - File-level, row group-level, and page-level statistics provide nested optimization
     """
 
-    def __init__(self, parser, schema: SchemaElement):
+    def __init__(self, parser, schema: SchemaRoot) -> None:
         """
         Initialize statistics parser with schema context.
 
@@ -68,12 +68,15 @@ class RowGroupStatisticsParser(BaseParser):
             ColumnStatistics with deserialized min/max values
         """
         struct_parser = ThriftStructParser(self.parser)
-        stats = ColumnStatistics()
         logger.debug(
             'Reading statistics for %s column at path %s',
             column_type,
             path_in_schema,
         )
+        min_value: str | int | float | bool | None = None
+        max_value: str | int | float | bool | None = None
+        null_count: int | None = None
+        distinct_count: int | None = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -93,9 +96,9 @@ class RowGroupStatisticsParser(BaseParser):
                     path_in_schema,
                 )
                 if field_id == StatisticsFieldId.MIN_VALUE:
-                    stats.min_value = deserialized
+                    min_value = deserialized
                 else:
-                    stats.max_value = deserialized
+                    max_value = deserialized
                 continue
 
             # MAX_VALUE_DELTA and MIN_VALUE_DELTA are also special
@@ -115,11 +118,16 @@ class RowGroupStatisticsParser(BaseParser):
 
             match field_id:
                 case StatisticsFieldId.NULL_COUNT:
-                    stats.null_count = value
+                    null_count = value
                 case StatisticsFieldId.DISTINCT_COUNT:
-                    stats.distinct_count = value
+                    distinct_count = value
 
-        return stats
+        return ColumnStatistics(
+            min_value=min_value,
+            max_value=max_value,
+            null_count=null_count,
+            distinct_count=distinct_count,
+        )
 
     def _deserialize_value(
         self,
@@ -146,15 +154,20 @@ class RowGroupStatisticsParser(BaseParser):
 
         Raises:
             ParquetDataError: If deserialization fails or type is unsupported
-            ThriftParsingError: If schema is not available for logical type lookup
+            ThriftParsingError: If schmea element does not have a converted type
         """
         if not raw_bytes:
             return None
 
-        if not self.schema:
-            raise ThriftParsingError('Schema must be read before parsing statistics')
+        element = self.schema.find_element(path_in_schema)
 
-        converted_type = self.schema.get_logical_type(path_in_schema)
+        try:
+            converted_type = element.converted_type  # type: ignore
+        except AttributeError:
+            raise ThriftParsingError(
+                'Could not resolve converted type for element: {element}',
+            ) from None
+
         logger.debug(
             'Deserializing %d bytes for type %s (logical=%s) at path %s',
             len(raw_bytes),

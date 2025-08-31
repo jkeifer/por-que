@@ -1,3 +1,3 @@
-from .parquet_file import ParquetFile
+from .physical import ParquetFile
 
 __all__ = ['ParquetFile']

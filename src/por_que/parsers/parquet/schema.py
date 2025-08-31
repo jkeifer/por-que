@@ -12,12 +12,11 @@ import logging
 
 from por_que.enums import ConvertedType, Repetition, Type
 from por_que.exceptions import ThriftParsingError
-from por_que.types import SchemaElement
+from por_que.logical import SchemaElement, SchemaGroup, SchemaLeaf, SchemaRoot
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftStructParser
 
-from ..thrift.enums import ThriftFieldType
-from ..thrift.parser import ThriftStructParser
 from .base import BaseParser
-from .constants import DEFAULT_SCHEMA_NAME
 from .enums import SchemaElementFieldId
 
 logger = logging.getLogger(__name__)
@@ -34,7 +33,7 @@ class SchemaParser(BaseParser):
     - Repetition types (REQUIRED, OPTIONAL, REPEATED) control nullability and arrays
     """
 
-    def read_schema_element(self) -> SchemaElement:
+    def read_schema_element(self) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         """
         Read a single SchemaElement struct from the Thrift stream.
 
@@ -48,8 +47,13 @@ class SchemaParser(BaseParser):
             SchemaElement with parsed metadata
         """
         struct_parser = ThriftStructParser(self.parser)
-        element = SchemaElement(name=DEFAULT_SCHEMA_NAME)
         logger.debug('Reading schema element')
+        name: str | None = None
+        _type: Type | None = None
+        type_length: int | None = None
+        repetition: Repetition | None = None
+        num_children: int | None = None
+        converted_type: ConvertedType | None = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -66,31 +70,35 @@ class SchemaParser(BaseParser):
 
             match field_id:
                 case SchemaElementFieldId.TYPE:
-                    element.type = Type(value)
+                    _type = Type(value)
                 case SchemaElementFieldId.TYPE_LENGTH:
-                    element.type_length = value
+                    type_length = value
                 case SchemaElementFieldId.REPETITION_TYPE:
-                    element.repetition = Repetition(value)
+                    repetition = Repetition(value)
                 case SchemaElementFieldId.NAME:
-                    element.name = value.decode('utf-8')
+                    name = value.decode('utf-8')
                 case SchemaElementFieldId.NUM_CHILDREN:
-                    element.num_children = value
+                    num_children = value
                 case SchemaElementFieldId.CONVERTED_TYPE:
-                    element.converted_type = ConvertedType(value)
+                    converted_type = ConvertedType(value)
                 case _:
                     # This case is not strictly necessary since `read_value`
                     # already skipped unknown fields, but it's good practice.
                     pass
 
-        logger.debug(
-            'Read schema element: %s (type=%s, children=%d)',
-            element.name,
-            element.type,
-            element.num_children,
+        element = SchemaElement.new(
+            name=name,
+            type=_type,
+            type_length=type_length,
+            repetition=repetition,
+            num_children=num_children,
+            converted_type=converted_type,
         )
+
+        logger.debug('Read schema element: %s', element)
         return element
 
-    def read_schema_tree(self, elements_iter) -> SchemaElement:
+    def read_schema_tree(self, elements_iter) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         """
         Recursively build nested schema tree from flat list of elements.
 
@@ -104,7 +112,7 @@ class SchemaParser(BaseParser):
             elements_iter: Iterator over flat list of schema elements
 
         Returns:
-            Root SchemaElement with all children attached
+            SchemaRoot with all children attached
 
         Raises:
             ThriftParsingError: If schema structure is malformed
@@ -117,27 +125,30 @@ class SchemaParser(BaseParser):
                 'schema where a parent element claims more children than exist.',
             ) from None
 
-        logger.debug(
-            'Building schema tree for %s with %d children',
-            element.name,
-            element.num_children,
-        )
-
-        # If this element has children, recursively read them
-        # This implements depth-first tree reconstruction
-        for i in range(element.num_children):
-            child = self.read_schema_tree(elements_iter)
-            element.children[child.name] = child
+        if isinstance(element, SchemaRoot | SchemaGroup):
             logger.debug(
-                '  Added child %d/%d: %s',
-                i + 1,
+                'Building schema tree for %s with %d children',
+                element.name,
                 element.num_children,
-                child.name,
             )
+
+            for i in range(element.num_children):
+                child = self.read_schema_tree(elements_iter)
+
+                if isinstance(child, SchemaRoot):
+                    raise ThriftParsingError('Schema can have only one root')
+
+                element.add_element(child)
+                logger.debug(
+                    '  Added child %d/%d: %s',
+                    i + 1,
+                    element.num_children,
+                    child.name,
+                )
 
         return element
 
-    def parse_schema_field(self) -> SchemaElement:
+    def parse_schema_field(self) -> SchemaRoot:
         """
         Parse the schema field from file metadata.
 
@@ -152,8 +163,16 @@ class SchemaParser(BaseParser):
         """
         # Read flat list of schema elements
         schema_elements = self.read_list(self.read_schema_element)
+
         logger.debug('Read %d schema elements, building tree', len(schema_elements))
+
+        schema_root = schema_elements[0]
+        if not isinstance(schema_root, SchemaRoot):
+            raise ThriftParsingError(
+                f'Schema must start with SchemaRoot element, got {type(schema_root)}',
+            )
 
         # Convert flat list to tree structure
         elements_iter = iter(schema_elements)
-        return self.read_schema_tree(elements_iter)
+        self.read_schema_tree(elements_iter)
+        return schema_root

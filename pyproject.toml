@@ -50,6 +50,7 @@ packages = ["src/por_que"]
 quote-style = 'single'
 
 [tool.ruff.lint]
+exclude = ['tests/fixtures/metadata/']
 # https://docs.astral.sh/ruff/rules/
 select = [
     'B',

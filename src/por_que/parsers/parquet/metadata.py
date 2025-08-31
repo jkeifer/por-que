@@ -11,12 +11,11 @@ Teaching Points:
 import logging
 
 from por_que.exceptions import ThriftParsingError
-from por_que.types import FileMetadata, SchemaElement
+from por_que.logical import FileMetadata, SchemaRoot
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftCompactParser, ThriftStructParser
 
-from ..thrift.enums import ThriftFieldType
-from ..thrift.parser import ThriftCompactParser, ThriftStructParser
 from .base import BaseParser
-from .constants import DEFAULT_SCHEMA_NAME
 from .enums import FileMetadataFieldId, KeyValueFieldId
 from .row_group import RowGroupParser
 from .schema import SchemaParser
@@ -44,7 +43,6 @@ class MetadataParser(BaseParser):
         """
         parser = ThriftCompactParser(metadata_bytes)
         super().__init__(parser)
-        self.schema: SchemaElement | None = None
 
     def parse(self) -> FileMetadata:  # noqa: C901
         """
@@ -65,12 +63,13 @@ class MetadataParser(BaseParser):
         logger.debug('Starting FileMetadata parsing...')
 
         struct_parser = ThriftStructParser(self.parser)
-        metadata = FileMetadata(
-            version=0,
-            schema=SchemaElement(name=DEFAULT_SCHEMA_NAME),
-            num_rows=0,
-            row_groups=[],
-        )
+
+        # Collect values to construct frozen FileMetadata object
+        version = 0
+        schema_root: SchemaRoot | None = None
+        row_groups = []
+        created_by = None
+        key_value_metadata = {}
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -84,16 +83,14 @@ class MetadataParser(BaseParser):
                 match field_id:
                     case FileMetadataFieldId.SCHEMA:
                         logger.debug('  Parsing schema elements...')
-                        metadata.schema = self._parse_schema_field()
-                        self.schema = metadata.schema  # Cache for statistics parsing
+                        schema_root = self._parse_schema_field()
+                        self.schema = schema_root
                     case FileMetadataFieldId.ROW_GROUPS:
                         logger.debug('  Parsing row groups...')
-                        metadata.row_groups = self._parse_row_groups_field()
+                        row_groups = self._parse_row_groups_field()
                     case FileMetadataFieldId.KEY_VALUE_METADATA:
                         logger.debug('  Parsing key-value metadata...')
-                        metadata.key_value_metadata = (
-                            self._parse_key_value_metadata_field()
-                        )
+                        key_value_metadata = self._parse_key_value_metadata_field()
                     case _:
                         logger.debug('  Skipping unknown list field %s', field_id)
                         struct_parser.skip_field(field_type)
@@ -106,20 +103,32 @@ class MetadataParser(BaseParser):
 
             match field_id:
                 case FileMetadataFieldId.VERSION:
-                    metadata.version = value
+                    version = value
                     logger.debug('  File format version: %s', value)
                 case FileMetadataFieldId.NUM_ROWS:
-                    metadata.num_rows = value
-                    logger.debug('  Total rows in file: %s', value)
+                    # num_rows is calculated in __post_init__, so we ignore this
+                    logger.debug(
+                        '  Total rows in file: %s (calculated from row groups)',
+                        value,
+                    )
                 case FileMetadataFieldId.CREATED_BY:
-                    metadata.created_by = value.decode('utf-8')
-                    logger.debug('  Created by: %s', metadata.created_by)
+                    created_by = value.decode('utf-8')
+                    logger.debug('  Created by: %s', created_by)
+
+        if not schema_root:
+            raise ValueError('Did not parse a schema')
 
         logger.debug('FileMetadata parsing complete!')
+        # Construct the frozen FileMetadata object with all values
+        return FileMetadata(
+            version=version,
+            schema=schema_root,
+            row_groups=row_groups,
+            created_by=created_by,
+            key_value_metadata=key_value_metadata,
+        )
 
-        return metadata
-
-    def _parse_schema_field(self) -> SchemaElement:
+    def _parse_schema_field(self) -> SchemaRoot:
         """
         Parse the schema field using SchemaParser.
 

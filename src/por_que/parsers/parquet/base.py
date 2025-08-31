@@ -1,12 +1,12 @@
 from collections.abc import Callable
 from typing import TypeVar
 
-from ..thrift.constants import (
+from por_que.parsers.thrift.constants import (
     THRIFT_FIELD_TYPE_MASK,
     THRIFT_SIZE_SHIFT,
     THRIFT_SPECIAL_LIST_SIZE,
 )
-from ..thrift.parser import ThriftCompactParser
+from por_que.parsers.thrift.parser import ThriftCompactParser
 
 T = TypeVar('T')
 
@@ -84,9 +84,3 @@ class BaseParser:
 
     def at_end(self) -> bool:
         return self.parser.at_end()
-
-    def skip_field(self, field_type):
-        """Skip a field of the given type in the Thrift stream."""
-        # This will delegate to the ThriftStructParser's skip_field method
-        # when used in the context of struct parsing
-        pass

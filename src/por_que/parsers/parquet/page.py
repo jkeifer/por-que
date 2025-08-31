@@ -11,15 +11,15 @@ Teaching Points:
 import logging
 
 from por_que.enums import Encoding, PageType
-from por_que.types import (
+from por_que.logical import (
     DataPageHeader,
     DataPageHeaderV2,
     DictionaryPageHeader,
     PageHeader,
 )
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftStructParser
 
-from ..thrift.enums import ThriftFieldType
-from ..thrift.parser import ThriftStructParser
 from .base import BaseParser
 from .enums import (
     DataPageHeaderFieldId,
