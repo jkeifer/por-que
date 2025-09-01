@@ -12,7 +12,7 @@
         {
           "page_type": 3,
           "start_offset": 4,
-          "page_header_size": 67,
+          "header_size": 67,
           "compressed_page_size": 14,
           "uncompressed_page_size": 14,
           "crc": null,
@@ -22,16 +22,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 0,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 3,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -47,7 +39,7 @@
         {
           "page_type": 3,
           "start_offset": 85,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 289,
           "uncompressed_page_size": 289,
           "crc": null,
@@ -57,16 +49,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 9,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 9,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -82,7 +66,7 @@
         {
           "page_type": 3,
           "start_offset": 443,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 242,
           "uncompressed_page_size": 242,
           "crc": null,
@@ -92,16 +76,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 2,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 6,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -117,7 +93,7 @@
         {
           "page_type": 3,
           "start_offset": 754,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 284,
           "uncompressed_page_size": 284,
           "crc": null,
@@ -127,16 +103,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 0,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 3,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -152,7 +120,7 @@
         {
           "page_type": 3,
           "start_offset": 1107,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 228,
           "uncompressed_page_size": 228,
           "crc": null,
@@ -162,16 +130,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 1,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 6,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -187,7 +147,7 @@
         {
           "page_type": 3,
           "start_offset": 1404,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 228,
           "uncompressed_page_size": 228,
           "crc": null,
@@ -197,16 +157,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 1,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 6,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -222,7 +174,7 @@
         {
           "page_type": 3,
           "start_offset": 1701,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 91,
           "uncompressed_page_size": 91,
           "crc": null,
@@ -232,16 +184,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 9,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 9,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -257,7 +201,7 @@
         {
           "page_type": 3,
           "start_offset": 1861,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 77,
           "uncompressed_page_size": 77,
           "crc": null,
@@ -267,16 +211,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 7,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 7,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -292,7 +228,7 @@
         {
           "page_type": 3,
           "start_offset": 2007,
-          "page_header_size": 69,
+          "header_size": 69,
           "compressed_page_size": 103,
           "uncompressed_page_size": 103,
           "crc": null,
@@ -302,16 +238,8 @@
           "encoding": 5,
           "definition_levels_byte_length": 8,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 5,
-            "definition_levels_byte_length": 8,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -327,7 +255,7 @@
         {
           "page_type": 3,
           "start_offset": 2179,
-          "page_header_size": 65,
+          "header_size": 65,
           "compressed_page_size": 911,
           "uncompressed_page_size": 911,
           "crc": null,
@@ -337,16 +265,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 0,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 3,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -362,7 +282,7 @@
         {
           "page_type": 3,
           "start_offset": 3155,
-          "page_header_size": 39,
+          "header_size": 39,
           "compressed_page_size": 337,
           "uncompressed_page_size": 337,
           "crc": null,
@@ -372,16 +292,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 7,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 7,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -397,7 +309,7 @@
         {
           "page_type": 3,
           "start_offset": 3531,
-          "page_header_size": 46,
+          "header_size": 46,
           "compressed_page_size": 648,
           "uncompressed_page_size": 648,
           "crc": null,
@@ -407,16 +319,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 8,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 8,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -432,7 +336,7 @@
         {
           "page_type": 3,
           "start_offset": 4225,
-          "page_header_size": 43,
+          "header_size": 43,
           "compressed_page_size": 734,
           "uncompressed_page_size": 734,
           "crc": null,
@@ -442,16 +346,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 1,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 6,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -467,7 +363,7 @@
         {
           "page_type": 3,
           "start_offset": 5002,
-          "page_header_size": 35,
+          "header_size": 35,
           "compressed_page_size": 121,
           "uncompressed_page_size": 121,
           "crc": null,
@@ -477,16 +373,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 10,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 4,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 10,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -502,7 +390,7 @@
         {
           "page_type": 3,
           "start_offset": 5158,
-          "page_header_size": 61,
+          "header_size": 61,
           "compressed_page_size": 1050,
           "uncompressed_page_size": 1050,
           "crc": null,
@@ -512,16 +400,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 10,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 4,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 10,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -537,7 +417,7 @@
         {
           "page_type": 3,
           "start_offset": 6269,
-          "page_header_size": 82,
+          "header_size": 82,
           "compressed_page_size": 2731,
           "uncompressed_page_size": 2731,
           "crc": null,
@@ -547,16 +427,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 9,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 9,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -572,7 +444,7 @@
         {
           "page_type": 3,
           "start_offset": 9082,
-          "page_header_size": 47,
+          "header_size": 47,
           "compressed_page_size": 360,
           "uncompressed_page_size": 360,
           "crc": null,
@@ -582,16 +454,8 @@
           "encoding": 7,
           "definition_levels_byte_length": 10,
           "repetition_levels_byte_length": 0,
-          "statistics": null,
-          "metadata": {
-            "num_values": 100,
-            "num_nulls": 3,
-            "num_rows": 100,
-            "encoding": 7,
-            "definition_levels_byte_length": 10,
-            "repetition_levels_byte_length": 0,
-            "is_compressed": true
-          }
+          "is_compressed": true,
+          "statistics": null
         }
       ],
       "index_pages": [],

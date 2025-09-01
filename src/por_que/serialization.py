@@ -9,45 +9,41 @@ from .enums import PageType, SchemaElementType
 
 if TYPE_CHECKING:
     from . import logical
-    from .physical import (
-        AnyPageLayout,
-        DataPageV1Layout,
-        DataPageV2Layout,
-        PhysicalColumnChunk,
-    )
+    from .pages import AnyDataPage, AnyPage
+    from .physical import PhysicalColumnChunk
 
 
-def _create_page_layout_hook(
+def _create_page_hook(
     converter: cattrs.Converter,
 ) -> Callable[
     [dict[str, Any], Any],
-    AnyPageLayout,
+    AnyPage,
 ]:
     """Create page layout structure hook."""
 
-    def structure_page_layout(data: dict[str, Any], _) -> AnyPageLayout:
-        """Structure page layout unions using page_type discriminator."""
-        from .physical import (
-            DataPageV1Layout,
-            DataPageV2Layout,
-            DictionaryPageLayout,
-            IndexPageLayout,
+    def structure_page(data: dict[str, Any], _) -> AnyPage:
+        """Structure page unions using page_type discriminator."""
+        from .pages import (
+            DataPageV1,
+            DataPageV2,
+            DictionaryPage,
+            IndexPage,
         )
 
         page_type = PageType(data['page_type'])
         match page_type:
             case PageType.DICTIONARY_PAGE:
-                return converter.structure(data, DictionaryPageLayout)
+                return converter.structure(data, DictionaryPage)
             case PageType.DATA_PAGE:
-                return converter.structure(data, DataPageV1Layout)
+                return converter.structure(data, DataPageV1)
             case PageType.DATA_PAGE_V2:
-                return converter.structure(data, DataPageV2Layout)
+                return converter.structure(data, DataPageV2)
             case PageType.INDEX_PAGE:
-                return converter.structure(data, IndexPageLayout)
+                return converter.structure(data, IndexPage)
             case _:
                 raise ValueError(f'Unknown page type: {page_type}')
 
-    return structure_page_layout
+    return structure_page
 
 
 def _create_schema_element_hook() -> Callable[
@@ -97,14 +93,15 @@ def _create_column_chunk_unstructure_hook() -> Callable[
 def create_converter() -> cattrs.Converter:
     """Create a configured cattrs converter for ParquetFile serialization."""
     from . import logical
-    from .physical import AnyPageLayout, PhysicalColumnChunk
+    from .pages import AnyPage
+    from .physical import PhysicalColumnChunk
 
     converter = cattrs.Converter()
 
     # Register hooks for union types
     converter.register_structure_hook(
-        AnyPageLayout,
-        _create_page_layout_hook(converter),
+        AnyPage,
+        _create_page_hook(converter),
     )
     converter.register_structure_hook(
         logical.SchemaElement,
@@ -131,13 +128,13 @@ def create_converter() -> cattrs.Converter:
 def structure_single_data_page(
     converter: cattrs.Converter,
     page_data: dict,
-) -> DataPageV1Layout | DataPageV2Layout:
+) -> AnyDataPage:
     """Structure a single data page, returning the appropriate type."""
-    from .physical import DataPageV1Layout, DataPageV2Layout
+    from .pages import DataPageV1, DataPageV2
 
     page_type = PageType(page_data['page_type'])
     if page_type == PageType.DATA_PAGE:
-        return converter.structure(page_data, DataPageV1Layout)
+        return converter.structure(page_data, DataPageV1)
     if page_type == PageType.DATA_PAGE_V2:
-        return converter.structure(page_data, DataPageV2Layout)
+        return converter.structure(page_data, DataPageV2)
     raise ValueError(f'Expected data page, got {page_type}')
