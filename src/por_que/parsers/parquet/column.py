@@ -20,7 +20,7 @@ from .enums import (
     ColumnChunkFieldId,
     ColumnMetadataFieldId,
 )
-from .statistics import RowGroupStatisticsParser
+from .statistics import StatisticsParser
 
 logger = logging.getLogger(__name__)
 
@@ -124,6 +124,7 @@ class ColumnParser(BaseParser):
         dictionary_page_offset = None
         index_page_offset = None
         statistics = None
+        column_index_offset = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -147,7 +148,7 @@ class ColumnParser(BaseParser):
             if field_type == ThriftFieldType.STRUCT:
                 if field_id == ColumnMetadataFieldId.STATISTICS:
                     # Statistics enable predicate pushdown optimization
-                    stats_parser = RowGroupStatisticsParser(self.parser, self.schema)
+                    stats_parser = StatisticsParser(self.parser, self.schema)
                     statistics = stats_parser.read_statistics(
                         type_val,
                         path_in_schema,
@@ -185,6 +186,9 @@ class ColumnParser(BaseParser):
                 case ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
                     # File offset for dictionary page (if dictionary encoding used)
                     dictionary_page_offset = value
+                case ColumnMetadataFieldId.COLUMN_INDEX_OFFSET:
+                    # File offset for column index (Page Index feature)
+                    column_index_offset = value
 
         # Construct the frozen ColumnMetadata
         return ColumnMetadata(
@@ -199,4 +203,8 @@ class ColumnParser(BaseParser):
             dictionary_page_offset=dictionary_page_offset,
             index_page_offset=index_page_offset,
             statistics=statistics,
+            column_index_offset=column_index_offset,
+            column_index_length=None,  # Will be calculated when parsing indexes
+            column_index=None,  # Will be populated when parsing indexes
+            offset_index=None,  # Will be populated when parsing indexes
         )

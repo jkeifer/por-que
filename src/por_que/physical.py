@@ -27,6 +27,46 @@ class AsdictTarget(StrEnum):
 
 
 @dataclass(frozen=True)
+class PhysicalPageIndex:
+    """Physical location and parsed content of Page Index data."""
+
+    column_index_offset: int
+    column_index_length: int
+    column_index: logical.ColumnIndex
+    offset_index: logical.OffsetIndex
+
+    @classmethod
+    def from_reader(
+        cls,
+        reader: ReadableSeekable,
+        column_index_offset: int,
+    ) -> Self:
+        """Parse Page Index data from file location."""
+        from .parsers.parquet.page_index import PageIndexParser
+        from .parsers.thrift.parser import ThriftCompactParser
+
+        reader.seek(column_index_offset)
+
+        # Read buffer for index data (Page indexes are typically small)
+        index_buffer = reader.read(65536)
+        parser = ThriftCompactParser(index_buffer)
+        page_index_parser = PageIndexParser(parser)
+
+        # Parse ColumnIndex first
+        column_index = page_index_parser.read_column_index()
+
+        # Parse OffsetIndex second (should immediately follow)
+        offset_index = page_index_parser.read_offset_index()
+
+        return cls(
+            column_index_offset=column_index_offset,
+            column_index_length=parser.pos,
+            column_index=column_index,
+            offset_index=offset_index,
+        )
+
+
+@dataclass(frozen=True)
 class PhysicalColumnChunk:
     """A container for all the data for a single column within a row group."""
 
@@ -39,13 +79,14 @@ class PhysicalColumnChunk:
     index_pages: list[IndexPage]
     dictionary_page: DictionaryPage | None
     metadata: logical.ColumnChunk
+    page_index: PhysicalPageIndex | None = None
 
     @classmethod
     def from_reader(
         cls,
         reader: ReadableSeekable,
-        schema_context: logical.SchemaElement,
         chunk_metadata: logical.ColumnChunk,
+        schema_root: logical.SchemaRoot,
     ) -> Self:
         """Parses all pages within a column chunk from a reader."""
         data_pages = []
@@ -64,7 +105,7 @@ class PhysicalColumnChunk:
 
         # Read all pages sequentially within the column chunk's byte range
         while current_offset < chunk_end_offset:
-            page = Page.from_reader(reader, current_offset, schema_context)
+            page = Page.from_reader(reader, current_offset, schema_root, chunk_metadata)
 
             # Sort pages by type
             if isinstance(page, DictionaryPage):
@@ -84,6 +125,14 @@ class PhysicalColumnChunk:
                 page.start_offset + page.header_size + page.compressed_page_size
             )
 
+        # Load Page Index if available
+        page_index = None
+        if chunk_metadata.column_index_offset is not None:
+            page_index = PhysicalPageIndex.from_reader(
+                reader,
+                chunk_metadata.column_index_offset,
+            )
+
         return cls(
             path_in_schema=chunk_metadata.path_in_schema,
             start_offset=start_offset,
@@ -94,6 +143,7 @@ class PhysicalColumnChunk:
             index_pages=index_pages,
             dictionary_page=dictionary_page,
             metadata=chunk_metadata,
+            page_index=page_index,
         )
 
 
@@ -181,15 +231,10 @@ class ParquetFile:
         # Iterate through all row groups and their column chunks
         for row_group_metadata in metadata.row_groups:
             for chunk_metadata in row_group_metadata.column_chunks.values():
-                # Use the helper method to find the schema element
-                schema_element_for_chunk = schema_root.find_element(
-                    chunk_metadata.path_in_schema,
-                )
-
                 column_chunk = PhysicalColumnChunk.from_reader(
                     reader=file_obj,
-                    schema_context=schema_element_for_chunk,
                     chunk_metadata=chunk_metadata,
+                    schema_root=schema_root,
                 )
                 column_chunks.append(column_chunk)
 
@@ -257,6 +302,12 @@ class ParquetFile:
                 if chunk_data.get('dictionary_page')
                 else None,
                 metadata=logical_chunk,
+                page_index=converter.structure(
+                    chunk_data['page_index'],
+                    PhysicalPageIndex,
+                )
+                if chunk_data.get('page_index')
+                else None,
             )
             column_chunks.append(chunk)
 

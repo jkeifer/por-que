@@ -34,7 +34,8 @@
         "num_values": 8,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "bool_col",
@@ -58,7 +59,8 @@
         }
       ],
       "index_pages": [],
-      "dictionary_page": null
+      "dictionary_page": null,
+      "page_index": null
     },
     {
       "path_in_schema": "tinyint_col",
@@ -92,7 +94,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "smallint_col",
@@ -126,7 +129,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "int_col",
@@ -160,7 +164,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "bigint_col",
@@ -194,7 +199,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "float_col",
@@ -228,7 +234,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "double_col",
@@ -262,7 +269,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "date_string_col",
@@ -296,7 +304,8 @@
         "num_values": 4,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "string_col",
@@ -330,7 +339,8 @@
         "num_values": 2,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     },
     {
       "path_in_schema": "timestamp_col",
@@ -364,7 +374,8 @@
         "num_values": 8,
         "encoding": 2,
         "is_sorted": false
-      }
+      },
+      "page_index": null
     }
   ],
   "metadata": {
@@ -531,7 +542,11 @@
                 "data_page_offset": 49,
                 "dictionary_page_offset": 4,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -552,7 +567,11 @@
                 "data_page_offset": 109,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -573,7 +592,11 @@
                 "data_page_offset": 189,
                 "dictionary_page_offset": 168,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -594,7 +617,11 @@
                 "data_page_offset": 277,
                 "dictionary_page_offset": 256,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -615,7 +642,11 @@
                 "data_page_offset": 366,
                 "dictionary_page_offset": 345,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -636,7 +667,11 @@
                 "data_page_offset": 458,
                 "dictionary_page_offset": 429,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -657,7 +692,11 @@
                 "data_page_offset": 545,
                 "dictionary_page_offset": 524,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -678,7 +717,11 @@
                 "data_page_offset": 639,
                 "dictionary_page_offset": 610,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -699,7 +742,11 @@
                 "data_page_offset": 766,
                 "dictionary_page_offset": 705,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -720,7 +767,11 @@
                 "data_page_offset": 863,
                 "dictionary_page_offset": 840,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             },
@@ -741,7 +792,11 @@
                 "data_page_offset": 1040,
                 "dictionary_page_offset": 929,
                 "index_page_offset": null,
-                "statistics": null
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
               },
               "file_path": null
             }

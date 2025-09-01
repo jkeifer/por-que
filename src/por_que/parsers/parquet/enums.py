@@ -32,6 +32,9 @@ class ColumnMetadataFieldId(IntEnum):
     INDEX_PAGE_OFFSET = 10
     DICTIONARY_PAGE_OFFSET = 11
     STATISTICS = 12
+    # Page Index fields (Parquet 2.5+)
+    COLUMN_INDEX_OFFSET = 14
+    BLOOM_FILTER_LENGTH = 15
 
 
 class ColumnChunkFieldId(IntEnum):
@@ -121,3 +124,37 @@ class DictionaryPageHeaderFieldId(IntEnum):
     NUM_VALUES = 1
     ENCODING = 2
     IS_SORTED = 3
+
+
+class IndexPageHeaderFieldId(IntEnum):
+    """Field IDs for IndexPageHeader struct (currently empty with just TODO)."""
+
+    # Currently empty in the Parquet Thrift specification
+    pass
+
+
+class PageLocationFieldId(IntEnum):
+    """Field IDs for PageLocation struct."""
+
+    OFFSET = 1
+    COMPRESSED_PAGE_SIZE = 2
+    FIRST_ROW_INDEX = 3
+
+
+class OffsetIndexFieldId(IntEnum):
+    """Field IDs for OffsetIndex struct."""
+
+    PAGE_LOCATIONS = 1
+    UNENCODED_BYTE_ARRAY_DATA_BYTES = 2
+
+
+class ColumnIndexFieldId(IntEnum):
+    """Field IDs for ColumnIndex struct."""
+
+    NULL_PAGES = 1
+    MIN_VALUES = 2
+    MAX_VALUES = 3
+    BOUNDARY_ORDER = 4
+    NULL_COUNTS = 5
+    REPETITION_LEVEL_HISTOGRAMS = 6
+    DEFINITION_LEVEL_HISTOGRAMS = 7
