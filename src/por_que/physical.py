@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import copy
 import json
 import struct
 
-from dataclasses import asdict, dataclass, field, fields, is_dataclass
+from dataclasses import asdict, dataclass
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
@@ -18,35 +19,12 @@ from .parsers.parquet.metadata import MetadataParser
 from .parsers.parquet.page import PageParser
 from .parsers.thrift.parser import ThriftCompactParser
 from .protocols import ReadableSeekable
-
-EXCLUDE_FROM_JSON = 'exclude_from_json'
+from .serialization import create_converter, structure_single_data_page
 
 
 class AsdictTarget(StrEnum):
     DICT = 'dict'
     JSON = 'json'
-
-
-def asdict_for_json(instance: Any) -> Any:
-    """
-    Recursively converts a dataclass instance to a dictionary,
-    omitting fields with `'EXCLUDE_FROM_JSON': True` in their metadata.
-    """
-    if not is_dataclass(instance):
-        if isinstance(instance, list):
-            return [asdict_for_json(i) for i in instance]
-        if isinstance(instance, tuple):
-            return tuple(asdict_for_json(i) for i in instance)
-        if isinstance(instance, dict):
-            return {k: asdict_for_json(v) for k, v in instance.items()}
-        return instance
-
-    result: dict[str, Any] = {}
-    for f in fields(instance):
-        if not f.metadata.get(EXCLUDE_FROM_JSON):
-            value = asdict_for_json(getattr(instance, f.name))
-            result[f.name] = value
-    return result
 
 
 @dataclass(frozen=True)
@@ -116,7 +94,7 @@ class DictionaryPageLayout(PageLayout):
 
     num_values: int
     encoding: Encoding
-    metadata: logical.DictionaryPageHeader = field(metadata={EXCLUDE_FROM_JSON: True})
+    metadata: logical.DictionaryPageHeader
 
     @classmethod
     def _from_header(
@@ -151,7 +129,7 @@ class DataPageV1Layout(PageLayout):
     encoding: Encoding
     definition_level_encoding: Encoding
     repetition_level_encoding: Encoding
-    metadata: logical.DataPageHeader = field(metadata={EXCLUDE_FROM_JSON: True})
+    metadata: logical.DataPageHeader
 
     @classmethod
     def _from_header(
@@ -191,7 +169,7 @@ class DataPageV2Layout(PageLayout):
     definition_levels_byte_length: int
     repetition_levels_byte_length: int
     statistics: Any | None
-    metadata: logical.DataPageHeaderV2 = field(metadata={EXCLUDE_FROM_JSON: True})
+    metadata: logical.DataPageHeaderV2
 
     @classmethod
     def _from_header(
@@ -265,7 +243,7 @@ class PhysicalColumnChunk:
     data_pages: list[DataPageV1Layout | DataPageV2Layout]
     index_pages: list[IndexPageLayout]
     dictionary_page: DictionaryPageLayout | None
-    metadata: logical.ColumnChunk = field(metadata={EXCLUDE_FROM_JSON: True})
+    metadata: logical.ColumnChunk
 
     @classmethod
     def from_reader(
@@ -427,7 +405,7 @@ class ParquetFile:
             case AsdictTarget.DICT:
                 return asdict(self)
             case AsdictTarget.JSON:
-                return asdict_for_json(self)
+                return create_converter().unstructure(self)
             case _:
                 assert_never(target)
 
@@ -435,6 +413,84 @@ class ParquetFile:
         dump = self.to_dict(target=AsdictTarget.JSON)
         dump['_meta'] = asdict(PorQueMeta())
         return json.dumps(dump, **kwargs)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any], deepcopy: bool = True) -> Self:
+        # deepcopy is optional in case the external reference
+        # will be discarded, e.g., our from_json method
+        if deepcopy:
+            # we want to deepcopy to ensure external modification don't
+            # mess up the ParquetFile data references, and so that our
+            # modifications don't mess something up externally
+            data = copy.deepcopy(data)
+
+        data.pop('_meta', None)
+
+        converter = create_converter()
+
+        # First deserialize the metadata structure
+        metadata = converter.structure(data['metadata'], PhysicalMetadata)
+
+        # Now deserialize column chunks with their proper metadata references
+        column_chunks = []
+        for chunk_data in data['column_chunks']:
+            # Find the logical metadata for this chunk
+            logical_chunk = cls._find_logical_chunk(
+                metadata.metadata,
+                chunk_data['path_in_schema'],
+            )
+
+            # Create the chunk with the proper metadata reference
+            chunk = PhysicalColumnChunk(
+                path_in_schema=chunk_data['path_in_schema'],
+                start_offset=chunk_data['start_offset'],
+                total_byte_size=chunk_data['total_byte_size'],
+                codec=Compression(chunk_data['codec']),
+                num_values=chunk_data['num_values'],
+                data_pages=[
+                    structure_single_data_page(converter, p)
+                    for p in chunk_data['data_pages']
+                    if isinstance(p, dict)
+                ],
+                index_pages=[
+                    converter.structure(p, IndexPageLayout)
+                    for p in chunk_data['index_pages']
+                ],
+                dictionary_page=converter.structure(
+                    chunk_data['dictionary_page'],
+                    DictionaryPageLayout,
+                )
+                if chunk_data.get('dictionary_page')
+                else None,
+                metadata=logical_chunk,
+            )
+            column_chunks.append(chunk)
+
+        # Deserialize the rest of the fields
+        return cls(
+            source=data['source'],
+            filesize=data['filesize'],
+            column_chunks=column_chunks,
+            metadata=metadata,
+            magic_header=data.get('magic_header', PARQUET_MAGIC.decode()),
+            magic_footer=data.get('magic_footer', PARQUET_MAGIC.decode()),
+        )
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Self:
+        data = json.loads(json_str)
+        return cls.from_dict(data, deepcopy=False)
+
+    @staticmethod
+    def _find_logical_chunk(
+        file_metadata: logical.FileMetadata,
+        path_in_schema: str,
+    ) -> logical.ColumnChunk:
+        """Find the logical ColumnChunk metadata for a given path."""
+        for row_group in file_metadata.row_groups:
+            if path_in_schema in row_group.column_chunks:
+                return row_group.column_chunks[path_in_schema]
+        raise ValueError(f'Could not find logical metadata for column {path_in_schema}')
 
 
 @dataclass(frozen=True)
