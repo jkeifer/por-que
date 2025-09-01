@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any
 
 import cattrs
 
-from .enums import PageType, SchemaElementType
+from .enums import LogicalType, PageType, SchemaElementType
 
 if TYPE_CHECKING:
     from . import logical
@@ -73,6 +73,61 @@ def _create_schema_element_hook() -> Callable[
     return structure_schema_element
 
 
+def _create_logical_type_hook() -> Callable[  # noqa: C901
+    [dict[str, Any], Any],
+    logical.LogicalTypeInfo,
+]:
+    """Create logical type structure hook."""
+
+    def structure_logical_type(data: dict[str, Any], _) -> logical.LogicalTypeInfo:  # noqa: C901
+        """Structure logical type unions using logical_type discriminator."""
+        from . import logical
+
+        logical_type = LogicalType(data['logical_type'])
+        # Use separate converter to avoid recursion
+        inner_converter = cattrs.Converter()
+
+        match logical_type:
+            case LogicalType.STRING:
+                return inner_converter.structure(data, logical.StringTypeInfo)
+            case LogicalType.INTEGER:
+                return inner_converter.structure(data, logical.IntTypeInfo)
+            case LogicalType.DECIMAL:
+                return inner_converter.structure(data, logical.DecimalTypeInfo)
+            case LogicalType.TIME:
+                return inner_converter.structure(data, logical.TimeTypeInfo)
+            case LogicalType.TIMESTAMP:
+                return inner_converter.structure(data, logical.TimestampTypeInfo)
+            case LogicalType.DATE:
+                return inner_converter.structure(data, logical.DateTypeInfo)
+            case LogicalType.ENUM:
+                return inner_converter.structure(data, logical.EnumTypeInfo)
+            case LogicalType.JSON:
+                return inner_converter.structure(data, logical.JsonTypeInfo)
+            case LogicalType.BSON:
+                return inner_converter.structure(data, logical.BsonTypeInfo)
+            case LogicalType.UUID:
+                return inner_converter.structure(data, logical.UuidTypeInfo)
+            case LogicalType.FLOAT16:
+                return inner_converter.structure(data, logical.Float16TypeInfo)
+            case LogicalType.MAP:
+                return inner_converter.structure(data, logical.MapTypeInfo)
+            case LogicalType.LIST:
+                return inner_converter.structure(data, logical.ListTypeInfo)
+            case LogicalType.VARIANT:
+                return inner_converter.structure(data, logical.VariantTypeInfo)
+            case LogicalType.GEOMETRY:
+                return inner_converter.structure(data, logical.GeometryTypeInfo)
+            case LogicalType.GEOGRAPHY:
+                return inner_converter.structure(data, logical.GeographyTypeInfo)
+            case LogicalType.UNKNOWN:
+                return inner_converter.structure(data, logical.UnknownTypeInfo)
+            case _:
+                raise ValueError(f'Unknown logical type: {logical_type}')
+
+    return structure_logical_type
+
+
 def _create_column_chunk_unstructure_hook() -> Callable[
     [PhysicalColumnChunk],
     dict[str, Any],
@@ -106,6 +161,10 @@ def create_converter() -> cattrs.Converter:
     converter.register_structure_hook(
         logical.SchemaElement,
         _create_schema_element_hook(),
+    )
+    converter.register_structure_hook(
+        logical.LogicalTypeInfo,
+        _create_logical_type_hook(),
     )
     converter.register_unstructure_hook(
         PhysicalColumnChunk,

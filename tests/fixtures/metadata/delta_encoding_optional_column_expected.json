@@ -478,7 +478,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_current_cdemo_sk": {
             "element_type": "column",
@@ -486,7 +490,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_current_hdemo_sk": {
             "element_type": "column",
@@ -494,7 +502,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_current_addr_sk": {
             "element_type": "column",
@@ -502,7 +514,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_first_shipto_date_sk": {
             "element_type": "column",
@@ -510,7 +526,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_first_sales_date_sk": {
             "element_type": "column",
@@ -518,7 +538,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_birth_day": {
             "element_type": "column",
@@ -526,7 +550,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_birth_month": {
             "element_type": "column",
@@ -534,7 +562,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_birth_year": {
             "element_type": "column",
@@ -542,7 +574,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "c_customer_id": {
             "element_type": "column",
@@ -550,7 +586,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_salutation": {
             "element_type": "column",
@@ -558,7 +598,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_first_name": {
             "element_type": "column",
@@ -566,7 +610,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_last_name": {
             "element_type": "column",
@@ -574,7 +622,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_preferred_cust_flag": {
             "element_type": "column",
@@ -582,7 +634,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_birth_country": {
             "element_type": "column",
@@ -590,7 +646,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_email_address": {
             "element_type": "column",
@@ -598,7 +658,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           },
           "c_last_review_date": {
             "element_type": "column",
@@ -606,7 +670,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 6,
+            "logical_type": null
           }
         }
       },

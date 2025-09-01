@@ -12,9 +12,13 @@ import logging
 
 from datetime import UTC, date, datetime, timedelta
 
-from por_que.enums import ConvertedType, Type
-from por_que.exceptions import ParquetDataError, ThriftParsingError
-from por_que.logical import ColumnStatistics, SchemaRoot
+from por_que.enums import LogicalType, TimeUnit, Type
+from por_que.exceptions import ParquetDataError
+from por_que.logical import (
+    ColumnStatistics,
+    LogicalTypeInfo,
+    SchemaRoot,
+)
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -161,18 +165,13 @@ class RowGroupStatisticsParser(BaseParser):
 
         element = self.schema.find_element(path_in_schema)
 
-        try:
-            converted_type = element.converted_type  # type: ignore
-        except AttributeError:
-            raise ThriftParsingError(
-                'Could not resolve converted type for element: {element}',
-            ) from None
+        logical_type_info = element.get_logical_type()
 
         logger.debug(
             'Deserializing %d bytes for type %s (logical=%s) at path %s',
             len(raw_bytes),
             column_type,
-            converted_type,
+            logical_type_info,
             path_in_schema,
         )
 
@@ -180,17 +179,20 @@ class RowGroupStatisticsParser(BaseParser):
             case Type.BOOLEAN:
                 return self._deserialize_boolean(raw_bytes)
             case Type.INT32:
-                return self._deserialize_int32_value(raw_bytes, converted_type)
+                return self._deserialize_int32_value(raw_bytes, logical_type_info)
             case Type.INT64:
-                return self._deserialize_int64_value(raw_bytes, converted_type)
+                return self._deserialize_int64_value(raw_bytes, logical_type_info)
             case Type.FLOAT:
                 return self._deserialize_float(raw_bytes)
             case Type.DOUBLE:
                 return self._deserialize_double(raw_bytes)
             case Type.BYTE_ARRAY:
-                return self._deserialize_byte_array(raw_bytes, converted_type)
+                return self._deserialize_byte_array(raw_bytes, logical_type_info)
             case Type.FIXED_LEN_BYTE_ARRAY:
-                return self._deserialize_fixed_len_byte_array(raw_bytes, converted_type)
+                return self._deserialize_fixed_len_byte_array(
+                    raw_bytes,
+                    logical_type_info,
+                )
             case _:
                 raise ParquetDataError(f'Unsupported column type: {column_type}')
 
@@ -201,7 +203,7 @@ class RowGroupStatisticsParser(BaseParser):
     def _deserialize_int32_value(
         self,
         raw_bytes: bytes,
-        converted_type: ConvertedType | None,
+        logical_type_info: LogicalTypeInfo | None,
     ) -> str | int:
         """
         Deserialize INT32 with logical type handling.
@@ -212,18 +214,26 @@ class RowGroupStatisticsParser(BaseParser):
         - TIME_MILLIS stores milliseconds since midnight
         - Logical type determines interpretation, not storage format
         """
-        match converted_type:
-            case ConvertedType.DATE:
+        if logical_type_info is None:
+            return self._deserialize_int32(raw_bytes)
+
+        match logical_type_info.logical_type:
+            case LogicalType.DATE:
                 return self._deserialize_date(raw_bytes)
-            case ConvertedType.TIME_MILLIS:
-                return self._deserialize_time_millis(raw_bytes)
+            case LogicalType.TIME:
+                if (
+                    hasattr(logical_type_info, 'unit')
+                    and logical_type_info.unit == TimeUnit.MILLIS
+                ):
+                    return self._deserialize_time_millis(raw_bytes)
+                return self._deserialize_int32(raw_bytes)
             case _:
                 return self._deserialize_int32(raw_bytes)
 
     def _deserialize_int64_value(
         self,
         raw_bytes: bytes,
-        converted_type: ConvertedType | None,
+        logical_type_info: LogicalTypeInfo | None,
     ) -> str | int:
         """
         Deserialize INT64 with logical type handling.
@@ -233,9 +243,22 @@ class RowGroupStatisticsParser(BaseParser):
         - TIMESTAMP_MILLIS stores milliseconds since Unix epoch
         - Different timestamp precisions use different logical types
         """
-        match converted_type:
-            case ConvertedType.TIMESTAMP_MILLIS:
-                return self._deserialize_timestamp_millis(raw_bytes)
+        if logical_type_info is None:
+            return self._deserialize_int64(raw_bytes)
+
+        match logical_type_info.logical_type:
+            case LogicalType.TIMESTAMP:
+                if (
+                    hasattr(logical_type_info, 'unit')
+                    and logical_type_info.unit == TimeUnit.MILLIS
+                ):
+                    return self._deserialize_timestamp_millis(raw_bytes)
+                if (
+                    hasattr(logical_type_info, 'unit')
+                    and logical_type_info.unit == TimeUnit.MICROS
+                ):
+                    return self._deserialize_timestamp_micros(raw_bytes)
+                return self._deserialize_int64(raw_bytes)
             case _:
                 return self._deserialize_int64(raw_bytes)
 
@@ -262,7 +285,7 @@ class RowGroupStatisticsParser(BaseParser):
     def _deserialize_byte_array(
         self,
         raw_bytes: bytes,
-        converted_type: ConvertedType | None,
+        logical_type_info: LogicalTypeInfo | None,
     ) -> str:
         """
         Deserialize BYTE_ARRAY based on logical type.
@@ -272,7 +295,10 @@ class RowGroupStatisticsParser(BaseParser):
         - UTF8 logical type indicates text strings
         - Without logical type, assume UTF-8 for compatibility
         """
-        if converted_type == ConvertedType.UTF8:
+        if (
+            logical_type_info is not None
+            and logical_type_info.logical_type == LogicalType.STRING
+        ):
             return raw_bytes.decode('utf-8')
 
         # Default to UTF-8 for backward compatibility
@@ -286,7 +312,7 @@ class RowGroupStatisticsParser(BaseParser):
     def _deserialize_fixed_len_byte_array(
         self,
         raw_bytes: bytes,
-        converted_type: ConvertedType | None,
+        logical_type_info: LogicalTypeInfo | None,
     ) -> str:
         """
         Deserialize FIXED_LEN_BYTE_ARRAY based on logical type.
@@ -296,7 +322,10 @@ class RowGroupStatisticsParser(BaseParser):
         - DECIMAL logical type encodes fixed-point numbers
         - Binary format varies by logical type
         """
-        if converted_type == ConvertedType.DECIMAL:
+        if (
+            logical_type_info is not None
+            and logical_type_info.logical_type == LogicalType.DECIMAL
+        ):
             # For now, return hex representation of decimal
             # Full decimal parsing requires precision/scale from schema
             return f'0x{raw_bytes.hex()}'
@@ -360,6 +389,23 @@ class RowGroupStatisticsParser(BaseParser):
 
         millis = int.from_bytes(raw_bytes, byteorder='little', signed=True)
         return str(datetime.fromtimestamp(millis / 1000, tz=UTC))
+
+    def _deserialize_timestamp_micros(self, raw_bytes: bytes) -> str:
+        """
+        Deserialize TIMESTAMP_MICROS logical type (INT64 micros since epoch).
+
+        Teaching Points:
+        - TIMESTAMP_MICROS provides microsecond precision timestamps
+        - Uses Unix epoch (1970-01-01 00:00:00 UTC) as reference
+        - INT64 provides sufficient range for most timestamp use cases
+        """
+        if len(raw_bytes) != 8:
+            raise ParquetDataError(
+                f'TIMESTAMP_MICROS value must be 8 bytes, got {len(raw_bytes)}',
+            )
+
+        micros = int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        return str(datetime.fromtimestamp(micros / 1_000_000, tz=UTC))
 
     def _deserialize_int32(self, raw_bytes: bytes) -> int:
         """Deserialize regular INT32 value (little-endian)."""
