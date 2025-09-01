@@ -22,7 +22,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 0,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 3,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -48,7 +57,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 9,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 9,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -74,7 +92,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 2,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 6,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -100,7 +127,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 0,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 3,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -126,7 +162,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 1,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 6,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -152,7 +197,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 1,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 6,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -178,7 +232,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 9,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 9,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -204,7 +267,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 7,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 7,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -230,7 +302,16 @@
           "encoding": 5,
           "definition_levels_byte_length": 8,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 5,
+            "definition_levels_byte_length": 8,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -256,7 +337,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 0,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 3,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -282,7 +372,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 7,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 7,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -308,7 +407,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 8,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 8,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -334,7 +442,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 6,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 1,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 6,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -360,7 +477,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 10,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 4,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 10,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -386,7 +512,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 10,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 4,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 10,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -412,7 +547,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 9,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 9,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -438,7 +582,16 @@
           "encoding": 7,
           "definition_levels_byte_length": 10,
           "repetition_levels_byte_length": 0,
-          "statistics": null
+          "statistics": null,
+          "metadata": {
+            "num_values": 100,
+            "num_nulls": 3,
+            "num_rows": 100,
+            "encoding": 7,
+            "definition_levels_byte_length": 10,
+            "repetition_levels_byte_length": 0,
+            "is_compressed": true
+          }
         }
       ],
       "index_pages": [],
@@ -1006,22 +1159,11 @@
             }
           },
           "total_byte_size": 9485,
-          "row_count": 100,
-          "compression_stats": {
-            "total_compressed": 9485,
-            "total_uncompressed": 9485
-          }
+          "row_count": 100
         }
       ],
       "created_by": "parquet-mr version 1.10.0 (build 031a6654009e3b82020012a18434c582bd74c73a)",
-      "key_value_metadata": {},
-      "compression_stats": {
-        "total_compressed": 9485,
-        "total_uncompressed": 9485
-      },
-      "column_count": 17,
-      "row_count": 100,
-      "row_group_count": 1
+      "key_value_metadata": {}
     }
   },
   "magic_header": "PAR1",

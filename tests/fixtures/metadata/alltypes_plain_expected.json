@@ -19,7 +19,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -31,7 +37,12 @@
         "uncompressed_page_size": 32,
         "crc": null,
         "num_values": 8,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 8,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -51,7 +62,13 @@
           "num_values": 8,
           "encoding": 0,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 0,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -74,7 +91,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -86,7 +109,12 @@
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -106,7 +134,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -118,7 +152,12 @@
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -138,7 +177,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -150,7 +195,12 @@
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -170,7 +220,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -182,7 +238,12 @@
         "uncompressed_page_size": 16,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -202,7 +263,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -214,7 +281,12 @@
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -234,7 +306,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -246,7 +324,12 @@
         "uncompressed_page_size": 16,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -266,7 +349,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -278,7 +367,12 @@
         "uncompressed_page_size": 48,
         "crc": null,
         "num_values": 4,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 4,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -298,7 +392,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -310,7 +410,12 @@
         "uncompressed_page_size": 10,
         "crc": null,
         "num_values": 2,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 2,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     },
     {
@@ -330,7 +435,13 @@
           "num_values": 8,
           "encoding": 2,
           "definition_level_encoding": 3,
-          "repetition_level_encoding": 4
+          "repetition_level_encoding": 4,
+          "metadata": {
+            "num_values": 8,
+            "encoding": 2,
+            "definition_level_encoding": 3,
+            "repetition_level_encoding": 4
+          }
         }
       ],
       "index_pages": [],
@@ -342,7 +453,12 @@
         "uncompressed_page_size": 96,
         "crc": null,
         "num_values": 8,
-        "encoding": 2
+        "encoding": 2,
+        "metadata": {
+          "num_values": 8,
+          "encoding": 2,
+          "is_sorted": null
+        }
       }
     }
   ],
@@ -682,22 +798,11 @@
             }
           },
           "total_byte_size": 671,
-          "row_count": 8,
-          "compression_stats": {
-            "total_compressed": 671,
-            "total_uncompressed": 671
-          }
+          "row_count": 8
         }
       ],
       "created_by": "impala version 1.3.0-INTERNAL (build 8a48ddb1eff84592b3fc06bc6f51ec120e1fffc9)",
-      "key_value_metadata": {},
-      "compression_stats": {
-        "total_compressed": 671,
-        "total_uncompressed": 671
-      },
-      "column_count": 11,
-      "row_count": 8,
-      "row_group_count": 1
+      "key_value_metadata": {}
     }
   },
   "magic_header": "PAR1",
