@@ -10,7 +10,7 @@ Teaching Points:
 
 import logging
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from por_que.enums import Encoding, PageType
 from por_que.parsers.thrift.enums import ThriftFieldType
@@ -41,16 +41,20 @@ class PageParser(BaseParser):
     - Compression is handled at the page level, not column level
     """
 
-    def __init__(self, parser, schema=None):
+    def __init__(self, parser, schema=None, column_type=None, path_in_schema=None):
         """
         Initialize page parser.
 
         Args:
             parser: ThriftCompactParser for parsing
             schema: Root schema element for statistics parsing
+            column_type: Physical type of the column for statistics parsing
+            path_in_schema: Schema path for statistics parsing
         """
         super().__init__(parser)
         self.schema = schema
+        self.column_type = column_type
+        self.path_in_schema = path_in_schema
 
     def read_page(self, start_offset: int) -> AnyPage:  # noqa: C901
         """
@@ -101,8 +105,9 @@ class PageParser(BaseParser):
                             self.read_data_page_header_v2(),
                         )
                     case PageHeaderFieldId.INDEX_PAGE_HEADER:
-                        # Index pages are not implemented yet - skip
-                        struct_parser.skip_field(field_type)
+                        # IndexPageHeader is empty in Parquet spec (just TODO)
+                        # Parse it but expect no fields
+                        page_specific_data.update(self.read_index_page_header())
                     case _:
                         struct_parser.skip_field(field_type)
                 continue
@@ -185,7 +190,7 @@ class PageParser(BaseParser):
     def read_data_page_header(self) -> dict:
         """Read DataPageHeader fields and return as dict."""
         struct_parser = ThriftStructParser(self.parser)
-        fields = {
+        fields: dict[str, Any] = {
             'num_values': 0,
             'encoding': Encoding.PLAIN,
             'definition_level_encoding': Encoding.PLAIN,
@@ -200,12 +205,7 @@ class PageParser(BaseParser):
 
             # Handle statistics struct if present
             if field_type == ThriftFieldType.STRUCT:
-                if field_id == DataPageHeaderFieldId.STATISTICS:
-                    # Statistics parsing requires column type and schema path
-                    # For now, skip - this would need column context
-                    struct_parser.skip_field(field_type)
-                else:
-                    struct_parser.skip_field(field_type)
+                self._handle_data_page_header_struct(struct_parser, field_id, fields)
                 continue
 
             value = struct_parser.read_value(field_type)
@@ -224,6 +224,27 @@ class PageParser(BaseParser):
 
         return fields
 
+    def _handle_data_page_header_struct(self, struct_parser, field_id, fields):
+        """Handle struct fields in DataPageHeader."""
+        if field_id == DataPageHeaderFieldId.STATISTICS:
+            # Parse statistics if we have the necessary context
+            if (
+                self.schema is not None
+                and self.column_type is not None
+                and self.path_in_schema is not None
+            ):
+                from .statistics import StatisticsParser
+
+                stats_parser = StatisticsParser(self.parser, self.schema)
+                fields['statistics'] = stats_parser.read_statistics(
+                    self.column_type,
+                    self.path_in_schema,
+                )
+            else:
+                struct_parser.skip_field(ThriftFieldType.STRUCT)
+        else:
+            struct_parser.skip_field(ThriftFieldType.STRUCT)
+
     def read_data_page_header_v2(self) -> dict:
         """Read DataPageHeaderV2 fields and return as dict."""
         struct_parser = ThriftStructParser(self.parser)
@@ -235,7 +256,7 @@ class PageParser(BaseParser):
                 break
 
             if field_type == ThriftFieldType.STRUCT:
-                self._handle_data_page_v2_struct(struct_parser, field_id)
+                self._handle_data_page_v2_struct(struct_parser, field_id, fields)
                 continue
 
             value = struct_parser.read_value(field_type)
@@ -259,12 +280,24 @@ class PageParser(BaseParser):
             'statistics': None,
         }
 
-    def _handle_data_page_v2_struct(self, struct_parser, field_id):
+    def _handle_data_page_v2_struct(self, struct_parser, field_id, fields):
         """Handle struct fields in DataPageHeaderV2."""
         if field_id == DataPageHeaderV2FieldId.STATISTICS:
-            # Skip statistics for now - needs column context
-            # TODO: Parse statistics if present - this is the original TODO!
-            struct_parser.skip_field(ThriftFieldType.STRUCT)
+            # Parse statistics if we have the necessary context
+            if (
+                self.schema is not None
+                and self.column_type is not None
+                and self.path_in_schema is not None
+            ):
+                from .statistics import StatisticsParser
+
+                stats_parser = StatisticsParser(self.parser, self.schema)
+                fields['statistics'] = stats_parser.read_statistics(
+                    self.column_type,
+                    self.path_in_schema,
+                )
+            else:
+                struct_parser.skip_field(ThriftFieldType.STRUCT)
         else:
             struct_parser.skip_field(ThriftFieldType.STRUCT)
 
@@ -311,6 +344,33 @@ class PageParser(BaseParser):
                     fields['encoding'] = Encoding(value)
                 case DictionaryPageHeaderFieldId.IS_SORTED:
                     fields['is_sorted'] = bool(value)
+
+        return fields
+
+    def read_index_page_header(self) -> dict:
+        """
+        Read IndexPageHeader fields and return as dict.
+
+        Note: IndexPageHeader is currently empty in the Parquet specification
+        (contains only a TODO comment), so this method doesn't expect any fields.
+        """
+        struct_parser = ThriftStructParser(self.parser)
+        fields: dict[str, Any] = {}
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+            if field_type == ThriftFieldType.STOP:
+                break
+
+            # IndexPageHeader is currently empty, so skip any unexpected fields
+            value = struct_parser.read_value(field_type)
+            if value is not None:
+                # Log unexpected field for debugging but don't fail
+                logger.warning(
+                    'Unexpected field %d in IndexPageHeader (spec says empty): %s',
+                    field_id,
+                    value,
+                )
 
         return fields
 

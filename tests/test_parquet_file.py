@@ -16,6 +16,7 @@ METADATA_FIXTURES = Path(__file__).parent / 'fixtures' / 'metadata'
         'alltypes_plain',
         'nested_structs.rust',
         'delta_encoding_optional_column',
+        'data_index_bloom_encoding_with_length',
     ],
 )
 def test_parquet_file(
@@ -58,6 +59,7 @@ def test_parquet_file(
         'alltypes_plain',
         'nested_structs.rust',
         'delta_encoding_optional_column',
+        'data_index_bloom_encoding_with_length',
     ],
 )
 def test_parquet_file_from_dict(

@@ -164,6 +164,14 @@ class TimeUnit(IntEnum):
     NANOS = 3
 
 
+class BoundaryOrder(IntEnum):
+    """Ordering of min/max values in Page Index."""
+
+    UNORDERED = 0
+    ASCENDING = 1
+    DESCENDING = 2
+
+
 class SchemaElementType(StrEnum):
     """Internal type to classify schema elements."""
 

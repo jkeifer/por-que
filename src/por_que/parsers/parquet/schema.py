@@ -208,7 +208,7 @@ class SchemaParser(BaseParser):
         schema_root = schema_elements[0]
         if not isinstance(schema_root, SchemaRoot):
             raise ThriftParsingError(
-                f'Schema must start with SchemaRoot element, got {type(schema_root)}',
+                f'Schema must start with SchemaRoot element, got {schema_root}',
             )
 
         # Convert flat list to tree structure

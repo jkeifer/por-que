@@ -11,9 +11,12 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
 
 from .enums import Encoding, PageType
+from .logical import ColumnStatistics
 from .protocols import ReadableSeekable
 
 if TYPE_CHECKING:
+    from . import logical
+else:
     from . import logical
 
 
@@ -37,7 +40,8 @@ class Page:
         cls,
         reader: ReadableSeekable,
         offset: int,
-        schema_context: logical.SchemaElement,
+        schema_root: logical.SchemaRoot,
+        chunk_metadata: logical.ColumnChunk | None = None,
     ) -> AnyPage:
         """Factory method to parse and return the correct Page subtype."""
         from .parsers.parquet.page import PageParser
@@ -50,7 +54,21 @@ class Page:
         # 8KB should be more than enough for any page header.
         header_buffer = reader.read(8192)
         parser = ThriftCompactParser(header_buffer)
-        page_parser = PageParser(parser, schema_context)
+
+        # Extract column type and path from metadata if available
+        column_type = None
+        path_in_schema = None
+
+        if chunk_metadata is not None:
+            column_type = chunk_metadata.type
+            path_in_schema = chunk_metadata.path_in_schema
+
+        page_parser = PageParser(
+            parser,
+            schema_root,
+            column_type,
+            path_in_schema,
+        )
 
         # PageParser will now directly return the appropriate Page subtype
         return page_parser.read_page(offset)
@@ -75,7 +93,7 @@ class DataPageV1(Page):
     encoding: Encoding
     definition_level_encoding: Encoding
     repetition_level_encoding: Encoding
-    statistics: Any | None = None  # Will be ColumnStatistics when implemented
+    statistics: ColumnStatistics | None = None
 
 
 @dataclass(frozen=True)
@@ -90,7 +108,7 @@ class DataPageV2(Page):
     definition_levels_byte_length: int
     repetition_levels_byte_length: int
     is_compressed: bool
-    statistics: Any | None = None  # Will be ColumnStatistics when implemented
+    statistics: ColumnStatistics | None = None
 
 
 @dataclass(frozen=True)

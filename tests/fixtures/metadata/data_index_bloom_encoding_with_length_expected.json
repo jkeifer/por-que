@@ -1,0 +1,137 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/data_index_bloom_encoding_with_length.parquet",
+  "filesize": 2885,
+  "column_chunks": [
+    {
+      "path_in_schema": "String",
+      "start_offset": 4,
+      "total_byte_size": 199,
+      "codec": 0,
+      "num_values": 14,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 152,
+          "header_size": 35,
+          "compressed_page_size": 16,
+          "uncompressed_page_size": 16,
+          "crc": null,
+          "num_values": 14,
+          "encoding": 8,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": {
+            "min_value": null,
+            "max_value": null,
+            "null_count": null,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 4,
+        "header_size": 16,
+        "compressed_page_size": 132,
+        "uncompressed_page_size": 132,
+        "crc": null,
+        "num_values": 14,
+        "encoding": 0,
+        "is_sorted": false
+      },
+      "page_index": {
+        "column_index_offset": 253,
+        "column_index_length": 17,
+        "column_index": {
+          "null_pages": [],
+          "min_values": [],
+          "max_values": [],
+          "boundary_order": 0,
+          "null_counts": null,
+          "repetition_level_histograms": null,
+          "definition_level_histograms": null
+        },
+        "offset_index": {
+          "page_locations": [],
+          "unencoded_byte_array_data_bytes": null
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "start_offset": 2353,
+    "total_byte_size": 524,
+    "metadata": {
+      "version": 1,
+      "schema": {
+        "element_type": "root",
+        "name": "arrow_schema",
+        "num_children": 1,
+        "children": {
+          "String": {
+            "element_type": "column",
+            "name": "String",
+            "type": 6,
+            "repetition": 1,
+            "converted_type": 0,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 10,
+            "logical_type": null
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "String": {
+              "file_offset": 203,
+              "metadata": {
+                "type": 6,
+                "encodings": [
+                  0,
+                  3,
+                  8
+                ],
+                "path_in_schema": "String",
+                "codec": 0,
+                "num_values": 14,
+                "total_uncompressed_size": 199,
+                "total_compressed_size": 199,
+                "data_page_offset": 152,
+                "dictionary_page_offset": 4,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": null,
+                  "max_value": null,
+                  "null_count": null,
+                  "distinct_count": null
+                },
+                "column_index_offset": 253,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 199,
+          "row_count": 14
+        }
+      ],
+      "created_by": "parquet-rs version 49.0.0",
+      "key_value_metadata": {
+        "parquet.avro.schema": "{\"type\":\"record\",\"name\":\"data\",\"fields\":[{\"name\":\"String\",\"type\":[\"null\",\"string\"],\"doc\":\"Type inferred from 'Hello'\",\"default\":null}]}",
+        "writer.model.name": "avro",
+        "ARROW:schema": "/////3AAAAAQAAAAAAAKAAwACgAJAAQACgAAABAAAAAAAQQACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUABAADgAPAAQAAAAIABAAAAAYAAAADAAAAAAAAQUQAAAAAAAAAAQABAAEAAAABgAAAFN0cmluZwAA"
+      }
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

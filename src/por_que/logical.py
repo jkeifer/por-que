@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import warnings
+
 from dataclasses import asdict, dataclass, field
 from typing import Self
 
 from .enums import (
+    BoundaryOrder,
     ColumnConvertedType,
     ColumnLogicalType,
     Compression,
@@ -295,6 +298,45 @@ class SchemaElement:
                 logical_type=logical_type,
             )
 
+        # Root element could look essentially like any other group,
+        # but with no repetition, which is required for other types
+        if (
+            name
+            and converted_type is None
+            and num_children is not None
+            and type is None
+            and logical_type is None
+            and repetition is None
+        ):
+            return SchemaRoot(
+                name=name,
+                num_children=num_children,
+            )
+
+        # Root element check: should have no repetition, but some writers
+        # incorrectly set repetition=REQUIRED on root elements, so we also
+        # check the name
+        if (
+            name == 'schema'
+            and num_children is not None
+            and converted_type is None
+            and logical_type is None
+            and type is None
+            and repetition == Repetition.REQUIRED
+        ):
+            warnings.warn(
+                'Schema element appears to be root, but has invalid '
+                'attrs. Warily assuming it is root... Schema element: '
+                f"name='{name}', type='{type}', type_length='{type_length}', "
+                f"repetition='{repetition}', num_children='{num_children}', "
+                f"converted_type='{converted_type}",
+                stacklevel=1,
+            )
+            return SchemaRoot(
+                name=name,
+                num_children=num_children,
+            )
+
         # Check type compatibility for group element
         is_group_converted_type = (
             converted_type is None or converted_type in GroupConvertedType
@@ -318,19 +360,6 @@ class SchemaElement:
                 converted_type=converted_type,
                 field_id=field_id,
                 logical_type=logical_type,
-            )
-
-        if (
-            name
-            and converted_type is None
-            and num_children is not None
-            and repetition is None
-            and type is None
-            and logical_type is None
-        ):
-            return SchemaRoot(
-                name=name,
-                num_children=num_children,
             )
 
         raise ValueError(
@@ -461,6 +490,36 @@ class ColumnStatistics:
 
 
 @dataclass(frozen=True)
+class PageLocation:
+    """Location information for a page within a column chunk."""
+
+    offset: int  # File offset of the page
+    compressed_page_size: int  # Compressed size of the page
+    first_row_index: int  # First row index of the page
+
+
+@dataclass(frozen=True)
+class OffsetIndex:
+    """Index containing page locations and sizes for efficient seeking."""
+
+    page_locations: list[PageLocation]
+    unencoded_byte_array_data_bytes: list[int] | None = None
+
+
+@dataclass(frozen=True)
+class ColumnIndex:
+    """Index containing min/max statistics and null information for pages."""
+
+    null_pages: list[bool]  # Which pages are all null
+    min_values: list[bytes]  # Raw min values for each page
+    max_values: list[bytes]  # Raw max values for each page
+    boundary_order: BoundaryOrder  # Whether min/max values are ordered
+    null_counts: list[int] | None = None  # Null count per page
+    repetition_level_histograms: list[int] | None = None
+    definition_level_histograms: list[int] | None = None
+
+
+@dataclass(frozen=True)
 class ColumnMetadata:
     """Detailed metadata about column chunk content and encoding."""
 
@@ -475,6 +534,11 @@ class ColumnMetadata:
     dictionary_page_offset: int | None = None
     index_page_offset: int | None = None
     statistics: ColumnStatistics | None = None
+    # Page Index fields (new in Parquet 2.5+)
+    column_index_offset: int | None = None
+    column_index_length: int | None = None
+    column_index: ColumnIndex | None = None
+    offset_index: OffsetIndex | None = None
 
 
 @dataclass(frozen=True)
@@ -552,6 +616,22 @@ class ColumnChunk:
     @property
     def statistics(self) -> ColumnStatistics | None:
         return self.metadata.statistics
+
+    @property
+    def column_index_offset(self) -> int | None:
+        return self.metadata.column_index_offset
+
+    @property
+    def column_index_length(self) -> int | None:
+        return self.metadata.column_index_length
+
+    @property
+    def column_index(self) -> ColumnIndex | None:
+        return self.metadata.column_index
+
+    @property
+    def offset_index(self) -> OffsetIndex | None:
+        return self.metadata.offset_index
 
 
 @dataclass(frozen=True)

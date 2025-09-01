@@ -1,11 +1,12 @@
 """
-Row group statistics parsing for Parquet column statistics.
+Column statistics parsing for Parquet.
 
 Teaching Points:
 - Column statistics enable query optimization through predicate pushdown
-- Min/max values allow skipping entire row groups during query execution
+- Min/max values allow skipping data during query execution (row groups, pages)
 - Statistics are stored in binary format and must be deserialized per logical type
 - Null and distinct counts provide additional optimization opportunities
+- Statistics can be present at multiple levels: row groups, pages, etc.
 """
 
 import logging
@@ -28,9 +29,9 @@ from .enums import StatisticsFieldId
 logger = logging.getLogger(__name__)
 
 
-class RowGroupStatisticsParser(BaseParser):
+class StatisticsParser(BaseParser):
     """
-    Parses column statistics embedded in row group metadata.
+    Parses column statistics from Parquet metadata.
 
     Teaching Points:
     - Statistics are the key to Parquet's query performance
