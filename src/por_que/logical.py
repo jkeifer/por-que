@@ -9,7 +9,6 @@ from .enums import (
     ConvertedType,
     Encoding,
     GroupConvertedType,
-    PageType,
     Repetition,
     SchemaElementType,
     Type,
@@ -401,81 +400,3 @@ class FileMetadata:
 
     def to_dict(self) -> dict:
         return asdict(self)
-
-
-@dataclass
-class PageHeader:
-    """
-    Header information for all page types.
-
-    Teaching Points:
-    - Every page starts with a PageHeader containing type and size information
-    - uncompressed_page_size tells us how much data after decompression
-    - compressed_page_size is the actual bytes to read from file
-    - CRC enables data integrity verification
-    """
-
-    type: PageType
-    uncompressed_page_size: int
-    compressed_page_size: int
-    crc: int | None = None
-    data_page_header: DataPageHeader | None = None
-    dictionary_page_header: DictionaryPageHeader | None = None
-    data_page_header_v2: DataPageHeaderV2 | None = None
-
-
-@dataclass
-class DataPageHeader:
-    """
-    Header for DATA_PAGE containing value and encoding information.
-
-    Teaching Points:
-    - num_values indicates how many actual values are stored in the page
-    - encoding specifies how the values are encoded (PLAIN, DICTIONARY, etc.)
-    - definition_level_encoding handles NULL value representation
-    - repetition_level_encoding handles nested/repeated field structure
-    """
-
-    num_values: int
-    encoding: Encoding
-    definition_level_encoding: Encoding
-    repetition_level_encoding: Encoding
-
-
-@dataclass
-class DataPageHeaderV2:
-    """
-    Header for DATA_PAGE_V2 with separate definition/repetition level sizes.
-
-    Teaching Points:
-    - V2 separates definition and repetition level data for efficiency
-    - num_nulls provides quick NULL count without scanning all values
-    - num_rows differs from num_values when dealing with repeated fields
-    - is_compressed applies only to the value data, not levels
-    """
-
-    num_values: int
-    num_nulls: int
-    num_rows: int
-    encoding: Encoding
-    definition_levels_byte_length: int
-    repetition_levels_byte_length: int
-    is_compressed: bool
-
-
-@dataclass
-class DictionaryPageHeader:
-    """
-    Header for DICTIONARY_PAGE containing dictionary encoding information.
-
-    Teaching Points:
-    - Dictionary pages must appear before any data pages that reference them
-    - num_values is the size of the dictionary (number of unique values)
-    - encoding is typically PLAIN for dictionary values
-    - The dictionary maps integer indices to actual values for compression
-    - is_sorted indicates if dictionary values are in sorted order (optimization)
-    """
-
-    num_values: int
-    encoding: Encoding
-    is_sorted: bool | None = None

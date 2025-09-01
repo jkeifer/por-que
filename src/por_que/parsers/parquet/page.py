@@ -10,13 +10,9 @@ Teaching Points:
 
 import logging
 
+from typing import TYPE_CHECKING
+
 from por_que.enums import Encoding, PageType
-from por_que.logical import (
-    DataPageHeader,
-    DataPageHeaderV2,
-    DictionaryPageHeader,
-    PageHeader,
-)
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -27,6 +23,9 @@ from .enums import (
     DictionaryPageHeaderFieldId,
     PageHeaderFieldId,
 )
+
+if TYPE_CHECKING:
+    from por_que.pages import AnyPage
 
 logger = logging.getLogger(__name__)
 
@@ -53,26 +52,35 @@ class PageParser(BaseParser):
         super().__init__(parser)
         self.schema = schema
 
-    def read_page_header(self) -> PageHeader:  # noqa: C901
+    def read_page(self, start_offset: int) -> AnyPage:  # noqa: C901
         """
-        Read a PageHeader struct from the stream.
+        Read a complete Page directly from the stream.
 
-        Teaching Points:
-        - PageHeader is the first thing in every page
-        - It tells us the page type and size information
-        - The type field determines which specific header follows
-        - Size information is crucial for seeking and memory allocation
+        This method combines the previous PageHeader parsing logic with direct
+        Page object creation, eliminating the intermediate logical.PageHeader step.
+
+        Args:
+            start_offset: The file offset where this page begins
 
         Returns:
-            PageHeader with type and size information
+            The appropriate Page subtype (DataPageV1, DataPageV2, DictionaryPage,
+            IndexPage)
         """
+        from por_que.pages import DataPageV1, DataPageV2, DictionaryPage, IndexPage
+
+        header_start_offset = self.parser.pos
         struct_parser = ThriftStructParser(self.parser)
-        header = PageHeader(
-            type=PageType.DATA_PAGE,
-            uncompressed_page_size=0,
-            compressed_page_size=0,
-        )
-        logger.debug('Reading page header')
+
+        # Basic page header fields
+        page_type = PageType.DATA_PAGE  # default
+        compressed_page_size = 0
+        uncompressed_page_size = 0
+        crc = None
+
+        # Page-specific fields that we'll collect
+        page_specific_data = {}
+
+        logger.debug('Reading page at offset %d', start_offset)
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -83,13 +91,15 @@ class PageParser(BaseParser):
             if field_type == ThriftFieldType.STRUCT:
                 match field_id:
                     case PageHeaderFieldId.DATA_PAGE_HEADER:
-                        header.data_page_header = self.read_data_page_header()
+                        page_specific_data.update(self.read_data_page_header())
                     case PageHeaderFieldId.DICTIONARY_PAGE_HEADER:
-                        header.dictionary_page_header = (
-                            self.read_dictionary_page_header()
+                        page_specific_data.update(
+                            self.read_dictionary_page_header(),
                         )
                     case PageHeaderFieldId.DATA_PAGE_HEADER_V2:
-                        header.data_page_header_v2 = self.read_data_page_header_v2()
+                        page_specific_data.update(
+                            self.read_data_page_header_v2(),
+                        )
                     case PageHeaderFieldId.INDEX_PAGE_HEADER:
                         # Index pages are not implemented yet - skip
                         struct_parser.skip_field(field_type)
@@ -104,43 +114,84 @@ class PageParser(BaseParser):
 
             match field_id:
                 case PageHeaderFieldId.TYPE:
-                    header.type = PageType(value)
+                    page_type = PageType(value)
                 case PageHeaderFieldId.UNCOMPRESSED_PAGE_SIZE:
-                    header.uncompressed_page_size = value
+                    uncompressed_page_size = value
                 case PageHeaderFieldId.COMPRESSED_PAGE_SIZE:
-                    header.compressed_page_size = value
+                    compressed_page_size = value
                 case PageHeaderFieldId.CRC:
-                    header.crc = value
+                    crc = value
+
+        header_end_offset = self.parser.pos
+        header_size = header_end_offset - header_start_offset
+
+        # Create appropriate page subtype based on page type
+        page: AnyPage
+        match page_type:
+            case PageType.DICTIONARY_PAGE:
+                page = DictionaryPage(
+                    page_type=page_type,
+                    start_offset=start_offset,
+                    header_size=header_size,
+                    compressed_page_size=compressed_page_size,
+                    uncompressed_page_size=uncompressed_page_size,
+                    crc=crc,
+                    **page_specific_data,
+                )
+            case PageType.DATA_PAGE:
+                page = DataPageV1(
+                    page_type=page_type,
+                    start_offset=start_offset,
+                    header_size=header_size,
+                    compressed_page_size=compressed_page_size,
+                    uncompressed_page_size=uncompressed_page_size,
+                    crc=crc,
+                    **page_specific_data,
+                )
+            case PageType.DATA_PAGE_V2:
+                page = DataPageV2(
+                    page_type=page_type,
+                    start_offset=start_offset,
+                    header_size=header_size,
+                    compressed_page_size=compressed_page_size,
+                    uncompressed_page_size=uncompressed_page_size,
+                    crc=crc,
+                    **page_specific_data,
+                )
+            case PageType.INDEX_PAGE:
+                page = IndexPage(
+                    page_type=page_type,
+                    start_offset=start_offset,
+                    header_size=header_size,
+                    compressed_page_size=compressed_page_size,
+                    uncompressed_page_size=uncompressed_page_size,
+                    crc=crc,
+                    page_locations=None,  # Not implemented yet
+                )
+            case _:
+                from por_que.exceptions import ParquetFormatError
+
+                raise ParquetFormatError(f'Unknown page type: {page_type}')
 
         logger.debug(
-            'Read page header: type=%s, compressed=%d bytes, uncompressed=%d bytes',
-            header.type.name,
-            header.compressed_page_size,
-            header.uncompressed_page_size,
+            'Read page: type=%s, compressed=%d bytes, uncompressed=%d bytes',
+            page_type.name,
+            compressed_page_size,
+            uncompressed_page_size,
         )
-        return header
 
-    def read_data_page_header(self) -> DataPageHeader:
-        """
-        Read a DataPageHeader struct.
+        return page
 
-        Teaching Points:
-        - Data pages contain the actual column values
-        - Encoding determines how values are stored (PLAIN, DICTIONARY, etc.)
-        - Definition/repetition level encodings handle nullability and nesting
-        - Statistics provide optimization metadata for this specific page
-
-        Returns:
-            DataPageHeader with encoding and statistics information
-        """
+    def read_data_page_header(self) -> dict:
+        """Read DataPageHeader fields and return as dict."""
         struct_parser = ThriftStructParser(self.parser)
-        header = DataPageHeader(
-            num_values=0,
-            encoding=Encoding.PLAIN,
-            definition_level_encoding=Encoding.PLAIN,
-            repetition_level_encoding=Encoding.PLAIN,
-        )
-        logger.debug('Reading data page header')
+        fields = {
+            'num_values': 0,
+            'encoding': Encoding.PLAIN,
+            'definition_level_encoding': Encoding.PLAIN,
+            'repetition_level_encoding': Encoding.PLAIN,
+            'statistics': None,
+        }
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -163,108 +214,86 @@ class PageParser(BaseParser):
 
             match field_id:
                 case DataPageHeaderFieldId.NUM_VALUES:
-                    header.num_values = value
+                    fields['num_values'] = value
                 case DataPageHeaderFieldId.ENCODING:
-                    header.encoding = Encoding(value)
+                    fields['encoding'] = Encoding(value)
                 case DataPageHeaderFieldId.DEFINITION_LEVEL_ENCODING:
-                    header.definition_level_encoding = Encoding(value)
+                    fields['definition_level_encoding'] = Encoding(value)
                 case DataPageHeaderFieldId.REPETITION_LEVEL_ENCODING:
-                    header.repetition_level_encoding = Encoding(value)
+                    fields['repetition_level_encoding'] = Encoding(value)
 
-        logger.debug(
-            'Read data page header: %d values, encoding=%s',
-            header.num_values,
-            header.encoding.name,
-        )
-        return header
+        return fields
 
-    def read_data_page_header_v2(self) -> DataPageHeaderV2:  # noqa: C901
-        """
-        Read a DataPageHeaderV2 struct.
-
-        Teaching Points:
-        - V2 pages separate level data from value data for efficiency
-        - Separate byte lengths allow selective reading of levels
-        - num_nulls provides quick null count without value scanning
-        - is_compressed applies only to values, not definition/repetition levels
-
-        Returns:
-            DataPageHeaderV2 with level information and compression settings
-        """
+    def read_data_page_header_v2(self) -> dict:
+        """Read DataPageHeaderV2 fields and return as dict."""
         struct_parser = ThriftStructParser(self.parser)
-        header = DataPageHeaderV2(
-            num_values=0,
-            num_nulls=0,
-            num_rows=0,
-            encoding=Encoding.PLAIN,
-            definition_levels_byte_length=0,
-            repetition_levels_byte_length=0,
-            is_compressed=True,
-        )
-        logger.debug('Reading data page header v2')
+        fields = self._init_data_page_v2_fields()
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
             if field_type == ThriftFieldType.STOP:
                 break
 
-            # Handle statistics struct if present
             if field_type == ThriftFieldType.STRUCT:
-                if field_id == DataPageHeaderV2FieldId.STATISTICS:
-                    # Skip statistics for now - needs column context
-                    struct_parser.skip_field(field_type)
-                else:
-                    struct_parser.skip_field(field_type)
+                self._handle_data_page_v2_struct(struct_parser, field_id)
                 continue
 
             value = struct_parser.read_value(field_type)
             if value is None:
                 continue
 
-            match field_id:
-                case DataPageHeaderV2FieldId.NUM_VALUES:
-                    header.num_values = value
-                case DataPageHeaderV2FieldId.NUM_NULLS:
-                    header.num_nulls = value
-                case DataPageHeaderV2FieldId.NUM_ROWS:
-                    header.num_rows = value
-                case DataPageHeaderV2FieldId.ENCODING:
-                    header.encoding = Encoding(value)
-                case DataPageHeaderV2FieldId.DEFINITION_LEVELS_BYTE_LENGTH:
-                    header.definition_levels_byte_length = value
-                case DataPageHeaderV2FieldId.REPETITION_LEVELS_BYTE_LENGTH:
-                    header.repetition_levels_byte_length = value
-                case DataPageHeaderV2FieldId.IS_COMPRESSED:
-                    header.is_compressed = bool(value)
+            self._process_data_page_v2_field(fields, field_id, value)
 
-        logger.debug(
-            'Read data page header v2: %d values (%d nulls), %d rows, encoding=%s',
-            header.num_values,
-            header.num_nulls,
-            header.num_rows,
-            header.encoding.name,
-        )
-        return header
+        return fields
 
-    def read_dictionary_page_header(self) -> DictionaryPageHeader:
-        """
-        Read a DictionaryPageHeader struct.
+    def _init_data_page_v2_fields(self) -> dict:
+        """Initialize default fields for DataPageHeaderV2."""
+        return {
+            'num_values': 0,
+            'num_nulls': 0,
+            'num_rows': 0,
+            'encoding': Encoding.PLAIN,
+            'definition_levels_byte_length': 0,
+            'repetition_levels_byte_length': 0,
+            'is_compressed': True,
+            'statistics': None,
+        }
 
-        Teaching Points:
-        - Dictionary pages define the mapping from indices to actual values
-        - They must appear before any data pages that reference them
-        - Dictionary encoding can significantly reduce storage for repeated values
-        - Sorted dictionaries enable additional query optimizations
+    def _handle_data_page_v2_struct(self, struct_parser, field_id):
+        """Handle struct fields in DataPageHeaderV2."""
+        if field_id == DataPageHeaderV2FieldId.STATISTICS:
+            # Skip statistics for now - needs column context
+            # TODO: Parse statistics if present - this is the original TODO!
+            struct_parser.skip_field(ThriftFieldType.STRUCT)
+        else:
+            struct_parser.skip_field(ThriftFieldType.STRUCT)
 
-        Returns:
-            DictionaryPageHeader with dictionary metadata
-        """
+    def _process_data_page_v2_field(self, fields: dict, field_id: int, value):
+        """Process a single field in DataPageHeaderV2."""
+        match field_id:
+            case DataPageHeaderV2FieldId.NUM_VALUES:
+                fields['num_values'] = value
+            case DataPageHeaderV2FieldId.NUM_NULLS:
+                fields['num_nulls'] = value
+            case DataPageHeaderV2FieldId.NUM_ROWS:
+                fields['num_rows'] = value
+            case DataPageHeaderV2FieldId.ENCODING:
+                fields['encoding'] = Encoding(value)
+            case DataPageHeaderV2FieldId.DEFINITION_LEVELS_BYTE_LENGTH:
+                fields['definition_levels_byte_length'] = value
+            case DataPageHeaderV2FieldId.REPETITION_LEVELS_BYTE_LENGTH:
+                fields['repetition_levels_byte_length'] = value
+            case DataPageHeaderV2FieldId.IS_COMPRESSED:
+                fields['is_compressed'] = bool(value)
+
+    def read_dictionary_page_header(self) -> dict:
+        """Read DictionaryPageHeader fields and return as dict."""
         struct_parser = ThriftStructParser(self.parser)
-        header = DictionaryPageHeader(
-            num_values=0,
-            encoding=Encoding.PLAIN,
-        )
-        logger.debug('Reading dictionary page header')
+        fields = {
+            'num_values': 0,
+            'encoding': Encoding.PLAIN,
+            'is_sorted': False,
+        }
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -277,21 +306,15 @@ class PageParser(BaseParser):
 
             match field_id:
                 case DictionaryPageHeaderFieldId.NUM_VALUES:
-                    header.num_values = value
+                    fields['num_values'] = value
                 case DictionaryPageHeaderFieldId.ENCODING:
-                    header.encoding = Encoding(value)
+                    fields['encoding'] = Encoding(value)
                 case DictionaryPageHeaderFieldId.IS_SORTED:
-                    header.is_sorted = bool(value)
+                    fields['is_sorted'] = bool(value)
 
-        logger.debug(
-            'Read dictionary page header: %d values, encoding=%s, sorted=%s',
-            header.num_values,
-            header.encoding.name,
-            header.is_sorted,
-        )
-        return header
+        return fields
 
-    def read_page_data(self, header: PageHeader) -> bytes:
+    def read_page_data(self, page: AnyPage) -> bytes:
         """
         Read page data bytes following the header.
 
@@ -302,12 +325,12 @@ class PageParser(BaseParser):
         - Decompression happens later using the column's compression codec
 
         Args:
-            header: PageHeader containing size information
+            page: Page containing size information
 
         Returns:
             Raw page data bytes (potentially compressed)
         """
-        data_size = header.compressed_page_size
+        data_size = page.compressed_page_size
         logger.debug('Reading %d bytes of page data', data_size)
 
         data = self.parser.read(data_size)

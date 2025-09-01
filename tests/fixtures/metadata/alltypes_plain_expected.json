@@ -12,7 +12,7 @@
         {
           "page_type": 0,
           "start_offset": 49,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 11,
           "uncompressed_page_size": 11,
           "crc": null,
@@ -20,29 +20,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 4,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 32,
         "uncompressed_page_size": 32,
         "crc": null,
         "num_values": 8,
         "encoding": 2,
-        "metadata": {
-          "num_values": 8,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -55,7 +46,7 @@
         {
           "page_type": 0,
           "start_offset": 109,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 7,
           "uncompressed_page_size": 7,
           "crc": null,
@@ -63,12 +54,7 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 0,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
@@ -84,7 +70,7 @@
         {
           "page_type": 0,
           "start_offset": 189,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -92,29 +78,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 168,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 8,
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -127,7 +104,7 @@
         {
           "page_type": 0,
           "start_offset": 277,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -135,29 +112,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 256,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 8,
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -170,7 +138,7 @@
         {
           "page_type": 0,
           "start_offset": 366,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -178,29 +146,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 345,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 8,
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -213,7 +172,7 @@
         {
           "page_type": 0,
           "start_offset": 458,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -221,29 +180,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 429,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 16,
         "uncompressed_page_size": 16,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -256,7 +206,7 @@
         {
           "page_type": 0,
           "start_offset": 545,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -264,29 +214,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 524,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 8,
         "uncompressed_page_size": 8,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -299,7 +240,7 @@
         {
           "page_type": 0,
           "start_offset": 639,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -307,29 +248,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 610,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 16,
         "uncompressed_page_size": 16,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -342,7 +274,7 @@
         {
           "page_type": 0,
           "start_offset": 766,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 10,
           "uncompressed_page_size": 10,
           "crc": null,
@@ -350,29 +282,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 705,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 48,
         "uncompressed_page_size": 48,
         "crc": null,
         "num_values": 4,
         "encoding": 2,
-        "metadata": {
-          "num_values": 4,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -385,7 +308,7 @@
         {
           "page_type": 0,
           "start_offset": 863,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
@@ -393,29 +316,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 840,
-        "page_header_size": 13,
+        "header_size": 13,
         "compressed_page_size": 10,
         "uncompressed_page_size": 10,
         "crc": null,
         "num_values": 2,
         "encoding": 2,
-        "metadata": {
-          "num_values": 2,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     },
     {
@@ -428,7 +342,7 @@
         {
           "page_type": 0,
           "start_offset": 1040,
-          "page_header_size": 17,
+          "header_size": 17,
           "compressed_page_size": 11,
           "uncompressed_page_size": 11,
           "crc": null,
@@ -436,29 +350,20 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "metadata": {
-            "num_values": 8,
-            "encoding": 2,
-            "definition_level_encoding": 3,
-            "repetition_level_encoding": 4
-          }
+          "statistics": null
         }
       ],
       "index_pages": [],
       "dictionary_page": {
         "page_type": 2,
         "start_offset": 929,
-        "page_header_size": 15,
+        "header_size": 15,
         "compressed_page_size": 96,
         "uncompressed_page_size": 96,
         "crc": null,
         "num_values": 8,
         "encoding": 2,
-        "metadata": {
-          "num_values": 8,
-          "encoding": 2,
-          "is_sorted": null
-        }
+        "is_sorted": false
       }
     }
   ],

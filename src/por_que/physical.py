@@ -13,11 +13,10 @@ from typing import Any, Literal, Self, assert_never
 from . import logical
 from ._version import get_version
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
-from .enums import Compression, Encoding, PageType
+from .enums import Compression
 from .exceptions import ParquetFormatError
+from .pages import AnyDataPage, DataPageV1, DataPageV2, DictionaryPage, IndexPage, Page
 from .parsers.parquet.metadata import MetadataParser
-from .parsers.parquet.page import PageParser
-from .parsers.thrift.parser import ThriftCompactParser
 from .protocols import ReadableSeekable
 from .serialization import create_converter, structure_single_data_page
 
@@ -25,210 +24,6 @@ from .serialization import create_converter, structure_single_data_page
 class AsdictTarget(StrEnum):
     DICT = 'dict'
     JSON = 'json'
-
-
-@dataclass(frozen=True)
-class PageLayout:
-    """Generic representation of a page, the smallest unit of storage."""
-
-    page_type: PageType
-    start_offset: int
-    page_header_size: int
-    compressed_page_size: int
-    uncompressed_page_size: int
-    crc: int | None
-
-    @classmethod
-    def from_reader(
-        cls,
-        reader: ReadableSeekable,
-        offset: int,
-        schema_context: logical.SchemaElement,
-    ) -> AnyPageLayout:
-        """Factory method to parse and return the correct Page subtype."""
-        reader.seek(offset)
-
-        # Read page header using existing infrastructure
-        # Read a reasonably sized buffer, assuming headers are not huge.
-        # 8KB should be more than enough for any page header.
-        header_buffer = reader.read(8192)
-        parser = ThriftCompactParser(header_buffer)
-        page_parser = PageParser(parser, schema_context)
-
-        page_header = page_parser.read_page_header()
-        header_size = parser.pos  # Size of the header we just read
-
-        # Delegate to appropriate subclass based on page type
-        match page_header.type:
-            case PageType.DICTIONARY_PAGE:
-                return DictionaryPageLayout._from_header(
-                    page_header,
-                    offset,
-                    header_size,
-                )
-            case PageType.DATA_PAGE:
-                return DataPageV1Layout._from_header(
-                    page_header,
-                    offset,
-                    header_size,
-                )
-            case PageType.DATA_PAGE_V2:
-                return DataPageV2Layout._from_header(
-                    page_header,
-                    offset,
-                    header_size,
-                )
-            case PageType.INDEX_PAGE:
-                return IndexPageLayout._from_header(
-                    page_header,
-                    offset,
-                    header_size,
-                )
-            case _:
-                raise ValueError(f'Unknown page type: {page_header.type}')
-
-
-@dataclass(frozen=True)
-class DictionaryPageLayout(PageLayout):
-    """A page containing dictionary-encoded values."""
-
-    num_values: int
-    encoding: Encoding
-    metadata: logical.DictionaryPageHeader
-
-    @classmethod
-    def _from_header(
-        cls,
-        page_header: logical.PageHeader,
-        offset: int,
-        header_size: int,
-    ) -> Self:
-        """Create DictionaryPageLayout from parsed page header."""
-        dict_header = page_header.dictionary_page_header
-        if dict_header is None:
-            raise ValueError('Missing dictionary page header')
-
-        return cls(
-            page_type=page_header.type,
-            start_offset=offset,
-            page_header_size=header_size,
-            compressed_page_size=page_header.compressed_page_size,
-            uncompressed_page_size=page_header.uncompressed_page_size,
-            crc=page_header.crc,
-            num_values=dict_header.num_values,
-            encoding=dict_header.encoding,
-            metadata=dict_header,
-        )
-
-
-@dataclass(frozen=True)
-class DataPageV1Layout(PageLayout):
-    """A version 1 data page."""
-
-    num_values: int
-    encoding: Encoding
-    definition_level_encoding: Encoding
-    repetition_level_encoding: Encoding
-    metadata: logical.DataPageHeader
-
-    @classmethod
-    def _from_header(
-        cls,
-        page_header: logical.PageHeader,
-        offset: int,
-        header_size: int,
-    ) -> Self:
-        """Create DataPageV1Layout from parsed page header."""
-        data_header = page_header.data_page_header
-        if data_header is None:
-            raise ValueError('Missing data page header')
-
-        return cls(
-            page_type=page_header.type,
-            start_offset=offset,
-            page_header_size=header_size,
-            compressed_page_size=page_header.compressed_page_size,
-            uncompressed_page_size=page_header.uncompressed_page_size,
-            crc=page_header.crc,
-            num_values=data_header.num_values,
-            encoding=data_header.encoding,
-            definition_level_encoding=data_header.definition_level_encoding,
-            repetition_level_encoding=data_header.repetition_level_encoding,
-            metadata=data_header,
-        )
-
-
-@dataclass(frozen=True)
-class DataPageV2Layout(PageLayout):
-    """A version 2 data page."""
-
-    num_values: int
-    num_nulls: int
-    num_rows: int
-    encoding: Encoding
-    definition_levels_byte_length: int
-    repetition_levels_byte_length: int
-    statistics: Any | None
-    metadata: logical.DataPageHeaderV2
-
-    @classmethod
-    def _from_header(
-        cls,
-        page_header: logical.PageHeader,
-        offset: int,
-        header_size: int,
-    ) -> Self:
-        """Create DataPageV2Layout from parsed page header."""
-        data_header_v2 = page_header.data_page_header_v2
-        if data_header_v2 is None:
-            raise ValueError('Missing data page header v2')
-
-        return cls(
-            page_type=page_header.type,
-            start_offset=offset,
-            page_header_size=header_size,
-            compressed_page_size=page_header.compressed_page_size,
-            uncompressed_page_size=page_header.uncompressed_page_size,
-            crc=page_header.crc,
-            num_values=data_header_v2.num_values,
-            num_nulls=data_header_v2.num_nulls,
-            num_rows=data_header_v2.num_rows,
-            encoding=data_header_v2.encoding,
-            definition_levels_byte_length=data_header_v2.definition_levels_byte_length,
-            repetition_levels_byte_length=data_header_v2.repetition_levels_byte_length,
-            statistics=None,  # TODO: Parse statistics if present
-            metadata=data_header_v2,
-        )
-
-
-@dataclass(frozen=True)
-class IndexPageLayout(PageLayout):
-    """A page containing row group and offset statistics."""
-
-    page_locations: Any | None
-
-    @classmethod
-    def _from_header(
-        cls,
-        page_header: logical.PageHeader,
-        offset: int,
-        header_size: int,
-    ) -> Self:
-        """Create IndexPageLayout from parsed page header."""
-        return cls(
-            page_type=page_header.type,
-            start_offset=offset,
-            page_header_size=header_size,
-            compressed_page_size=page_header.compressed_page_size,
-            uncompressed_page_size=page_header.uncompressed_page_size,
-            crc=page_header.crc,
-            page_locations=None,  # TODO: Parse page locations if needed
-        )
-
-
-AnyPageLayout = (
-    DictionaryPageLayout | DataPageV1Layout | DataPageV2Layout | IndexPageLayout
-)
 
 
 @dataclass(frozen=True)
@@ -240,9 +35,9 @@ class PhysicalColumnChunk:
     total_byte_size: int
     codec: Compression
     num_values: int
-    data_pages: list[DataPageV1Layout | DataPageV2Layout]
-    index_pages: list[IndexPageLayout]
-    dictionary_page: DictionaryPageLayout | None
+    data_pages: list[AnyDataPage]
+    index_pages: list[IndexPage]
+    dictionary_page: DictionaryPage | None
     metadata: logical.ColumnChunk
 
     @classmethod
@@ -269,24 +64,24 @@ class PhysicalColumnChunk:
 
         # Read all pages sequentially within the column chunk's byte range
         while current_offset < chunk_end_offset:
-            page = PageLayout.from_reader(reader, current_offset, schema_context)
+            page = Page.from_reader(reader, current_offset, schema_context)
 
             # Sort pages by type
-            if isinstance(page, DictionaryPageLayout):
+            if isinstance(page, DictionaryPage):
                 if dictionary_page is not None:
                     raise ValueError('Multiple dictionary pages found in column chunk')
                 dictionary_page = page
             elif isinstance(
                 page,
-                DataPageV1Layout | DataPageV2Layout,
+                DataPageV1 | DataPageV2,
             ):
                 data_pages.append(page)
-            elif isinstance(page, IndexPageLayout):
+            elif isinstance(page, IndexPage):
                 index_pages.append(page)
 
             # Move to next page using the page size information
             current_offset = (
-                page.start_offset + page.page_header_size + page.compressed_page_size
+                page.start_offset + page.header_size + page.compressed_page_size
             )
 
         return cls(
@@ -453,12 +248,11 @@ class ParquetFile:
                     if isinstance(p, dict)
                 ],
                 index_pages=[
-                    converter.structure(p, IndexPageLayout)
-                    for p in chunk_data['index_pages']
+                    converter.structure(p, IndexPage) for p in chunk_data['index_pages']
                 ],
                 dictionary_page=converter.structure(
                     chunk_data['dictionary_page'],
-                    DictionaryPageLayout,
+                    DictionaryPage,
                 )
                 if chunk_data.get('dictionary_page')
                 else None,
