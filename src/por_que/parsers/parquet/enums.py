@@ -11,6 +11,10 @@ class SchemaElementFieldId(IntEnum):
     NAME = 4
     NUM_CHILDREN = 5
     CONVERTED_TYPE = 6
+    SCALE = 7
+    PRECISION = 8
+    FIELD_ID = 9
+    LOGICAL_TYPE = 10
 
 
 class ColumnMetadataFieldId(IntEnum):

@@ -10,9 +10,32 @@ Teaching Points:
 
 import logging
 
-from por_que.enums import ConvertedType, Repetition, Type
+from por_que.enums import ConvertedType, LogicalType, Repetition, TimeUnit, Type
 from por_que.exceptions import ThriftParsingError
-from por_que.logical import SchemaElement, SchemaGroup, SchemaLeaf, SchemaRoot
+from por_que.logical import (
+    BsonTypeInfo,
+    DateTypeInfo,
+    DecimalTypeInfo,
+    EnumTypeInfo,
+    Float16TypeInfo,
+    GeographyTypeInfo,
+    GeometryTypeInfo,
+    IntTypeInfo,
+    JsonTypeInfo,
+    ListTypeInfo,
+    LogicalTypeInfo,
+    MapTypeInfo,
+    SchemaElement,
+    SchemaGroup,
+    SchemaLeaf,
+    SchemaRoot,
+    StringTypeInfo,
+    TimestampTypeInfo,
+    TimeTypeInfo,
+    UnknownTypeInfo,
+    UuidTypeInfo,
+    VariantTypeInfo,
+)
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -33,7 +56,7 @@ class SchemaParser(BaseParser):
     - Repetition types (REQUIRED, OPTIONAL, REPEATED) control nullability and arrays
     """
 
-    def read_schema_element(self) -> SchemaRoot | SchemaGroup | SchemaLeaf:
+    def read_schema_element(self) -> SchemaRoot | SchemaGroup | SchemaLeaf:  # noqa: C901
         """
         Read a single SchemaElement struct from the Thrift stream.
 
@@ -54,6 +77,10 @@ class SchemaParser(BaseParser):
         repetition: Repetition | None = None
         num_children: int | None = None
         converted_type: ConvertedType | None = None
+        scale: int | None = None
+        precision: int | None = None
+        field_id: int | None = None
+        logical_type: LogicalTypeInfo | None = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -81,6 +108,14 @@ class SchemaParser(BaseParser):
                     num_children = value
                 case SchemaElementFieldId.CONVERTED_TYPE:
                     converted_type = ConvertedType(value)
+                case SchemaElementFieldId.SCALE:
+                    scale = value
+                case SchemaElementFieldId.PRECISION:
+                    precision = value
+                case SchemaElementFieldId.FIELD_ID:
+                    field_id = value
+                case SchemaElementFieldId.LOGICAL_TYPE:
+                    logical_type = self._parse_logical_type()
                 case _:
                     # This case is not strictly necessary since `read_value`
                     # already skipped unknown fields, but it's good practice.
@@ -93,6 +128,10 @@ class SchemaParser(BaseParser):
             repetition=repetition,
             num_children=num_children,
             converted_type=converted_type,
+            scale=scale,
+            precision=precision,
+            field_id=field_id,
+            logical_type=logical_type,
         )
 
         logger.debug('Read schema element: %s', element)
@@ -176,3 +215,150 @@ class SchemaParser(BaseParser):
         elements_iter = iter(schema_elements)
         self.read_schema_tree(elements_iter)
         return schema_root
+
+    def _parse_logical_type(self) -> LogicalTypeInfo | None:  # noqa: C901
+        """
+        Parse a LogicalType union from the Thrift stream.
+
+        The LogicalType is a union with different types for different logical types.
+        Each union variant has its own field ID and structure.
+        """
+        struct_parser = ThriftStructParser(self.parser)
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+            if field_type == ThriftFieldType.STOP:
+                break
+
+            value = struct_parser.read_value(field_type)
+            if value is None:
+                # Complex type that needs special handling
+                match field_id:
+                    case LogicalType.STRING:
+                        return StringTypeInfo()
+                    case LogicalType.INTEGER:
+                        return self._parse_int_type()
+                    case LogicalType.DECIMAL:
+                        return self._parse_decimal_type()
+                    case LogicalType.TIME:
+                        return self._parse_time_type()
+                    case LogicalType.TIMESTAMP:
+                        return self._parse_timestamp_type()
+                    case LogicalType.DATE:
+                        return DateTypeInfo()
+                    case LogicalType.ENUM:
+                        return EnumTypeInfo()
+                    case LogicalType.JSON:
+                        return JsonTypeInfo()
+                    case LogicalType.BSON:
+                        return BsonTypeInfo()
+                    case LogicalType.UUID:
+                        return UuidTypeInfo()
+                    case LogicalType.FLOAT16:
+                        return Float16TypeInfo()
+                    case LogicalType.MAP:
+                        return MapTypeInfo()
+                    case LogicalType.LIST:
+                        return ListTypeInfo()
+                    case LogicalType.VARIANT:
+                        return VariantTypeInfo()
+                    case LogicalType.GEOMETRY:
+                        return GeometryTypeInfo()
+                    case LogicalType.GEOGRAPHY:
+                        return GeographyTypeInfo()
+                    case LogicalType.UNKNOWN:
+                        return UnknownTypeInfo()
+                    case _:
+                        # Unknown type, skip it
+                        continue
+            else:
+                # Simple value, shouldn't happen for union types
+                continue
+
+        return None
+
+    def _parse_int_type(self) -> IntTypeInfo:
+        """Parse an IntType struct."""
+        struct_parser = ThriftStructParser(self.parser)
+        bit_width = 32
+        is_signed = True
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+            if field_type == ThriftFieldType.STOP:
+                break
+
+            value = struct_parser.read_value(field_type)
+            if value is not None:
+                match field_id:
+                    case 1:  # bitWidth
+                        bit_width = value
+                    case 2:  # isSigned
+                        is_signed = value
+
+        return IntTypeInfo(bit_width=bit_width, is_signed=is_signed)
+
+    def _parse_decimal_type(self) -> DecimalTypeInfo:
+        """Parse a DecimalType struct."""
+        struct_parser = ThriftStructParser(self.parser)
+        scale = 0
+        precision = 10
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+            if field_type == ThriftFieldType.STOP:
+                break
+
+            value = struct_parser.read_value(field_type)
+            if value is not None:
+                match field_id:
+                    case 1:  # scale
+                        scale = value
+                    case 2:  # precision
+                        precision = value
+
+        return DecimalTypeInfo(scale=scale, precision=precision)
+
+    def _parse_time_type(self) -> TimeTypeInfo:
+        """Parse a TimeType struct."""
+        struct_parser = ThriftStructParser(self.parser)
+        is_adjusted_to_utc = False
+        unit = TimeUnit.MILLIS
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+            if field_type == ThriftFieldType.STOP:
+                break
+
+            value = struct_parser.read_value(field_type)
+            if value is not None:
+                match field_id:
+                    case 1:  # isAdjustedToUTC
+                        is_adjusted_to_utc = value
+                    case 2:  # unit (TimeUnit union)
+                        # Map int values to TimeUnit enum
+                        unit = TimeUnit(value)
+
+        return TimeTypeInfo(is_adjusted_to_utc=is_adjusted_to_utc, unit=unit)
+
+    def _parse_timestamp_type(self) -> TimestampTypeInfo:
+        """Parse a TimestampType struct."""
+        struct_parser = ThriftStructParser(self.parser)
+        is_adjusted_to_utc = False
+        unit = TimeUnit.MILLIS
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+            if field_type == ThriftFieldType.STOP:
+                break
+
+            value = struct_parser.read_value(field_type)
+            if value is not None:
+                match field_id:
+                    case 1:  # isAdjustedToUTC
+                        is_adjusted_to_utc = value
+                    case 2:  # unit (TimeUnit union)
+                        # Map int values to TimeUnit enum
+                        unit = TimeUnit(value)
+
+        return TimestampTypeInfo(is_adjusted_to_utc=is_adjusted_to_utc, unit=unit)

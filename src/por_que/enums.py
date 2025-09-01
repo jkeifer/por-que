@@ -112,6 +112,58 @@ class PageType(IntEnum):
     DATA_PAGE_V2 = 3
 
 
+class LogicalType(IntEnum):
+    """Parquet logical types (logicalType field)."""
+
+    STRING = 1
+    MAP = 2
+    LIST = 3
+    ENUM = 4
+    DECIMAL = 5
+    DATE = 6
+    TIME = 7
+    TIMESTAMP = 8
+    INTEGER = 10
+    UNKNOWN = 11
+    JSON = 12
+    BSON = 13
+    UUID = 14
+    FLOAT16 = 15
+    VARIANT = 16
+    GEOMETRY = 17
+    GEOGRAPHY = 18
+
+
+class GroupLogicalType(IntEnum):
+    MAP = 2
+    LIST = 3
+
+
+class ColumnLogicalType(IntEnum):
+    STRING = 1
+    ENUM = 4
+    DECIMAL = 5
+    DATE = 6
+    TIME = 7
+    TIMESTAMP = 8
+    INTEGER = 10
+    JSON = 12
+    BSON = 13
+    UUID = 14
+    FLOAT16 = 15
+    VARIANT = 16
+    GEOMETRY = 17
+    GEOGRAPHY = 18
+
+
+class TimeUnit(IntEnum):
+    """Time units for TIME and TIMESTAMP logical types."""
+
+    MILLIS = 1
+    MICROS = 2
+    NANOS = 3
+
+
 class SchemaElementType(StrEnum):
     """Internal type to classify schema elements."""
 

@@ -383,7 +383,11 @@
             "type": 1,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "bool_col": {
             "element_type": "column",
@@ -391,7 +395,11 @@
             "type": 0,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "tinyint_col": {
             "element_type": "column",
@@ -399,7 +407,11 @@
             "type": 1,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "smallint_col": {
             "element_type": "column",
@@ -407,7 +419,11 @@
             "type": 1,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "int_col": {
             "element_type": "column",
@@ -415,7 +431,11 @@
             "type": 1,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "bigint_col": {
             "element_type": "column",
@@ -423,7 +443,11 @@
             "type": 2,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "float_col": {
             "element_type": "column",
@@ -431,7 +455,11 @@
             "type": 4,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "double_col": {
             "element_type": "column",
@@ -439,7 +467,11 @@
             "type": 5,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "date_string_col": {
             "element_type": "column",
@@ -447,7 +479,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "string_col": {
             "element_type": "column",
@@ -455,7 +491,11 @@
             "type": 6,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           },
           "timestamp_col": {
             "element_type": "column",
@@ -463,7 +503,11 @@
             "type": 3,
             "repetition": 1,
             "converted_type": null,
-            "type_length": null
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
           }
         }
       },

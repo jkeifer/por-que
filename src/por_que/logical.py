@@ -5,12 +5,16 @@ from typing import Self
 
 from .enums import (
     ColumnConvertedType,
+    ColumnLogicalType,
     Compression,
     ConvertedType,
     Encoding,
     GroupConvertedType,
+    GroupLogicalType,
+    LogicalType,
     Repetition,
     SchemaElementType,
+    TimeUnit,
     Type,
 )
 
@@ -47,6 +51,140 @@ class CompressionStats:
         return self.total_uncompressed / (1024 * 1024)
 
 
+@dataclass(frozen=True)
+class LogicalTypeInfo:
+    """Base class for logical type information."""
+
+    logical_type: LogicalType
+
+
+@dataclass(frozen=True)
+class StringTypeInfo(LogicalTypeInfo):
+    """String logical type."""
+
+    logical_type: LogicalType = LogicalType.STRING
+
+
+@dataclass(frozen=True)
+class IntTypeInfo(LogicalTypeInfo):
+    """Integer logical type with bit width and signedness."""
+
+    logical_type: LogicalType = LogicalType.INTEGER
+    bit_width: int = 32
+    is_signed: bool = True
+
+
+@dataclass(frozen=True)
+class DecimalTypeInfo(LogicalTypeInfo):
+    """Decimal logical type with scale and precision."""
+
+    logical_type: LogicalType = LogicalType.DECIMAL
+    scale: int = 0
+    precision: int = 10
+
+
+@dataclass(frozen=True)
+class TimeTypeInfo(LogicalTypeInfo):
+    """Time logical type with unit and UTC adjustment."""
+
+    logical_type: LogicalType = LogicalType.TIME
+    is_adjusted_to_utc: bool = False
+    unit: TimeUnit = TimeUnit.MILLIS
+
+
+@dataclass(frozen=True)
+class TimestampTypeInfo(LogicalTypeInfo):
+    """Timestamp logical type with unit and UTC adjustment."""
+
+    logical_type: LogicalType = LogicalType.TIMESTAMP
+    is_adjusted_to_utc: bool = False
+    unit: TimeUnit = TimeUnit.MILLIS
+
+
+@dataclass(frozen=True)
+class DateTypeInfo(LogicalTypeInfo):
+    """Date logical type."""
+
+    logical_type: LogicalType = LogicalType.DATE
+
+
+@dataclass(frozen=True)
+class EnumTypeInfo(LogicalTypeInfo):
+    """Enum logical type."""
+
+    logical_type: LogicalType = LogicalType.ENUM
+
+
+@dataclass(frozen=True)
+class JsonTypeInfo(LogicalTypeInfo):
+    """JSON logical type."""
+
+    logical_type: LogicalType = LogicalType.JSON
+
+
+@dataclass(frozen=True)
+class BsonTypeInfo(LogicalTypeInfo):
+    """BSON logical type."""
+
+    logical_type: LogicalType = LogicalType.BSON
+
+
+@dataclass(frozen=True)
+class UuidTypeInfo(LogicalTypeInfo):
+    """UUID logical type."""
+
+    logical_type: LogicalType = LogicalType.UUID
+
+
+@dataclass(frozen=True)
+class Float16TypeInfo(LogicalTypeInfo):
+    """Float16 logical type."""
+
+    logical_type: LogicalType = LogicalType.FLOAT16
+
+
+@dataclass(frozen=True)
+class MapTypeInfo(LogicalTypeInfo):
+    """Map logical type."""
+
+    logical_type: LogicalType = LogicalType.MAP
+
+
+@dataclass(frozen=True)
+class ListTypeInfo(LogicalTypeInfo):
+    """List logical type."""
+
+    logical_type: LogicalType = LogicalType.LIST
+
+
+@dataclass(frozen=True)
+class VariantTypeInfo(LogicalTypeInfo):
+    """Variant logical type."""
+
+    logical_type: LogicalType = LogicalType.VARIANT
+
+
+@dataclass(frozen=True)
+class GeometryTypeInfo(LogicalTypeInfo):
+    """Geometry logical type."""
+
+    logical_type: LogicalType = LogicalType.GEOMETRY
+
+
+@dataclass(frozen=True)
+class GeographyTypeInfo(LogicalTypeInfo):
+    """Geography logical type."""
+
+    logical_type: LogicalType = LogicalType.GEOGRAPHY
+
+
+@dataclass(frozen=True)
+class UnknownTypeInfo(LogicalTypeInfo):
+    """Unknown logical type."""
+
+    logical_type: LogicalType = LogicalType.UNKNOWN
+
+
 @dataclass(frozen=True, kw_only=True)
 class SchemaElement:
     element_type: SchemaElementType
@@ -60,6 +198,62 @@ class SchemaElement:
         extra_str = f': {" ".join(extra)}' if extra else None
         return f'{self.element_type}({self.name}{extra_str})'
 
+    def get_logical_type(self) -> LogicalTypeInfo | None:
+        """Get the logical type, prioritizing logical_type field over converted_type."""
+        if hasattr(self, 'logical_type') and self.logical_type is not None:
+            return self.logical_type
+
+        # Fallback to converting converted_type to logical equivalent
+        if hasattr(self, 'converted_type'):
+            return self._converted_type_to_logical_type(
+                self.converted_type,
+                getattr(self, 'scale', None),
+                getattr(self, 'precision', None),
+            )
+
+        return None
+
+    @staticmethod
+    def _converted_type_to_logical_type(
+        converted_type: ConvertedType | None,
+        scale: int | None = None,
+        precision: int | None = None,
+    ) -> LogicalTypeInfo | None:
+        """Convert a ConvertedType to a LogicalTypeInfo for backward compatibility."""
+        if converted_type is None:
+            return None
+
+        mapping = {
+            ConvertedType.UTF8: StringTypeInfo(),
+            ConvertedType.MAP: MapTypeInfo(),
+            ConvertedType.LIST: ListTypeInfo(),
+            ConvertedType.ENUM: EnumTypeInfo(),
+            ConvertedType.DATE: DateTypeInfo(),
+            ConvertedType.JSON: JsonTypeInfo(),
+            ConvertedType.BSON: BsonTypeInfo(),
+            ConvertedType.TIME_MILLIS: TimeTypeInfo(unit=TimeUnit.MILLIS),
+            ConvertedType.TIME_MICROS: TimeTypeInfo(unit=TimeUnit.MICROS),
+            ConvertedType.TIMESTAMP_MILLIS: TimestampTypeInfo(unit=TimeUnit.MILLIS),
+            ConvertedType.TIMESTAMP_MICROS: TimestampTypeInfo(unit=TimeUnit.MICROS),
+            ConvertedType.INT_8: IntTypeInfo(bit_width=8, is_signed=True),
+            ConvertedType.INT_16: IntTypeInfo(bit_width=16, is_signed=True),
+            ConvertedType.INT_32: IntTypeInfo(bit_width=32, is_signed=True),
+            ConvertedType.INT_64: IntTypeInfo(bit_width=64, is_signed=True),
+            ConvertedType.UINT_8: IntTypeInfo(bit_width=8, is_signed=False),
+            ConvertedType.UINT_16: IntTypeInfo(bit_width=16, is_signed=False),
+            ConvertedType.UINT_32: IntTypeInfo(bit_width=32, is_signed=False),
+            ConvertedType.UINT_64: IntTypeInfo(bit_width=64, is_signed=False),
+        }
+
+        # Special handling for DECIMAL which uses scale and precision
+        if converted_type == ConvertedType.DECIMAL:
+            return DecimalTypeInfo(
+                scale=scale or 0,
+                precision=precision or 10,
+            )
+
+        return mapping.get(converted_type)
+
     @staticmethod
     def new(
         name: str | None,
@@ -68,13 +262,26 @@ class SchemaElement:
         repetition: Repetition | None,
         num_children: int | None,
         converted_type: ConvertedType | None,
+        scale: int | None = None,
+        precision: int | None = None,
+        field_id: int | None = None,
+        logical_type: LogicalTypeInfo | None = None,
     ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
+        # Check type compatibility for column/leaf element
+        is_column_converted_type = (
+            converted_type is None or converted_type in ColumnConvertedType
+        )
+        is_column_logical_type = (
+            logical_type is None or logical_type.logical_type in ColumnLogicalType
+        )
+
         if (
             name
             and num_children is None
             and repetition is not None
             and type is not None
-            and (converted_type is None or converted_type in ColumnConvertedType)
+            and is_column_converted_type
+            and is_column_logical_type
         ):
             return SchemaLeaf(
                 name=name,
@@ -82,20 +289,35 @@ class SchemaElement:
                 type_length=type_length,
                 repetition=repetition,
                 converted_type=converted_type,
+                scale=scale,
+                precision=precision,
+                field_id=field_id,
+                logical_type=logical_type,
             )
+
+        # Check type compatibility for group element
+        is_group_converted_type = (
+            converted_type is None or converted_type in GroupConvertedType
+        )
+        is_group_logical_type = (
+            logical_type is None or logical_type.logical_type in GroupLogicalType
+        )
 
         if (
             name
-            and (converted_type is None or converted_type in GroupConvertedType)
+            and is_group_converted_type
             and num_children is not None
             and repetition is not None
             and type is None
+            and is_group_logical_type
         ):
             return SchemaGroup(
                 name=name,
                 repetition=repetition,
                 num_children=num_children,
                 converted_type=converted_type,
+                field_id=field_id,
+                logical_type=logical_type,
             )
 
         if (
@@ -104,6 +326,7 @@ class SchemaElement:
             and num_children is not None
             and repetition is None
             and type is None
+            and logical_type is None
         ):
             return SchemaRoot(
                 name=name,
@@ -199,6 +422,8 @@ class SchemaRoot(BaseSchemaGroup):
 class SchemaGroup(BaseSchemaGroup):
     repetition: Repetition
     converted_type: ConvertedType | None
+    field_id: int | None = None
+    logical_type: LogicalTypeInfo | None = None
 
     def _repr_extra(self) -> list[str]:
         return [
@@ -214,6 +439,10 @@ class SchemaLeaf(SchemaElement):
     repetition: Repetition
     converted_type: ConvertedType | None
     type_length: int | None = None
+    scale: int | None = None
+    precision: int | None = None
+    field_id: int | None = None
+    logical_type: LogicalTypeInfo | None = None
 
     def _repr_extra(self) -> list[str]:
         return [
