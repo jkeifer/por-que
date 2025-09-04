@@ -3,7 +3,7 @@ import logging
 
 from collections.abc import Callable
 
-from intervaltree import Interval, IntervalTree
+from por_que.util.interval_tree import BinningIntervalTree, Interval
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ class FileReadCache:
             raise ValueError('File size cannot be less than zero')
 
         self.file_size = file_size
-        self.cache = IntervalTree()
+        self.cache = BinningIntervalTree[bytes](bin_size=minimum_request_size)
         self._fetcher = fetch_range
         self._minimum_request_size = minimum_request_size
 
@@ -34,14 +34,14 @@ class FileReadCache:
         Resets the cache, clearing all stored data and intervals.
         """
         logger.debug('Clearing all cached data')
-        self.cache = IntervalTree()
+        self.cache.clear()
 
     def _store_and_merge(self, start, end, chunk):
         """
         Stores a new chunk of data and merges it with any adjacent or
         overlapping chunks in the cache.
         """
-        overlapping = self.cache[start - 1 : end + 1]
+        overlapping = self.cache.find_overlapping(start - 1, end + 1)
         min_start = start
         max_end = end
         parts = {start: chunk}
@@ -59,7 +59,7 @@ class FileReadCache:
         self.cache.add(Interval(min_start, max_end, merged_data.getvalue()))
         logger.debug(
             '--- CACHE UPDATE: Cache now contains: %s',
-            [iv[:2] for iv in sorted(self.cache)],
+            [(iv.begin, iv.end) for iv in sorted(self.cache)],
         )
 
     def _fetch_range(self, start: int, end: int) -> None:
@@ -69,19 +69,22 @@ class FileReadCache:
         """
         more = self._minimum_request_size - (end - start)
 
-        if more > 0 and not self.cache[end]:
-            # stretch request forward to get more bytes up to max
-            # but not encroaching into data we already have
-            _next = sorted(self.cache[end:])
-            right_wall = _next[0].begin if _next else self.file_size
+        if more > 0:
+            overlapping = self.cache.find_overlapping(
+                end,
+                min(self.file_size, end + self._minimum_request_size),
+            )
+            right_wall = overlapping[0].begin if overlapping else self.file_size
             end = min(end + more, right_wall)
             more = self._minimum_request_size - (end - start)
 
-        if more > 0 and not self.cache[start]:
-            # stretch request backwards to get more bytes up to max
-            # but not encroaching into data we already have
-            _previous = sorted(self.cache[:start], reverse=True)
-            left_wall = _previous[0].end if _previous else 0
+        if more > 0:
+            overlapping = self.cache.find_overlapping(
+                max(0, start - self._minimum_request_size),
+                start,
+                sort_by_end=True,
+            )
+            left_wall = overlapping[0].end if overlapping else 0
             start = max(start - more, left_wall)
 
         chunk = self._fetcher(start, end)
@@ -89,19 +92,19 @@ class FileReadCache:
 
     def _find_missing_ranges(self, start: int, end: int) -> list[Interval]:
         """
-        A simple, robust method to find "holes" in the cache.
+        A simple, robust method to find '''holes''' in the cache.
         """
         missing: list[Interval] = []
-        relevant_intervals = sorted(self.cache[start:end])
+        relevant_intervals = sorted(self.cache.find_overlapping(start, end))
         pos = start
 
         for interval in relevant_intervals:
             if pos < interval.begin:
-                missing.append(Interval(pos, interval.begin))
+                missing.append(Interval(pos, interval.begin, None))
             pos = max(pos, interval.end)
 
         if pos < end:
-            missing.append(Interval(pos, end))
+            missing.append(Interval(pos, end, None))
 
         return missing
 
@@ -125,7 +128,7 @@ class FileReadCache:
         else:
             logger.debug(
                 'CACHE MISS: Missing intervals are: %s',
-                [iv[:2] for iv in missing_intervals],
+                [(iv.begin, iv.end) for iv in missing_intervals],
             )
             for interval in missing_intervals:
                 # Check if the interval (or part of it) has been filled
@@ -138,7 +141,7 @@ class FileReadCache:
                     self._fetch_range(gap.begin, gap.end)
 
         result_buffer = io.BytesIO()
-        cached_chunks = sorted(self.cache[start:end])
+        cached_chunks = sorted(self.cache.find_overlapping(start, end))
 
         for interval in cached_chunks:
             read_start = max(start, interval.begin)
