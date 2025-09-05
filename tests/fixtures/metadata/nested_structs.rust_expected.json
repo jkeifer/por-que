@@ -18128,11 +18128,30 @@
             }
           },
           "total_byte_size": 17712,
-          "row_count": 1
+          "row_count": 1,
+          "compression_stats": {
+            "total_compressed": 17712,
+            "total_uncompressed": 13824,
+            "ratio": 1.28125,
+            "space_saved_percent": -28.125,
+            "compressed_mb": 0.0168914794921875,
+            "uncompressed_mb": 0.01318359375
+          }
         }
       ],
       "created_by": "UrbanLogiq",
-      "key_value_metadata": {}
+      "key_value_metadata": {},
+      "compression_stats": {
+        "total_compressed": 17712,
+        "total_uncompressed": 13824,
+        "ratio": 1.28125,
+        "space_saved_percent": -28.125,
+        "compressed_mb": 0.0168914794921875,
+        "uncompressed_mb": 0.01318359375
+      },
+      "column_count": 216,
+      "row_count": 1,
+      "row_group_count": 1
     }
   },
   "magic_header": "PAR1",

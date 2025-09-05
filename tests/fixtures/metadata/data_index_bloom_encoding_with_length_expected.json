@@ -118,7 +118,15 @@
             }
           },
           "total_byte_size": 199,
-          "row_count": 14
+          "row_count": 14,
+          "compression_stats": {
+            "total_compressed": 199,
+            "total_uncompressed": 199,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.00018978118896484375,
+            "uncompressed_mb": 0.00018978118896484375
+          }
         }
       ],
       "created_by": "parquet-rs version 49.0.0",
@@ -126,7 +134,18 @@
         "parquet.avro.schema": "{\"type\":\"record\",\"name\":\"data\",\"fields\":[{\"name\":\"String\",\"type\":[\"null\",\"string\"],\"doc\":\"Type inferred from 'Hello'\",\"default\":null}]}",
         "writer.model.name": "avro",
         "ARROW:schema": "/////3AAAAAQAAAAAAAKAAwACgAJAAQACgAAABAAAAAAAQQACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUABAADgAPAAQAAAAIABAAAAAYAAAADAAAAAAAAQUQAAAAAAAAAAQABAAEAAAABgAAAFN0cmluZwAA"
-      }
+      },
+      "compression_stats": {
+        "total_compressed": 199,
+        "total_uncompressed": 199,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.00018978118896484375,
+        "uncompressed_mb": 0.00018978118896484375
+      },
+      "column_count": 1,
+      "row_count": 14,
+      "row_group_count": 1
     }
   },
   "magic_header": "PAR1",

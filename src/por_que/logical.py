@@ -2,8 +2,16 @@ from __future__ import annotations
 
 import warnings
 
-from dataclasses import asdict, dataclass, field
-from typing import Self
+from functools import cached_property
+from typing import Annotated, Literal, Self
+
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Discriminator,
+    Field,
+    computed_field,
+)
 
 from .enums import (
     BoundaryOrder,
@@ -22,14 +30,16 @@ from .enums import (
 )
 
 
-@dataclass(frozen=True)
-class CompressionStats:
+class CompressionStats(BaseModel):
     """Compression statistics for data."""
+
+    model_config = ConfigDict(frozen=True)
 
     total_compressed: int
     total_uncompressed: int
 
-    @property
+    @computed_field
+    @cached_property
     def ratio(self) -> float:
         """Compression ratio (compressed/uncompressed)."""
         return (
@@ -38,158 +48,195 @@ class CompressionStats:
             else 0.0
         )
 
-    @property
+    @computed_field
+    @cached_property
     def space_saved_percent(self) -> float:
         """Percentage of space saved by compression."""
         return (1 - self.ratio) * 100 if self.total_uncompressed > 0 else 0.0
 
-    @property
+    @computed_field
+    @cached_property
     def compressed_mb(self) -> float:
         """Compressed size in MB."""
         return self.total_compressed / (1024 * 1024)
 
-    @property
+    @computed_field
+    @cached_property
     def uncompressed_mb(self) -> float:
         """Uncompressed size in MB."""
         return self.total_uncompressed / (1024 * 1024)
 
 
-@dataclass(frozen=True)
-class LogicalTypeInfo:
+class LogicalTypeInfo(BaseModel):
     """Base class for logical type information."""
+
+    model_config = ConfigDict(frozen=True)
 
     logical_type: LogicalType
 
 
-@dataclass(frozen=True)
 class StringTypeInfo(LogicalTypeInfo):
     """String logical type."""
 
-    logical_type: LogicalType = LogicalType.STRING
+    logical_type: Literal[LogicalType.STRING] = LogicalType.STRING
 
 
-@dataclass(frozen=True)
 class IntTypeInfo(LogicalTypeInfo):
     """Integer logical type with bit width and signedness."""
 
-    logical_type: LogicalType = LogicalType.INTEGER
+    logical_type: Literal[LogicalType.INTEGER] = LogicalType.INTEGER
     bit_width: int = 32
     is_signed: bool = True
 
 
-@dataclass(frozen=True)
 class DecimalTypeInfo(LogicalTypeInfo):
     """Decimal logical type with scale and precision."""
 
-    logical_type: LogicalType = LogicalType.DECIMAL
+    logical_type: Literal[LogicalType.DECIMAL] = LogicalType.DECIMAL
     scale: int = 0
     precision: int = 10
 
 
-@dataclass(frozen=True)
 class TimeTypeInfo(LogicalTypeInfo):
     """Time logical type with unit and UTC adjustment."""
 
-    logical_type: LogicalType = LogicalType.TIME
+    logical_type: Literal[LogicalType.TIME] = LogicalType.TIME
     is_adjusted_to_utc: bool = False
     unit: TimeUnit = TimeUnit.MILLIS
 
 
-@dataclass(frozen=True)
 class TimestampTypeInfo(LogicalTypeInfo):
     """Timestamp logical type with unit and UTC adjustment."""
 
-    logical_type: LogicalType = LogicalType.TIMESTAMP
+    logical_type: Literal[LogicalType.TIMESTAMP] = LogicalType.TIMESTAMP
     is_adjusted_to_utc: bool = False
     unit: TimeUnit = TimeUnit.MILLIS
 
 
-@dataclass(frozen=True)
 class DateTypeInfo(LogicalTypeInfo):
     """Date logical type."""
 
-    logical_type: LogicalType = LogicalType.DATE
+    logical_type: Literal[LogicalType.DATE] = LogicalType.DATE
 
 
-@dataclass(frozen=True)
 class EnumTypeInfo(LogicalTypeInfo):
     """Enum logical type."""
 
-    logical_type: LogicalType = LogicalType.ENUM
+    logical_type: Literal[LogicalType.ENUM] = LogicalType.ENUM
 
 
-@dataclass(frozen=True)
 class JsonTypeInfo(LogicalTypeInfo):
     """JSON logical type."""
 
-    logical_type: LogicalType = LogicalType.JSON
+    logical_type: Literal[LogicalType.JSON] = LogicalType.JSON
 
 
-@dataclass(frozen=True)
 class BsonTypeInfo(LogicalTypeInfo):
     """BSON logical type."""
 
-    logical_type: LogicalType = LogicalType.BSON
+    logical_type: Literal[LogicalType.BSON] = LogicalType.BSON
 
 
-@dataclass(frozen=True)
 class UuidTypeInfo(LogicalTypeInfo):
     """UUID logical type."""
 
-    logical_type: LogicalType = LogicalType.UUID
+    logical_type: Literal[LogicalType.UUID] = LogicalType.UUID
 
 
-@dataclass(frozen=True)
 class Float16TypeInfo(LogicalTypeInfo):
     """Float16 logical type."""
 
-    logical_type: LogicalType = LogicalType.FLOAT16
+    logical_type: Literal[LogicalType.FLOAT16] = LogicalType.FLOAT16
 
 
-@dataclass(frozen=True)
 class MapTypeInfo(LogicalTypeInfo):
     """Map logical type."""
 
-    logical_type: LogicalType = LogicalType.MAP
+    logical_type: Literal[LogicalType.MAP] = LogicalType.MAP
 
 
-@dataclass(frozen=True)
 class ListTypeInfo(LogicalTypeInfo):
     """List logical type."""
 
-    logical_type: LogicalType = LogicalType.LIST
+    logical_type: Literal[LogicalType.LIST] = LogicalType.LIST
 
 
-@dataclass(frozen=True)
 class VariantTypeInfo(LogicalTypeInfo):
     """Variant logical type."""
 
-    logical_type: LogicalType = LogicalType.VARIANT
+    logical_type: Literal[LogicalType.VARIANT] = LogicalType.VARIANT
 
 
-@dataclass(frozen=True)
 class GeometryTypeInfo(LogicalTypeInfo):
     """Geometry logical type."""
 
-    logical_type: LogicalType = LogicalType.GEOMETRY
+    logical_type: Literal[LogicalType.GEOMETRY] = LogicalType.GEOMETRY
 
 
-@dataclass(frozen=True)
 class GeographyTypeInfo(LogicalTypeInfo):
     """Geography logical type."""
 
-    logical_type: LogicalType = LogicalType.GEOGRAPHY
+    logical_type: Literal[LogicalType.GEOGRAPHY] = LogicalType.GEOGRAPHY
 
 
-@dataclass(frozen=True)
 class UnknownTypeInfo(LogicalTypeInfo):
     """Unknown logical type."""
 
-    logical_type: LogicalType = LogicalType.UNKNOWN
+    logical_type: Literal[LogicalType.UNKNOWN] = LogicalType.UNKNOWN
 
 
-@dataclass(frozen=True, kw_only=True)
-class SchemaElement:
+LogicalTypeInfoUnion = (
+    StringTypeInfo
+    | IntTypeInfo
+    | DecimalTypeInfo
+    | TimeTypeInfo
+    | TimestampTypeInfo
+    | DateTypeInfo
+    | EnumTypeInfo
+    | JsonTypeInfo
+    | BsonTypeInfo
+    | UuidTypeInfo
+    | Float16TypeInfo
+    | MapTypeInfo
+    | ListTypeInfo
+    | VariantTypeInfo
+    | GeometryTypeInfo
+    | GeographyTypeInfo
+    | UnknownTypeInfo
+)
+
+LogicalTypeInfoDiscriminated = Annotated[
+    LogicalTypeInfoUnion,
+    Discriminator('logical_type'),
+]
+
+
+CONVERTED_TYPE_TO_LOGICAL_TYPE: dict[ConvertedType, LogicalTypeInfo] = {
+    ConvertedType.UTF8: StringTypeInfo(),
+    ConvertedType.MAP: MapTypeInfo(),
+    ConvertedType.LIST: ListTypeInfo(),
+    ConvertedType.ENUM: EnumTypeInfo(),
+    ConvertedType.DATE: DateTypeInfo(),
+    ConvertedType.JSON: JsonTypeInfo(),
+    ConvertedType.BSON: BsonTypeInfo(),
+    ConvertedType.TIME_MILLIS: TimeTypeInfo(unit=TimeUnit.MILLIS),
+    ConvertedType.TIME_MICROS: TimeTypeInfo(unit=TimeUnit.MICROS),
+    ConvertedType.TIMESTAMP_MILLIS: TimestampTypeInfo(unit=TimeUnit.MILLIS),
+    ConvertedType.TIMESTAMP_MICROS: TimestampTypeInfo(unit=TimeUnit.MICROS),
+    ConvertedType.INT_8: IntTypeInfo(bit_width=8, is_signed=True),
+    ConvertedType.INT_16: IntTypeInfo(bit_width=16, is_signed=True),
+    ConvertedType.INT_32: IntTypeInfo(bit_width=32, is_signed=True),
+    ConvertedType.INT_64: IntTypeInfo(bit_width=64, is_signed=True),
+    ConvertedType.UINT_8: IntTypeInfo(bit_width=8, is_signed=False),
+    ConvertedType.UINT_16: IntTypeInfo(bit_width=16, is_signed=False),
+    ConvertedType.UINT_32: IntTypeInfo(bit_width=32, is_signed=False),
+    ConvertedType.UINT_64: IntTypeInfo(bit_width=64, is_signed=False),
+}
+
+
+class SchemaElement(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
     element_type: SchemaElementType
     name: str
 
@@ -226,28 +273,6 @@ class SchemaElement:
         if converted_type is None:
             return None
 
-        mapping = {
-            ConvertedType.UTF8: StringTypeInfo(),
-            ConvertedType.MAP: MapTypeInfo(),
-            ConvertedType.LIST: ListTypeInfo(),
-            ConvertedType.ENUM: EnumTypeInfo(),
-            ConvertedType.DATE: DateTypeInfo(),
-            ConvertedType.JSON: JsonTypeInfo(),
-            ConvertedType.BSON: BsonTypeInfo(),
-            ConvertedType.TIME_MILLIS: TimeTypeInfo(unit=TimeUnit.MILLIS),
-            ConvertedType.TIME_MICROS: TimeTypeInfo(unit=TimeUnit.MICROS),
-            ConvertedType.TIMESTAMP_MILLIS: TimestampTypeInfo(unit=TimeUnit.MILLIS),
-            ConvertedType.TIMESTAMP_MICROS: TimestampTypeInfo(unit=TimeUnit.MICROS),
-            ConvertedType.INT_8: IntTypeInfo(bit_width=8, is_signed=True),
-            ConvertedType.INT_16: IntTypeInfo(bit_width=16, is_signed=True),
-            ConvertedType.INT_32: IntTypeInfo(bit_width=32, is_signed=True),
-            ConvertedType.INT_64: IntTypeInfo(bit_width=64, is_signed=True),
-            ConvertedType.UINT_8: IntTypeInfo(bit_width=8, is_signed=False),
-            ConvertedType.UINT_16: IntTypeInfo(bit_width=16, is_signed=False),
-            ConvertedType.UINT_32: IntTypeInfo(bit_width=32, is_signed=False),
-            ConvertedType.UINT_64: IntTypeInfo(bit_width=64, is_signed=False),
-        }
-
         # Special handling for DECIMAL which uses scale and precision
         if converted_type == ConvertedType.DECIMAL:
             return DecimalTypeInfo(
@@ -255,7 +280,7 @@ class SchemaElement:
                 precision=precision or 10,
             )
 
-        return mapping.get(converted_type)
+        return CONVERTED_TYPE_TO_LOGICAL_TYPE.get(converted_type)
 
     @staticmethod
     def new(
@@ -268,7 +293,7 @@ class SchemaElement:
         scale: int | None = None,
         precision: int | None = None,
         field_id: int | None = None,
-        logical_type: LogicalTypeInfo | None = None,
+        logical_type: LogicalTypeInfoUnion | None = None,
     ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         # Check type compatibility for column/leaf element
         is_column_converted_type = (
@@ -370,11 +395,10 @@ class SchemaElement:
         )
 
 
-@dataclass(frozen=True, kw_only=True)
 class BaseSchemaGroup(SchemaElement):
     element_type: SchemaElementType = SchemaElementType.GROUP
     num_children: int
-    children: dict[str, SchemaGroup | SchemaLeaf] = field(default_factory=dict)
+    children: dict[str, SchemaGroup | SchemaLeaf] = Field(default_factory=dict)
 
     def count_leaf_columns(self) -> int:
         """Count all columns (leaves) in this schema element and its children."""
@@ -442,17 +466,15 @@ class BaseSchemaGroup(SchemaElement):
         return result
 
 
-@dataclass(frozen=True, kw_only=True)
 class SchemaRoot(BaseSchemaGroup):
     element_type: SchemaElementType = SchemaElementType.ROOT
 
 
-@dataclass(frozen=True, kw_only=True)
 class SchemaGroup(BaseSchemaGroup):
     repetition: Repetition
     converted_type: ConvertedType | None
     field_id: int | None = None
-    logical_type: LogicalTypeInfo | None = None
+    logical_type: LogicalTypeInfoUnion | None = None
 
     def _repr_extra(self) -> list[str]:
         return [
@@ -461,7 +483,6 @@ class SchemaGroup(BaseSchemaGroup):
         ]
 
 
-@dataclass(frozen=True, kw_only=True)
 class SchemaLeaf(SchemaElement):
     element_type: SchemaElementType = SchemaElementType.COLUMN
     type: Type
@@ -471,7 +492,7 @@ class SchemaLeaf(SchemaElement):
     scale: int | None = None
     precision: int | None = None
     field_id: int | None = None
-    logical_type: LogicalTypeInfo | None = None
+    logical_type: LogicalTypeInfoUnion | None = None
 
     def _repr_extra(self) -> list[str]:
         return [
@@ -481,34 +502,38 @@ class SchemaLeaf(SchemaElement):
         ]
 
 
-@dataclass(frozen=True)
-class ColumnStatistics:
+class ColumnStatistics(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
     min_value: str | int | float | bool | None = None
     max_value: str | int | float | bool | None = None
     null_count: int | None = None
     distinct_count: int | None = None
 
 
-@dataclass(frozen=True)
-class PageLocation:
+class PageLocation(BaseModel):
     """Location information for a page within a column chunk."""
+
+    model_config = ConfigDict(frozen=True)
 
     offset: int  # File offset of the page
     compressed_page_size: int  # Compressed size of the page
     first_row_index: int  # First row index of the page
 
 
-@dataclass(frozen=True)
-class OffsetIndex:
+class OffsetIndex(BaseModel):
     """Index containing page locations and sizes for efficient seeking."""
+
+    model_config = ConfigDict(frozen=True)
 
     page_locations: list[PageLocation]
     unencoded_byte_array_data_bytes: list[int] | None = None
 
 
-@dataclass(frozen=True)
-class ColumnIndex:
+class ColumnIndex(BaseModel):
     """Index containing min/max statistics and null information for pages."""
+
+    model_config = ConfigDict(frozen=True)
 
     null_pages: list[bool]  # Which pages are all null
     min_values: list[bytes]  # Raw min values for each page
@@ -519,9 +544,10 @@ class ColumnIndex:
     definition_level_histograms: list[int] | None = None
 
 
-@dataclass(frozen=True)
-class ColumnMetadata:
+class ColumnMetadata(BaseModel):
     """Detailed metadata about column chunk content and encoding."""
+
+    model_config = ConfigDict(frozen=True)
 
     type: Type
     encodings: list[Encoding]
@@ -541,9 +567,10 @@ class ColumnMetadata:
     offset_index: OffsetIndex | None = None
 
 
-@dataclass(frozen=True)
-class ColumnChunk:
+class ColumnChunk(BaseModel):
     """File-level organization of column chunk."""
+
+    model_config = ConfigDict(frozen=True)
 
     file_offset: int
     metadata: ColumnMetadata
@@ -573,116 +600,113 @@ class ColumnChunk:
     # the actual Parquet metadata model, but provide these accessors for a
     # more logical and convenient API experience.
 
-    @property
+    @cached_property
     def type(self) -> Type:
         return self.metadata.type
 
-    @property
+    @cached_property
     def encodings(self) -> list[Encoding]:
         return self.metadata.encodings
 
-    @property
+    @cached_property
     def path_in_schema(self) -> str:
         return self.metadata.path_in_schema
 
-    @property
+    @cached_property
     def codec(self) -> Compression:
         return self.metadata.codec
 
-    @property
+    @cached_property
     def num_values(self) -> int:
         return self.metadata.num_values
 
-    @property
+    @cached_property
     def total_uncompressed_size(self) -> int:
         return self.metadata.total_uncompressed_size
 
-    @property
+    @cached_property
     def total_compressed_size(self) -> int:
         return self.metadata.total_compressed_size
 
-    @property
+    @cached_property
     def data_page_offset(self) -> int:
         return self.metadata.data_page_offset
 
-    @property
+    @cached_property
     def dictionary_page_offset(self) -> int | None:
         return self.metadata.dictionary_page_offset
 
-    @property
+    @cached_property
     def index_page_offset(self) -> int | None:
         return self.metadata.index_page_offset
 
-    @property
+    @cached_property
     def statistics(self) -> ColumnStatistics | None:
         return self.metadata.statistics
 
-    @property
+    @cached_property
     def column_index_offset(self) -> int | None:
         return self.metadata.column_index_offset
 
-    @property
+    @cached_property
     def column_index_length(self) -> int | None:
         return self.metadata.column_index_length
 
-    @property
+    @cached_property
     def column_index(self) -> ColumnIndex | None:
         return self.metadata.column_index
 
-    @property
+    @cached_property
     def offset_index(self) -> OffsetIndex | None:
         return self.metadata.offset_index
 
 
-@dataclass(frozen=True)
-class RowGroup:
+class RowGroup(BaseModel):
     """Logical representation of row group metadata."""
+
+    model_config = ConfigDict(frozen=True)
 
     column_chunks: dict[str, ColumnChunk]
     total_byte_size: int
     row_count: int
-    compression_stats: CompressionStats = field(init=False)
 
-    def __post_init__(self) -> None:
+    @computed_field
+    @cached_property
+    def compression_stats(self) -> CompressionStats:
         total_compressed = 0
         total_uncompressed = 0
         for col in self.column_chunks.values():
             total_compressed += col.total_compressed_size
             total_uncompressed += col.total_uncompressed_size
 
-        object.__setattr__(
-            self,
-            'compression_stats',
-            CompressionStats(
-                total_compressed=total_compressed,
-                total_uncompressed=total_uncompressed,
-            ),
+        return CompressionStats(
+            total_compressed=total_compressed,
+            total_uncompressed=total_uncompressed,
         )
 
-    @property
+    @cached_property
     def column_names(self) -> list[str]:
         return list(self.column_chunks.keys())
 
-    @property
+    @cached_property
     def column_count(self) -> int:
         return len(self.column_chunks)
 
 
-@dataclass(frozen=True)
-class FileMetadata:
+class FileMetadata(BaseModel):
     """Logical representation of file metadata."""
 
+    model_config = ConfigDict(frozen=True)
+
     version: int
-    schema: SchemaRoot
+    schema_root: SchemaRoot = Field(alias='schema')
     row_groups: list[RowGroup]
     created_by: str | None = None
-    key_value_metadata: dict[str, str] = field(default_factory=dict)
-    compression_stats: CompressionStats = field(init=False)
-    column_count: int = field(init=False)
-    row_count: int = field(init=False)
-    row_group_count: int = field(init=False)
+    key_value_metadata: dict[str, str] = Field(default_factory=dict)
 
-    def __post_init__(self) -> None:
+    @computed_field
+    @cached_property
+    def compression_stats(self) -> CompressionStats:
         """Calculate overall file statistics."""
         total_compressed = 0
         total_uncompressed = 0
@@ -690,22 +714,25 @@ class FileMetadata:
             total_compressed += rg.compression_stats.total_compressed
             total_uncompressed += rg.compression_stats.total_uncompressed
 
-        object.__setattr__(self, 'column_count', self.schema.count_leaf_columns())
-        object.__setattr__(
-            self,
-            'row_count',
-            sum(rg.row_count for rg in self.row_groups),
+        return CompressionStats(
+            total_compressed=total_compressed,
+            total_uncompressed=total_uncompressed,
         )
-        object.__setattr__(self, 'row_group_count', len(self.row_groups))
 
-        object.__setattr__(
-            self,
-            'compression_stats',
-            CompressionStats(
-                total_compressed=total_compressed,
-                total_uncompressed=total_uncompressed,
-            ),
-        )
+    @computed_field
+    @cached_property
+    def column_count(self) -> int:
+        return self.schema_root.count_leaf_columns()
+
+    @computed_field
+    @cached_property
+    def row_count(self) -> int:
+        return sum(rg.row_count for rg in self.row_groups)
+
+    @computed_field
+    @cached_property
+    def row_group_count(self) -> int:
+        return len(self.row_groups)
 
     def to_dict(self) -> dict:
-        return asdict(self)
+        return self.model_dump(by_alias=True)

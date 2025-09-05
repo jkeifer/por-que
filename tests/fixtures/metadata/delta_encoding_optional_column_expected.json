@@ -1261,11 +1261,30 @@
             }
           },
           "total_byte_size": 9485,
-          "row_count": 100
+          "row_count": 100,
+          "compression_stats": {
+            "total_compressed": 9485,
+            "total_uncompressed": 9485,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.009045600891113281,
+            "uncompressed_mb": 0.009045600891113281
+          }
         }
       ],
       "created_by": "parquet-mr version 1.10.0 (build 031a6654009e3b82020012a18434c582bd74c73a)",
-      "key_value_metadata": {}
+      "key_value_metadata": {},
+      "compression_stats": {
+        "total_compressed": 9485,
+        "total_uncompressed": 9485,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.009045600891113281,
+        "uncompressed_mb": 0.009045600891113281
+      },
+      "column_count": 17,
+      "row_count": 100,
+      "row_group_count": 1
     }
   },
   "magic_header": "PAR1",

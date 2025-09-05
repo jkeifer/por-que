@@ -802,11 +802,30 @@
             }
           },
           "total_byte_size": 671,
-          "row_count": 8
+          "row_count": 8,
+          "compression_stats": {
+            "total_compressed": 671,
+            "total_uncompressed": 671,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.0006399154663085938,
+            "uncompressed_mb": 0.0006399154663085938
+          }
         }
       ],
       "created_by": "impala version 1.3.0-INTERNAL (build 8a48ddb1eff84592b3fc06bc6f51ec120e1fffc9)",
-      "key_value_metadata": {}
+      "key_value_metadata": {},
+      "compression_stats": {
+        "total_compressed": 671,
+        "total_uncompressed": 671,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.0006399154663085938,
+        "uncompressed_mb": 0.0006399154663085938
+      },
+      "column_count": 11,
+      "row_count": 8,
+      "row_group_count": 1
     }
   },
   "magic_header": "PAR1",
