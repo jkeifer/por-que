@@ -164,6 +164,9 @@ class ParquetExplorer {
             // Validate the JSON structure matches our schema
             this.validateParquetJSON(data);
 
+            // Add the source to the data object
+            data.source = source;
+
             this.parquetData = data;
 
             // Show the explorer interface
@@ -212,8 +215,6 @@ class ParquetExplorer {
         try {
             console.log('Parsed data:', this.parquetData);
 
-            // Update overview
-            this.updateOverview(this.parquetData);
 
             // Update schema
             this.updateSchema(this.parquetData.metadata.metadata.schema);
@@ -271,95 +272,19 @@ class ParquetExplorer {
         }
     }
 
-    /**
-     * Update the overview tab
-     */
-    updateOverview(data) {
-        const fileStats = document.getElementById('file-stats');
-        const schemaStats = document.getElementById('schema-stats');
-        const compressionStats = document.getElementById('compression-stats');
-
-        const metadata = data.metadata.metadata;
-
-        fileStats.innerHTML = `
-            <div class="stat">
-                <label>Source:</label>
-                <span>${data.source}</span>
-            </div>
-            <div class="stat">
-                <label>Size:</label>
-                <span>${formatBytes(data.filesize)}</span>
-            </div>
-            <div class="stat">
-                <label>Parquet Version:</label>
-                <span>${metadata.version}</span>
-            </div>
-            <div class="stat">
-                <label>Created By:</label>
-                <span>${metadata.created_by || 'Unknown'}</span>
-            </div>
-        `;
-
-        const schema = metadata.schema;
-        schemaStats.innerHTML = `
-            <div class="stat">
-                <label>Root Name:</label>
-                <span>${schema.name}</span>
-            </div>
-            <div class="stat">
-                <label>Columns:</label>
-                <span>${metadata.column_count || 'N/A'}</span>
-            </div>
-            <div class="stat">
-                <label>Rows:</label>
-                <span>${metadata.row_count ? metadata.row_count.toLocaleString() : 'N/A'}</span>
-            </div>
-            <div class="stat">
-                <label>Row Groups:</label>
-                <span>${metadata.row_group_count || 'N/A'}</span>
-            </div>
-        `;
-
-        const compressionInfo = metadata.compression_stats;
-        if (compressionInfo) {
-            compressionStats.innerHTML = `
-                <div class="stat">
-                    <label>Compressed Size:</label>
-                    <span>${formatBytes(compressionInfo.total_compressed || 0)}</span>
-                </div>
-                <div class="stat">
-                    <label>Uncompressed Size:</label>
-                    <span>${formatBytes(compressionInfo.total_uncompressed || 0)}</span>
-                </div>
-                <div class="stat">
-                    <label>Compression Ratio:</label>
-                    <span>${compressionInfo.ratio ? (compressionInfo.ratio * 100).toFixed(1) + '%' : 'N/A'}</span>
-                </div>
-                <div class="stat">
-                    <label>Space Saved:</label>
-                    <span>${compressionInfo.space_saved_percent ? compressionInfo.space_saved_percent.toFixed(1) + '%' : 'N/A'}</span>
-                </div>
-            `;
-        } else {
-            compressionStats.innerHTML = `
-                <div class="stat">
-                    <label>Compression Info:</label>
-                    <span>Not Available</span>
-                </div>
-            `;
-        }
-    }
 
     /**
      * Update the schema tab
      */
     updateSchema(schema) {
         const schemaTree = document.getElementById('schema-tree');
-        if (typeof SchemaTree !== 'undefined') {
-            const tree = new SchemaTree(schemaTree);
-            tree.render(schema);
-        } else {
-            schemaTree.innerHTML = this.renderSchemaNode(schema);
+        if (schemaTree) {
+            if (typeof SchemaTree !== 'undefined') {
+                const tree = new SchemaTree(schemaTree);
+                tree.render(schema);
+            } else {
+                schemaTree.innerHTML = this.renderSchemaNode(schema);
+            }
         }
     }
 

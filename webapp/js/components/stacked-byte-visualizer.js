@@ -42,10 +42,14 @@ class StackedByteRangeVisualizer {
      */
     initWithData(data) {
         try {
+            this.data = data; // Store the original data
             this.analyzer = new FileStructureAnalyzer(data);
 
             // Start with overview level
             this.addLevel('overview', null, this.analyzer.getSegmentsForLevel('overview'));
+
+            // Show file overview in info panel by default
+            this.updateInfoPanel(null);
 
         } catch (error) {
             console.error('Error initializing file structure analyzer:', error);
@@ -125,7 +129,7 @@ class StackedByteRangeVisualizer {
         });
 
         // Add tick marks
-        this.addTickMarks(barDiv, segments, minStart, totalSize);
+        // Tick marks removed for cleaner visualization
 
         levelDiv.appendChild(barDiv);
         return levelDiv;
@@ -436,58 +440,6 @@ class StackedByteRangeVisualizer {
         return levelHierarchy[parentLevelName] || null;
     }
 
-    /**
-     * Add tick marks to a level bar
-     */
-    addTickMarks(barDiv, segments, rangeStart, rangeSize) {
-        const containerWidth = barDiv.offsetWidth;
-        const tickPositions = new Set();
-
-        // Add tick at start
-        tickPositions.add(rangeStart);
-
-        // Add ticks for segment boundaries
-        segments.forEach(segment => {
-            tickPositions.add(segment.start);
-            tickPositions.add(segment.end);
-        });
-
-        // Convert to sorted array and filter for reasonable spacing
-        const sortedPositions = Array.from(tickPositions).sort((a, b) => a - b);
-        const filteredPositions = this.filterTickPositions(sortedPositions, rangeStart, rangeSize);
-
-        filteredPositions.forEach(position => {
-            const tickDiv = document.createElement('div');
-            tickDiv.className = 'byte-tick';
-
-            const leftPercent = ((position - rangeStart) / rangeSize) * 100;
-            tickDiv.style.left = leftPercent + '%';
-            tickDiv.textContent = formatBytes(position);
-
-            barDiv.appendChild(tickDiv);
-        });
-    }
-
-    /**
-     * Filter tick positions to avoid overcrowding
-     */
-    filterTickPositions(positions, rangeStart, rangeSize) {
-        if (positions.length <= 6) return positions;
-
-        // Keep start and end, then select evenly spaced positions
-        const filtered = [positions[0]];
-        const step = Math.floor(positions.length / 5);
-
-        for (let i = step; i < positions.length - 1; i += step) {
-            filtered.push(positions[i]);
-        }
-
-        if (positions.length > 1) {
-            filtered.push(positions[positions.length - 1]);
-        }
-
-        return filtered;
-    }
 
     /**
      * Create tooltip
@@ -566,15 +518,16 @@ class StackedByteRangeVisualizer {
      * Update info panel
      */
     updateInfoPanel(segment) {
-        if (!segment) {
-            this.infoPanel.style.display = 'none';
-            return;
-        }
-
         this.infoPanel.style.display = 'block';
 
-        // Generate organized content based on segment type
-        let html = `<h4>${segment.description}</h4>`;
+        let html;
+
+        if (!segment) {
+            // Show file overview when no segment is selected
+            html = this.generateOverviewInfoPanel();
+        } else {
+            // Generate organized content based on segment type
+            html = `<h4>${segment.description}</h4>`;
 
         if (segment.type === 'column' && segment.logicalMetadata?.metadata) {
             html += this.generateColumnInfoPanel(segment);
@@ -586,11 +539,66 @@ class StackedByteRangeVisualizer {
             html += this.generatePageInfoPanel(segment, 'Dictionary Page');
         } else if (segment.type === 'index' && segment.metadata) {
             html += this.generatePageInfoPanel(segment, 'Index Page');
-        } else {
-            html += this.generateBasicInfoPanel(segment);
+        } else if (segment.type === 'metadata') {
+            html += this.generateMetadataInfoPanel(segment);
+            } else {
+                html += this.generateBasicInfoPanel(segment);
+            }
         }
 
         this.infoPanel.innerHTML = html;
+    }
+
+    /**
+     * Generate overview info panel when no segment is selected
+     */
+    generateOverviewInfoPanel() {
+        let html = '<h4>File Overview</h4><div class="info-sections">';
+
+        const data = this.data;
+        const metadata = this.data?.metadata?.metadata;
+
+        if (!data || !metadata) {
+            html += this.generateInfoSection('Information', [
+                ['Status', 'No file data available']
+            ]);
+            html += '</div>';
+            return html;
+        }
+
+        // File Information
+        html += this.generateInfoSection('File Information', [
+            ['Source', data.source || 'Unknown'],
+            ['Total Size', formatBytes(data.filesize || 0)],
+            ['Parquet Version', metadata.version || 'Unknown'],
+            ['Created By', metadata.created_by || 'Unknown']
+        ]);
+
+        // Schema Summary
+        const schema = metadata.schema;
+        if (schema) {
+            html += this.generateInfoSection('Schema Summary', [
+                ['Total Columns', metadata.column_count ? metadata.column_count.toLocaleString() : 'N/A'],
+                ['Total Rows', metadata.row_count ? metadata.row_count.toLocaleString() : 'N/A'],
+                ['Row Groups', metadata.row_group_count ? metadata.row_group_count.toLocaleString() : 'N/A']
+            ]);
+        }
+
+        // Compression Statistics
+        if (metadata.compression_stats) {
+            const compressionStats = metadata.compression_stats;
+            html += this.generateInfoSection('Compression', [
+                ['Compressed Size', formatBytes(compressionStats.total_compressed || 0)],
+                ['Uncompressed Size', formatBytes(compressionStats.total_uncompressed || 0)],
+                ['Compression Ratio', compressionStats.ratio ?
+                    (compressionStats.ratio * 100).toFixed(1) + '%' : 'N/A'],
+                ['Space Saved', compressionStats.space_saved_percent ?
+                    compressionStats.space_saved_percent.toFixed(1) + '%' : 'N/A']
+            ]);
+        }
+
+        html += '</div>';
+        return html;
     }
 
     /**
@@ -790,6 +798,90 @@ class StackedByteRangeVisualizer {
 
         html += '</div>';
         return html;
+    }
+
+    /**
+     * Generate organized info panel for metadata segments
+     */
+    generateMetadataInfoPanel(segment) {
+        let html = '<div class="info-sections">';
+
+        // Basic Information
+        html += this.generateInfoSection('Basic Information', [
+            ['Start Offset', formatBytes(segment.start)],
+            ['End Offset', formatBytes(segment.end)],
+            ['Size', formatBytes(segment.size)]
+        ]);
+
+        // Check if we have metadata available through the analyzer
+        const metadata = this.analyzer?.metadata;
+        if (!metadata) {
+            html += this.generateInfoSection('Debug Info', [
+                ['Analyzer Available', this.analyzer ? 'Yes' : 'No'],
+                ['Analyzer Data', this.analyzer?.data ? 'Yes' : 'No'],
+                ['Metadata Available', this.analyzer?.metadata ? 'Yes' : 'No']
+            ]);
+            html += '</div>';
+            return html;
+        }
+
+        // File Information
+        const fileInfo = [
+            ['Version', metadata.version || 'Unknown'],
+            ['Created By', metadata.created_by || 'Unknown'],
+            ['Columns', metadata.column_count || 'N/A'],
+            ['Rows', metadata.row_count ? metadata.row_count.toLocaleString() : 'N/A'],
+            ['Row Groups', metadata.row_group_count || 'N/A']
+        ];
+        html += this.generateInfoSection('File Metadata', fileInfo);
+
+        // Schema Information
+        if (metadata.schema) {
+            const schemaInfo = [
+                ['Root Name', metadata.schema.name],
+                ['Element Type', metadata.schema.element_type || 'group'],
+                ['Repetition Type', this.getRepetitionType(metadata.schema.repetition_type)],
+                ['Children Count', metadata.schema.children ? Object.keys(metadata.schema.children).length : 0]
+            ];
+            html += this.generateInfoSection('Schema Structure', schemaInfo);
+        }
+
+        // Compression Statistics
+        if (metadata.compression_stats) {
+            const compressionInfo = [
+                ['Total Compressed', formatBytes(metadata.compression_stats.total_compressed || 0)],
+                ['Total Uncompressed', formatBytes(metadata.compression_stats.total_uncompressed || 0)],
+                ['Compression Ratio', metadata.compression_stats.ratio ?
+                    (metadata.compression_stats.ratio * 100).toFixed(1) + '%' : 'N/A'],
+                ['Space Saved', metadata.compression_stats.space_saved_percent ?
+                    metadata.compression_stats.space_saved_percent.toFixed(1) + '%' : 'N/A']
+            ];
+            html += this.generateInfoSection('Compression Statistics', compressionInfo);
+        }
+
+        // Key-Value Metadata
+        if (metadata.key_value_metadata && metadata.key_value_metadata.length > 0) {
+            const kvPairs = metadata.key_value_metadata.map(kv => [
+                kv.key || 'Unknown Key',
+                kv.value ? (kv.value.length > 50 ? kv.value.substring(0, 47) + '...' : kv.value) : 'N/A'
+            ]);
+            html += this.generateInfoSection('Key-Value Metadata', kvPairs);
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    /**
+     * Get repetition type name
+     */
+    getRepetitionType(repetitionType) {
+        const types = {
+            0: 'REQUIRED',
+            1: 'OPTIONAL',
+            2: 'REPEATED'
+        };
+        return types[repetitionType] || `TYPE_${repetitionType}`;
     }
 
     /**

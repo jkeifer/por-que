@@ -6,7 +6,7 @@
     <title>Parquet Explorer - Por Que</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -63,24 +63,10 @@
             <div class="tab-content">
                 <!-- Overview Tab -->
                 <div id="overview-tab" class="tab-pane active">
-                    <div class="overview-grid">
-                        <div class="stats-card">
-                            <h3>File Information</h3>
-                            <div id="file-stats"></div>
-                        </div>
-                        <div class="stats-card">
-                            <h3>Schema Summary</h3>
-                            <div id="schema-stats"></div>
-                        </div>
-                        <div class="stats-card">
-                            <h3>Compression</h3>
-                            <div id="compression-stats"></div>
-                        </div>
-                        <div class="visualization-card file-structure-card">
-                            <h3>Physical File Structure</h3>
-                            <p class="viz-description">Interactive visualization showing the physical layout of data in the parquet file</p>
-                            <div id="rowgroup-chart"></div>
-                        </div>
+                    <div class="visualization-card file-structure-card">
+                        <h3>Physical File Structure</h3>
+                        <p class="viz-description">Interactive visualization showing the physical layout of data in the parquet file</p>
+                        <div id="rowgroup-chart"></div>
                     </div>
                 </div>
 
