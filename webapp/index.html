@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parquet Explorer - Por Que</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Parquet Explorer</h1>
+        <p>Explore Parquet file structure using Por Que library</p>
+    </header>
+
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p id="loading-status">Processing file...</p>
+        </div>
+    </div>
+
+    <main class="app-main" id="app-main" style="display: none;">
+        <!-- File Input Section -->
+        <section id="file-input-section" class="file-input-section">
+            <div class="file-input-container">
+                <div id="drop-zone" class="drop-zone">
+                    <div class="drop-zone-content">
+                        <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17,8 12,3 7,8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <h3>Drop JSON file here</h3>
+                        <p>Or click to browse files</p>
+                        <input type="file" id="file-input" accept=".json" hidden>
+                    </div>
+                </div>
+
+                <div class="url-input-section">
+                    <label for="url-input">Or enter URL to remote JSON file:</label>
+                    <div class="url-input-group">
+                        <input type="url" id="url-input" placeholder="https://example.com/parquet-metadata.json">
+                        <button id="load-url-btn" class="btn btn-primary">Load</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explorer Section (hidden initially) -->
+        <section id="explorer-section" class="explorer-section" style="display: none;">
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="schema">Schema</button>
+                <button class="tab-btn" data-tab="rowgroups">Row Groups</button>
+                <button class="tab-btn" data-tab="columns">Columns</button>
+                <button class="tab-btn" data-tab="pages">Pages</button>
+                <button class="tab-btn" data-tab="metadata">Metadata</button>
+            </nav>
+
+            <div class="tab-content">
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-pane active">
+                    <div class="overview-grid">
+                        <div class="stats-card">
+                            <h3>File Information</h3>
+                            <div id="file-stats"></div>
+                        </div>
+                        <div class="stats-card">
+                            <h3>Schema Summary</h3>
+                            <div id="schema-stats"></div>
+                        </div>
+                        <div class="stats-card">
+                            <h3>Compression</h3>
+                            <div id="compression-stats"></div>
+                        </div>
+                        <div class="visualization-card file-structure-card">
+                            <h3>Physical File Structure</h3>
+                            <p class="viz-description">Interactive visualization showing the physical layout of data in the parquet file</p>
+                            <div id="rowgroup-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schema Tab -->
+                <div id="schema-tab" class="tab-pane">
+                    <div class="schema-explorer">
+                        <div class="schema-controls">
+                            <input type="text" id="schema-search" placeholder="Search schema...">
+                            <button id="expand-all" class="btn btn-sm">Expand All</button>
+                            <button id="collapse-all" class="btn btn-sm">Collapse All</button>
+                        </div>
+                        <div id="schema-tree" class="schema-tree"></div>
+                    </div>
+                </div>
+
+                <!-- Row Groups Tab -->
+                <div id="rowgroups-tab" class="tab-pane">
+                    <div class="rowgroups-explorer">
+                        <div id="rowgroups-table"></div>
+                        <div id="rowgroups-viz"></div>
+                    </div>
+                </div>
+
+                <!-- Columns Tab -->
+                <div id="columns-tab" class="tab-pane">
+                    <div class="columns-explorer">
+                        <div class="column-selector">
+                            <select id="column-select">
+                                <option value="">Select a column...</option>
+                            </select>
+                        </div>
+                        <div id="column-details"></div>
+                    </div>
+                </div>
+
+                <!-- Pages Tab -->
+                <div id="pages-tab" class="tab-pane">
+                    <div class="pages-explorer">
+                        <div id="pages-content"></div>
+                    </div>
+                </div>
+
+                <!-- Metadata Tab -->
+                <div id="metadata-tab" class="tab-pane">
+                    <div class="metadata-explorer">
+                        <div class="metadata-controls">
+                            <input type="text" id="metadata-search" placeholder="Search metadata...">
+                            <button id="export-json" class="btn btn-primary">Export JSON</button>
+                        </div>
+                        <div id="metadata-content"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Section -->
+        <section id="error-section" class="error-section" style="display: none;">
+            <div class="error-content">
+                <h3>Error</h3>
+                <p id="error-message"></p>
+                <button id="reset-btn" class="btn btn-primary">Try Again</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/components/schema-tree.js"></script>
+    <script src="js/components/file-overview.js"></script>
+    <script src="js/components/row-group-viz.js"></script>
+    <script src="js/components/column-details.js"></script>
+    <script src="js/components/column-browser.js"></script>
+    <script src="js/components/rowgroup-browser.js"></script>
+    <script src="js/components/file-structure-analyzer.js"></script>
+    <script src="js/components/stacked-byte-visualizer.js"></script>
+    <script src="js/utils/formatters.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
