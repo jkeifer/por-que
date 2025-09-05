@@ -444,10 +444,6 @@ p {
 }
 
 /* Schema explorer */
-.schema-explorer {
-    max-height: 600px;
-    overflow: auto;
-}
 
 .schema-controls {
     display: flex;
@@ -542,8 +538,6 @@ p {
     font-family: var(--font-mono);
     font-size: 0.8rem;
     white-space: pre-wrap;
-    max-height: 500px;
-    overflow: auto;
     line-height: 1.4;
 }
 
@@ -646,8 +640,6 @@ p {
     border: 1px solid var(--border-light);
     border-radius: var(--border-radius);
     font-size: 0.9rem;
-    max-height: 500px;
-    overflow-y: auto;
 }
 
 .info-panel h4 {

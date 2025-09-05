@@ -60,65 +60,51 @@
                 <button class="tab-btn" data-tab="metadata">Metadata</button>
             </nav>
 
-            <div class="tab-content">
-                <!-- Overview Tab -->
-                <div id="overview-tab" class="tab-pane active">
-                    <div class="visualization-card file-structure-card">
-                        <h3>Physical File Structure</h3>
-                        <p class="viz-description">Interactive visualization showing the physical layout of data in the parquet file</p>
-                        <div id="rowgroup-chart"></div>
-                    </div>
-                </div>
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-pane active">
+                <h3>Physical File Structure</h3>
+                <p class="viz-description">Interactive visualization showing the physical layout of data in the parquet file</p>
+                <div id="rowgroup-chart"></div>
+            </div>
 
-                <!-- Schema Tab -->
-                <div id="schema-tab" class="tab-pane">
-                    <div class="schema-explorer">
-                        <div class="schema-controls">
-                            <input type="text" id="schema-search" placeholder="Search schema...">
-                            <button id="expand-all" class="btn btn-sm">Expand All</button>
-                            <button id="collapse-all" class="btn btn-sm">Collapse All</button>
-                        </div>
-                        <div id="schema-tree" class="schema-tree"></div>
-                    </div>
+            <!-- Schema Tab -->
+            <div id="schema-tab" class="tab-pane">
+                <div class="schema-controls">
+                    <input type="text" id="schema-search" placeholder="Search schema...">
+                    <button id="expand-all" class="btn btn-sm">Expand All</button>
+                    <button id="collapse-all" class="btn btn-sm">Collapse All</button>
                 </div>
+                <div id="schema-tree" class="schema-tree"></div>
+            </div>
 
-                <!-- Row Groups Tab -->
-                <div id="rowgroups-tab" class="tab-pane">
-                    <div class="rowgroups-explorer">
-                        <div id="rowgroups-table"></div>
-                        <div id="rowgroups-viz"></div>
-                    </div>
-                </div>
+            <!-- Row Groups Tab -->
+            <div id="rowgroups-tab" class="tab-pane">
+                <div id="rowgroups-table"></div>
+                <div id="rowgroups-viz"></div>
+            </div>
 
-                <!-- Columns Tab -->
-                <div id="columns-tab" class="tab-pane">
-                    <div class="columns-explorer">
-                        <div class="column-selector">
-                            <select id="column-select">
-                                <option value="">Select a column...</option>
-                            </select>
-                        </div>
-                        <div id="column-details"></div>
-                    </div>
+            <!-- Columns Tab -->
+            <div id="columns-tab" class="tab-pane">
+                <div class="column-selector">
+                    <select id="column-select">
+                        <option value="">Select a column...</option>
+                    </select>
                 </div>
+                <div id="column-details"></div>
+            </div>
 
-                <!-- Pages Tab -->
-                <div id="pages-tab" class="tab-pane">
-                    <div class="pages-explorer">
-                        <div id="pages-content"></div>
-                    </div>
-                </div>
+            <!-- Pages Tab -->
+            <div id="pages-tab" class="tab-pane">
+                <div id="pages-content"></div>
+            </div>
 
-                <!-- Metadata Tab -->
-                <div id="metadata-tab" class="tab-pane">
-                    <div class="metadata-explorer">
-                        <div class="metadata-controls">
-                            <input type="text" id="metadata-search" placeholder="Search metadata...">
-                            <button id="export-json" class="btn btn-primary">Export JSON</button>
-                        </div>
-                        <div id="metadata-content"></div>
-                    </div>
+            <!-- Metadata Tab -->
+            <div id="metadata-tab" class="tab-pane">
+                <div class="metadata-controls">
+                    <input type="text" id="metadata-search" placeholder="Search metadata...">
+                    <button id="export-json" class="btn btn-primary">Export JSON</button>
                 </div>
+                <div id="metadata-content"></div>
             </div>
         </section>
 
