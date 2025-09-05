@@ -1,24 +1,36 @@
 from __future__ import annotations
 
-import copy
 import json
 import struct
 
-from dataclasses import asdict, dataclass
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
 from typing import Any, Literal, Self, assert_never
 
-from . import logical
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
 from ._version import get_version
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import Compression
 from .exceptions import ParquetFormatError
-from .pages import AnyDataPage, DataPageV1, DataPageV2, DictionaryPage, IndexPage, Page
+from .logical import (
+    ColumnChunk,
+    ColumnIndex,
+    FileMetadata,
+    OffsetIndex,
+    SchemaRoot,
+)
+from .pages import (
+    AnyDataPage,
+    DataPageV1,
+    DataPageV2,
+    DictionaryPage,
+    IndexPage,
+    Page,
+)
 from .parsers.parquet.metadata import MetadataParser
 from .protocols import ReadableSeekable
-from .serialization import create_converter, structure_single_data_page
 
 
 class AsdictTarget(StrEnum):
@@ -26,14 +38,22 @@ class AsdictTarget(StrEnum):
     JSON = 'json'
 
 
-@dataclass(frozen=True)
-class PhysicalPageIndex:
+class PorQueMeta(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    format_version: Literal[0] = 0
+    por_que_version: str = get_version()
+
+
+class PhysicalPageIndex(BaseModel):
     """Physical location and parsed content of Page Index data."""
+
+    model_config = ConfigDict(frozen=True)
 
     column_index_offset: int
     column_index_length: int
-    column_index: logical.ColumnIndex
-    offset_index: logical.OffsetIndex
+    column_index: ColumnIndex
+    offset_index: OffsetIndex
 
     @classmethod
     def from_reader(
@@ -66,9 +86,10 @@ class PhysicalPageIndex:
         )
 
 
-@dataclass(frozen=True)
-class PhysicalColumnChunk:
+class PhysicalColumnChunk(BaseModel):
     """A container for all the data for a single column within a row group."""
+
+    model_config = ConfigDict(frozen=True)
 
     path_in_schema: str
     start_offset: int
@@ -78,15 +99,15 @@ class PhysicalColumnChunk:
     data_pages: list[AnyDataPage]
     index_pages: list[IndexPage]
     dictionary_page: DictionaryPage | None
-    metadata: logical.ColumnChunk
+    metadata: ColumnChunk = Field(exclude=True)
     page_index: PhysicalPageIndex | None = None
 
     @classmethod
     def from_reader(
         cls,
         reader: ReadableSeekable,
-        chunk_metadata: logical.ColumnChunk,
-        schema_root: logical.SchemaRoot,
+        chunk_metadata: ColumnChunk,
+        schema_root: SchemaRoot,
     ) -> Self:
         """Parses all pages within a column chunk from a reader."""
         data_pages = []
@@ -94,7 +115,7 @@ class PhysicalColumnChunk:
         dictionary_page = None
 
         # The file_offset on the ColumnChunk struct can be misleading.
-        # The actual start of the page data is the minimum of the specific page offsets.
+        # The actual start of the page data is the minimum of the page offsets.
         start_offset = chunk_metadata.data_page_offset
         if chunk_metadata.dictionary_page_offset is not None:
             start_offset = min(start_offset, chunk_metadata.dictionary_page_offset)
@@ -147,13 +168,14 @@ class PhysicalColumnChunk:
         )
 
 
-@dataclass(frozen=True)
-class PhysicalMetadata:
+class PhysicalMetadata(BaseModel):
     """The physical layout of the file metadata within the file."""
+
+    model_config = ConfigDict(frozen=True)
 
     start_offset: int
     total_byte_size: int
-    metadata: logical.FileMetadata
+    metadata: FileMetadata
 
     @classmethod
     def from_reader(
@@ -186,9 +208,10 @@ class PhysicalMetadata:
         )
 
 
-@dataclass(frozen=True)
-class ParquetFile:
+class ParquetFile(BaseModel):
     """The root object representing the entire physical file structure."""
+
+    model_config = ConfigDict(frozen=True)
 
     source: str
     filesize: int
@@ -196,6 +219,62 @@ class ParquetFile:
     metadata: PhysicalMetadata
     magic_header: str = PARQUET_MAGIC.decode()
     magic_footer: str = PARQUET_MAGIC.decode()
+    meta_info: PorQueMeta = Field(
+        default_factory=PorQueMeta,
+        alias='_meta',
+        description='Metadata about the por-que serialization format',
+    )
+
+    @model_validator(mode='before')
+    @classmethod
+    def inject_metadata_references(cls, data: Any) -> Any:
+        """Inject metadata references into column chunks during validation."""
+        if not isinstance(data, dict):
+            return data
+
+        # If we already have a metadata field, use it to inject references
+        if 'metadata' in data and 'column_chunks' in data:
+            # First validate the metadata structure
+            metadata_dict = data['metadata']
+            if isinstance(metadata_dict, dict) and 'metadata' in metadata_dict:
+                file_metadata_dict = metadata_dict['metadata']
+
+                # Process each column chunk to add metadata reference
+                updated_chunks = []
+                for chunk_data in data['column_chunks']:
+                    if isinstance(chunk_data, dict) and 'path_in_schema' in chunk_data:
+                        # Find and inject the logical metadata reference
+                        logical_chunk = cls._find_logical_chunk_from_dict(
+                            file_metadata_dict,
+                            chunk_data['path_in_schema'],
+                        )
+                        # Create new chunk data with metadata reference
+                        chunk_with_metadata = {**chunk_data, 'metadata': logical_chunk}
+                        updated_chunks.append(chunk_with_metadata)
+                    else:
+                        updated_chunks.append(chunk_data)
+
+                # Update the data with injected metadata
+                data = {**data, 'column_chunks': updated_chunks}
+
+        return data
+
+    @staticmethod
+    def _find_logical_chunk_from_dict(
+        file_metadata_dict: dict,
+        path_in_schema: str,
+    ) -> dict:
+        """Find the logical ColumnChunk metadata dict for a given path."""
+        if 'row_groups' not in file_metadata_dict:
+            raise ValueError('No row_groups found in file metadata')
+
+        for row_group_dict in file_metadata_dict['row_groups']:
+            if 'column_chunks' in row_group_dict:
+                column_chunks_dict = row_group_dict['column_chunks']
+                if path_in_schema in column_chunks_dict:
+                    return column_chunks_dict[path_in_schema]
+
+        raise ValueError(f'Could not find logical metadata for column {path_in_schema}')
 
     @classmethod
     def from_reader(
@@ -223,10 +302,10 @@ class ParquetFile:
     def _parse_column_chunks(
         cls,
         file_obj: ReadableSeekable,
-        metadata: logical.FileMetadata,
+        metadata: FileMetadata,
     ) -> list[PhysicalColumnChunk]:
         column_chunks = []
-        schema_root = metadata.schema
+        schema_root = metadata.schema_root
 
         # Iterate through all row groups and their column chunks
         for row_group_metadata in metadata.row_groups:
@@ -243,102 +322,20 @@ class ParquetFile:
     def to_dict(self, target: AsdictTarget = AsdictTarget.DICT) -> dict[str, Any]:
         match target:
             case AsdictTarget.DICT:
-                return asdict(self)
+                return self.model_dump()
             case AsdictTarget.JSON:
-                return create_converter().unstructure(self)
+                return self.model_dump(mode='json')
             case _:
                 assert_never(target)
 
     def to_json(self, **kwargs) -> str:
-        dump = self.to_dict(target=AsdictTarget.JSON)
-        dump['_meta'] = asdict(PorQueMeta())
-        return json.dumps(dump, **kwargs)
+        return self.model_dump_json(by_alias=True, **kwargs)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any], deepcopy: bool = True) -> Self:
-        # deepcopy is optional in case the external reference
-        # will be discarded, e.g., our from_json method
-        if deepcopy:
-            # we want to deepcopy to ensure external modification don't
-            # mess up the ParquetFile data references, and so that our
-            # modifications don't mess something up externally
-            data = copy.deepcopy(data)
-
-        data.pop('_meta', None)
-
-        converter = create_converter()
-
-        # First deserialize the metadata structure
-        metadata = converter.structure(data['metadata'], PhysicalMetadata)
-
-        # Now deserialize column chunks with their proper metadata references
-        column_chunks = []
-        for chunk_data in data['column_chunks']:
-            # Find the logical metadata for this chunk
-            logical_chunk = cls._find_logical_chunk(
-                metadata.metadata,
-                chunk_data['path_in_schema'],
-            )
-
-            # Create the chunk with the proper metadata reference
-            chunk = PhysicalColumnChunk(
-                path_in_schema=chunk_data['path_in_schema'],
-                start_offset=chunk_data['start_offset'],
-                total_byte_size=chunk_data['total_byte_size'],
-                codec=Compression(chunk_data['codec']),
-                num_values=chunk_data['num_values'],
-                data_pages=[
-                    structure_single_data_page(converter, p)
-                    for p in chunk_data['data_pages']
-                    if isinstance(p, dict)
-                ],
-                index_pages=[
-                    converter.structure(p, IndexPage) for p in chunk_data['index_pages']
-                ],
-                dictionary_page=converter.structure(
-                    chunk_data['dictionary_page'],
-                    DictionaryPage,
-                )
-                if chunk_data.get('dictionary_page')
-                else None,
-                metadata=logical_chunk,
-                page_index=converter.structure(
-                    chunk_data['page_index'],
-                    PhysicalPageIndex,
-                )
-                if chunk_data.get('page_index')
-                else None,
-            )
-            column_chunks.append(chunk)
-
-        # Deserialize the rest of the fields
-        return cls(
-            source=data['source'],
-            filesize=data['filesize'],
-            column_chunks=column_chunks,
-            metadata=metadata,
-            magic_header=data.get('magic_header', PARQUET_MAGIC.decode()),
-            magic_footer=data.get('magic_footer', PARQUET_MAGIC.decode()),
-        )
+    def from_dict(cls, data: dict[str, Any]) -> Self:
+        return cls.model_validate(data)
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         data = json.loads(json_str)
-        return cls.from_dict(data, deepcopy=False)
-
-    @staticmethod
-    def _find_logical_chunk(
-        file_metadata: logical.FileMetadata,
-        path_in_schema: str,
-    ) -> logical.ColumnChunk:
-        """Find the logical ColumnChunk metadata for a given path."""
-        for row_group in file_metadata.row_groups:
-            if path_in_schema in row_group.column_chunks:
-                return row_group.column_chunks[path_in_schema]
-        raise ValueError(f'Could not find logical metadata for column {path_in_schema}')
-
-
-@dataclass(frozen=True)
-class PorQueMeta:
-    format_version: Literal[0] = 0
-    por_que_version: str = get_version()
+        return cls.from_dict(data)

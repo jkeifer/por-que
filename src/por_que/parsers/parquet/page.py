@@ -8,6 +8,8 @@ Teaching Points:
 - Page data follows the header and may be compressed
 """
 
+from __future__ import annotations
+
 import logging
 
 from typing import TYPE_CHECKING, Any

@@ -1,14 +1,12 @@
 """
 Unified page models that combine logical content with physical layout information.
-
-This module replaces the previous separation between PageHeader (logical) and
-PageLayout (physical) classes with a single unified hierarchy.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Annotated, Any, Literal
+
+from pydantic import BaseModel, ConfigDict, Discriminator
 
 from .enums import Encoding, PageType
 from .logical import ColumnStatistics
@@ -16,16 +14,15 @@ from .protocols import ReadableSeekable
 
 if TYPE_CHECKING:
     from . import logical
-else:
-    from . import logical
 
 
-@dataclass(frozen=True)
-class Page:
+class Page(BaseModel):
     """
     Base class for all page types, containing both logical and physical
     information.
     """
+
+    model_config = ConfigDict(frozen=True)
 
     # Physical layout information (where in file, sizes)
     page_type: PageType
@@ -74,20 +71,20 @@ class Page:
         return page_parser.read_page(offset)
 
 
-@dataclass(frozen=True)
 class DictionaryPage(Page):
     """A page containing dictionary-encoded values."""
 
+    page_type: Literal[PageType.DICTIONARY_PAGE] = PageType.DICTIONARY_PAGE
     # Logical content from DictionaryPageHeader
     num_values: int
     encoding: Encoding
     is_sorted: bool = False
 
 
-@dataclass(frozen=True)
 class DataPageV1(Page):
     """A version 1 data page."""
 
+    page_type: Literal[PageType.DATA_PAGE] = PageType.DATA_PAGE
     # Logical content from DataPageHeader
     num_values: int
     encoding: Encoding
@@ -96,10 +93,10 @@ class DataPageV1(Page):
     statistics: ColumnStatistics | None = None
 
 
-@dataclass(frozen=True)
 class DataPageV2(Page):
     """A version 2 data page."""
 
+    page_type: Literal[PageType.DATA_PAGE_V2] = PageType.DATA_PAGE_V2
     # Logical content from DataPageHeaderV2
     num_values: int
     num_nulls: int
@@ -111,14 +108,23 @@ class DataPageV2(Page):
     statistics: ColumnStatistics | None = None
 
 
-@dataclass(frozen=True)
 class IndexPage(Page):
     """A page containing row group and offset statistics."""
 
+    page_type: Literal[PageType.INDEX_PAGE] = PageType.INDEX_PAGE
     # Logical content (minimal for now)
     page_locations: Any | None = None
 
 
-# Union type for all page types
 AnyPage = DictionaryPage | DataPageV1 | DataPageV2 | IndexPage
 AnyDataPage = DataPageV1 | DataPageV2
+
+AnyPageDiscriminated = Annotated[
+    AnyPage,
+    Discriminator('page_type'),
+]
+
+AnyDataPageDiscriminated = Annotated[
+    AnyDataPage,
+    Discriminator('page_type'),
+]
