@@ -11,9 +11,10 @@ Teaching Points:
 import logging
 
 from por_que.exceptions import ThriftParsingError
-from por_que.logical import FileMetadata, SchemaRoot
+from por_que.file_metadata import FileMetadata, SchemaRoot
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftCompactParser, ThriftStructParser
+from por_que.protocols import ReadableSeekable
 
 from .base import BaseParser
 from .enums import FileMetadataFieldId, KeyValueFieldId
@@ -34,14 +35,15 @@ class MetadataParser(BaseParser):
     - Component-based design makes complex parsing more manageable
     """
 
-    def __init__(self, metadata_bytes: bytes):
+    def __init__(self, reader: ReadableSeekable, start_offset: int):
         """
-        Initialize metadata parser from raw bytes.
+        Initialize metadata parser to read directly from file.
 
         Args:
-            metadata_bytes: Raw Thrift-encoded metadata from Parquet footer
+            reader: File-like object positioned at metadata start
+            start_offset: Absolute file offset where metadata begins
         """
-        parser = ThriftCompactParser(metadata_bytes)
+        parser = ThriftCompactParser(reader, start_offset)
         super().__init__(parser)
 
     def parse(self) -> FileMetadata:  # noqa: C901

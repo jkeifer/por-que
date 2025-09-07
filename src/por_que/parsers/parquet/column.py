@@ -11,7 +11,7 @@ Teaching Points:
 import logging
 
 from por_que.enums import Compression, Encoding, Type
-from por_que.logical import ColumnChunk, ColumnMetadata, SchemaRoot
+from por_que.file_metadata import ColumnChunk, ColumnMetadata, SchemaRoot
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -111,6 +111,7 @@ class ColumnParser(BaseParser):
         Returns:
             ColumnMetadata with complete column information
         """
+        start_offset = self.parser.pos
         struct_parser = ThriftStructParser(self.parser)
         # Collect values for frozen ColumnMetadata construction
         type_val = Type.BOOLEAN
@@ -190,6 +191,9 @@ class ColumnParser(BaseParser):
                     # File offset for column index (Page Index feature)
                     column_index_offset = value
 
+        end_offset = self.parser.pos
+        byte_length = end_offset - start_offset
+
         # Construct the frozen ColumnMetadata
         return ColumnMetadata(
             type=type_val,
@@ -200,6 +204,8 @@ class ColumnParser(BaseParser):
             total_uncompressed_size=total_uncompressed_size,
             total_compressed_size=total_compressed_size,
             data_page_offset=data_page_offset,
+            start_offset=start_offset,
+            byte_length=byte_length,
             dictionary_page_offset=dictionary_page_offset,
             index_page_offset=index_page_offset,
             statistics=statistics,

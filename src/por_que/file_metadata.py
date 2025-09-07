@@ -239,6 +239,8 @@ class SchemaElement(BaseModel):
 
     element_type: SchemaElementType
     name: str
+    start_offset: int
+    byte_length: int
 
     def _repr_extra(self) -> list[str]:
         return []
@@ -284,6 +286,8 @@ class SchemaElement(BaseModel):
 
     @staticmethod
     def new(
+        start_offset: int,
+        byte_length: int,
         name: str | None,
         type: Type | None,
         type_length: int | None,
@@ -321,6 +325,8 @@ class SchemaElement(BaseModel):
                 precision=precision,
                 field_id=field_id,
                 logical_type=logical_type,
+                start_offset=start_offset,
+                byte_length=byte_length,
             )
 
         # Root element could look essentially like any other group,
@@ -336,6 +342,8 @@ class SchemaElement(BaseModel):
             return SchemaRoot(
                 name=name,
                 num_children=num_children,
+                start_offset=start_offset,
+                byte_length=byte_length,
             )
 
         # Root element check: should have no repetition, but some writers
@@ -360,6 +368,8 @@ class SchemaElement(BaseModel):
             return SchemaRoot(
                 name=name,
                 num_children=num_children,
+                start_offset=start_offset,
+                byte_length=byte_length,
             )
 
         # Check type compatibility for group element
@@ -383,6 +393,8 @@ class SchemaElement(BaseModel):
                 repetition=repetition,
                 num_children=num_children,
                 converted_type=converted_type,
+                start_offset=start_offset,
+                byte_length=byte_length,
                 field_id=field_id,
                 logical_type=logical_type,
             )
@@ -557,6 +569,8 @@ class ColumnMetadata(BaseModel):
     total_uncompressed_size: int
     total_compressed_size: int
     data_page_offset: int
+    start_offset: int
+    byte_length: int
     dictionary_page_offset: int | None = None
     index_page_offset: int | None = None
     statistics: ColumnStatistics | None = None
@@ -669,6 +683,8 @@ class RowGroup(BaseModel):
     column_chunks: dict[str, ColumnChunk]
     total_byte_size: int
     row_count: int
+    start_offset: int
+    byte_length: int
 
     @computed_field
     @cached_property

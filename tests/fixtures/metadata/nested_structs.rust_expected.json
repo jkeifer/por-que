@@ -8651,16 +8651,22 @@
       "schema": {
         "element_type": "root",
         "name": "schema",
+        "start_offset": 33666,
+        "byte_length": 11,
         "num_children": 36,
         "children": {
           "roll_num": {
             "element_type": "group",
             "name": "roll_num",
+            "start_offset": 33677,
+            "byte_length": 15,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 33692,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8673,6 +8679,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 33704,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8685,6 +8693,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 33716,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8697,6 +8707,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 33729,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -8709,6 +8721,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 33743,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8721,6 +8735,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 33755,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8739,11 +8755,15 @@
           "PC_CUR": {
             "element_type": "group",
             "name": "PC_CUR",
+            "start_offset": 33772,
+            "byte_length": 13,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 33785,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8756,6 +8776,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 33797,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8768,6 +8790,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 33809,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8780,6 +8804,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 33822,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -8792,6 +8818,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 33836,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8804,6 +8832,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 33848,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8822,11 +8852,15 @@
           "CVA_2012": {
             "element_type": "group",
             "name": "CVA_2012",
+            "start_offset": 33865,
+            "byte_length": 15,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 33880,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8839,6 +8873,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 33892,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8851,6 +8887,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 33904,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8863,6 +8901,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 33917,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -8875,6 +8915,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 33931,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8887,6 +8929,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 33943,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8905,11 +8949,15 @@
           "CVA_2016": {
             "element_type": "group",
             "name": "CVA_2016",
+            "start_offset": 33960,
+            "byte_length": 15,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 33975,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8922,6 +8970,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 33987,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8934,6 +8984,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 33999,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8946,6 +8998,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34012,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -8958,6 +9012,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34026,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8970,6 +9026,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34038,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -8988,11 +9046,15 @@
           "BIA_3": {
             "element_type": "group",
             "name": "BIA_3",
+            "start_offset": 34055,
+            "byte_length": 12,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34067,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9005,6 +9067,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34077,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9017,6 +9081,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34087,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9029,6 +9095,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34098,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9041,6 +9109,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34112,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9053,6 +9123,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34122,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9071,11 +9143,15 @@
           "BIA_4": {
             "element_type": "group",
             "name": "BIA_4",
+            "start_offset": 34137,
+            "byte_length": 12,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34149,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9088,6 +9164,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34159,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9100,6 +9178,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34169,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9112,6 +9192,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34180,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9124,6 +9206,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34194,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9136,6 +9220,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34204,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9154,11 +9240,15 @@
           "ACTUAL_FRONTAGE": {
             "element_type": "group",
             "name": "ACTUAL_FRONTAGE",
+            "start_offset": 34219,
+            "byte_length": 22,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34241,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9171,6 +9261,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34251,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9183,6 +9275,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34261,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9195,6 +9289,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34272,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9207,6 +9303,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34286,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9219,6 +9317,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34296,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9237,11 +9337,15 @@
           "ACTUAL_DEPTH": {
             "element_type": "group",
             "name": "ACTUAL_DEPTH",
+            "start_offset": 34311,
+            "byte_length": 19,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34330,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9254,6 +9358,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34340,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9266,6 +9372,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34350,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9278,6 +9386,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34361,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9290,6 +9400,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34375,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9302,6 +9414,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34385,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9320,11 +9434,15 @@
           "ACTUAL_LOT_SIZE": {
             "element_type": "group",
             "name": "ACTUAL_LOT_SIZE",
+            "start_offset": 34400,
+            "byte_length": 22,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34422,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9337,6 +9455,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34432,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9349,6 +9469,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34442,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9361,6 +9483,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34453,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9373,6 +9497,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34467,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9385,6 +9511,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34477,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9403,11 +9531,15 @@
           "GLA": {
             "element_type": "group",
             "name": "GLA",
+            "start_offset": 34492,
+            "byte_length": 10,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34502,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9420,6 +9552,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34512,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9432,6 +9566,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34522,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9444,6 +9580,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34533,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9456,6 +9594,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34547,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9468,6 +9608,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34557,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9486,11 +9628,15 @@
           "SOURCE_GLA": {
             "element_type": "group",
             "name": "SOURCE_GLA",
+            "start_offset": 34572,
+            "byte_length": 17,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34589,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9503,6 +9649,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34599,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9515,6 +9663,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34609,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9527,6 +9677,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34620,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9539,6 +9691,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34634,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9551,6 +9705,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34644,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9569,11 +9725,15 @@
           "IPS_GLA": {
             "element_type": "group",
             "name": "IPS_GLA",
+            "start_offset": 34659,
+            "byte_length": 14,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34673,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9586,6 +9746,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34683,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9598,6 +9760,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34693,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9610,6 +9774,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34704,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9622,6 +9788,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34718,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9634,6 +9802,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34728,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9652,11 +9822,15 @@
           "GLA_ALL": {
             "element_type": "group",
             "name": "GLA_ALL",
+            "start_offset": 34743,
+            "byte_length": 14,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34757,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9669,6 +9843,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34767,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9681,6 +9857,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34777,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9693,6 +9871,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34788,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9705,6 +9885,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34802,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9717,6 +9899,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34812,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9735,11 +9919,15 @@
           "bia": {
             "element_type": "group",
             "name": "bia",
+            "start_offset": 34827,
+            "byte_length": 10,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34837,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -9752,6 +9940,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34849,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -9764,6 +9954,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34861,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -9776,6 +9968,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34874,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9788,6 +9982,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34888,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -9800,6 +9996,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34900,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -9818,11 +10016,15 @@
           "EFFECTIVE_LOT_SIZE": {
             "element_type": "group",
             "name": "EFFECTIVE_LOT_SIZE",
+            "start_offset": 34917,
+            "byte_length": 25,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 34942,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9835,6 +10037,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 34952,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9847,6 +10051,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 34962,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9859,6 +10065,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 34973,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9871,6 +10079,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 34987,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9883,6 +10093,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 34997,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9901,11 +10113,15 @@
           "effective_lot_area": {
             "element_type": "group",
             "name": "effective_lot_area",
+            "start_offset": 35012,
+            "byte_length": 25,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35037,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9918,6 +10134,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35047,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9930,6 +10148,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35057,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9942,6 +10162,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35068,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -9954,6 +10176,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35082,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9966,6 +10190,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35092,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -9984,11 +10210,15 @@
           "EFFECTIVE_FRONTAGE": {
             "element_type": "group",
             "name": "EFFECTIVE_FRONTAGE",
+            "start_offset": 35107,
+            "byte_length": 25,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35132,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10001,6 +10231,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35142,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10013,6 +10245,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35152,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10025,6 +10259,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35163,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10037,6 +10273,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35177,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10049,6 +10287,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35187,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10067,11 +10307,15 @@
           "EFFECTIVE_DEPTH": {
             "element_type": "group",
             "name": "EFFECTIVE_DEPTH",
+            "start_offset": 35202,
+            "byte_length": 22,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35224,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10084,6 +10328,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35234,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10096,6 +10342,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35244,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10108,6 +10356,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35255,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10120,6 +10370,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35269,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10132,6 +10384,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35279,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10150,11 +10404,15 @@
           "rw_area_tot": {
             "element_type": "group",
             "name": "rw_area_tot",
+            "start_offset": 35294,
+            "byte_length": 18,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35312,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10167,6 +10425,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35322,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10179,6 +10439,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35332,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10191,6 +10453,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35343,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10203,6 +10467,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35357,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10215,6 +10481,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35367,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10233,11 +10501,15 @@
           "effective_lot_sqft": {
             "element_type": "group",
             "name": "effective_lot_sqft",
+            "start_offset": 35382,
+            "byte_length": 25,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35407,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10250,6 +10522,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35417,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10262,6 +10536,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35427,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10274,6 +10550,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35438,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10286,6 +10564,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35452,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10298,6 +10578,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35462,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10316,11 +10598,15 @@
           "dup": {
             "element_type": "group",
             "name": "dup",
+            "start_offset": 35477,
+            "byte_length": 10,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35487,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10333,6 +10619,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35499,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10345,6 +10633,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35511,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10357,6 +10647,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35524,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10369,6 +10661,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35538,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10381,6 +10675,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35550,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10399,11 +10695,15 @@
           "nonCTXT": {
             "element_type": "group",
             "name": "nonCTXT",
+            "start_offset": 35567,
+            "byte_length": 14,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35581,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10416,6 +10716,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35593,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10428,6 +10730,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35605,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10440,6 +10744,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35618,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10452,6 +10758,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35632,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10464,6 +10772,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35644,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10482,11 +10792,15 @@
           "vacantland": {
             "element_type": "group",
             "name": "vacantland",
+            "start_offset": 35661,
+            "byte_length": 17,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35678,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10499,6 +10813,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35690,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10511,6 +10827,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35702,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10523,6 +10841,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35715,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10535,6 +10855,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35729,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10547,6 +10869,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35741,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10565,11 +10889,15 @@
           "parkingbillboard": {
             "element_type": "group",
             "name": "parkingbillboard",
+            "start_offset": 35758,
+            "byte_length": 23,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35781,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10582,6 +10910,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35793,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10594,6 +10924,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35805,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10606,6 +10938,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35818,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10618,6 +10952,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35832,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10630,6 +10966,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35844,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10648,11 +10986,15 @@
           "cvalte10": {
             "element_type": "group",
             "name": "cvalte10",
+            "start_offset": 35861,
+            "byte_length": 15,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35876,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10665,6 +11007,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35888,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10677,6 +11021,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 35900,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10689,6 +11035,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 35913,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10701,6 +11049,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 35927,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10713,6 +11063,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 35939,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10731,11 +11083,15 @@
           "condootherhotel": {
             "element_type": "group",
             "name": "condootherhotel",
+            "start_offset": 35956,
+            "byte_length": 22,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 35978,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10748,6 +11104,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 35990,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10760,6 +11118,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36002,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10772,6 +11132,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36015,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10784,6 +11146,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36029,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10796,6 +11160,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36041,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10814,11 +11180,15 @@
           "calculated_lot_size": {
             "element_type": "group",
             "name": "calculated_lot_size",
+            "start_offset": 36058,
+            "byte_length": 26,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36084,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10831,6 +11201,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36094,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10843,6 +11215,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36104,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10855,6 +11229,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36115,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10867,6 +11243,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36129,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10879,6 +11257,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36139,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10897,11 +11277,15 @@
           "calculated_efflot_size": {
             "element_type": "group",
             "name": "calculated_efflot_size",
+            "start_offset": 36154,
+            "byte_length": 29,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36183,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10914,6 +11298,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36193,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10926,6 +11312,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36203,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10938,6 +11326,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36214,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -10950,6 +11340,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36228,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10962,6 +11354,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36238,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -10980,11 +11374,15 @@
           "missingsite": {
             "element_type": "group",
             "name": "missingsite",
+            "start_offset": 36253,
+            "byte_length": 18,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36271,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -10997,6 +11395,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36283,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11009,6 +11409,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36295,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11021,6 +11423,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36308,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11033,6 +11437,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36322,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11045,6 +11451,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36334,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11063,11 +11471,15 @@
           "missinggla": {
             "element_type": "group",
             "name": "missinggla",
+            "start_offset": 36351,
+            "byte_length": 17,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36368,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11080,6 +11492,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36380,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11092,6 +11506,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36392,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11104,6 +11520,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36405,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11116,6 +11534,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36419,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11128,6 +11548,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36431,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11146,11 +11568,15 @@
           "missingsitegla": {
             "element_type": "group",
             "name": "missingsitegla",
+            "start_offset": 36448,
+            "byte_length": 21,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36469,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11163,6 +11589,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36481,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11175,6 +11603,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36493,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11187,6 +11617,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36506,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11199,6 +11631,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36520,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11211,6 +11645,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36532,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11229,11 +11665,15 @@
           "actual_lot_size_sqft": {
             "element_type": "group",
             "name": "actual_lot_size_sqft",
+            "start_offset": 36549,
+            "byte_length": 27,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36576,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11246,6 +11686,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36586,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11258,6 +11700,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36596,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11270,6 +11714,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36607,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11282,6 +11728,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36621,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11294,6 +11742,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36631,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11312,11 +11762,15 @@
           "lotsize_sqft": {
             "element_type": "group",
             "name": "lotsize_sqft",
+            "start_offset": 36646,
+            "byte_length": 19,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36665,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11329,6 +11783,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36675,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11341,6 +11797,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36685,
+                "byte_length": 11,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11353,6 +11811,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36696,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11365,6 +11825,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36710,
+                "byte_length": 10,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11377,6 +11839,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36720,
+                "byte_length": 15,
                 "type": 5,
                 "repetition": 0,
                 "converted_type": null,
@@ -11395,11 +11859,15 @@
           "count": {
             "element_type": "group",
             "name": "count",
+            "start_offset": 36735,
+            "byte_length": 12,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36747,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11412,6 +11880,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36759,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11424,6 +11894,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36771,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11436,6 +11908,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36784,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11448,6 +11922,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36798,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11460,6 +11936,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36810,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11478,11 +11956,15 @@
           "ul_observation_date": {
             "element_type": "group",
             "name": "ul_observation_date",
+            "start_offset": 36827,
+            "byte_length": 26,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36853,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 10,
@@ -11495,6 +11977,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36865,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 10,
@@ -11507,6 +11991,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 36877,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 10,
@@ -11519,6 +12005,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 36890,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11531,6 +12019,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 36904,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 10,
@@ -11543,6 +12033,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 36916,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 10,
@@ -11561,11 +12053,15 @@
           "ul_tz_offset_minutes_ul_observation_date": {
             "element_type": "group",
             "name": "ul_tz_offset_minutes_ul_observation_date",
+            "start_offset": 36933,
+            "byte_length": 47,
             "num_children": 6,
             "children": {
               "min": {
                 "element_type": "column",
                 "name": "min",
+                "start_offset": 36980,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11578,6 +12074,8 @@
               "max": {
                 "element_type": "column",
                 "name": "max",
+                "start_offset": 36992,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11590,6 +12088,8 @@
               "mean": {
                 "element_type": "column",
                 "name": "mean",
+                "start_offset": 37004,
+                "byte_length": 13,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11602,6 +12102,8 @@
               "count": {
                 "element_type": "column",
                 "name": "count",
+                "start_offset": 37017,
+                "byte_length": 14,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 14,
@@ -11614,6 +12116,8 @@
               "sum": {
                 "element_type": "column",
                 "name": "sum",
+                "start_offset": 37031,
+                "byte_length": 12,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11626,6 +12130,8 @@
               "variance": {
                 "element_type": "column",
                 "name": "variance",
+                "start_offset": 37043,
+                "byte_length": 17,
                 "type": 2,
                 "repetition": 0,
                 "converted_type": 18,
@@ -11661,6 +12167,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 35,
+                "start_offset": 37072,
+                "byte_length": 59,
                 "dictionary_page_offset": 4,
                 "index_page_offset": null,
                 "statistics": {
@@ -11691,6 +12199,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 181,
+                "start_offset": 37136,
+                "byte_length": 61,
                 "dictionary_page_offset": 150,
                 "index_page_offset": null,
                 "statistics": {
@@ -11721,6 +12231,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 329,
+                "start_offset": 37202,
+                "byte_length": 62,
                 "dictionary_page_offset": 298,
                 "index_page_offset": null,
                 "statistics": {
@@ -11751,6 +12263,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 478,
+                "start_offset": 37269,
+                "byte_length": 63,
                 "dictionary_page_offset": 447,
                 "index_page_offset": null,
                 "statistics": {
@@ -11781,6 +12295,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 628,
+                "start_offset": 37337,
+                "byte_length": 61,
                 "dictionary_page_offset": 597,
                 "index_page_offset": null,
                 "statistics": {
@@ -11811,6 +12327,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 776,
+                "start_offset": 37403,
+                "byte_length": 66,
                 "dictionary_page_offset": 745,
                 "index_page_offset": null,
                 "statistics": {
@@ -11841,6 +12359,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 929,
+                "start_offset": 37474,
+                "byte_length": 59,
                 "dictionary_page_offset": 898,
                 "index_page_offset": null,
                 "statistics": {
@@ -11871,6 +12391,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1075,
+                "start_offset": 37538,
+                "byte_length": 59,
                 "dictionary_page_offset": 1044,
                 "index_page_offset": null,
                 "statistics": {
@@ -11901,6 +12423,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1221,
+                "start_offset": 37602,
+                "byte_length": 60,
                 "dictionary_page_offset": 1190,
                 "index_page_offset": null,
                 "statistics": {
@@ -11931,6 +12455,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1368,
+                "start_offset": 37667,
+                "byte_length": 61,
                 "dictionary_page_offset": 1337,
                 "index_page_offset": null,
                 "statistics": {
@@ -11961,6 +12487,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1516,
+                "start_offset": 37733,
+                "byte_length": 59,
                 "dictionary_page_offset": 1485,
                 "index_page_offset": null,
                 "statistics": {
@@ -11991,6 +12519,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1662,
+                "start_offset": 37797,
+                "byte_length": 64,
                 "dictionary_page_offset": 1631,
                 "index_page_offset": null,
                 "statistics": {
@@ -12021,6 +12551,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1813,
+                "start_offset": 37866,
+                "byte_length": 61,
                 "dictionary_page_offset": 1782,
                 "index_page_offset": null,
                 "statistics": {
@@ -12051,6 +12583,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 1961,
+                "start_offset": 37932,
+                "byte_length": 61,
                 "dictionary_page_offset": 1930,
                 "index_page_offset": null,
                 "statistics": {
@@ -12081,6 +12615,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 2109,
+                "start_offset": 37998,
+                "byte_length": 62,
                 "dictionary_page_offset": 2078,
                 "index_page_offset": null,
                 "statistics": {
@@ -12111,6 +12647,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 2258,
+                "start_offset": 38065,
+                "byte_length": 63,
                 "dictionary_page_offset": 2227,
                 "index_page_offset": null,
                 "statistics": {
@@ -12141,6 +12679,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 2408,
+                "start_offset": 38133,
+                "byte_length": 61,
                 "dictionary_page_offset": 2377,
                 "index_page_offset": null,
                 "statistics": {
@@ -12171,6 +12711,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 2556,
+                "start_offset": 38199,
+                "byte_length": 66,
                 "dictionary_page_offset": 2525,
                 "index_page_offset": null,
                 "statistics": {
@@ -12201,6 +12743,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 2709,
+                "start_offset": 38270,
+                "byte_length": 61,
                 "dictionary_page_offset": 2678,
                 "index_page_offset": null,
                 "statistics": {
@@ -12231,6 +12775,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 2857,
+                "start_offset": 38336,
+                "byte_length": 61,
                 "dictionary_page_offset": 2826,
                 "index_page_offset": null,
                 "statistics": {
@@ -12261,6 +12807,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3005,
+                "start_offset": 38402,
+                "byte_length": 62,
                 "dictionary_page_offset": 2974,
                 "index_page_offset": null,
                 "statistics": {
@@ -12291,6 +12839,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3154,
+                "start_offset": 38469,
+                "byte_length": 63,
                 "dictionary_page_offset": 3123,
                 "index_page_offset": null,
                 "statistics": {
@@ -12321,6 +12871,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3304,
+                "start_offset": 38537,
+                "byte_length": 61,
                 "dictionary_page_offset": 3273,
                 "index_page_offset": null,
                 "statistics": {
@@ -12351,6 +12903,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3452,
+                "start_offset": 38603,
+                "byte_length": 66,
                 "dictionary_page_offset": 3421,
                 "index_page_offset": null,
                 "statistics": {
@@ -12381,6 +12935,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3605,
+                "start_offset": 38674,
+                "byte_length": 58,
                 "dictionary_page_offset": 3574,
                 "index_page_offset": null,
                 "statistics": {
@@ -12411,6 +12967,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3750,
+                "start_offset": 38737,
+                "byte_length": 58,
                 "dictionary_page_offset": 3719,
                 "index_page_offset": null,
                 "statistics": {
@@ -12441,6 +12999,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 3895,
+                "start_offset": 38800,
+                "byte_length": 59,
                 "dictionary_page_offset": 3864,
                 "index_page_offset": null,
                 "statistics": {
@@ -12471,6 +13031,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4041,
+                "start_offset": 38864,
+                "byte_length": 60,
                 "dictionary_page_offset": 4010,
                 "index_page_offset": null,
                 "statistics": {
@@ -12501,6 +13063,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4188,
+                "start_offset": 38929,
+                "byte_length": 58,
                 "dictionary_page_offset": 4157,
                 "index_page_offset": null,
                 "statistics": {
@@ -12531,6 +13095,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4333,
+                "start_offset": 38992,
+                "byte_length": 63,
                 "dictionary_page_offset": 4302,
                 "index_page_offset": null,
                 "statistics": {
@@ -12561,6 +13127,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4483,
+                "start_offset": 39060,
+                "byte_length": 58,
                 "dictionary_page_offset": 4452,
                 "index_page_offset": null,
                 "statistics": {
@@ -12591,6 +13159,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4628,
+                "start_offset": 39123,
+                "byte_length": 58,
                 "dictionary_page_offset": 4597,
                 "index_page_offset": null,
                 "statistics": {
@@ -12621,6 +13191,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4773,
+                "start_offset": 39186,
+                "byte_length": 59,
                 "dictionary_page_offset": 4742,
                 "index_page_offset": null,
                 "statistics": {
@@ -12651,6 +13223,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 4919,
+                "start_offset": 39250,
+                "byte_length": 60,
                 "dictionary_page_offset": 4888,
                 "index_page_offset": null,
                 "statistics": {
@@ -12681,6 +13255,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5066,
+                "start_offset": 39315,
+                "byte_length": 58,
                 "dictionary_page_offset": 5035,
                 "index_page_offset": null,
                 "statistics": {
@@ -12711,6 +13287,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5211,
+                "start_offset": 39378,
+                "byte_length": 63,
                 "dictionary_page_offset": 5180,
                 "index_page_offset": null,
                 "statistics": {
@@ -12741,6 +13319,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5361,
+                "start_offset": 39446,
+                "byte_length": 68,
                 "dictionary_page_offset": 5330,
                 "index_page_offset": null,
                 "statistics": {
@@ -12771,6 +13351,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5516,
+                "start_offset": 39519,
+                "byte_length": 68,
                 "dictionary_page_offset": 5485,
                 "index_page_offset": null,
                 "statistics": {
@@ -12801,6 +13383,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5671,
+                "start_offset": 39592,
+                "byte_length": 69,
                 "dictionary_page_offset": 5640,
                 "index_page_offset": null,
                 "statistics": {
@@ -12831,6 +13415,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5827,
+                "start_offset": 39666,
+                "byte_length": 70,
                 "dictionary_page_offset": 5796,
                 "index_page_offset": null,
                 "statistics": {
@@ -12861,6 +13447,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 5984,
+                "start_offset": 39741,
+                "byte_length": 68,
                 "dictionary_page_offset": 5953,
                 "index_page_offset": null,
                 "statistics": {
@@ -12891,6 +13479,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 6139,
+                "start_offset": 39814,
+                "byte_length": 73,
                 "dictionary_page_offset": 6108,
                 "index_page_offset": null,
                 "statistics": {
@@ -12921,6 +13511,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 6299,
+                "start_offset": 39892,
+                "byte_length": 65,
                 "dictionary_page_offset": 6268,
                 "index_page_offset": null,
                 "statistics": {
@@ -12951,6 +13543,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 6451,
+                "start_offset": 39962,
+                "byte_length": 65,
                 "dictionary_page_offset": 6420,
                 "index_page_offset": null,
                 "statistics": {
@@ -12981,6 +13575,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 6603,
+                "start_offset": 40032,
+                "byte_length": 66,
                 "dictionary_page_offset": 6572,
                 "index_page_offset": null,
                 "statistics": {
@@ -13011,6 +13607,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 6756,
+                "start_offset": 40103,
+                "byte_length": 67,
                 "dictionary_page_offset": 6725,
                 "index_page_offset": null,
                 "statistics": {
@@ -13041,6 +13639,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 6910,
+                "start_offset": 40175,
+                "byte_length": 65,
                 "dictionary_page_offset": 6879,
                 "index_page_offset": null,
                 "statistics": {
@@ -13071,6 +13671,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7062,
+                "start_offset": 40245,
+                "byte_length": 70,
                 "dictionary_page_offset": 7031,
                 "index_page_offset": null,
                 "statistics": {
@@ -13101,6 +13703,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7219,
+                "start_offset": 40320,
+                "byte_length": 68,
                 "dictionary_page_offset": 7188,
                 "index_page_offset": null,
                 "statistics": {
@@ -13131,6 +13735,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7374,
+                "start_offset": 40393,
+                "byte_length": 68,
                 "dictionary_page_offset": 7343,
                 "index_page_offset": null,
                 "statistics": {
@@ -13161,6 +13767,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7529,
+                "start_offset": 40466,
+                "byte_length": 69,
                 "dictionary_page_offset": 7498,
                 "index_page_offset": null,
                 "statistics": {
@@ -13191,6 +13799,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7685,
+                "start_offset": 40540,
+                "byte_length": 70,
                 "dictionary_page_offset": 7654,
                 "index_page_offset": null,
                 "statistics": {
@@ -13221,6 +13831,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7842,
+                "start_offset": 40615,
+                "byte_length": 68,
                 "dictionary_page_offset": 7811,
                 "index_page_offset": null,
                 "statistics": {
@@ -13251,6 +13863,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 7997,
+                "start_offset": 40688,
+                "byte_length": 73,
                 "dictionary_page_offset": 7966,
                 "index_page_offset": null,
                 "statistics": {
@@ -13281,6 +13895,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 8157,
+                "start_offset": 40767,
+                "byte_length": 56,
                 "dictionary_page_offset": 8126,
                 "index_page_offset": null,
                 "statistics": {
@@ -13311,6 +13927,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 8301,
+                "start_offset": 40829,
+                "byte_length": 58,
                 "dictionary_page_offset": 8270,
                 "index_page_offset": null,
                 "statistics": {
@@ -13341,6 +13959,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 8447,
+                "start_offset": 40893,
+                "byte_length": 59,
                 "dictionary_page_offset": 8416,
                 "index_page_offset": null,
                 "statistics": {
@@ -13371,6 +13991,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 8594,
+                "start_offset": 40958,
+                "byte_length": 60,
                 "dictionary_page_offset": 8563,
                 "index_page_offset": null,
                 "statistics": {
@@ -13401,6 +14023,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 8742,
+                "start_offset": 41024,
+                "byte_length": 58,
                 "dictionary_page_offset": 8711,
                 "index_page_offset": null,
                 "statistics": {
@@ -13431,6 +14055,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 8888,
+                "start_offset": 41088,
+                "byte_length": 63,
                 "dictionary_page_offset": 8857,
                 "index_page_offset": null,
                 "statistics": {
@@ -13461,6 +14087,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9039,
+                "start_offset": 41157,
+                "byte_length": 65,
                 "dictionary_page_offset": 9008,
                 "index_page_offset": null,
                 "statistics": {
@@ -13491,6 +14119,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9192,
+                "start_offset": 41228,
+                "byte_length": 65,
                 "dictionary_page_offset": 9161,
                 "index_page_offset": null,
                 "statistics": {
@@ -13521,6 +14151,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9345,
+                "start_offset": 41299,
+                "byte_length": 66,
                 "dictionary_page_offset": 9314,
                 "index_page_offset": null,
                 "statistics": {
@@ -13551,6 +14183,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9499,
+                "start_offset": 41371,
+                "byte_length": 67,
                 "dictionary_page_offset": 9468,
                 "index_page_offset": null,
                 "statistics": {
@@ -13581,6 +14215,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9654,
+                "start_offset": 41444,
+                "byte_length": 65,
                 "dictionary_page_offset": 9623,
                 "index_page_offset": null,
                 "statistics": {
@@ -13611,6 +14247,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9807,
+                "start_offset": 41515,
+                "byte_length": 70,
                 "dictionary_page_offset": 9776,
                 "index_page_offset": null,
                 "statistics": {
@@ -13641,6 +14279,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 9965,
+                "start_offset": 41591,
+                "byte_length": 62,
                 "dictionary_page_offset": 9934,
                 "index_page_offset": null,
                 "statistics": {
@@ -13671,6 +14311,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 10115,
+                "start_offset": 41659,
+                "byte_length": 62,
                 "dictionary_page_offset": 10084,
                 "index_page_offset": null,
                 "statistics": {
@@ -13701,6 +14343,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 10265,
+                "start_offset": 41727,
+                "byte_length": 63,
                 "dictionary_page_offset": 10234,
                 "index_page_offset": null,
                 "statistics": {
@@ -13731,6 +14375,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 10416,
+                "start_offset": 41796,
+                "byte_length": 64,
                 "dictionary_page_offset": 10385,
                 "index_page_offset": null,
                 "statistics": {
@@ -13761,6 +14407,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 10568,
+                "start_offset": 41866,
+                "byte_length": 62,
                 "dictionary_page_offset": 10537,
                 "index_page_offset": null,
                 "statistics": {
@@ -13791,6 +14439,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 10718,
+                "start_offset": 41934,
+                "byte_length": 67,
                 "dictionary_page_offset": 10687,
                 "index_page_offset": null,
                 "statistics": {
@@ -13821,6 +14471,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 10873,
+                "start_offset": 42007,
+                "byte_length": 62,
                 "dictionary_page_offset": 10842,
                 "index_page_offset": null,
                 "statistics": {
@@ -13851,6 +14503,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11023,
+                "start_offset": 42075,
+                "byte_length": 62,
                 "dictionary_page_offset": 10992,
                 "index_page_offset": null,
                 "statistics": {
@@ -13881,6 +14535,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11173,
+                "start_offset": 42143,
+                "byte_length": 63,
                 "dictionary_page_offset": 11142,
                 "index_page_offset": null,
                 "statistics": {
@@ -13911,6 +14567,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11324,
+                "start_offset": 42212,
+                "byte_length": 64,
                 "dictionary_page_offset": 11293,
                 "index_page_offset": null,
                 "statistics": {
@@ -13941,6 +14599,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11476,
+                "start_offset": 42282,
+                "byte_length": 62,
                 "dictionary_page_offset": 11445,
                 "index_page_offset": null,
                 "statistics": {
@@ -13971,6 +14631,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11626,
+                "start_offset": 42350,
+                "byte_length": 67,
                 "dictionary_page_offset": 11595,
                 "index_page_offset": null,
                 "statistics": {
@@ -14001,6 +14663,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11781,
+                "start_offset": 42423,
+                "byte_length": 58,
                 "dictionary_page_offset": 11750,
                 "index_page_offset": null,
                 "statistics": {
@@ -14031,6 +14695,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 11927,
+                "start_offset": 42487,
+                "byte_length": 58,
                 "dictionary_page_offset": 11896,
                 "index_page_offset": null,
                 "statistics": {
@@ -14061,6 +14727,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12073,
+                "start_offset": 42551,
+                "byte_length": 59,
                 "dictionary_page_offset": 12042,
                 "index_page_offset": null,
                 "statistics": {
@@ -14091,6 +14759,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12220,
+                "start_offset": 42616,
+                "byte_length": 60,
                 "dictionary_page_offset": 12189,
                 "index_page_offset": null,
                 "statistics": {
@@ -14121,6 +14791,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12368,
+                "start_offset": 42682,
+                "byte_length": 58,
                 "dictionary_page_offset": 12337,
                 "index_page_offset": null,
                 "statistics": {
@@ -14151,6 +14823,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12514,
+                "start_offset": 42746,
+                "byte_length": 63,
                 "dictionary_page_offset": 12483,
                 "index_page_offset": null,
                 "statistics": {
@@ -14181,6 +14855,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12665,
+                "start_offset": 42815,
+                "byte_length": 73,
                 "dictionary_page_offset": 12634,
                 "index_page_offset": null,
                 "statistics": {
@@ -14211,6 +14887,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12826,
+                "start_offset": 42894,
+                "byte_length": 73,
                 "dictionary_page_offset": 12795,
                 "index_page_offset": null,
                 "statistics": {
@@ -14241,6 +14919,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 12987,
+                "start_offset": 42973,
+                "byte_length": 74,
                 "dictionary_page_offset": 12956,
                 "index_page_offset": null,
                 "statistics": {
@@ -14271,6 +14951,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 13149,
+                "start_offset": 43053,
+                "byte_length": 75,
                 "dictionary_page_offset": 13118,
                 "index_page_offset": null,
                 "statistics": {
@@ -14301,6 +14983,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 13312,
+                "start_offset": 43134,
+                "byte_length": 73,
                 "dictionary_page_offset": 13281,
                 "index_page_offset": null,
                 "statistics": {
@@ -14331,6 +15015,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 13473,
+                "start_offset": 43213,
+                "byte_length": 78,
                 "dictionary_page_offset": 13442,
                 "index_page_offset": null,
                 "statistics": {
@@ -14361,6 +15047,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 13639,
+                "start_offset": 43297,
+                "byte_length": 73,
                 "dictionary_page_offset": 13608,
                 "index_page_offset": null,
                 "statistics": {
@@ -14391,6 +15079,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 13800,
+                "start_offset": 43376,
+                "byte_length": 73,
                 "dictionary_page_offset": 13769,
                 "index_page_offset": null,
                 "statistics": {
@@ -14421,6 +15111,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 13961,
+                "start_offset": 43455,
+                "byte_length": 74,
                 "dictionary_page_offset": 13930,
                 "index_page_offset": null,
                 "statistics": {
@@ -14451,6 +15143,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 14123,
+                "start_offset": 43535,
+                "byte_length": 75,
                 "dictionary_page_offset": 14092,
                 "index_page_offset": null,
                 "statistics": {
@@ -14481,6 +15175,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 14286,
+                "start_offset": 43616,
+                "byte_length": 73,
                 "dictionary_page_offset": 14255,
                 "index_page_offset": null,
                 "statistics": {
@@ -14511,6 +15207,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 14447,
+                "start_offset": 43695,
+                "byte_length": 78,
                 "dictionary_page_offset": 14416,
                 "index_page_offset": null,
                 "statistics": {
@@ -14541,6 +15239,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 14613,
+                "start_offset": 43779,
+                "byte_length": 73,
                 "dictionary_page_offset": 14582,
                 "index_page_offset": null,
                 "statistics": {
@@ -14571,6 +15271,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 14774,
+                "start_offset": 43858,
+                "byte_length": 73,
                 "dictionary_page_offset": 14743,
                 "index_page_offset": null,
                 "statistics": {
@@ -14601,6 +15303,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 14935,
+                "start_offset": 43937,
+                "byte_length": 74,
                 "dictionary_page_offset": 14904,
                 "index_page_offset": null,
                 "statistics": {
@@ -14631,6 +15335,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 15097,
+                "start_offset": 44017,
+                "byte_length": 75,
                 "dictionary_page_offset": 15066,
                 "index_page_offset": null,
                 "statistics": {
@@ -14661,6 +15367,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 15260,
+                "start_offset": 44098,
+                "byte_length": 73,
                 "dictionary_page_offset": 15229,
                 "index_page_offset": null,
                 "statistics": {
@@ -14691,6 +15399,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 15421,
+                "start_offset": 44177,
+                "byte_length": 78,
                 "dictionary_page_offset": 15390,
                 "index_page_offset": null,
                 "statistics": {
@@ -14721,6 +15431,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 15587,
+                "start_offset": 44261,
+                "byte_length": 70,
                 "dictionary_page_offset": 15556,
                 "index_page_offset": null,
                 "statistics": {
@@ -14751,6 +15463,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 15745,
+                "start_offset": 44337,
+                "byte_length": 70,
                 "dictionary_page_offset": 15714,
                 "index_page_offset": null,
                 "statistics": {
@@ -14781,6 +15495,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 15903,
+                "start_offset": 44413,
+                "byte_length": 71,
                 "dictionary_page_offset": 15872,
                 "index_page_offset": null,
                 "statistics": {
@@ -14811,6 +15527,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 16062,
+                "start_offset": 44490,
+                "byte_length": 72,
                 "dictionary_page_offset": 16031,
                 "index_page_offset": null,
                 "statistics": {
@@ -14841,6 +15559,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 16222,
+                "start_offset": 44568,
+                "byte_length": 70,
                 "dictionary_page_offset": 16191,
                 "index_page_offset": null,
                 "statistics": {
@@ -14871,6 +15591,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 16380,
+                "start_offset": 44644,
+                "byte_length": 75,
                 "dictionary_page_offset": 16349,
                 "index_page_offset": null,
                 "statistics": {
@@ -14901,6 +15623,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 16543,
+                "start_offset": 44725,
+                "byte_length": 66,
                 "dictionary_page_offset": 16512,
                 "index_page_offset": null,
                 "statistics": {
@@ -14931,6 +15655,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 16697,
+                "start_offset": 44797,
+                "byte_length": 66,
                 "dictionary_page_offset": 16666,
                 "index_page_offset": null,
                 "statistics": {
@@ -14961,6 +15687,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 16851,
+                "start_offset": 44869,
+                "byte_length": 67,
                 "dictionary_page_offset": 16820,
                 "index_page_offset": null,
                 "statistics": {
@@ -14991,6 +15719,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17006,
+                "start_offset": 44942,
+                "byte_length": 68,
                 "dictionary_page_offset": 16975,
                 "index_page_offset": null,
                 "statistics": {
@@ -15021,6 +15751,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17162,
+                "start_offset": 45016,
+                "byte_length": 66,
                 "dictionary_page_offset": 17131,
                 "index_page_offset": null,
                 "statistics": {
@@ -15051,6 +15783,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17316,
+                "start_offset": 45088,
+                "byte_length": 71,
                 "dictionary_page_offset": 17285,
                 "index_page_offset": null,
                 "statistics": {
@@ -15081,6 +15815,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17475,
+                "start_offset": 45165,
+                "byte_length": 73,
                 "dictionary_page_offset": 17444,
                 "index_page_offset": null,
                 "statistics": {
@@ -15111,6 +15847,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17636,
+                "start_offset": 45244,
+                "byte_length": 73,
                 "dictionary_page_offset": 17605,
                 "index_page_offset": null,
                 "statistics": {
@@ -15141,6 +15879,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17797,
+                "start_offset": 45323,
+                "byte_length": 74,
                 "dictionary_page_offset": 17766,
                 "index_page_offset": null,
                 "statistics": {
@@ -15171,6 +15911,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 17959,
+                "start_offset": 45403,
+                "byte_length": 75,
                 "dictionary_page_offset": 17928,
                 "index_page_offset": null,
                 "statistics": {
@@ -15201,6 +15943,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 18122,
+                "start_offset": 45484,
+                "byte_length": 73,
                 "dictionary_page_offset": 18091,
                 "index_page_offset": null,
                 "statistics": {
@@ -15231,6 +15975,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 18283,
+                "start_offset": 45563,
+                "byte_length": 78,
                 "dictionary_page_offset": 18252,
                 "index_page_offset": null,
                 "statistics": {
@@ -15261,6 +16007,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 18449,
+                "start_offset": 45647,
+                "byte_length": 58,
                 "dictionary_page_offset": 18418,
                 "index_page_offset": null,
                 "statistics": {
@@ -15291,6 +16039,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 18595,
+                "start_offset": 45711,
+                "byte_length": 58,
                 "dictionary_page_offset": 18564,
                 "index_page_offset": null,
                 "statistics": {
@@ -15321,6 +16071,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 18741,
+                "start_offset": 45775,
+                "byte_length": 59,
                 "dictionary_page_offset": 18710,
                 "index_page_offset": null,
                 "statistics": {
@@ -15351,6 +16103,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 18888,
+                "start_offset": 45840,
+                "byte_length": 60,
                 "dictionary_page_offset": 18857,
                 "index_page_offset": null,
                 "statistics": {
@@ -15381,6 +16135,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19036,
+                "start_offset": 45906,
+                "byte_length": 58,
                 "dictionary_page_offset": 19005,
                 "index_page_offset": null,
                 "statistics": {
@@ -15411,6 +16167,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19182,
+                "start_offset": 45970,
+                "byte_length": 63,
                 "dictionary_page_offset": 19151,
                 "index_page_offset": null,
                 "statistics": {
@@ -15441,6 +16199,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19333,
+                "start_offset": 46039,
+                "byte_length": 62,
                 "dictionary_page_offset": 19302,
                 "index_page_offset": null,
                 "statistics": {
@@ -15471,6 +16231,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19483,
+                "start_offset": 46107,
+                "byte_length": 62,
                 "dictionary_page_offset": 19452,
                 "index_page_offset": null,
                 "statistics": {
@@ -15501,6 +16263,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19633,
+                "start_offset": 46175,
+                "byte_length": 63,
                 "dictionary_page_offset": 19602,
                 "index_page_offset": null,
                 "statistics": {
@@ -15531,6 +16295,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19784,
+                "start_offset": 46244,
+                "byte_length": 64,
                 "dictionary_page_offset": 19753,
                 "index_page_offset": null,
                 "statistics": {
@@ -15561,6 +16327,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 19936,
+                "start_offset": 46314,
+                "byte_length": 62,
                 "dictionary_page_offset": 19905,
                 "index_page_offset": null,
                 "statistics": {
@@ -15591,6 +16359,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 20086,
+                "start_offset": 46382,
+                "byte_length": 67,
                 "dictionary_page_offset": 20055,
                 "index_page_offset": null,
                 "statistics": {
@@ -15621,6 +16391,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 20241,
+                "start_offset": 46455,
+                "byte_length": 65,
                 "dictionary_page_offset": 20210,
                 "index_page_offset": null,
                 "statistics": {
@@ -15651,6 +16423,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 20394,
+                "start_offset": 46526,
+                "byte_length": 65,
                 "dictionary_page_offset": 20363,
                 "index_page_offset": null,
                 "statistics": {
@@ -15681,6 +16455,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 20547,
+                "start_offset": 46597,
+                "byte_length": 66,
                 "dictionary_page_offset": 20516,
                 "index_page_offset": null,
                 "statistics": {
@@ -15711,6 +16487,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 20701,
+                "start_offset": 46669,
+                "byte_length": 67,
                 "dictionary_page_offset": 20670,
                 "index_page_offset": null,
                 "statistics": {
@@ -15741,6 +16519,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 20856,
+                "start_offset": 46742,
+                "byte_length": 65,
                 "dictionary_page_offset": 20825,
                 "index_page_offset": null,
                 "statistics": {
@@ -15771,6 +16551,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21009,
+                "start_offset": 46813,
+                "byte_length": 70,
                 "dictionary_page_offset": 20978,
                 "index_page_offset": null,
                 "statistics": {
@@ -15801,6 +16583,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21167,
+                "start_offset": 46889,
+                "byte_length": 71,
                 "dictionary_page_offset": 21136,
                 "index_page_offset": null,
                 "statistics": {
@@ -15831,6 +16615,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21326,
+                "start_offset": 46966,
+                "byte_length": 71,
                 "dictionary_page_offset": 21295,
                 "index_page_offset": null,
                 "statistics": {
@@ -15861,6 +16647,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21485,
+                "start_offset": 47043,
+                "byte_length": 72,
                 "dictionary_page_offset": 21454,
                 "index_page_offset": null,
                 "statistics": {
@@ -15891,6 +16679,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21645,
+                "start_offset": 47121,
+                "byte_length": 73,
                 "dictionary_page_offset": 21614,
                 "index_page_offset": null,
                 "statistics": {
@@ -15921,6 +16711,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21806,
+                "start_offset": 47200,
+                "byte_length": 71,
                 "dictionary_page_offset": 21775,
                 "index_page_offset": null,
                 "statistics": {
@@ -15951,6 +16743,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 21965,
+                "start_offset": 47277,
+                "byte_length": 76,
                 "dictionary_page_offset": 21934,
                 "index_page_offset": null,
                 "statistics": {
@@ -15981,6 +16775,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 22129,
+                "start_offset": 47359,
+                "byte_length": 63,
                 "dictionary_page_offset": 22098,
                 "index_page_offset": null,
                 "statistics": {
@@ -16011,6 +16807,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 22280,
+                "start_offset": 47428,
+                "byte_length": 63,
                 "dictionary_page_offset": 22249,
                 "index_page_offset": null,
                 "statistics": {
@@ -16041,6 +16839,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 22431,
+                "start_offset": 47497,
+                "byte_length": 64,
                 "dictionary_page_offset": 22400,
                 "index_page_offset": null,
                 "statistics": {
@@ -16071,6 +16871,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 22583,
+                "start_offset": 47567,
+                "byte_length": 65,
                 "dictionary_page_offset": 22552,
                 "index_page_offset": null,
                 "statistics": {
@@ -16101,6 +16903,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 22736,
+                "start_offset": 47638,
+                "byte_length": 63,
                 "dictionary_page_offset": 22705,
                 "index_page_offset": null,
                 "statistics": {
@@ -16131,6 +16935,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 22887,
+                "start_offset": 47707,
+                "byte_length": 68,
                 "dictionary_page_offset": 22856,
                 "index_page_offset": null,
                 "statistics": {
@@ -16161,6 +16967,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23043,
+                "start_offset": 47781,
+                "byte_length": 70,
                 "dictionary_page_offset": 23012,
                 "index_page_offset": null,
                 "statistics": {
@@ -16191,6 +16999,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23201,
+                "start_offset": 47857,
+                "byte_length": 70,
                 "dictionary_page_offset": 23170,
                 "index_page_offset": null,
                 "statistics": {
@@ -16221,6 +17031,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23359,
+                "start_offset": 47933,
+                "byte_length": 71,
                 "dictionary_page_offset": 23328,
                 "index_page_offset": null,
                 "statistics": {
@@ -16251,6 +17063,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23518,
+                "start_offset": 48010,
+                "byte_length": 72,
                 "dictionary_page_offset": 23487,
                 "index_page_offset": null,
                 "statistics": {
@@ -16281,6 +17095,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23678,
+                "start_offset": 48088,
+                "byte_length": 70,
                 "dictionary_page_offset": 23647,
                 "index_page_offset": null,
                 "statistics": {
@@ -16311,6 +17127,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23836,
+                "start_offset": 48164,
+                "byte_length": 75,
                 "dictionary_page_offset": 23805,
                 "index_page_offset": null,
                 "statistics": {
@@ -16341,6 +17159,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 23999,
+                "start_offset": 48245,
+                "byte_length": 74,
                 "dictionary_page_offset": 23968,
                 "index_page_offset": null,
                 "statistics": {
@@ -16371,6 +17191,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 24161,
+                "start_offset": 48325,
+                "byte_length": 74,
                 "dictionary_page_offset": 24130,
                 "index_page_offset": null,
                 "statistics": {
@@ -16401,6 +17223,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 24323,
+                "start_offset": 48405,
+                "byte_length": 75,
                 "dictionary_page_offset": 24292,
                 "index_page_offset": null,
                 "statistics": {
@@ -16431,6 +17255,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 24486,
+                "start_offset": 48486,
+                "byte_length": 76,
                 "dictionary_page_offset": 24455,
                 "index_page_offset": null,
                 "statistics": {
@@ -16461,6 +17287,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 24650,
+                "start_offset": 48568,
+                "byte_length": 74,
                 "dictionary_page_offset": 24619,
                 "index_page_offset": null,
                 "statistics": {
@@ -16491,6 +17319,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 24812,
+                "start_offset": 48648,
+                "byte_length": 79,
                 "dictionary_page_offset": 24781,
                 "index_page_offset": null,
                 "statistics": {
@@ -16521,6 +17351,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 24979,
+                "start_offset": 48733,
+                "byte_length": 77,
                 "dictionary_page_offset": 24948,
                 "index_page_offset": null,
                 "statistics": {
@@ -16551,6 +17383,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 25144,
+                "start_offset": 48816,
+                "byte_length": 77,
                 "dictionary_page_offset": 25113,
                 "index_page_offset": null,
                 "statistics": {
@@ -16581,6 +17415,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 25309,
+                "start_offset": 48899,
+                "byte_length": 78,
                 "dictionary_page_offset": 25278,
                 "index_page_offset": null,
                 "statistics": {
@@ -16611,6 +17447,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 25475,
+                "start_offset": 48983,
+                "byte_length": 79,
                 "dictionary_page_offset": 25444,
                 "index_page_offset": null,
                 "statistics": {
@@ -16641,6 +17479,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 25642,
+                "start_offset": 49068,
+                "byte_length": 77,
                 "dictionary_page_offset": 25611,
                 "index_page_offset": null,
                 "statistics": {
@@ -16671,6 +17511,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 25807,
+                "start_offset": 49151,
+                "byte_length": 82,
                 "dictionary_page_offset": 25776,
                 "index_page_offset": null,
                 "statistics": {
@@ -16701,6 +17543,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 25977,
+                "start_offset": 49239,
+                "byte_length": 66,
                 "dictionary_page_offset": 25946,
                 "index_page_offset": null,
                 "statistics": {
@@ -16731,6 +17575,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 26131,
+                "start_offset": 49311,
+                "byte_length": 66,
                 "dictionary_page_offset": 26100,
                 "index_page_offset": null,
                 "statistics": {
@@ -16761,6 +17607,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 26285,
+                "start_offset": 49383,
+                "byte_length": 67,
                 "dictionary_page_offset": 26254,
                 "index_page_offset": null,
                 "statistics": {
@@ -16791,6 +17639,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 26440,
+                "start_offset": 49456,
+                "byte_length": 68,
                 "dictionary_page_offset": 26409,
                 "index_page_offset": null,
                 "statistics": {
@@ -16821,6 +17671,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 26596,
+                "start_offset": 49530,
+                "byte_length": 66,
                 "dictionary_page_offset": 26565,
                 "index_page_offset": null,
                 "statistics": {
@@ -16851,6 +17703,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 26750,
+                "start_offset": 49602,
+                "byte_length": 71,
                 "dictionary_page_offset": 26719,
                 "index_page_offset": null,
                 "statistics": {
@@ -16881,6 +17735,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 26909,
+                "start_offset": 49679,
+                "byte_length": 65,
                 "dictionary_page_offset": 26878,
                 "index_page_offset": null,
                 "statistics": {
@@ -16911,6 +17767,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27062,
+                "start_offset": 49750,
+                "byte_length": 65,
                 "dictionary_page_offset": 27031,
                 "index_page_offset": null,
                 "statistics": {
@@ -16941,6 +17799,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27215,
+                "start_offset": 49821,
+                "byte_length": 66,
                 "dictionary_page_offset": 27184,
                 "index_page_offset": null,
                 "statistics": {
@@ -16971,6 +17831,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27369,
+                "start_offset": 49893,
+                "byte_length": 67,
                 "dictionary_page_offset": 27338,
                 "index_page_offset": null,
                 "statistics": {
@@ -17001,6 +17863,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27524,
+                "start_offset": 49966,
+                "byte_length": 65,
                 "dictionary_page_offset": 27493,
                 "index_page_offset": null,
                 "statistics": {
@@ -17031,6 +17895,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27677,
+                "start_offset": 50037,
+                "byte_length": 70,
                 "dictionary_page_offset": 27646,
                 "index_page_offset": null,
                 "statistics": {
@@ -17061,6 +17927,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27835,
+                "start_offset": 50113,
+                "byte_length": 69,
                 "dictionary_page_offset": 27804,
                 "index_page_offset": null,
                 "statistics": {
@@ -17091,6 +17959,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 27992,
+                "start_offset": 50188,
+                "byte_length": 69,
                 "dictionary_page_offset": 27961,
                 "index_page_offset": null,
                 "statistics": {
@@ -17121,6 +17991,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 28149,
+                "start_offset": 50263,
+                "byte_length": 70,
                 "dictionary_page_offset": 28118,
                 "index_page_offset": null,
                 "statistics": {
@@ -17151,6 +18023,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 28307,
+                "start_offset": 50339,
+                "byte_length": 71,
                 "dictionary_page_offset": 28276,
                 "index_page_offset": null,
                 "statistics": {
@@ -17181,6 +18055,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 28466,
+                "start_offset": 50416,
+                "byte_length": 69,
                 "dictionary_page_offset": 28435,
                 "index_page_offset": null,
                 "statistics": {
@@ -17211,6 +18087,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 28623,
+                "start_offset": 50491,
+                "byte_length": 74,
                 "dictionary_page_offset": 28592,
                 "index_page_offset": null,
                 "statistics": {
@@ -17241,6 +18119,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 28785,
+                "start_offset": 50571,
+                "byte_length": 75,
                 "dictionary_page_offset": 28754,
                 "index_page_offset": null,
                 "statistics": {
@@ -17271,6 +18151,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 28948,
+                "start_offset": 50652,
+                "byte_length": 75,
                 "dictionary_page_offset": 28917,
                 "index_page_offset": null,
                 "statistics": {
@@ -17301,6 +18183,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 29111,
+                "start_offset": 50733,
+                "byte_length": 76,
                 "dictionary_page_offset": 29080,
                 "index_page_offset": null,
                 "statistics": {
@@ -17331,6 +18215,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 29275,
+                "start_offset": 50815,
+                "byte_length": 77,
                 "dictionary_page_offset": 29244,
                 "index_page_offset": null,
                 "statistics": {
@@ -17361,6 +18247,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 29440,
+                "start_offset": 50898,
+                "byte_length": 75,
                 "dictionary_page_offset": 29409,
                 "index_page_offset": null,
                 "statistics": {
@@ -17391,6 +18279,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 29603,
+                "start_offset": 50979,
+                "byte_length": 80,
                 "dictionary_page_offset": 29572,
                 "index_page_offset": null,
                 "statistics": {
@@ -17421,6 +18311,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 29771,
+                "start_offset": 51065,
+                "byte_length": 67,
                 "dictionary_page_offset": 29740,
                 "index_page_offset": null,
                 "statistics": {
@@ -17451,6 +18343,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 29926,
+                "start_offset": 51138,
+                "byte_length": 67,
                 "dictionary_page_offset": 29895,
                 "index_page_offset": null,
                 "statistics": {
@@ -17481,6 +18375,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 30081,
+                "start_offset": 51211,
+                "byte_length": 68,
                 "dictionary_page_offset": 30050,
                 "index_page_offset": null,
                 "statistics": {
@@ -17511,6 +18407,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 30237,
+                "start_offset": 51285,
+                "byte_length": 69,
                 "dictionary_page_offset": 30206,
                 "index_page_offset": null,
                 "statistics": {
@@ -17541,6 +18439,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 30394,
+                "start_offset": 51360,
+                "byte_length": 67,
                 "dictionary_page_offset": 30363,
                 "index_page_offset": null,
                 "statistics": {
@@ -17571,6 +18471,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 30549,
+                "start_offset": 51433,
+                "byte_length": 72,
                 "dictionary_page_offset": 30518,
                 "index_page_offset": null,
                 "statistics": {
@@ -17601,6 +18503,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 30709,
+                "start_offset": 51511,
+                "byte_length": 60,
                 "dictionary_page_offset": 30678,
                 "index_page_offset": null,
                 "statistics": {
@@ -17631,6 +18535,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 30857,
+                "start_offset": 51577,
+                "byte_length": 60,
                 "dictionary_page_offset": 30826,
                 "index_page_offset": null,
                 "statistics": {
@@ -17661,6 +18567,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31005,
+                "start_offset": 51643,
+                "byte_length": 61,
                 "dictionary_page_offset": 30974,
                 "index_page_offset": null,
                 "statistics": {
@@ -17691,6 +18599,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31154,
+                "start_offset": 51710,
+                "byte_length": 62,
                 "dictionary_page_offset": 31123,
                 "index_page_offset": null,
                 "statistics": {
@@ -17721,6 +18631,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31304,
+                "start_offset": 51778,
+                "byte_length": 60,
                 "dictionary_page_offset": 31273,
                 "index_page_offset": null,
                 "statistics": {
@@ -17751,6 +18663,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31452,
+                "start_offset": 51844,
+                "byte_length": 65,
                 "dictionary_page_offset": 31421,
                 "index_page_offset": null,
                 "statistics": {
@@ -17781,6 +18695,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31605,
+                "start_offset": 51915,
+                "byte_length": 74,
                 "dictionary_page_offset": 31574,
                 "index_page_offset": null,
                 "statistics": {
@@ -17811,6 +18727,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31767,
+                "start_offset": 51995,
+                "byte_length": 74,
                 "dictionary_page_offset": 31736,
                 "index_page_offset": null,
                 "statistics": {
@@ -17841,6 +18759,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 31929,
+                "start_offset": 52075,
+                "byte_length": 75,
                 "dictionary_page_offset": 31898,
                 "index_page_offset": null,
                 "statistics": {
@@ -17871,6 +18791,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 32092,
+                "start_offset": 52156,
+                "byte_length": 76,
                 "dictionary_page_offset": 32061,
                 "index_page_offset": null,
                 "statistics": {
@@ -17901,6 +18823,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 32256,
+                "start_offset": 52238,
+                "byte_length": 74,
                 "dictionary_page_offset": 32225,
                 "index_page_offset": null,
                 "statistics": {
@@ -17931,6 +18855,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 32418,
+                "start_offset": 52318,
+                "byte_length": 79,
                 "dictionary_page_offset": 32387,
                 "index_page_offset": null,
                 "statistics": {
@@ -17961,6 +18887,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 32585,
+                "start_offset": 52403,
+                "byte_length": 95,
                 "dictionary_page_offset": 32554,
                 "index_page_offset": null,
                 "statistics": {
@@ -17991,6 +18919,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 32768,
+                "start_offset": 52504,
+                "byte_length": 95,
                 "dictionary_page_offset": 32737,
                 "index_page_offset": null,
                 "statistics": {
@@ -18021,6 +18951,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 32951,
+                "start_offset": 52605,
+                "byte_length": 96,
                 "dictionary_page_offset": 32920,
                 "index_page_offset": null,
                 "statistics": {
@@ -18051,6 +18983,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 33135,
+                "start_offset": 52707,
+                "byte_length": 97,
                 "dictionary_page_offset": 33104,
                 "index_page_offset": null,
                 "statistics": {
@@ -18081,6 +19015,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 33320,
+                "start_offset": 52810,
+                "byte_length": 95,
                 "dictionary_page_offset": 33289,
                 "index_page_offset": null,
                 "statistics": {
@@ -18111,6 +19047,8 @@
                 "total_uncompressed_size": 64,
                 "total_compressed_size": 82,
                 "data_page_offset": 33503,
+                "start_offset": 52911,
+                "byte_length": 100,
                 "dictionary_page_offset": 33472,
                 "index_page_offset": null,
                 "statistics": {
@@ -18129,6 +19067,8 @@
           },
           "total_byte_size": 17712,
           "row_count": 1,
+          "start_offset": 37064,
+          "byte_length": 15955,
           "compression_stats": {
             "total_compressed": 17712,
             "total_uncompressed": 13824,

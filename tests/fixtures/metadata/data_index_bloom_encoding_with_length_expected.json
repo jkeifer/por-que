@@ -67,11 +67,15 @@
       "schema": {
         "element_type": "root",
         "name": "arrow_schema",
+        "start_offset": 2357,
+        "byte_length": 17,
         "num_children": 1,
         "children": {
           "String": {
             "element_type": "column",
             "name": "String",
+            "start_offset": 2374,
+            "byte_length": 19,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -101,6 +105,8 @@
                 "total_uncompressed_size": 199,
                 "total_compressed_size": 199,
                 "data_page_offset": 152,
+                "start_offset": 2403,
+                "byte_length": 56,
                 "dictionary_page_offset": 4,
                 "index_page_offset": null,
                 "statistics": {
@@ -119,6 +125,8 @@
           },
           "total_byte_size": 199,
           "row_count": 14,
+          "start_offset": 2397,
+          "byte_length": 86,
           "compression_stats": {
             "total_compressed": 199,
             "total_uncompressed": 199,

@@ -52,8 +52,6 @@ class BaseParser:
 
         elements: list[T] = []
         for _ in range(size):
-            if self.at_end():
-                break
             elements.append(read_element_func())
 
         return elements
@@ -81,6 +79,3 @@ class BaseParser:
 
     def read_bytes(self) -> bytes:
         return self.parser.read_bytes()
-
-    def at_end(self) -> bool:
-        return self.parser.at_end()

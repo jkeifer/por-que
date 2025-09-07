@@ -11,7 +11,7 @@ Teaching Points:
 import logging
 
 from por_que.enums import BoundaryOrder
-from por_que.logical import ColumnIndex, OffsetIndex, PageLocation
+from por_que.file_metadata import ColumnIndex, OffsetIndex, PageLocation
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
