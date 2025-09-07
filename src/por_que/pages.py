@@ -4,16 +4,17 @@ Unified page models that combine logical content with physical layout informatio
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Annotated, Any, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Discriminator
 
 from .enums import Encoding, PageType
-from .logical import ColumnStatistics
+from .file_metadata import (
+    ColumnChunk,
+    ColumnStatistics,
+    SchemaRoot,
+)
 from .protocols import ReadableSeekable
-
-if TYPE_CHECKING:
-    from . import logical
 
 
 class Page(BaseModel):
@@ -37,8 +38,8 @@ class Page(BaseModel):
         cls,
         reader: ReadableSeekable,
         offset: int,
-        schema_root: logical.SchemaRoot,
-        chunk_metadata: logical.ColumnChunk | None = None,
+        schema_root: SchemaRoot,
+        chunk_metadata: ColumnChunk | None = None,
     ) -> AnyPage:
         """Factory method to parse and return the correct Page subtype."""
         from .parsers.parquet.page import PageParser
@@ -46,11 +47,8 @@ class Page(BaseModel):
 
         reader.seek(offset)
 
-        # Read page header using existing infrastructure
-        # Read a reasonably sized buffer, assuming headers are not huge.
-        # 8KB should be more than enough for any page header.
-        header_buffer = reader.read(8192)
-        parser = ThriftCompactParser(header_buffer)
+        # Parse page header directly from file
+        parser = ThriftCompactParser(reader, offset)
 
         # Extract column type and path from metadata if available
         column_type = None

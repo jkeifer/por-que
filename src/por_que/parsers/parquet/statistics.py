@@ -15,7 +15,7 @@ from datetime import UTC, date, datetime, timedelta
 
 from por_que.enums import LogicalType, TimeUnit, Type
 from por_que.exceptions import ParquetDataError
-from por_que.logical import (
+from por_que.file_metadata import (
     ColumnStatistics,
     LogicalTypeInfo,
     SchemaRoot,

@@ -3,7 +3,8 @@ import struct
 
 from typing import Any
 
-from por_que.exceptions import InvalidStringLengthError
+from por_que.exceptions import InvalidStringLengthError, ThriftParsingError
+from por_que.protocols import ReadableSeekable
 
 from .constants import (
     DEFAULT_STRING_ENCODING,
@@ -27,16 +28,29 @@ class ThriftCompactParser:
     - Thrift compact protocol uses variable-length encoding to save space
     - Zigzag encoding allows negative numbers to be encoded efficiently
     - Field deltas enable sparse field IDs without wasting bytes
+    - Operates directly on file-like objects for true file position tracking
     """
 
-    def __init__(self, data: bytes, pos: int = 0) -> None:
-        self.data = data
-        self.pos = pos
+    def __init__(self, reader: ReadableSeekable, start_offset: int) -> None:
+        self.reader = reader
+        # Ensure we're positioned at the start offset
+        self.reader.seek(start_offset)
 
     def read(self, length: int = 1) -> bytes:
-        data = self.data[self.pos : self.pos + length]
-        self.pos += len(data)
+        """Read bytes from the file."""
+        data = self.reader.read(length)
+        if len(data) != length:
+            raise ThriftParsingError(
+                f'Unexpected end of file: expected {length} bytes, got {len(data)} '
+                f'at position {self.pos - len(data)}. '
+                'File appears to be truncated or malformed.',
+            )
         return data
+
+    @property
+    def pos(self) -> int:
+        """Current absolute file position."""
+        return self.reader.tell()
 
     def read_varint(self) -> int:
         """
@@ -50,8 +64,11 @@ class ThriftCompactParser:
         start_pos = self.pos
         result = 0
         shift = 0
-        while self.pos < len(self.data):
-            byte = int.from_bytes(self.read())
+        while True:
+            byte_data = self.read(1)
+            if not byte_data:
+                break
+            byte = int.from_bytes(byte_data)
             result |= (byte & THRIFT_VARINT_MASK) << shift
             if (byte & THRIFT_VARINT_CONTINUE) == 0:
                 break
@@ -91,13 +108,20 @@ class ThriftCompactParser:
         length = self.read_varint()
         logger.debug('Reading string of length %d at pos %d', length, self.pos)
 
-        if length < 0 or self.pos + length > len(self.data):
+        if length < 0:
             raise InvalidStringLengthError(
                 f'Invalid string length {length} at position {self.pos}. '
-                f'Length cannot be negative or exceed buffer bounds.',
+                f'Length cannot be negative.',
             )
 
-        result = self.read(length).decode(DEFAULT_STRING_ENCODING)
+        data = self.read(length)
+        if len(data) != length:
+            raise InvalidStringLengthError(
+                f'Could not read {length} bytes for string at position {self.pos}. '
+                f'Only {len(data)} bytes available.',
+            )
+
+        result = data.decode(DEFAULT_STRING_ENCODING)
         logger.debug('Read string: %r', result)
         return result
 
@@ -111,11 +135,7 @@ class ThriftCompactParser:
 
     def skip(self, n: int) -> None:
         """Skip n bytes"""
-        self.read(n)
-
-    def at_end(self) -> bool:
-        """Check if at end of data"""
-        return self.pos >= len(self.data)
+        self.reader.seek(n, 1)  # Seek relative to current position
 
 
 class ThriftStructParser:
@@ -141,11 +161,13 @@ class ThriftStructParser:
         - Field headers encode both type and ID information
         - Field ID deltas save space for sequential fields
         - Type information enables generic field skipping
+        - EOF at field header boundary indicates end of parsing
         """
-        if self.parser.at_end():
+        try:
+            byte = int.from_bytes(self.parser.read(1))
+        except ThriftParsingError:
+            # EOF at field header boundary is legitimate (end of struct/parsing)
             return ThriftFieldType.STOP, 0
-
-        byte = int.from_bytes(self.parser.read())
 
         field_type = byte & THRIFT_FIELD_TYPE_MASK
         field_delta = byte >> 4
@@ -189,8 +211,6 @@ class ThriftStructParser:
 
     def skip_field(self, field_type: int) -> None:  # noqa: C901
         """Skip a field based on its type"""
-        if self.parser.at_end():
-            return
 
         if (
             field_type == ThriftFieldType.BOOL_TRUE
@@ -230,10 +250,7 @@ class ThriftStructParser:
 
     def skip_list(self) -> None:
         """Skip a list/set"""
-        if self.parser.at_end():
-            return
-
-        header = int.from_bytes(self.parser.read())
+        header = int.from_bytes(self.parser.read(1))
         size = header >> THRIFT_SIZE_SHIFT  # Size from upper 4 bits
         elem_type = header & THRIFT_FIELD_TYPE_MASK  # Element type from lower 4 bits
 
@@ -244,15 +261,10 @@ class ThriftStructParser:
         # Skip all elements
         skip_parser = ThriftStructParser(self.parser)
         for _ in range(size):
-            if self.parser.at_end():
-                break
             skip_parser.skip_field(elem_type)
 
     def skip_map(self) -> None:
         """Skip a map"""
-        if self.parser.at_end():
-            return
-
         # Maps always encode size as varint (unlike lists)
         size = self.parser.read_varint()
 
@@ -263,7 +275,5 @@ class ThriftStructParser:
 
             skip_parser = ThriftStructParser(self.parser)
             for _ in range(size):
-                if self.parser.at_end():
-                    break
                 skip_parser.skip_field(key_type)
                 skip_parser.skip_field(val_type)

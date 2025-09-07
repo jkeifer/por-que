@@ -10,7 +10,7 @@ Teaching Points:
 
 import logging
 
-from por_que.logical import RowGroup, SchemaRoot
+from por_que.file_metadata import RowGroup, SchemaRoot
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -56,6 +56,7 @@ class RowGroupParser(BaseParser):
         Returns:
             RowGroup with metadata and column chunk information
         """
+        start_offset = self.parser.pos
         struct_parser = ThriftStructParser(self.parser)
 
         # Collect values for frozen RowGroup construction
@@ -63,7 +64,7 @@ class RowGroupParser(BaseParser):
         total_byte_size = 0
         row_count = 0
 
-        logger.debug('Reading row group')
+        logger.debug('Reading row group at offset %d', start_offset)
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -94,6 +95,9 @@ class RowGroupParser(BaseParser):
                     # Same across all columns in the row group
                     row_count = value
 
+        end_offset = self.parser.pos
+        byte_length = end_offset - start_offset
+
         # Convert column chunks list to dict keyed by path
         column_chunks = {
             chunk.metadata.path_in_schema: chunk for chunk in column_chunks_list
@@ -104,12 +108,16 @@ class RowGroupParser(BaseParser):
             column_chunks=column_chunks,
             total_byte_size=total_byte_size,
             row_count=row_count,
+            start_offset=start_offset,
+            byte_length=byte_length,
         )
 
         logger.debug(
-            'Read row group with %d columns, %d rows, %d bytes',
+            'Read row group with %d columns, %d rows, %d bytes (bytes %d-%d)',
             len(column_chunks_list),
             rg.row_count,
             rg.total_byte_size,
+            start_offset,
+            end_offset,
         )
         return rg

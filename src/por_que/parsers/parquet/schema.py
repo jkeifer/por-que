@@ -12,7 +12,7 @@ import logging
 
 from por_que.enums import ConvertedType, LogicalType, Repetition, TimeUnit, Type
 from por_que.exceptions import ThriftParsingError
-from por_que.logical import (
+from por_que.file_metadata import (
     BsonTypeInfo,
     DateTypeInfo,
     DecimalTypeInfo,
@@ -23,7 +23,7 @@ from por_que.logical import (
     IntTypeInfo,
     JsonTypeInfo,
     ListTypeInfo,
-    LogicalTypeInfo,
+    LogicalTypeInfoUnion,
     MapTypeInfo,
     SchemaElement,
     SchemaGroup,
@@ -67,10 +67,11 @@ class SchemaParser(BaseParser):
         - num_children indicates how many child elements follow this one
 
         Returns:
-            SchemaElement with parsed metadata
+            SchemaElement with parsed metadata and byte range information
         """
+        start_offset = self.parser.pos
         struct_parser = ThriftStructParser(self.parser)
-        logger.debug('Reading schema element')
+        logger.debug('Reading schema element at offset %d', start_offset)
         name: str | None = None
         _type: Type | None = None
         type_length: int | None = None
@@ -80,7 +81,7 @@ class SchemaParser(BaseParser):
         scale: int | None = None
         precision: int | None = None
         field_id: int | None = None
-        logical_type: LogicalTypeInfo | None = None
+        logical_type: LogicalTypeInfoUnion | None = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -121,6 +122,9 @@ class SchemaParser(BaseParser):
                     # already skipped unknown fields, but it's good practice.
                     pass
 
+        end_offset = self.parser.pos
+        byte_length = end_offset - start_offset
+
         element = SchemaElement.new(
             name=name,
             type=_type,
@@ -128,13 +132,20 @@ class SchemaParser(BaseParser):
             repetition=repetition,
             num_children=num_children,
             converted_type=converted_type,
+            start_offset=start_offset,
+            byte_length=byte_length,
             scale=scale,
             precision=precision,
             field_id=field_id,
             logical_type=logical_type,
         )
 
-        logger.debug('Read schema element: %s', element)
+        logger.debug(
+            'Read schema element: %s (bytes %d-%d)',
+            element,
+            start_offset,
+            end_offset,
+        )
         return element
 
     def read_schema_tree(self, elements_iter) -> SchemaRoot | SchemaGroup | SchemaLeaf:
@@ -216,7 +227,7 @@ class SchemaParser(BaseParser):
         self.read_schema_tree(elements_iter)
         return schema_root
 
-    def _parse_logical_type(self) -> LogicalTypeInfo | None:  # noqa: C901
+    def _parse_logical_type(self) -> LogicalTypeInfoUnion | None:  # noqa: C901
         """
         Parse a LogicalType union from the Thrift stream.
 

@@ -572,11 +572,15 @@
       "schema": {
         "element_type": "root",
         "name": "hive_schema",
+        "start_offset": 9494,
+        "byte_length": 16,
         "num_children": 17,
         "children": {
           "c_customer_sk": {
             "element_type": "column",
             "name": "c_customer_sk",
+            "start_offset": 9510,
+            "byte_length": 20,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -589,6 +593,8 @@
           "c_current_cdemo_sk": {
             "element_type": "column",
             "name": "c_current_cdemo_sk",
+            "start_offset": 9530,
+            "byte_length": 25,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -601,6 +607,8 @@
           "c_current_hdemo_sk": {
             "element_type": "column",
             "name": "c_current_hdemo_sk",
+            "start_offset": 9555,
+            "byte_length": 25,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -613,6 +621,8 @@
           "c_current_addr_sk": {
             "element_type": "column",
             "name": "c_current_addr_sk",
+            "start_offset": 9580,
+            "byte_length": 24,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -625,6 +635,8 @@
           "c_first_shipto_date_sk": {
             "element_type": "column",
             "name": "c_first_shipto_date_sk",
+            "start_offset": 9604,
+            "byte_length": 29,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -637,6 +649,8 @@
           "c_first_sales_date_sk": {
             "element_type": "column",
             "name": "c_first_sales_date_sk",
+            "start_offset": 9633,
+            "byte_length": 28,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -649,6 +663,8 @@
           "c_birth_day": {
             "element_type": "column",
             "name": "c_birth_day",
+            "start_offset": 9661,
+            "byte_length": 18,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -661,6 +677,8 @@
           "c_birth_month": {
             "element_type": "column",
             "name": "c_birth_month",
+            "start_offset": 9679,
+            "byte_length": 20,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -673,6 +691,8 @@
           "c_birth_year": {
             "element_type": "column",
             "name": "c_birth_year",
+            "start_offset": 9699,
+            "byte_length": 19,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -685,6 +705,8 @@
           "c_customer_id": {
             "element_type": "column",
             "name": "c_customer_id",
+            "start_offset": 9718,
+            "byte_length": 22,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -697,6 +719,8 @@
           "c_salutation": {
             "element_type": "column",
             "name": "c_salutation",
+            "start_offset": 9740,
+            "byte_length": 21,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -709,6 +733,8 @@
           "c_first_name": {
             "element_type": "column",
             "name": "c_first_name",
+            "start_offset": 9761,
+            "byte_length": 21,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -721,6 +747,8 @@
           "c_last_name": {
             "element_type": "column",
             "name": "c_last_name",
+            "start_offset": 9782,
+            "byte_length": 20,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -733,6 +761,8 @@
           "c_preferred_cust_flag": {
             "element_type": "column",
             "name": "c_preferred_cust_flag",
+            "start_offset": 9802,
+            "byte_length": 30,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -745,6 +775,8 @@
           "c_birth_country": {
             "element_type": "column",
             "name": "c_birth_country",
+            "start_offset": 9832,
+            "byte_length": 24,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -757,6 +789,8 @@
           "c_email_address": {
             "element_type": "column",
             "name": "c_email_address",
+            "start_offset": 9856,
+            "byte_length": 24,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -769,6 +803,8 @@
           "c_last_review_date": {
             "element_type": "column",
             "name": "c_last_review_date",
+            "start_offset": 9880,
+            "byte_length": 27,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -796,6 +832,8 @@
                 "total_uncompressed_size": 81,
                 "total_compressed_size": 81,
                 "data_page_offset": 4,
+                "start_offset": 9918,
+                "byte_length": 88,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -824,6 +862,8 @@
                 "total_uncompressed_size": 358,
                 "total_compressed_size": 358,
                 "data_page_offset": 85,
+                "start_offset": 10011,
+                "byte_length": 94,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -852,6 +892,8 @@
                 "total_uncompressed_size": 311,
                 "total_compressed_size": 311,
                 "data_page_offset": 443,
+                "start_offset": 10110,
+                "byte_length": 94,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -880,6 +922,8 @@
                 "total_uncompressed_size": 353,
                 "total_compressed_size": 353,
                 "data_page_offset": 754,
+                "start_offset": 10209,
+                "byte_length": 93,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -908,6 +952,8 @@
                 "total_uncompressed_size": 297,
                 "total_compressed_size": 297,
                 "data_page_offset": 1107,
+                "start_offset": 10307,
+                "byte_length": 98,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -936,6 +982,8 @@
                 "total_uncompressed_size": 297,
                 "total_compressed_size": 297,
                 "data_page_offset": 1404,
+                "start_offset": 10410,
+                "byte_length": 97,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -964,6 +1012,8 @@
                 "total_uncompressed_size": 160,
                 "total_compressed_size": 160,
                 "data_page_offset": 1701,
+                "start_offset": 10512,
+                "byte_length": 87,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -992,6 +1042,8 @@
                 "total_uncompressed_size": 146,
                 "total_compressed_size": 146,
                 "data_page_offset": 1861,
+                "start_offset": 10604,
+                "byte_length": 89,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1020,6 +1072,8 @@
                 "total_uncompressed_size": 172,
                 "total_compressed_size": 172,
                 "data_page_offset": 2007,
+                "start_offset": 10698,
+                "byte_length": 88,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1048,6 +1102,8 @@
                 "total_uncompressed_size": 976,
                 "total_compressed_size": 976,
                 "data_page_offset": 2179,
+                "start_offset": 10791,
+                "byte_length": 85,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1076,6 +1132,8 @@
                 "total_uncompressed_size": 376,
                 "total_compressed_size": 376,
                 "data_page_offset": 3155,
+                "start_offset": 10881,
+                "byte_length": 58,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1104,6 +1162,8 @@
                 "total_uncompressed_size": 694,
                 "total_compressed_size": 694,
                 "data_page_offset": 3531,
+                "start_offset": 10944,
+                "byte_length": 65,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1132,6 +1192,8 @@
                 "total_uncompressed_size": 777,
                 "total_compressed_size": 777,
                 "data_page_offset": 4225,
+                "start_offset": 11014,
+                "byte_length": 61,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1160,6 +1222,8 @@
                 "total_uncompressed_size": 156,
                 "total_compressed_size": 156,
                 "data_page_offset": 5002,
+                "start_offset": 11080,
+                "byte_length": 63,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1188,6 +1252,8 @@
                 "total_uncompressed_size": 1111,
                 "total_compressed_size": 1111,
                 "data_page_offset": 5158,
+                "start_offset": 11148,
+                "byte_length": 83,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1216,6 +1282,8 @@
                 "total_uncompressed_size": 2813,
                 "total_compressed_size": 2813,
                 "data_page_offset": 6269,
+                "start_offset": 11236,
+                "byte_length": 104,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1244,6 +1312,8 @@
                 "total_uncompressed_size": 407,
                 "total_compressed_size": 407,
                 "data_page_offset": 9082,
+                "start_offset": 11346,
+                "byte_length": 73,
                 "dictionary_page_offset": null,
                 "index_page_offset": null,
                 "statistics": {
@@ -1262,6 +1332,8 @@
           },
           "total_byte_size": 9485,
           "row_count": 100,
+          "start_offset": 9912,
+          "byte_length": 1516,
           "compression_stats": {
             "total_compressed": 9485,
             "total_uncompressed": 9485,

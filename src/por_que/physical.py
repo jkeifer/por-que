@@ -14,7 +14,7 @@ from ._version import get_version
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import Compression
 from .exceptions import ParquetFormatError
-from .logical import (
+from .file_metadata import (
     ColumnChunk,
     ColumnIndex,
     FileMetadata,
@@ -66,10 +66,10 @@ class PhysicalPageIndex(BaseModel):
         from .parsers.thrift.parser import ThriftCompactParser
 
         reader.seek(column_index_offset)
+        start_pos = reader.tell()
 
-        # Read buffer for index data (Page indexes are typically small)
-        index_buffer = reader.read(65536)
-        parser = ThriftCompactParser(index_buffer)
+        # Parse page index data directly from file
+        parser = ThriftCompactParser(reader, column_index_offset)
         page_index_parser = PageIndexParser(parser)
 
         # Parse ColumnIndex first
@@ -78,9 +78,12 @@ class PhysicalPageIndex(BaseModel):
         # Parse OffsetIndex second (should immediately follow)
         offset_index = page_index_parser.read_offset_index()
 
+        end_pos = reader.tell()
+        byte_length = end_pos - start_pos
+
         return cls(
             column_index_offset=column_index_offset,
-            column_index_length=parser.pos,
+            column_index_length=byte_length,
             column_index=column_index,
             offset_index=offset_index,
         )
@@ -195,11 +198,10 @@ class PhysicalMetadata(BaseModel):
 
         metadata_size = struct.unpack('<I', footer_bytes[:4])[0]
 
-        # Read and parse metadata
+        # Parse metadata directly from file
         metadata_start = footer_start - metadata_size
         reader.seek(metadata_start)
-        metadata_bytes = reader.read(metadata_size)
-        metadata = MetadataParser(metadata_bytes).parse()
+        metadata = MetadataParser(reader, metadata_start).parse()
 
         return cls(
             start_offset=metadata_start,
