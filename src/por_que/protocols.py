@@ -9,11 +9,11 @@ class ReadableSeekable(Protocol):
     This is more permissive than BinaryIO and doesn't require write methods.
     """
 
-    def read(self, size: int = -1) -> bytes:
+    def read(self, size: int | None = ..., /) -> bytes:
         """Read up to size bytes."""
         ...
 
-    def seek(self, offset: int, whence: int = 0) -> int:
+    def seek(self, offset: int, whence: int = ..., /) -> int:
         """Change stream position."""
         ...
 
