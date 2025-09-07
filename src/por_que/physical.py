@@ -29,6 +29,7 @@ from .pages import (
     IndexPage,
     Page,
 )
+from .parsers.dictionary_content import DictType
 from .parsers.parquet.metadata import MetadataParser
 from .protocols import ReadableSeekable
 
@@ -168,6 +169,25 @@ class PhysicalColumnChunk(BaseModel):
             dictionary_page=dictionary_page,
             metadata=chunk_metadata,
             page_index=page_index,
+        )
+
+    def parse_dictionary(self, reader: ReadableSeekable) -> DictType:
+        """Parse dictionary content if dictionary page exists.
+
+        Args:
+            reader: File-like object to read from
+
+        Returns:
+            List of dictionary values as Python objects,
+            or empty list if no dictionary page
+        """
+        if self.dictionary_page is None:
+            return []
+
+        return self.dictionary_page.parse_content(
+            reader=reader,
+            physical_type=self.metadata.type,
+            compression_codec=self.codec,
         )
 
 
