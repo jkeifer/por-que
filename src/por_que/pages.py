@@ -8,12 +8,13 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Discriminator
 
-from .enums import Encoding, PageType
+from .enums import Compression, Encoding, PageType, Type
 from .file_metadata import (
     ColumnChunk,
     ColumnStatistics,
     SchemaRoot,
 )
+from .parsers.dictionary_content import DictionaryPageParser, DictType
 from .protocols import ReadableSeekable
 
 
@@ -77,6 +78,30 @@ class DictionaryPage(Page):
     num_values: int
     encoding: Encoding
     is_sorted: bool = False
+
+    def parse_content(
+        self,
+        reader: ReadableSeekable,
+        physical_type: Type,
+        compression_codec: Compression,
+    ) -> DictType:
+        """Parse the dictionary page content into Python objects.
+
+        Args:
+            reader: File-like object to read from
+            physical_type: Physical type of the dictionary values
+            compression_codec: Compression codec used
+
+        Returns:
+            List of dictionary values as Python objects
+        """
+        parser = DictionaryPageParser()
+        return parser.parse_content(
+            reader=reader,
+            dictionary_page=self,
+            physical_type=physical_type,
+            compression_codec=compression_codec,
+        )
 
 
 class DataPageV1(Page):

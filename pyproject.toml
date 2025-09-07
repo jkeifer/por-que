@@ -23,11 +23,34 @@ porque = "por_que.cli:cli"
 Repository = 'https://github.com/jkeifer/por-que'
 
 [project.optional-dependencies]
+all = [
+    "por-que[cli]",
+    "por-que[validation]",
+    "por-que[all-codecs]",
+]
 cli = [
     "click>=8.2.1",
 ]
 validation = [
     "jsonschema>=4.25.1",
+]
+snappy = [
+    "python-snappy>=0.6.1",
+]
+lzo = [
+    "python-lzo>=1.15",
+]
+brotli = [
+    "brotli>=1.1.0",
+]
+zstd = [
+    "zstandard>=0.23.0",
+]
+all-codecs = [
+    "por-que[snappy]",
+    "por-que[lzo]",
+    "por-que[brotli]",
+    "por-que[zstd]",
 ]
 
 [tool.uv]
