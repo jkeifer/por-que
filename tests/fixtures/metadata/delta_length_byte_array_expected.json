@@ -1,0 +1,129 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/delta_length_byte_array.parquet",
+  "filesize": 3072,
+  "column_chunks": [
+    {
+      "path_in_schema": "FRUIT",
+      "start_offset": 4,
+      "total_byte_size": 2625,
+      "codec": 6,
+      "num_values": 1000,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 4,
+          "header_size": 33,
+          "compressed_page_size": 2592,
+          "uncompressed_page_size": 23714,
+          "crc": 1342498315,
+          "num_values": 1000,
+          "num_nulls": 0,
+          "num_rows": 1000,
+          "encoding": 6,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": null
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 2959,
+    "total_byte_size": 105,
+    "metadata": {
+      "version": 2,
+      "schema_root": {
+        "element_type": "root",
+        "name": "schema",
+        "start_offset": 2963,
+        "byte_length": 15,
+        "num_children": 1,
+        "children": {
+          "FRUIT": {
+            "element_type": "column",
+            "name": "FRUIT",
+            "start_offset": 2978,
+            "byte_length": 20,
+            "type": 6,
+            "repetition": 1,
+            "converted_type": 0,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 10,
+            "logical_type": {
+              "logical_type": 1
+            }
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "FRUIT": {
+              "file_offset": 2629,
+              "metadata": {
+                "type": 6,
+                "encodings": [
+                  3,
+                  6
+                ],
+                "path_in_schema": "FRUIT",
+                "codec": 6,
+                "num_values": 1000,
+                "total_uncompressed_size": 23747,
+                "total_compressed_size": 2625,
+                "data_page_offset": 4,
+                "start_offset": 3009,
+                "byte_length": 38,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 23747,
+          "row_count": 1000,
+          "start_offset": 3003,
+          "byte_length": 60,
+          "compression_stats": {
+            "total_compressed": 2625,
+            "total_uncompressed": 23747,
+            "ratio": 0.11054027877205541,
+            "space_saved_percent": 88.94597212279446,
+            "compressed_mb": 0.0025033950805664062,
+            "uncompressed_mb": 0.02264690399169922
+          }
+        }
+      ],
+      "created_by": null,
+      "key_value_metadata": [],
+      "compression_stats": {
+        "total_compressed": 2625,
+        "total_uncompressed": 23747,
+        "ratio": 0.11054027877205541,
+        "space_saved_percent": 88.94597212279446,
+        "compressed_mb": 0.0025033950805664062,
+        "uncompressed_mb": 0.02264690399169922
+      },
+      "column_count": 1,
+      "row_count": 1000,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

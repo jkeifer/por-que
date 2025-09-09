@@ -1,0 +1,153 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/int96_from_spark.parquet",
+  "filesize": 495,
+  "column_chunks": [
+    {
+      "path_in_schema": "a",
+      "start_offset": 4,
+      "total_byte_size": 113,
+      "codec": 1,
+      "num_values": 6,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 81,
+          "header_size": 23,
+          "compressed_page_size": 13,
+          "uncompressed_page_size": 11,
+          "crc": 1978545949,
+          "num_values": 6,
+          "encoding": 2,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 4,
+        "header_size": 19,
+        "compressed_page_size": 58,
+        "uncompressed_page_size": 60,
+        "crc": 1437746724,
+        "num_values": 5,
+        "encoding": 2,
+        "is_sorted": false
+      },
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 128,
+    "total_byte_size": 359,
+    "metadata": {
+      "version": 1,
+      "schema_root": {
+        "element_type": "root",
+        "name": "spark_schema",
+        "start_offset": 132,
+        "byte_length": 17,
+        "num_children": 1,
+        "children": {
+          "a": {
+            "element_type": "column",
+            "name": "a",
+            "start_offset": 149,
+            "byte_length": 8,
+            "type": 3,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "a": {
+              "file_offset": 81,
+              "metadata": {
+                "type": 3,
+                "encodings": [
+                  2,
+                  4,
+                  3
+                ],
+                "path_in_schema": "a",
+                "codec": 1,
+                "num_values": 6,
+                "total_uncompressed_size": 113,
+                "total_compressed_size": 113,
+                "data_page_offset": 81,
+                "start_offset": 167,
+                "byte_length": 47,
+                "dictionary_page_offset": 4,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": null,
+                  "max_value": null,
+                  "null_count": 1,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 113,
+          "row_count": 6,
+          "start_offset": 161,
+          "byte_length": 72,
+          "compression_stats": {
+            "total_compressed": 113,
+            "total_uncompressed": 113,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.00010776519775390625,
+            "uncompressed_mb": 0.00010776519775390625
+          }
+        }
+      ],
+      "created_by": "parquet-mr version 1.13.1 (build db4183109d5b734ec5930d870cdae161e408ddba)",
+      "key_value_metadata": [
+        {
+          "start_offset": 235,
+          "byte_length": 34,
+          "key": "org.apache.spark.version",
+          "value": "3.4.3"
+        },
+        {
+          "start_offset": 269,
+          "byte_length": 136,
+          "key": "org.apache.spark.sql.parquet.row.metadata",
+          "value": "{\"type\":\"struct\",\"fields\":[{\"name\":\"a\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}}]}"
+        }
+      ],
+      "compression_stats": {
+        "total_compressed": 113,
+        "total_uncompressed": 113,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.00010776519775390625,
+        "uncompressed_mb": 0.00010776519775390625
+      },
+      "column_count": 1,
+      "row_count": 6,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

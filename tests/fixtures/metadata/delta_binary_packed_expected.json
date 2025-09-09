@@ -1,0 +1,5206 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/delta_binary_packed.parquet",
+  "filesize": 72971,
+  "column_chunks": [
+    {
+      "path_in_schema": "bitwidth0",
+      "start_offset": 4,
+      "total_byte_size": 95,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 4,
+          "header_size": 67,
+          "compressed_page_size": 28,
+          "uncompressed_page_size": 28,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 6374628540732951412,
+            "max_value": 6374628540732951412,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth1",
+      "start_offset": 99,
+      "total_byte_size": 114,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 99,
+          "header_size": 67,
+          "compressed_page_size": 47,
+          "uncompressed_page_size": 47,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 0,
+            "max_value": -104,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth2",
+      "start_offset": 213,
+      "total_byte_size": 144,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 213,
+          "header_size": 69,
+          "compressed_page_size": 75,
+          "uncompressed_page_size": 75,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 0,
+            "max_value": -82,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth3",
+      "start_offset": 357,
+      "total_byte_size": 172,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 357,
+          "header_size": 69,
+          "compressed_page_size": 103,
+          "uncompressed_page_size": 103,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 0,
+            "max_value": -96,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth4",
+      "start_offset": 529,
+      "total_byte_size": 200,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 529,
+          "header_size": 69,
+          "compressed_page_size": 131,
+          "uncompressed_page_size": 131,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 0,
+            "max_value": -132,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth5",
+      "start_offset": 729,
+      "total_byte_size": 228,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 729,
+          "header_size": 69,
+          "compressed_page_size": 159,
+          "uncompressed_page_size": 159,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 24,
+            "max_value": -290,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth6",
+      "start_offset": 957,
+      "total_byte_size": 256,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 957,
+          "header_size": 69,
+          "compressed_page_size": 187,
+          "uncompressed_page_size": 187,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 259,
+            "max_value": -93,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth7",
+      "start_offset": 1213,
+      "total_byte_size": 284,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 1213,
+          "header_size": 69,
+          "compressed_page_size": 215,
+          "uncompressed_page_size": 215,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 476,
+            "max_value": -64,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth8",
+      "start_offset": 1497,
+      "total_byte_size": 314,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 1497,
+          "header_size": 69,
+          "compressed_page_size": 245,
+          "uncompressed_page_size": 245,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 387,
+            "max_value": -732,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth9",
+      "start_offset": 1811,
+      "total_byte_size": 342,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 1811,
+          "header_size": 69,
+          "compressed_page_size": 273,
+          "uncompressed_page_size": 273,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 194,
+            "max_value": -1572,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth10",
+      "start_offset": 2153,
+      "total_byte_size": 370,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 2153,
+          "header_size": 69,
+          "compressed_page_size": 301,
+          "uncompressed_page_size": 301,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 5336,
+            "max_value": -2353,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth11",
+      "start_offset": 2523,
+      "total_byte_size": 398,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 2523,
+          "header_size": 69,
+          "compressed_page_size": 329,
+          "uncompressed_page_size": 329,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 13445,
+            "max_value": -8028,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth12",
+      "start_offset": 2921,
+      "total_byte_size": 426,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 2921,
+          "header_size": 69,
+          "compressed_page_size": 357,
+          "uncompressed_page_size": 357,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 2017,
+            "max_value": -35523,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth13",
+      "start_offset": 3347,
+      "total_byte_size": 454,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 3347,
+          "header_size": 69,
+          "compressed_page_size": 385,
+          "uncompressed_page_size": 385,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 48649,
+            "max_value": -4096,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth14",
+      "start_offset": 3801,
+      "total_byte_size": 482,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 3801,
+          "header_size": 69,
+          "compressed_page_size": 413,
+          "uncompressed_page_size": 413,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 65709,
+            "max_value": -8244,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth15",
+      "start_offset": 4283,
+      "total_byte_size": 512,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 4283,
+          "header_size": 69,
+          "compressed_page_size": 443,
+          "uncompressed_page_size": 443,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 69786,
+            "max_value": -106702,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth16",
+      "start_offset": 4795,
+      "total_byte_size": 540,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 4795,
+          "header_size": 69,
+          "compressed_page_size": 471,
+          "uncompressed_page_size": 471,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 162951,
+            "max_value": -347012,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth17",
+      "start_offset": 5335,
+      "total_byte_size": 568,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 5335,
+          "header_size": 69,
+          "compressed_page_size": 499,
+          "uncompressed_page_size": 499,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 0,
+            "max_value": -1054098,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth18",
+      "start_offset": 5903,
+      "total_byte_size": 596,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 5903,
+          "header_size": 69,
+          "compressed_page_size": 527,
+          "uncompressed_page_size": 527,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 664380,
+            "max_value": -372793,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth19",
+      "start_offset": 6499,
+      "total_byte_size": 624,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 6499,
+          "header_size": 69,
+          "compressed_page_size": 555,
+          "uncompressed_page_size": 555,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 4001179,
+            "max_value": -402775,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth20",
+      "start_offset": 7123,
+      "total_byte_size": 652,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 7123,
+          "header_size": 69,
+          "compressed_page_size": 583,
+          "uncompressed_page_size": 583,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 788039,
+            "max_value": -4434785,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth21",
+      "start_offset": 7775,
+      "total_byte_size": 680,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 7775,
+          "header_size": 69,
+          "compressed_page_size": 611,
+          "uncompressed_page_size": 611,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 12455554,
+            "max_value": -1070042,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth22",
+      "start_offset": 8455,
+      "total_byte_size": 710,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 8455,
+          "header_size": 69,
+          "compressed_page_size": 641,
+          "uncompressed_page_size": 641,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 2189135,
+            "max_value": -17987827,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth23",
+      "start_offset": 9165,
+      "total_byte_size": 738,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 9165,
+          "header_size": 69,
+          "compressed_page_size": 669,
+          "uncompressed_page_size": 669,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 25967351,
+            "max_value": -19361900,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth24",
+      "start_offset": 9903,
+      "total_byte_size": 766,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 9903,
+          "header_size": 69,
+          "compressed_page_size": 697,
+          "uncompressed_page_size": 697,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 95688064,
+            "max_value": -17271207,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth25",
+      "start_offset": 10669,
+      "total_byte_size": 794,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 10669,
+          "header_size": 69,
+          "compressed_page_size": 725,
+          "uncompressed_page_size": 725,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 169215083,
+            "max_value": -18759951,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth26",
+      "start_offset": 11463,
+      "total_byte_size": 822,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 11463,
+          "header_size": 69,
+          "compressed_page_size": 753,
+          "uncompressed_page_size": 753,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 163626565,
+            "max_value": -168761837,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth27",
+      "start_offset": 12285,
+      "total_byte_size": 850,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 12285,
+          "header_size": 69,
+          "compressed_page_size": 781,
+          "uncompressed_page_size": 781,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 131734874,
+            "max_value": -736933601,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth28",
+      "start_offset": 13135,
+      "total_byte_size": 878,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 13135,
+          "header_size": 69,
+          "compressed_page_size": 809,
+          "uncompressed_page_size": 809,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 913547745,
+            "max_value": -490714808,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth29",
+      "start_offset": 14013,
+      "total_byte_size": 908,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 14013,
+          "header_size": 69,
+          "compressed_page_size": 839,
+          "uncompressed_page_size": 839,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 500305035,
+            "max_value": -5834684238,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth30",
+      "start_offset": 14921,
+      "total_byte_size": 936,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 14921,
+          "header_size": 69,
+          "compressed_page_size": 867,
+          "uncompressed_page_size": 867,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 566280334,
+            "max_value": -7728643109,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth31",
+      "start_offset": 15857,
+      "total_byte_size": 964,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 15857,
+          "header_size": 69,
+          "compressed_page_size": 895,
+          "uncompressed_page_size": 895,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 18831788461,
+            "max_value": -2498101101,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth32",
+      "start_offset": 16821,
+      "total_byte_size": 992,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 16821,
+          "header_size": 69,
+          "compressed_page_size": 923,
+          "uncompressed_page_size": 923,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 23720914586,
+            "max_value": -2147483648,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth33",
+      "start_offset": 17813,
+      "total_byte_size": 1020,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 17813,
+          "header_size": 69,
+          "compressed_page_size": 951,
+          "uncompressed_page_size": 951,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 24075494509,
+            "max_value": -4817999329,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth34",
+      "start_offset": 18833,
+      "total_byte_size": 1048,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 18833,
+          "header_size": 69,
+          "compressed_page_size": 979,
+          "uncompressed_page_size": 979,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 12118456329,
+            "max_value": -156025641218,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth35",
+      "start_offset": 19881,
+      "total_byte_size": 1076,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 19881,
+          "header_size": 69,
+          "compressed_page_size": 1007,
+          "uncompressed_page_size": 1007,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 41614351758,
+            "max_value": -114682966820,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth36",
+      "start_offset": 20957,
+      "total_byte_size": 1106,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 20957,
+          "header_size": 69,
+          "compressed_page_size": 1037,
+          "uncompressed_page_size": 1037,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 82484946621,
+            "max_value": -244178626927,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth37",
+      "start_offset": 22063,
+      "total_byte_size": 1134,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 22063,
+          "header_size": 69,
+          "compressed_page_size": 1065,
+          "uncompressed_page_size": 1065,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 361459323159,
+            "max_value": -275190620271,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth38",
+      "start_offset": 23197,
+      "total_byte_size": 1162,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 23197,
+          "header_size": 69,
+          "compressed_page_size": 1093,
+          "uncompressed_page_size": 1093,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 1665294434042,
+            "max_value": -420452598502,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth39",
+      "start_offset": 24359,
+      "total_byte_size": 1190,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 24359,
+          "header_size": 69,
+          "compressed_page_size": 1121,
+          "uncompressed_page_size": 1121,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 110454290134,
+            "max_value": -2926211785103,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth40",
+      "start_offset": 25549,
+      "total_byte_size": 1218,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 25549,
+          "header_size": 69,
+          "compressed_page_size": 1149,
+          "uncompressed_page_size": 1149,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 3215717068302,
+            "max_value": -4988823342986,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth41",
+      "start_offset": 26767,
+      "total_byte_size": 1246,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 26767,
+          "header_size": 69,
+          "compressed_page_size": 1177,
+          "uncompressed_page_size": 1177,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 2166086616318,
+            "max_value": -6488418568768,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth42",
+      "start_offset": 28013,
+      "total_byte_size": 1274,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 28013,
+          "header_size": 69,
+          "compressed_page_size": 1205,
+          "uncompressed_page_size": 1205,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 10182365256028,
+            "max_value": -8738522616121,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth43",
+      "start_offset": 29287,
+      "total_byte_size": 1304,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 29287,
+          "header_size": 69,
+          "compressed_page_size": 1235,
+          "uncompressed_page_size": 1235,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 22909885827147,
+            "max_value": -21214625470327,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth44",
+      "start_offset": 30591,
+      "total_byte_size": 1332,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 30591,
+          "header_size": 69,
+          "compressed_page_size": 1263,
+          "uncompressed_page_size": 1263,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 67902133645749,
+            "max_value": -9796939892175,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth45",
+      "start_offset": 31923,
+      "total_byte_size": 1360,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 31923,
+          "header_size": 69,
+          "compressed_page_size": 1291,
+          "uncompressed_page_size": 1291,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 199494208930939,
+            "max_value": -102473613757961,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth46",
+      "start_offset": 33283,
+      "total_byte_size": 1388,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 33283,
+          "header_size": 69,
+          "compressed_page_size": 1319,
+          "uncompressed_page_size": 1319,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 18564971260296,
+            "max_value": -359696498357610,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth47",
+      "start_offset": 34671,
+      "total_byte_size": 1416,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 34671,
+          "header_size": 69,
+          "compressed_page_size": 1347,
+          "uncompressed_page_size": 1347,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 65624006999260,
+            "max_value": -933995610201533,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth48",
+      "start_offset": 36087,
+      "total_byte_size": 1444,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 36087,
+          "header_size": 69,
+          "compressed_page_size": 1375,
+          "uncompressed_page_size": 1375,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 983500521840940,
+            "max_value": -878019827431629,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth49",
+      "start_offset": 37531,
+      "total_byte_size": 1472,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 37531,
+          "header_size": 69,
+          "compressed_page_size": 1403,
+          "uncompressed_page_size": 1403,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 975533803684560,
+            "max_value": -2091164446177739,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth50",
+      "start_offset": 39003,
+      "total_byte_size": 1502,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 39003,
+          "header_size": 69,
+          "compressed_page_size": 1433,
+          "uncompressed_page_size": 1433,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 1276327559487856,
+            "max_value": -5741928190724373,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth51",
+      "start_offset": 40505,
+      "total_byte_size": 1530,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 40505,
+          "header_size": 69,
+          "compressed_page_size": 1461,
+          "uncompressed_page_size": 1461,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 0,
+            "max_value": -15996275819941210,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth52",
+      "start_offset": 42035,
+      "total_byte_size": 1558,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 42035,
+          "header_size": 69,
+          "compressed_page_size": 1489,
+          "uncompressed_page_size": 1489,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 12697545666077932,
+            "max_value": -8823113595895130,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth53",
+      "start_offset": 43593,
+      "total_byte_size": 1586,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 43593,
+          "header_size": 69,
+          "compressed_page_size": 1517,
+          "uncompressed_page_size": 1517,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 4785870085681342,
+            "max_value": -24800000653307089,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth54",
+      "start_offset": 45179,
+      "total_byte_size": 1614,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 45179,
+          "header_size": 69,
+          "compressed_page_size": 1545,
+          "uncompressed_page_size": 1545,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 26202576654140994,
+            "max_value": -94647392931900711,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth55",
+      "start_offset": 46793,
+      "total_byte_size": 1642,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 46793,
+          "header_size": 69,
+          "compressed_page_size": 1573,
+          "uncompressed_page_size": 1573,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 358302517069012889,
+            "max_value": -32197353745654772,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth56",
+      "start_offset": 48435,
+      "total_byte_size": 1670,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 48435,
+          "header_size": 69,
+          "compressed_page_size": 1601,
+          "uncompressed_page_size": 1601,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 678791154000627912,
+            "max_value": -36028797018963968,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth57",
+      "start_offset": 50105,
+      "total_byte_size": 1700,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 50105,
+          "header_size": 69,
+          "compressed_page_size": 1631,
+          "uncompressed_page_size": 1631,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 1444945950888122232,
+            "max_value": -79246600304853010,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth58",
+      "start_offset": 51805,
+      "total_byte_size": 1728,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 51805,
+          "header_size": 69,
+          "compressed_page_size": 1659,
+          "uncompressed_page_size": 1659,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 140747723990970254,
+            "max_value": -1492687553985044679,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth59",
+      "start_offset": 53533,
+      "total_byte_size": 1756,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 53533,
+          "header_size": 69,
+          "compressed_page_size": 1687,
+          "uncompressed_page_size": 1687,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 6318360990909070,
+            "max_value": -3778424577629102559,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth60",
+      "start_offset": 55289,
+      "total_byte_size": 1784,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 55289,
+          "header_size": 69,
+          "compressed_page_size": 1715,
+          "uncompressed_page_size": 1715,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 4574162334421819801,
+            "max_value": -576460752303423488,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth61",
+      "start_offset": 57073,
+      "total_byte_size": 1812,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 57073,
+          "header_size": 69,
+          "compressed_page_size": 1743,
+          "uncompressed_page_size": 1743,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 8803535686130338880,
+            "max_value": -1155450847100943978,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth62",
+      "start_offset": 58885,
+      "total_byte_size": 1840,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 58885,
+          "header_size": 69,
+          "compressed_page_size": 1771,
+          "uncompressed_page_size": 1771,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 9026687750017193101,
+            "max_value": -4454039315625288390,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth63",
+      "start_offset": 60725,
+      "total_byte_size": 1868,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 60725,
+          "header_size": 69,
+          "compressed_page_size": 1799,
+          "uncompressed_page_size": 1799,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 9150047972721273816,
+            "max_value": -9220123451143279334,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "bitwidth64",
+      "start_offset": 62593,
+      "total_byte_size": 1898,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 62593,
+          "header_size": 69,
+          "compressed_page_size": 1829,
+          "uncompressed_page_size": 1829,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 8846115173408951296,
+            "max_value": -9223372036854775808,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "int_value",
+      "start_offset": 64491,
+      "total_byte_size": 980,
+      "codec": 0,
+      "num_values": 200,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 64491,
+          "header_size": 53,
+          "compressed_page_size": 927,
+          "uncompressed_page_size": 927,
+          "crc": null,
+          "num_values": 200,
+          "num_nulls": 0,
+          "num_rows": 200,
+          "encoding": 5,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": 2142811258,
+            "max_value": -2078683524,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 65471,
+    "total_byte_size": 7492,
+    "metadata": {
+      "version": 1,
+      "schema_root": {
+        "element_type": "root",
+        "name": "hive_schema",
+        "start_offset": 65476,
+        "byte_length": 17,
+        "num_children": 66,
+        "children": {
+          "bitwidth0": {
+            "element_type": "column",
+            "name": "bitwidth0",
+            "start_offset": 65493,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth1": {
+            "element_type": "column",
+            "name": "bitwidth1",
+            "start_offset": 65509,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth2": {
+            "element_type": "column",
+            "name": "bitwidth2",
+            "start_offset": 65525,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth3": {
+            "element_type": "column",
+            "name": "bitwidth3",
+            "start_offset": 65541,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth4": {
+            "element_type": "column",
+            "name": "bitwidth4",
+            "start_offset": 65557,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth5": {
+            "element_type": "column",
+            "name": "bitwidth5",
+            "start_offset": 65573,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth6": {
+            "element_type": "column",
+            "name": "bitwidth6",
+            "start_offset": 65589,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth7": {
+            "element_type": "column",
+            "name": "bitwidth7",
+            "start_offset": 65605,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth8": {
+            "element_type": "column",
+            "name": "bitwidth8",
+            "start_offset": 65621,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth9": {
+            "element_type": "column",
+            "name": "bitwidth9",
+            "start_offset": 65637,
+            "byte_length": 16,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth10": {
+            "element_type": "column",
+            "name": "bitwidth10",
+            "start_offset": 65653,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth11": {
+            "element_type": "column",
+            "name": "bitwidth11",
+            "start_offset": 65670,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth12": {
+            "element_type": "column",
+            "name": "bitwidth12",
+            "start_offset": 65687,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth13": {
+            "element_type": "column",
+            "name": "bitwidth13",
+            "start_offset": 65704,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth14": {
+            "element_type": "column",
+            "name": "bitwidth14",
+            "start_offset": 65721,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth15": {
+            "element_type": "column",
+            "name": "bitwidth15",
+            "start_offset": 65738,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth16": {
+            "element_type": "column",
+            "name": "bitwidth16",
+            "start_offset": 65755,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth17": {
+            "element_type": "column",
+            "name": "bitwidth17",
+            "start_offset": 65772,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth18": {
+            "element_type": "column",
+            "name": "bitwidth18",
+            "start_offset": 65789,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth19": {
+            "element_type": "column",
+            "name": "bitwidth19",
+            "start_offset": 65806,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth20": {
+            "element_type": "column",
+            "name": "bitwidth20",
+            "start_offset": 65823,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth21": {
+            "element_type": "column",
+            "name": "bitwidth21",
+            "start_offset": 65840,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth22": {
+            "element_type": "column",
+            "name": "bitwidth22",
+            "start_offset": 65857,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth23": {
+            "element_type": "column",
+            "name": "bitwidth23",
+            "start_offset": 65874,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth24": {
+            "element_type": "column",
+            "name": "bitwidth24",
+            "start_offset": 65891,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth25": {
+            "element_type": "column",
+            "name": "bitwidth25",
+            "start_offset": 65908,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth26": {
+            "element_type": "column",
+            "name": "bitwidth26",
+            "start_offset": 65925,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth27": {
+            "element_type": "column",
+            "name": "bitwidth27",
+            "start_offset": 65942,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth28": {
+            "element_type": "column",
+            "name": "bitwidth28",
+            "start_offset": 65959,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth29": {
+            "element_type": "column",
+            "name": "bitwidth29",
+            "start_offset": 65976,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth30": {
+            "element_type": "column",
+            "name": "bitwidth30",
+            "start_offset": 65993,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth31": {
+            "element_type": "column",
+            "name": "bitwidth31",
+            "start_offset": 66010,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth32": {
+            "element_type": "column",
+            "name": "bitwidth32",
+            "start_offset": 66027,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth33": {
+            "element_type": "column",
+            "name": "bitwidth33",
+            "start_offset": 66044,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth34": {
+            "element_type": "column",
+            "name": "bitwidth34",
+            "start_offset": 66061,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth35": {
+            "element_type": "column",
+            "name": "bitwidth35",
+            "start_offset": 66078,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth36": {
+            "element_type": "column",
+            "name": "bitwidth36",
+            "start_offset": 66095,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth37": {
+            "element_type": "column",
+            "name": "bitwidth37",
+            "start_offset": 66112,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth38": {
+            "element_type": "column",
+            "name": "bitwidth38",
+            "start_offset": 66129,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth39": {
+            "element_type": "column",
+            "name": "bitwidth39",
+            "start_offset": 66146,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth40": {
+            "element_type": "column",
+            "name": "bitwidth40",
+            "start_offset": 66163,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth41": {
+            "element_type": "column",
+            "name": "bitwidth41",
+            "start_offset": 66180,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth42": {
+            "element_type": "column",
+            "name": "bitwidth42",
+            "start_offset": 66197,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth43": {
+            "element_type": "column",
+            "name": "bitwidth43",
+            "start_offset": 66214,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth44": {
+            "element_type": "column",
+            "name": "bitwidth44",
+            "start_offset": 66231,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth45": {
+            "element_type": "column",
+            "name": "bitwidth45",
+            "start_offset": 66248,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth46": {
+            "element_type": "column",
+            "name": "bitwidth46",
+            "start_offset": 66265,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth47": {
+            "element_type": "column",
+            "name": "bitwidth47",
+            "start_offset": 66282,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth48": {
+            "element_type": "column",
+            "name": "bitwidth48",
+            "start_offset": 66299,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth49": {
+            "element_type": "column",
+            "name": "bitwidth49",
+            "start_offset": 66316,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth50": {
+            "element_type": "column",
+            "name": "bitwidth50",
+            "start_offset": 66333,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth51": {
+            "element_type": "column",
+            "name": "bitwidth51",
+            "start_offset": 66350,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth52": {
+            "element_type": "column",
+            "name": "bitwidth52",
+            "start_offset": 66367,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth53": {
+            "element_type": "column",
+            "name": "bitwidth53",
+            "start_offset": 66384,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth54": {
+            "element_type": "column",
+            "name": "bitwidth54",
+            "start_offset": 66401,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth55": {
+            "element_type": "column",
+            "name": "bitwidth55",
+            "start_offset": 66418,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth56": {
+            "element_type": "column",
+            "name": "bitwidth56",
+            "start_offset": 66435,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth57": {
+            "element_type": "column",
+            "name": "bitwidth57",
+            "start_offset": 66452,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth58": {
+            "element_type": "column",
+            "name": "bitwidth58",
+            "start_offset": 66469,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth59": {
+            "element_type": "column",
+            "name": "bitwidth59",
+            "start_offset": 66486,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth60": {
+            "element_type": "column",
+            "name": "bitwidth60",
+            "start_offset": 66503,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth61": {
+            "element_type": "column",
+            "name": "bitwidth61",
+            "start_offset": 66520,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth62": {
+            "element_type": "column",
+            "name": "bitwidth62",
+            "start_offset": 66537,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth63": {
+            "element_type": "column",
+            "name": "bitwidth63",
+            "start_offset": 66554,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "bitwidth64": {
+            "element_type": "column",
+            "name": "bitwidth64",
+            "start_offset": 66571,
+            "byte_length": 17,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "int_value": {
+            "element_type": "column",
+            "name": "int_value",
+            "start_offset": 66588,
+            "byte_length": 16,
+            "type": 1,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "bitwidth0": {
+              "file_offset": 4,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth0",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 95,
+                "total_compressed_size": 95,
+                "data_page_offset": 4,
+                "start_offset": 66615,
+                "byte_length": 84,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 6374628540732951412,
+                  "max_value": 6374628540732951412,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth1": {
+              "file_offset": 99,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth1",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 114,
+                "total_compressed_size": 114,
+                "data_page_offset": 99,
+                "start_offset": 66704,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 0,
+                  "max_value": -104,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth2": {
+              "file_offset": 213,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth2",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 144,
+                "total_compressed_size": 144,
+                "data_page_offset": 213,
+                "start_offset": 66794,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 0,
+                  "max_value": -82,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth3": {
+              "file_offset": 357,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth3",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 172,
+                "total_compressed_size": 172,
+                "data_page_offset": 357,
+                "start_offset": 66884,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 0,
+                  "max_value": -96,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth4": {
+              "file_offset": 529,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth4",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 200,
+                "total_compressed_size": 200,
+                "data_page_offset": 529,
+                "start_offset": 66974,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 0,
+                  "max_value": -132,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth5": {
+              "file_offset": 729,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth5",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 228,
+                "total_compressed_size": 228,
+                "data_page_offset": 729,
+                "start_offset": 67064,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 24,
+                  "max_value": -290,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth6": {
+              "file_offset": 957,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth6",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 256,
+                "total_compressed_size": 256,
+                "data_page_offset": 957,
+                "start_offset": 67154,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 259,
+                  "max_value": -93,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth7": {
+              "file_offset": 1213,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth7",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 284,
+                "total_compressed_size": 284,
+                "data_page_offset": 1213,
+                "start_offset": 67244,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 476,
+                  "max_value": -64,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth8": {
+              "file_offset": 1497,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth8",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 314,
+                "total_compressed_size": 314,
+                "data_page_offset": 1497,
+                "start_offset": 67334,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 387,
+                  "max_value": -732,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth9": {
+              "file_offset": 1811,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth9",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 342,
+                "total_compressed_size": 342,
+                "data_page_offset": 1811,
+                "start_offset": 67424,
+                "byte_length": 85,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 194,
+                  "max_value": -1572,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth10": {
+              "file_offset": 2153,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth10",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 370,
+                "total_compressed_size": 370,
+                "data_page_offset": 2153,
+                "start_offset": 67514,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 5336,
+                  "max_value": -2353,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth11": {
+              "file_offset": 2523,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth11",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 398,
+                "total_compressed_size": 398,
+                "data_page_offset": 2523,
+                "start_offset": 67605,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 13445,
+                  "max_value": -8028,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth12": {
+              "file_offset": 2921,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth12",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 426,
+                "total_compressed_size": 426,
+                "data_page_offset": 2921,
+                "start_offset": 67696,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 2017,
+                  "max_value": -35523,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth13": {
+              "file_offset": 3347,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth13",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 454,
+                "total_compressed_size": 454,
+                "data_page_offset": 3347,
+                "start_offset": 67787,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 48649,
+                  "max_value": -4096,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth14": {
+              "file_offset": 3801,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth14",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 482,
+                "total_compressed_size": 482,
+                "data_page_offset": 3801,
+                "start_offset": 67878,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 65709,
+                  "max_value": -8244,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth15": {
+              "file_offset": 4283,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth15",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 512,
+                "total_compressed_size": 512,
+                "data_page_offset": 4283,
+                "start_offset": 67969,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 69786,
+                  "max_value": -106702,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth16": {
+              "file_offset": 4795,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth16",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 540,
+                "total_compressed_size": 540,
+                "data_page_offset": 4795,
+                "start_offset": 68060,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 162951,
+                  "max_value": -347012,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth17": {
+              "file_offset": 5335,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth17",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 568,
+                "total_compressed_size": 568,
+                "data_page_offset": 5335,
+                "start_offset": 68151,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 0,
+                  "max_value": -1054098,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth18": {
+              "file_offset": 5903,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth18",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 596,
+                "total_compressed_size": 596,
+                "data_page_offset": 5903,
+                "start_offset": 68242,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 664380,
+                  "max_value": -372793,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth19": {
+              "file_offset": 6499,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth19",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 624,
+                "total_compressed_size": 624,
+                "data_page_offset": 6499,
+                "start_offset": 68333,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 4001179,
+                  "max_value": -402775,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth20": {
+              "file_offset": 7123,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth20",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 652,
+                "total_compressed_size": 652,
+                "data_page_offset": 7123,
+                "start_offset": 68424,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 788039,
+                  "max_value": -4434785,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth21": {
+              "file_offset": 7775,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth21",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 680,
+                "total_compressed_size": 680,
+                "data_page_offset": 7775,
+                "start_offset": 68515,
+                "byte_length": 86,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 12455554,
+                  "max_value": -1070042,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth22": {
+              "file_offset": 8455,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth22",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 710,
+                "total_compressed_size": 710,
+                "data_page_offset": 8455,
+                "start_offset": 68607,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 2189135,
+                  "max_value": -17987827,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth23": {
+              "file_offset": 9165,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth23",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 738,
+                "total_compressed_size": 738,
+                "data_page_offset": 9165,
+                "start_offset": 68700,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 25967351,
+                  "max_value": -19361900,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth24": {
+              "file_offset": 9903,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth24",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 766,
+                "total_compressed_size": 766,
+                "data_page_offset": 9903,
+                "start_offset": 68793,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 95688064,
+                  "max_value": -17271207,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth25": {
+              "file_offset": 10669,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth25",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 794,
+                "total_compressed_size": 794,
+                "data_page_offset": 10669,
+                "start_offset": 68886,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 169215083,
+                  "max_value": -18759951,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth26": {
+              "file_offset": 11463,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth26",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 822,
+                "total_compressed_size": 822,
+                "data_page_offset": 11463,
+                "start_offset": 68979,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 163626565,
+                  "max_value": -168761837,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth27": {
+              "file_offset": 12285,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth27",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 850,
+                "total_compressed_size": 850,
+                "data_page_offset": 12285,
+                "start_offset": 69072,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 131734874,
+                  "max_value": -736933601,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth28": {
+              "file_offset": 13135,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth28",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 878,
+                "total_compressed_size": 878,
+                "data_page_offset": 13135,
+                "start_offset": 69165,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 913547745,
+                  "max_value": -490714808,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth29": {
+              "file_offset": 14013,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth29",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 908,
+                "total_compressed_size": 908,
+                "data_page_offset": 14013,
+                "start_offset": 69258,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 500305035,
+                  "max_value": -5834684238,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth30": {
+              "file_offset": 14921,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth30",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 936,
+                "total_compressed_size": 936,
+                "data_page_offset": 14921,
+                "start_offset": 69351,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 566280334,
+                  "max_value": -7728643109,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth31": {
+              "file_offset": 15857,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth31",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 964,
+                "total_compressed_size": 964,
+                "data_page_offset": 15857,
+                "start_offset": 69444,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 18831788461,
+                  "max_value": -2498101101,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth32": {
+              "file_offset": 16821,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth32",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 992,
+                "total_compressed_size": 992,
+                "data_page_offset": 16821,
+                "start_offset": 69537,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 23720914586,
+                  "max_value": -2147483648,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth33": {
+              "file_offset": 17813,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth33",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1020,
+                "total_compressed_size": 1020,
+                "data_page_offset": 17813,
+                "start_offset": 69630,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 24075494509,
+                  "max_value": -4817999329,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth34": {
+              "file_offset": 18833,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth34",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1048,
+                "total_compressed_size": 1048,
+                "data_page_offset": 18833,
+                "start_offset": 69723,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 12118456329,
+                  "max_value": -156025641218,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth35": {
+              "file_offset": 19881,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth35",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1076,
+                "total_compressed_size": 1076,
+                "data_page_offset": 19881,
+                "start_offset": 69816,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 41614351758,
+                  "max_value": -114682966820,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth36": {
+              "file_offset": 20957,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth36",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1106,
+                "total_compressed_size": 1106,
+                "data_page_offset": 20957,
+                "start_offset": 69909,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 82484946621,
+                  "max_value": -244178626927,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth37": {
+              "file_offset": 22063,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth37",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1134,
+                "total_compressed_size": 1134,
+                "data_page_offset": 22063,
+                "start_offset": 70002,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 361459323159,
+                  "max_value": -275190620271,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth38": {
+              "file_offset": 23197,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth38",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1162,
+                "total_compressed_size": 1162,
+                "data_page_offset": 23197,
+                "start_offset": 70095,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 1665294434042,
+                  "max_value": -420452598502,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth39": {
+              "file_offset": 24359,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth39",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1190,
+                "total_compressed_size": 1190,
+                "data_page_offset": 24359,
+                "start_offset": 70188,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 110454290134,
+                  "max_value": -2926211785103,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth40": {
+              "file_offset": 25549,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth40",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1218,
+                "total_compressed_size": 1218,
+                "data_page_offset": 25549,
+                "start_offset": 70281,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 3215717068302,
+                  "max_value": -4988823342986,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth41": {
+              "file_offset": 26767,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth41",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1246,
+                "total_compressed_size": 1246,
+                "data_page_offset": 26767,
+                "start_offset": 70374,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 2166086616318,
+                  "max_value": -6488418568768,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth42": {
+              "file_offset": 28013,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth42",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1274,
+                "total_compressed_size": 1274,
+                "data_page_offset": 28013,
+                "start_offset": 70467,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 10182365256028,
+                  "max_value": -8738522616121,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth43": {
+              "file_offset": 29287,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth43",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1304,
+                "total_compressed_size": 1304,
+                "data_page_offset": 29287,
+                "start_offset": 70560,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 22909885827147,
+                  "max_value": -21214625470327,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth44": {
+              "file_offset": 30591,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth44",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1332,
+                "total_compressed_size": 1332,
+                "data_page_offset": 30591,
+                "start_offset": 70653,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 67902133645749,
+                  "max_value": -9796939892175,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth45": {
+              "file_offset": 31923,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth45",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1360,
+                "total_compressed_size": 1360,
+                "data_page_offset": 31923,
+                "start_offset": 70746,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 199494208930939,
+                  "max_value": -102473613757961,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth46": {
+              "file_offset": 33283,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth46",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1388,
+                "total_compressed_size": 1388,
+                "data_page_offset": 33283,
+                "start_offset": 70839,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 18564971260296,
+                  "max_value": -359696498357610,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth47": {
+              "file_offset": 34671,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth47",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1416,
+                "total_compressed_size": 1416,
+                "data_page_offset": 34671,
+                "start_offset": 70932,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 65624006999260,
+                  "max_value": -933995610201533,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth48": {
+              "file_offset": 36087,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth48",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1444,
+                "total_compressed_size": 1444,
+                "data_page_offset": 36087,
+                "start_offset": 71025,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 983500521840940,
+                  "max_value": -878019827431629,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth49": {
+              "file_offset": 37531,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth49",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1472,
+                "total_compressed_size": 1472,
+                "data_page_offset": 37531,
+                "start_offset": 71118,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 975533803684560,
+                  "max_value": -2091164446177739,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth50": {
+              "file_offset": 39003,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth50",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1502,
+                "total_compressed_size": 1502,
+                "data_page_offset": 39003,
+                "start_offset": 71211,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 1276327559487856,
+                  "max_value": -5741928190724373,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth51": {
+              "file_offset": 40505,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth51",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1530,
+                "total_compressed_size": 1530,
+                "data_page_offset": 40505,
+                "start_offset": 71304,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 0,
+                  "max_value": -15996275819941210,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth52": {
+              "file_offset": 42035,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth52",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1558,
+                "total_compressed_size": 1558,
+                "data_page_offset": 42035,
+                "start_offset": 71397,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 12697545666077932,
+                  "max_value": -8823113595895130,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth53": {
+              "file_offset": 43593,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth53",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1586,
+                "total_compressed_size": 1586,
+                "data_page_offset": 43593,
+                "start_offset": 71490,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 4785870085681342,
+                  "max_value": -24800000653307089,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth54": {
+              "file_offset": 45179,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth54",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1614,
+                "total_compressed_size": 1614,
+                "data_page_offset": 45179,
+                "start_offset": 71583,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 26202576654140994,
+                  "max_value": -94647392931900711,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth55": {
+              "file_offset": 46793,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth55",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1642,
+                "total_compressed_size": 1642,
+                "data_page_offset": 46793,
+                "start_offset": 71676,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 358302517069012889,
+                  "max_value": -32197353745654772,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth56": {
+              "file_offset": 48435,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth56",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1670,
+                "total_compressed_size": 1670,
+                "data_page_offset": 48435,
+                "start_offset": 71769,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 678791154000627912,
+                  "max_value": -36028797018963968,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth57": {
+              "file_offset": 50105,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth57",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1700,
+                "total_compressed_size": 1700,
+                "data_page_offset": 50105,
+                "start_offset": 71862,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 1444945950888122232,
+                  "max_value": -79246600304853010,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth58": {
+              "file_offset": 51805,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth58",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1728,
+                "total_compressed_size": 1728,
+                "data_page_offset": 51805,
+                "start_offset": 71955,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 140747723990970254,
+                  "max_value": -1492687553985044679,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth59": {
+              "file_offset": 53533,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth59",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1756,
+                "total_compressed_size": 1756,
+                "data_page_offset": 53533,
+                "start_offset": 72048,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 6318360990909070,
+                  "max_value": -3778424577629102559,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth60": {
+              "file_offset": 55289,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth60",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1784,
+                "total_compressed_size": 1784,
+                "data_page_offset": 55289,
+                "start_offset": 72141,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 4574162334421819801,
+                  "max_value": -576460752303423488,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth61": {
+              "file_offset": 57073,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth61",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1812,
+                "total_compressed_size": 1812,
+                "data_page_offset": 57073,
+                "start_offset": 72234,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 8803535686130338880,
+                  "max_value": -1155450847100943978,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth62": {
+              "file_offset": 58885,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth62",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1840,
+                "total_compressed_size": 1840,
+                "data_page_offset": 58885,
+                "start_offset": 72327,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 9026687750017193101,
+                  "max_value": -4454039315625288390,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth63": {
+              "file_offset": 60725,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth63",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1868,
+                "total_compressed_size": 1868,
+                "data_page_offset": 60725,
+                "start_offset": 72420,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 9150047972721273816,
+                  "max_value": -9220123451143279334,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "bitwidth64": {
+              "file_offset": 62593,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "bitwidth64",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 1898,
+                "total_compressed_size": 1898,
+                "data_page_offset": 62593,
+                "start_offset": 72513,
+                "byte_length": 87,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 8846115173408951296,
+                  "max_value": -9223372036854775808,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "int_value": {
+              "file_offset": 64491,
+              "metadata": {
+                "type": 1,
+                "encodings": [
+                  5
+                ],
+                "path_in_schema": "int_value",
+                "codec": 0,
+                "num_values": 200,
+                "total_uncompressed_size": 980,
+                "total_compressed_size": 980,
+                "data_page_offset": 64491,
+                "start_offset": 72606,
+                "byte_length": 70,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": 2142811258,
+                  "max_value": -2078683524,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 65467,
+          "row_count": 200,
+          "start_offset": 66609,
+          "byte_length": 6076,
+          "compression_stats": {
+            "total_compressed": 65467,
+            "total_uncompressed": 65467,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.06243419647216797,
+            "uncompressed_mb": 0.06243419647216797
+          }
+        }
+      ],
+      "created_by": "parquet-mr version 1.10.0 (build 031a6654009e3b82020012a18434c582bd74c73a)",
+      "key_value_metadata": [],
+      "compression_stats": {
+        "total_compressed": 65467,
+        "total_uncompressed": 65467,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.06243419647216797,
+        "uncompressed_mb": 0.06243419647216797
+      },
+      "column_count": 66,
+      "row_count": 200,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

@@ -32,6 +32,7 @@ class ColumnMetadataFieldId(IntEnum):
     INDEX_PAGE_OFFSET = 10
     DICTIONARY_PAGE_OFFSET = 11
     STATISTICS = 12
+    ENCODING_STATS = 13
     # Page Index fields (Parquet 2.5+)
     COLUMN_INDEX_OFFSET = 14
     BLOOM_FILTER_LENGTH = 15

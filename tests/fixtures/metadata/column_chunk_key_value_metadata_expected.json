@@ -1,0 +1,216 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/column_chunk_key_value_metadata.parquet",
+  "filesize": 400,
+  "column_chunks": [
+    {
+      "path_in_schema": "column1",
+      "start_offset": 0,
+      "total_byte_size": 14,
+      "codec": 0,
+      "num_values": 0,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 0,
+          "header_size": 1,
+          "compressed_page_size": 0,
+          "uncompressed_page_size": 0,
+          "crc": null,
+          "num_values": 0,
+          "encoding": 0,
+          "definition_level_encoding": 0,
+          "repetition_level_encoding": 0,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 1,
+          "header_size": 17,
+          "compressed_page_size": 0,
+          "uncompressed_page_size": 0,
+          "crc": 1,
+          "num_values": 0,
+          "encoding": 0,
+          "definition_level_encoding": 0,
+          "repetition_level_encoding": 0,
+          "statistics": null
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "column2",
+      "start_offset": 0,
+      "total_byte_size": 14,
+      "codec": 0,
+      "num_values": 0,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 0,
+          "header_size": 1,
+          "compressed_page_size": 0,
+          "uncompressed_page_size": 0,
+          "crc": null,
+          "num_values": 0,
+          "encoding": 0,
+          "definition_level_encoding": 0,
+          "repetition_level_encoding": 0,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 1,
+          "header_size": 17,
+          "compressed_page_size": 0,
+          "uncompressed_page_size": 0,
+          "crc": 1,
+          "num_values": 0,
+          "encoding": 0,
+          "definition_level_encoding": 0,
+          "repetition_level_encoding": 0,
+          "statistics": null
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 155,
+    "total_byte_size": 237,
+    "metadata": {
+      "version": 2,
+      "schema_root": {
+        "element_type": "root",
+        "name": "schema",
+        "start_offset": 159,
+        "byte_length": 13,
+        "num_children": 2,
+        "children": {
+          "column1": {
+            "element_type": "column",
+            "name": "column1",
+            "start_offset": 172,
+            "byte_length": 14,
+            "type": 1,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          },
+          "column2": {
+            "element_type": "column",
+            "name": "column2",
+            "start_offset": 186,
+            "byte_length": 14,
+            "type": 1,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "column1": {
+              "file_offset": 18,
+              "metadata": {
+                "type": 1,
+                "encodings": [
+                  0,
+                  3
+                ],
+                "path_in_schema": "column1",
+                "codec": 0,
+                "num_values": 0,
+                "total_uncompressed_size": 14,
+                "total_compressed_size": 14,
+                "data_page_offset": 0,
+                "start_offset": 209,
+                "byte_length": 75,
+                "dictionary_page_offset": 4,
+                "index_page_offset": null,
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "column2": {
+              "file_offset": 111,
+              "metadata": {
+                "type": 1,
+                "encodings": [
+                  0,
+                  3
+                ],
+                "path_in_schema": "column2",
+                "codec": 0,
+                "num_values": 0,
+                "total_uncompressed_size": 14,
+                "total_compressed_size": 14,
+                "data_page_offset": 0,
+                "start_offset": 289,
+                "byte_length": 39,
+                "dictionary_page_offset": 97,
+                "index_page_offset": null,
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 28,
+          "row_count": 0,
+          "start_offset": 204,
+          "byte_length": 136,
+          "compression_stats": {
+            "total_compressed": 28,
+            "total_uncompressed": 28,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 2.6702880859375e-05,
+            "uncompressed_mb": 2.6702880859375e-05
+          }
+        }
+      ],
+      "created_by": "parquet-cpp-arrow version 17.0.0-SNAPSHOT",
+      "key_value_metadata": [],
+      "compression_stats": {
+        "total_compressed": 28,
+        "total_uncompressed": 28,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 2.6702880859375e-05,
+        "uncompressed_mb": 2.6702880859375e-05
+      },
+      "column_count": 2,
+      "row_count": 0,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

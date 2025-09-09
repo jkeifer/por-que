@@ -13,6 +13,49 @@ METADATA_FIXTURES = FIXTURES / 'metadata'
 DATA_FIXTURES = FIXTURES / 'data'
 ENCODED_PREFIX = '*-*-*-||por-que_base64_encoded||-*-*-*>'
 
+TEST_FILES = [
+    'delta_byte_array',
+    'delta_length_byte_array',
+    'delta_binary_packed',
+    'delta_encoding_required_column',
+    'delta_encoding_optional_column',
+    'nested_structs.rust',
+    'data_index_bloom_encoding_stats',
+    'data_index_bloom_encoding_with_length',
+    'null_list',
+    'rle_boolean_encoding',
+    'fixed_length_byte_array',
+    'int32_with_null_pages',
+    'datapage_v1-uncompressed-checksum',
+    'datapage_v1-snappy-compressed-checksum',
+    'datapage_v1-corrupt-checksum',
+    'rle-dict-snappy-checksum',
+    'plain-dict-uncompressed-checksum',
+    'rle-dict-uncompressed-corrupt-checksum',
+    'large_string_map.brotli',
+    'float16_nonzeros_and_nans',
+    'float16_zeros_and_nans',
+    'concatenated_gzip_members',
+    'byte_stream_split.zstd',
+    'incorrect_map_schema',
+    'sort_columns',
+    'old_list_structure',
+    'repeated_primitive_no_list',
+    'map_no_value',
+    'page_v2_empty_compressed',
+    'datapage_v2_empty_datapage.snappy',
+    'unknown-logical-type',
+    'int96_from_spark',
+    'binary_truncated_min_max',
+    'geospatial/crs-projjson',
+    # Too hard to support this one in test cases
+    #'nan_in_stats',
+    # The following are massive schemas
+    #'alltypes_tiny_pages',
+    #'alltypes_tiny_pages_plain',
+    #'overflow_i16_page_cnt',
+]
+
 
 class Base64Encoder(json.JSONEncoder):
     def default(self, o):
@@ -40,13 +83,7 @@ class Base64Decoder(json.JSONDecoder):
 
 @pytest.mark.parametrize(
     'parquet_file_name',
-    [
-        'alltypes_plain',
-        'nested_structs.rust',
-        'delta_encoding_optional_column',
-        'data_index_bloom_encoding_with_length',
-        'geospatial/crs-projjson',
-    ],
+    TEST_FILES,
 )
 def test_parquet_file(
     parquet_file_name: str,
@@ -55,10 +92,6 @@ def test_parquet_file(
     fixture = METADATA_FIXTURES / f'{parquet_file_name}_expected.json'
 
     with HttpFile(parquet_url) as hf:
-        print(hf)
-        hf.seek(-4, 2)
-        print(hf.read())
-        hf.seek(0)
         pf = ParquetFile.from_reader(hf, parquet_url)
 
         actual_json = pf.to_json(indent=2)
@@ -84,13 +117,7 @@ def test_parquet_file(
 
 @pytest.mark.parametrize(
     'parquet_file_name',
-    [
-        'alltypes_plain',
-        'nested_structs.rust',
-        'delta_encoding_optional_column',
-        'data_index_bloom_encoding_with_length',
-        'geospatial/crs-projjson',
-    ],
+    TEST_FILES,
 )
 def test_parquet_file_from_dict(
     parquet_file_name: str,
@@ -116,13 +143,7 @@ def test_parquet_file_from_dict(
 
 @pytest.mark.parametrize(
     'parquet_file_name',
-    [
-        'alltypes_plain',
-        'nested_structs.rust',
-        'delta_encoding_optional_column',
-        'data_index_bloom_encoding_with_length',
-        'geospatial/crs-projjson',
-    ],
+    TEST_FILES,
 )
 def test_read_data(
     parquet_file_name: str,

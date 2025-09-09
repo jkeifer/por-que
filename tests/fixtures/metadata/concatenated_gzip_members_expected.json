@@ -1,0 +1,141 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/concatenated_gzip_members.parquet",
+  "filesize": 1647,
+  "column_chunks": [
+    {
+      "path_in_schema": "long_col",
+      "start_offset": 4,
+      "total_byte_size": 1467,
+      "codec": 2,
+      "num_values": 513,
+      "data_pages": [
+        {
+          "page_type": 3,
+          "start_offset": 4,
+          "header_size": 48,
+          "compressed_page_size": 1419,
+          "uncompressed_page_size": 4107,
+          "crc": null,
+          "num_values": 513,
+          "num_nulls": 0,
+          "num_rows": 513,
+          "encoding": 0,
+          "definition_levels_byte_length": 3,
+          "repetition_levels_byte_length": 0,
+          "is_compressed": true,
+          "statistics": {
+            "min_value": null,
+            "max_value": null,
+            "null_count": null,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 1524,
+    "total_byte_size": 115,
+    "metadata": {
+      "version": 2,
+      "schema_root": {
+        "element_type": "root",
+        "name": "root",
+        "start_offset": 1528,
+        "byte_length": 9,
+        "num_children": 1,
+        "children": {
+          "long_col": {
+            "element_type": "column",
+            "name": "long_col",
+            "start_offset": 1537,
+            "byte_length": 24,
+            "type": 2,
+            "repetition": 1,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 10,
+            "logical_type": {
+              "logical_type": 10,
+              "bit_width": 32,
+              "is_signed": true
+            }
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "long_col": {
+              "file_offset": 1471,
+              "metadata": {
+                "type": 2,
+                "encodings": [
+                  0,
+                  3
+                ],
+                "path_in_schema": "long_col",
+                "codec": 2,
+                "num_values": 513,
+                "total_uncompressed_size": 4155,
+                "total_compressed_size": 1467,
+                "data_page_offset": 4,
+                "start_offset": 1572,
+                "byte_length": 53,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": null,
+                  "max_value": null,
+                  "null_count": null,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 4155,
+          "row_count": 513,
+          "start_offset": 1566,
+          "byte_length": 72,
+          "compression_stats": {
+            "total_compressed": 1467,
+            "total_uncompressed": 4155,
+            "ratio": 0.35306859205776175,
+            "space_saved_percent": 64.69314079422382,
+            "compressed_mb": 0.0013990402221679688,
+            "uncompressed_mb": 0.003962516784667969
+          }
+        }
+      ],
+      "created_by": null,
+      "key_value_metadata": [],
+      "compression_stats": {
+        "total_compressed": 1467,
+        "total_uncompressed": 4155,
+        "ratio": 0.35306859205776175,
+        "space_saved_percent": 64.69314079422382,
+        "compressed_mb": 0.0013990402221679688,
+        "uncompressed_mb": 0.003962516784667969
+      },
+      "column_count": 1,
+      "row_count": 513,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

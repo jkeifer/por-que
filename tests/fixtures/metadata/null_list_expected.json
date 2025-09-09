@@ -1,0 +1,166 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/null_list.parquet",
+  "filesize": 502,
+  "column_chunks": [
+    {
+      "path_in_schema": "emptylist.list.item",
+      "start_offset": 4,
+      "total_byte_size": 29,
+      "codec": 0,
+      "num_values": 1,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 4,
+          "header_size": 17,
+          "compressed_page_size": 12,
+          "uncompressed_page_size": 12,
+          "crc": null,
+          "num_values": 1,
+          "encoding": 0,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": null
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 80,
+    "total_byte_size": 414,
+    "metadata": {
+      "version": 1,
+      "schema_root": {
+        "element_type": "root",
+        "name": "arrow_schema",
+        "start_offset": 84,
+        "byte_length": 17,
+        "num_children": 1,
+        "children": {
+          "emptylist": {
+            "element_type": "group",
+            "name": "emptylist",
+            "start_offset": 101,
+            "byte_length": 22,
+            "num_children": 1,
+            "children": {
+              "list": {
+                "element_type": "group",
+                "name": "list",
+                "start_offset": 123,
+                "byte_length": 11,
+                "num_children": 1,
+                "children": {
+                  "item": {
+                    "element_type": "column",
+                    "name": "item",
+                    "start_offset": 134,
+                    "byte_length": 15,
+                    "type": 1,
+                    "repetition": 1,
+                    "converted_type": null,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": 10,
+                    "logical_type": {
+                      "logical_type": 11
+                    }
+                  }
+                },
+                "repetition": 2,
+                "converted_type": null,
+                "field_id": 5,
+                "logical_type": null
+              }
+            },
+            "repetition": 1,
+            "converted_type": 3,
+            "field_id": 10,
+            "logical_type": {
+              "logical_type": 3
+            }
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "emptylist.list.item": {
+              "file_offset": 33,
+              "metadata": {
+                "type": 1,
+                "encodings": [
+                  0,
+                  3
+                ],
+                "path_in_schema": "emptylist.list.item",
+                "codec": 0,
+                "num_values": 1,
+                "total_uncompressed_size": 29,
+                "total_compressed_size": 29,
+                "data_page_offset": 4,
+                "start_offset": 158,
+                "byte_length": 43,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": null,
+                  "max_value": null,
+                  "null_count": 1,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 29,
+          "row_count": 1,
+          "start_offset": 153,
+          "byte_length": 54,
+          "compression_stats": {
+            "total_compressed": 29,
+            "total_uncompressed": 29,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 2.765655517578125e-05,
+            "uncompressed_mb": 2.765655517578125e-05
+          }
+        }
+      ],
+      "created_by": "parquet-rs version 9.0.0",
+      "key_value_metadata": [
+        {
+          "start_offset": 209,
+          "byte_length": 258,
+          "key": "ARROW:schema",
+          "value": "/////6wAAAAQAAAAAAAKAA4ADAALAAQACgAAABQAAAAAAAABBAAKAAwAAAAIAAQACgAAAAgAAAAIAAAAAAAAAAEAAAAEAAAA4P///xgAAAAMAAAAAAABDEwAAAABAAAAGAAAANT///8QABQAEAAOAA8ABAAAAAgAEAAAABgAAAAMAAAAAAABARAAAAAAAAAABAAEAAQAAAAEAAAAaXRlbQAAAAAJAAAAZW1wdHlsaXN0AAAA"
+        }
+      ],
+      "compression_stats": {
+        "total_compressed": 29,
+        "total_uncompressed": 29,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 2.765655517578125e-05,
+        "uncompressed_mb": 2.765655517578125e-05
+      },
+      "column_count": 1,
+      "row_count": 1,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

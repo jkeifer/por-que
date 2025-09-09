@@ -147,6 +147,7 @@ class ColumnLogicalType(IntEnum):
     TIME = 7
     TIMESTAMP = 8
     INTEGER = 10
+    UNKNOWN = 11
     JSON = 12
     BSON = 13
     UUID = 14
