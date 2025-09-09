@@ -11,7 +11,8 @@ Teaching Points:
 import logging
 
 from por_que.enums import Compression, Encoding, Type
-from por_que.file_metadata import ColumnChunk, ColumnMetadata, SchemaRoot
+from por_que.exceptions import ParquetFormatError
+from por_que.file_metadata import ColumnChunk, ColumnMetadata, SchemaLeaf, SchemaRoot
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -194,11 +195,19 @@ class ColumnParser(BaseParser):
         end_offset = self.parser.pos
         byte_length = end_offset - start_offset
 
+        schema_element = self.schema.find_element(path_in_schema)
+
+        if not isinstance(schema_element, SchemaLeaf):
+            raise ParquetFormatError(
+                f'Could not find schema leaf element for path: {path_in_schema}',
+            )
+
         # Construct the frozen ColumnMetadata
         return ColumnMetadata(
             type=type_val,
             encodings=encodings,
             path_in_schema=path_in_schema,
+            schema_element=schema_element,
             codec=codec,
             num_values=num_values,
             total_uncompressed_size=total_uncompressed_size,

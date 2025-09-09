@@ -111,9 +111,12 @@ class _OpenedHttpFile:
                 f'Cannot determine file size for {self.http_file.url}',
             ) from e
 
-    def read(self, size: int = -1) -> bytes:
-        if size <= -1:
+    def read(self, size: int | None = None, /) -> bytes:
+        if size is None:
             size = self._size - self._position
+
+        if size < 0:
+            raise ValueError(f'Cannot read negative number of bytes, got: {size}')
 
         if size == 0:
             return b''
@@ -154,7 +157,7 @@ class _OpenedHttpFile:
                 f'Failed to fetch bytes {start}-{end} from {self.http_file.url}:',
             ) from e
 
-    def seek(self, offset: int, whence: int = 0) -> int:
+    def seek(self, offset: int, whence: int = 0, /) -> int:
         if whence == 0:  # Absolute position
             new_pos = offset
         elif whence == 1:  # Relative to current position
@@ -266,7 +269,7 @@ class HttpFile:
             )
         return f'HttpFile(url={self.url!r}, opened=False)'
 
-    def read(self, size: int = -1) -> bytes:
+    def read(self, size: int | None = None, /) -> bytes:
         """
         Read bytes from current position.
 
@@ -284,7 +287,7 @@ class HttpFile:
         """
         return self._ohf.read(size)
 
-    def seek(self, offset: int, whence: int = 0) -> int:
+    def seek(self, offset: int, whence: int = 0, /) -> int:
         """
         Change stream position.
 

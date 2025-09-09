@@ -20,6 +20,7 @@ from por_que.file_metadata import (
     LogicalTypeInfo,
     SchemaRoot,
 )
+from por_que.parsers import physical_types
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftStructParser
 
@@ -199,7 +200,7 @@ class StatisticsParser(BaseParser):
 
     def _deserialize_boolean(self, raw_bytes: bytes) -> bool:
         """Deserialize boolean value from single byte."""
-        return raw_bytes[0] != 0
+        return physical_types.parse_boolean_from_bytes(raw_bytes)
 
     def _deserialize_int32_value(
         self,
@@ -265,23 +266,11 @@ class StatisticsParser(BaseParser):
 
     def _deserialize_float(self, raw_bytes: bytes) -> float:
         """Deserialize IEEE 754 single-precision float."""
-        import struct
-
-        if len(raw_bytes) != 4:
-            raise ParquetDataError(
-                f'FLOAT value must be 4 bytes, got {len(raw_bytes)}',
-            )
-        return struct.unpack('<f', raw_bytes)[0]
+        return physical_types.parse_float_from_bytes(raw_bytes)
 
     def _deserialize_double(self, raw_bytes: bytes) -> float:
         """Deserialize IEEE 754 double-precision float."""
-        import struct
-
-        if len(raw_bytes) != 8:
-            raise ParquetDataError(
-                f'DOUBLE value must be 8 bytes, got {len(raw_bytes)}',
-            )
-        return struct.unpack('<d', raw_bytes)[0]
+        return physical_types.parse_double_from_bytes(raw_bytes)
 
     def _deserialize_byte_array(
         self,
@@ -348,10 +337,7 @@ class StatisticsParser(BaseParser):
         - More efficient than storing full datetime for date-only data
         - Allows easy date arithmetic and comparison
         """
-        if len(raw_bytes) != 4:
-            raise ParquetDataError(f'DATE value must be 4 bytes, got {len(raw_bytes)}')
-
-        days = int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        days = physical_types.parse_int32_from_bytes(raw_bytes)
         return str(date(1970, 1, 1) + timedelta(days=days))
 
     def _deserialize_time_millis(self, raw_bytes: bytes) -> str:
@@ -363,12 +349,7 @@ class StatisticsParser(BaseParser):
         - Millisecond precision sufficient for most applications
         - More efficient than full timestamp for time-only data
         """
-        if len(raw_bytes) != 4:
-            raise ParquetDataError(
-                f'TIME_MILLIS value must be 4 bytes, got {len(raw_bytes)}',
-            )
-
-        millis = int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        millis = physical_types.parse_int32_from_bytes(raw_bytes)
         hours, remainder = divmod(millis, 3600000)
         minutes, remainder = divmod(remainder, 60000)
         seconds, millis = divmod(remainder, 1000)
@@ -383,12 +364,7 @@ class StatisticsParser(BaseParser):
         - Uses Unix epoch (1970-01-01 00:00:00 UTC) as reference
         - INT64 provides sufficient range for most timestamp use cases
         """
-        if len(raw_bytes) != 8:
-            raise ParquetDataError(
-                f'TIMESTAMP_MILLIS value must be 8 bytes, got {len(raw_bytes)}',
-            )
-
-        millis = int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        millis = physical_types.parse_int64_from_bytes(raw_bytes)
         return str(datetime.fromtimestamp(millis / 1000, tz=UTC))
 
     def _deserialize_timestamp_micros(self, raw_bytes: bytes) -> str:
@@ -400,22 +376,13 @@ class StatisticsParser(BaseParser):
         - Uses Unix epoch (1970-01-01 00:00:00 UTC) as reference
         - INT64 provides sufficient range for most timestamp use cases
         """
-        if len(raw_bytes) != 8:
-            raise ParquetDataError(
-                f'TIMESTAMP_MICROS value must be 8 bytes, got {len(raw_bytes)}',
-            )
-
-        micros = int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        micros = physical_types.parse_int64_from_bytes(raw_bytes)
         return str(datetime.fromtimestamp(micros / 1_000_000, tz=UTC))
 
     def _deserialize_int32(self, raw_bytes: bytes) -> int:
         """Deserialize regular INT32 value (little-endian)."""
-        if len(raw_bytes) != 4:
-            raise ParquetDataError(f'INT32 value must be 4 bytes, got {len(raw_bytes)}')
-        return int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        return physical_types.parse_int32_from_bytes(raw_bytes)
 
     def _deserialize_int64(self, raw_bytes: bytes) -> int:
         """Deserialize regular INT64 value (little-endian)."""
-        if len(raw_bytes) != 8:
-            raise ParquetDataError(f'INT64 value must be 8 bytes, got {len(raw_bytes)}')
-        return int.from_bytes(raw_bytes, byteorder='little', signed=True)
+        return physical_types.parse_int64_from_bytes(raw_bytes)

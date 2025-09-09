@@ -29,9 +29,10 @@ from .pages import (
     IndexPage,
     Page,
 )
-from .parsers.dictionary_content import DictType
+from .parsers.page_content import DictType, PageDataType
 from .parsers.parquet.metadata import MetadataParser
 from .protocols import ReadableSeekable
+from .util.models import get_item_or_attr
 
 
 class AsdictTarget(StrEnum):
@@ -105,6 +106,7 @@ class PhysicalColumnChunk(BaseModel):
     dictionary_page: DictionaryPage | None
     metadata: ColumnChunk = Field(exclude=True)
     page_index: PhysicalPageIndex | None = None
+    row_group: int
 
     @classmethod
     def from_reader(
@@ -112,6 +114,7 @@ class PhysicalColumnChunk(BaseModel):
         reader: ReadableSeekable,
         chunk_metadata: ColumnChunk,
         schema_root: SchemaRoot,
+        row_group: int,
     ) -> Self:
         """Parses all pages within a column chunk from a reader."""
         data_pages = []
@@ -169,6 +172,7 @@ class PhysicalColumnChunk(BaseModel):
             dictionary_page=dictionary_page,
             metadata=chunk_metadata,
             page_index=page_index,
+            row_group=row_group,
         )
 
     def parse_dictionary(self, reader: ReadableSeekable) -> DictType:
@@ -189,6 +193,68 @@ class PhysicalColumnChunk(BaseModel):
             physical_type=self.metadata.type,
             compression_codec=self.codec,
         )
+
+    def parse_data_page(
+        self,
+        page_index: int,
+        reader: ReadableSeekable,
+        dictionary_values: DictType | None = None,
+    ) -> PageDataType:
+        """Parse a data page in this column chunk.
+
+        Args:
+            page_index: Index in self.data_pages to parse
+            reader: File-like object to read from
+            dictionary_values: List of values from column chunk
+                               dictionary page (optional)
+
+        Returns:
+            List of data values
+        """
+        try:
+            data_page = self.data_pages[page_index]
+        except IndexError:
+            raise ValueError(
+                f'Data page index {page_index} is out of range '
+                f'(page count: {len(self.data_pages)}',
+            ) from None
+
+        if dictionary_values is None:
+            dictionary_values = self.parse_dictionary(reader)
+
+        return data_page.parse_content(
+            reader=reader,
+            physical_type=self.metadata.type,
+            compression_codec=self.codec,
+            schema_element=self.metadata.schema_element,
+            dictionary_values=dictionary_values if dictionary_values else None,
+        )
+
+    def parse_all_data_pages(
+        self,
+        reader: ReadableSeekable,
+    ) -> PageDataType:
+        """Parse all data from all pages in this column chunk into a single list.
+
+        Args:
+            reader: File-like object to read from
+
+        Returns:
+            Flattened list of all data values from all pages in this column
+        """
+        dictionary_values = self.parse_dictionary(reader)
+
+        data: PageDataType = []
+        for page_index in range(len(self.data_pages)):
+            data.extend(
+                self.parse_data_page(
+                    page_index,
+                    reader,
+                    dictionary_values=dictionary_values,
+                ),
+            )
+
+        return data
 
 
 class PhysicalMetadata(BaseModel):
@@ -254,49 +320,61 @@ class ParquetFile(BaseModel):
         if not isinstance(data, dict):
             return data
 
-        # If we already have a metadata field, use it to inject references
-        if 'metadata' in data and 'column_chunks' in data:
-            # First validate the metadata structure
-            metadata_dict = data['metadata']
-            if isinstance(metadata_dict, dict) and 'metadata' in metadata_dict:
-                file_metadata_dict = metadata_dict['metadata']
+        try:
+            physical_metadata = data['metadata']
+            column_chunks = data['column_chunks']
+        except KeyError:
+            return data
 
-                # Process each column chunk to add metadata reference
-                updated_chunks = []
-                for chunk_data in data['column_chunks']:
-                    if isinstance(chunk_data, dict) and 'path_in_schema' in chunk_data:
-                        # Find and inject the logical metadata reference
-                        logical_chunk = cls._find_logical_chunk_from_dict(
-                            file_metadata_dict,
-                            chunk_data['path_in_schema'],
-                        )
-                        # Create new chunk data with metadata reference
-                        chunk_with_metadata = {**chunk_data, 'metadata': logical_chunk}
-                        updated_chunks.append(chunk_with_metadata)
-                    else:
-                        updated_chunks.append(chunk_data)
+        if not column_chunks:
+            return data
 
-                # Update the data with injected metadata
-                data = {**data, 'column_chunks': updated_chunks}
+        try:
+            metadata: FileMetadata | dict = get_item_or_attr(
+                physical_metadata,
+                'metadata',
+            )
+        except ValueError:
+            return data
 
-        return data
+        if not isinstance(metadata, FileMetadata):
+            metadata = FileMetadata(**metadata)
+            physical_metadata['metadata'] = metadata
 
-    @staticmethod
-    def _find_logical_chunk_from_dict(
-        file_metadata_dict: dict,
-        path_in_schema: str,
-    ) -> dict:
-        """Find the logical ColumnChunk metadata dict for a given path."""
-        if 'row_groups' not in file_metadata_dict:
-            raise ValueError('No row_groups found in file metadata')
+        # Process each column chunk to add metadata reference
+        updated_chunks = []
+        for chunk_data in column_chunks:
+            try:
+                row_group: int = get_item_or_attr(
+                    chunk_data,
+                    'row_group',
+                )
+                path: str = get_item_or_attr(
+                    chunk_data,
+                    'path_in_schema',
+                )
+            except ValueError:
+                return data
 
-        for row_group_dict in file_metadata_dict['row_groups']:
-            if 'column_chunks' in row_group_dict:
-                column_chunks_dict = row_group_dict['column_chunks']
-                if path_in_schema in column_chunks_dict:
-                    return column_chunks_dict[path_in_schema]
+            # Find and inject the logical metadata reference
+            try:
+                column_chunk: ColumnChunk = metadata.row_groups[
+                    row_group
+                ].column_chunks[path]
+            except (IndexError, KeyError):
+                return data
 
-        raise ValueError(f'Could not find logical metadata for column {path_in_schema}')
+            if hasattr(chunk_data, 'metadata') and chunk_data.metadata is column_chunk:
+                updated_chunks.append(chunk_data)
+            else:
+                _chunk = (
+                    chunk_data if isinstance(chunk_data, dict) else chunk_data.__dict__
+                )
+                _chunk['metadata'] = column_chunk
+                updated_chunks.append(_chunk)
+
+        # Update the data with injected metadata
+        return {**data, 'column_chunks': updated_chunks}
 
     @classmethod
     def from_reader(
@@ -330,12 +408,13 @@ class ParquetFile(BaseModel):
         schema_root = metadata.schema_root
 
         # Iterate through all row groups and their column chunks
-        for row_group_metadata in metadata.row_groups:
+        for row_group_index, row_group_metadata in enumerate(metadata.row_groups):
             for chunk_metadata in row_group_metadata.column_chunks.values():
                 column_chunk = PhysicalColumnChunk.from_reader(
                     reader=file_obj,
                     chunk_metadata=chunk_metadata,
                     schema_root=schema_root,
+                    row_group=row_group_index,
                 )
                 column_chunks.append(column_chunk)
 

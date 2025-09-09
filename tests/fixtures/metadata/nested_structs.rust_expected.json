@@ -40,7 +40,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "roll_num.max",
@@ -80,7 +81,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "roll_num.mean",
@@ -120,7 +122,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "roll_num.count",
@@ -160,7 +163,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "roll_num.sum",
@@ -200,7 +204,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "roll_num.variance",
@@ -240,7 +245,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "PC_CUR.min",
@@ -280,7 +286,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "PC_CUR.max",
@@ -320,7 +327,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "PC_CUR.mean",
@@ -360,7 +368,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "PC_CUR.count",
@@ -400,7 +409,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "PC_CUR.sum",
@@ -440,7 +450,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "PC_CUR.variance",
@@ -480,7 +491,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2012.min",
@@ -520,7 +532,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2012.max",
@@ -560,7 +573,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2012.mean",
@@ -600,7 +614,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2012.count",
@@ -640,7 +655,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2012.sum",
@@ -680,7 +696,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2012.variance",
@@ -720,7 +737,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2016.min",
@@ -760,7 +778,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2016.max",
@@ -800,7 +819,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2016.mean",
@@ -840,7 +860,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2016.count",
@@ -880,7 +901,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2016.sum",
@@ -920,7 +942,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "CVA_2016.variance",
@@ -960,7 +983,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_3.min",
@@ -1000,7 +1024,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_3.max",
@@ -1040,7 +1065,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_3.mean",
@@ -1080,7 +1106,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_3.count",
@@ -1120,7 +1147,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_3.sum",
@@ -1160,7 +1188,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_3.variance",
@@ -1200,7 +1229,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_4.min",
@@ -1240,7 +1270,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_4.max",
@@ -1280,7 +1311,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_4.mean",
@@ -1320,7 +1352,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_4.count",
@@ -1360,7 +1393,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_4.sum",
@@ -1400,7 +1434,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "BIA_4.variance",
@@ -1440,7 +1475,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_FRONTAGE.min",
@@ -1480,7 +1516,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_FRONTAGE.max",
@@ -1520,7 +1557,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_FRONTAGE.mean",
@@ -1560,7 +1598,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_FRONTAGE.count",
@@ -1600,7 +1639,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_FRONTAGE.sum",
@@ -1640,7 +1680,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_FRONTAGE.variance",
@@ -1680,7 +1721,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_DEPTH.min",
@@ -1720,7 +1762,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_DEPTH.max",
@@ -1760,7 +1803,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_DEPTH.mean",
@@ -1800,7 +1844,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_DEPTH.count",
@@ -1840,7 +1885,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_DEPTH.sum",
@@ -1880,7 +1926,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_DEPTH.variance",
@@ -1920,7 +1967,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_LOT_SIZE.min",
@@ -1960,7 +2008,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_LOT_SIZE.max",
@@ -2000,7 +2049,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_LOT_SIZE.mean",
@@ -2040,7 +2090,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_LOT_SIZE.count",
@@ -2080,7 +2131,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_LOT_SIZE.sum",
@@ -2120,7 +2172,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ACTUAL_LOT_SIZE.variance",
@@ -2160,7 +2213,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA.min",
@@ -2200,7 +2254,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA.max",
@@ -2240,7 +2295,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA.mean",
@@ -2280,7 +2336,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA.count",
@@ -2320,7 +2377,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA.sum",
@@ -2360,7 +2418,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA.variance",
@@ -2400,7 +2459,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "SOURCE_GLA.min",
@@ -2440,7 +2500,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "SOURCE_GLA.max",
@@ -2480,7 +2541,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "SOURCE_GLA.mean",
@@ -2520,7 +2582,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "SOURCE_GLA.count",
@@ -2560,7 +2623,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "SOURCE_GLA.sum",
@@ -2600,7 +2664,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "SOURCE_GLA.variance",
@@ -2640,7 +2705,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "IPS_GLA.min",
@@ -2680,7 +2746,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "IPS_GLA.max",
@@ -2720,7 +2787,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "IPS_GLA.mean",
@@ -2760,7 +2828,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "IPS_GLA.count",
@@ -2800,7 +2869,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "IPS_GLA.sum",
@@ -2840,7 +2910,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "IPS_GLA.variance",
@@ -2880,7 +2951,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA_ALL.min",
@@ -2920,7 +2992,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA_ALL.max",
@@ -2960,7 +3033,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA_ALL.mean",
@@ -3000,7 +3074,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA_ALL.count",
@@ -3040,7 +3115,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA_ALL.sum",
@@ -3080,7 +3156,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "GLA_ALL.variance",
@@ -3120,7 +3197,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "bia.min",
@@ -3160,7 +3238,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "bia.max",
@@ -3200,7 +3279,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "bia.mean",
@@ -3240,7 +3320,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "bia.count",
@@ -3280,7 +3361,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "bia.sum",
@@ -3320,7 +3402,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "bia.variance",
@@ -3360,7 +3443,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_LOT_SIZE.min",
@@ -3400,7 +3484,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_LOT_SIZE.max",
@@ -3440,7 +3525,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_LOT_SIZE.mean",
@@ -3480,7 +3566,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_LOT_SIZE.count",
@@ -3520,7 +3607,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_LOT_SIZE.sum",
@@ -3560,7 +3648,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_LOT_SIZE.variance",
@@ -3600,7 +3689,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_area.min",
@@ -3640,7 +3730,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_area.max",
@@ -3680,7 +3771,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_area.mean",
@@ -3720,7 +3812,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_area.count",
@@ -3760,7 +3853,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_area.sum",
@@ -3800,7 +3894,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_area.variance",
@@ -3840,7 +3935,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_FRONTAGE.min",
@@ -3880,7 +3976,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_FRONTAGE.max",
@@ -3920,7 +4017,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_FRONTAGE.mean",
@@ -3960,7 +4058,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_FRONTAGE.count",
@@ -4000,7 +4099,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_FRONTAGE.sum",
@@ -4040,7 +4140,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_FRONTAGE.variance",
@@ -4080,7 +4181,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_DEPTH.min",
@@ -4120,7 +4222,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_DEPTH.max",
@@ -4160,7 +4263,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_DEPTH.mean",
@@ -4200,7 +4304,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_DEPTH.count",
@@ -4240,7 +4345,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_DEPTH.sum",
@@ -4280,7 +4386,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "EFFECTIVE_DEPTH.variance",
@@ -4320,7 +4427,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "rw_area_tot.min",
@@ -4360,7 +4468,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "rw_area_tot.max",
@@ -4400,7 +4509,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "rw_area_tot.mean",
@@ -4440,7 +4550,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "rw_area_tot.count",
@@ -4480,7 +4591,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "rw_area_tot.sum",
@@ -4520,7 +4632,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "rw_area_tot.variance",
@@ -4560,7 +4673,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_sqft.min",
@@ -4600,7 +4714,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_sqft.max",
@@ -4640,7 +4755,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_sqft.mean",
@@ -4680,7 +4796,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_sqft.count",
@@ -4720,7 +4837,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_sqft.sum",
@@ -4760,7 +4878,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "effective_lot_sqft.variance",
@@ -4800,7 +4919,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "dup.min",
@@ -4840,7 +4960,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "dup.max",
@@ -4880,7 +5001,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "dup.mean",
@@ -4920,7 +5042,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "dup.count",
@@ -4960,7 +5083,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "dup.sum",
@@ -5000,7 +5124,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "dup.variance",
@@ -5040,7 +5165,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "nonCTXT.min",
@@ -5080,7 +5206,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "nonCTXT.max",
@@ -5120,7 +5247,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "nonCTXT.mean",
@@ -5160,7 +5288,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "nonCTXT.count",
@@ -5200,7 +5329,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "nonCTXT.sum",
@@ -5240,7 +5370,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "nonCTXT.variance",
@@ -5280,7 +5411,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "vacantland.min",
@@ -5320,7 +5452,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "vacantland.max",
@@ -5360,7 +5493,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "vacantland.mean",
@@ -5400,7 +5534,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "vacantland.count",
@@ -5440,7 +5575,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "vacantland.sum",
@@ -5480,7 +5616,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "vacantland.variance",
@@ -5520,7 +5657,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "parkingbillboard.min",
@@ -5560,7 +5698,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "parkingbillboard.max",
@@ -5600,7 +5739,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "parkingbillboard.mean",
@@ -5640,7 +5780,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "parkingbillboard.count",
@@ -5680,7 +5821,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "parkingbillboard.sum",
@@ -5720,7 +5862,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "parkingbillboard.variance",
@@ -5760,7 +5903,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "cvalte10.min",
@@ -5800,7 +5944,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "cvalte10.max",
@@ -5840,7 +5985,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "cvalte10.mean",
@@ -5880,7 +6026,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "cvalte10.count",
@@ -5920,7 +6067,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "cvalte10.sum",
@@ -5960,7 +6108,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "cvalte10.variance",
@@ -6000,7 +6149,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "condootherhotel.min",
@@ -6040,7 +6190,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "condootherhotel.max",
@@ -6080,7 +6231,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "condootherhotel.mean",
@@ -6120,7 +6272,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "condootherhotel.count",
@@ -6160,7 +6313,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "condootherhotel.sum",
@@ -6200,7 +6354,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "condootherhotel.variance",
@@ -6240,7 +6395,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_lot_size.min",
@@ -6280,7 +6436,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_lot_size.max",
@@ -6320,7 +6477,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_lot_size.mean",
@@ -6360,7 +6518,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_lot_size.count",
@@ -6400,7 +6559,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_lot_size.sum",
@@ -6440,7 +6600,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_lot_size.variance",
@@ -6480,7 +6641,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_efflot_size.min",
@@ -6520,7 +6682,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_efflot_size.max",
@@ -6560,7 +6723,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_efflot_size.mean",
@@ -6600,7 +6764,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_efflot_size.count",
@@ -6640,7 +6805,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_efflot_size.sum",
@@ -6680,7 +6846,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "calculated_efflot_size.variance",
@@ -6720,7 +6887,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsite.min",
@@ -6760,7 +6928,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsite.max",
@@ -6800,7 +6969,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsite.mean",
@@ -6840,7 +7010,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsite.count",
@@ -6880,7 +7051,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsite.sum",
@@ -6920,7 +7092,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsite.variance",
@@ -6960,7 +7133,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missinggla.min",
@@ -7000,7 +7174,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missinggla.max",
@@ -7040,7 +7215,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missinggla.mean",
@@ -7080,7 +7256,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missinggla.count",
@@ -7120,7 +7297,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missinggla.sum",
@@ -7160,7 +7338,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missinggla.variance",
@@ -7200,7 +7379,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsitegla.min",
@@ -7240,7 +7420,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsitegla.max",
@@ -7280,7 +7461,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsitegla.mean",
@@ -7320,7 +7502,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsitegla.count",
@@ -7360,7 +7543,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsitegla.sum",
@@ -7400,7 +7584,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "missingsitegla.variance",
@@ -7440,7 +7625,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "actual_lot_size_sqft.min",
@@ -7480,7 +7666,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "actual_lot_size_sqft.max",
@@ -7520,7 +7707,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "actual_lot_size_sqft.mean",
@@ -7560,7 +7748,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "actual_lot_size_sqft.count",
@@ -7600,7 +7789,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "actual_lot_size_sqft.sum",
@@ -7640,7 +7830,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "actual_lot_size_sqft.variance",
@@ -7680,7 +7871,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "lotsize_sqft.min",
@@ -7720,7 +7912,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "lotsize_sqft.max",
@@ -7760,7 +7953,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "lotsize_sqft.mean",
@@ -7800,7 +7994,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "lotsize_sqft.count",
@@ -7840,7 +8035,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "lotsize_sqft.sum",
@@ -7880,7 +8076,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "lotsize_sqft.variance",
@@ -7920,7 +8117,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "count.min",
@@ -7960,7 +8158,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "count.max",
@@ -8000,7 +8199,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "count.mean",
@@ -8040,7 +8240,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "count.count",
@@ -8080,7 +8281,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "count.sum",
@@ -8120,7 +8322,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "count.variance",
@@ -8160,7 +8363,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_observation_date.min",
@@ -8200,7 +8404,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_observation_date.max",
@@ -8240,7 +8445,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_observation_date.mean",
@@ -8280,7 +8486,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_observation_date.count",
@@ -8320,7 +8527,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_observation_date.sum",
@@ -8360,7 +8568,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_observation_date.variance",
@@ -8400,7 +8609,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_tz_offset_minutes_ul_observation_date.min",
@@ -8440,7 +8650,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_tz_offset_minutes_ul_observation_date.max",
@@ -8480,7 +8691,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_tz_offset_minutes_ul_observation_date.mean",
@@ -8520,7 +8732,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_tz_offset_minutes_ul_observation_date.count",
@@ -8560,7 +8773,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_tz_offset_minutes_ul_observation_date.sum",
@@ -8600,7 +8814,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     },
     {
       "path_in_schema": "ul_tz_offset_minutes_ul_observation_date.variance",
@@ -8640,7 +8855,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null
+      "page_index": null,
+      "row_group": 0
     }
   ],
   "metadata": {
@@ -8648,7 +8864,7 @@
     "total_byte_size": 19372,
     "metadata": {
       "version": 1,
-      "schema": {
+      "schema_root": {
         "element_type": "root",
         "name": "schema",
         "start_offset": 33666,
@@ -19080,7 +19296,7 @@
         }
       ],
       "created_by": "UrbanLogiq",
-      "key_value_metadata": {},
+      "key_value_metadata": [],
       "compression_stats": {
         "total_compressed": 17712,
         "total_uncompressed": 13824,

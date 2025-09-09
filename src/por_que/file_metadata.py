@@ -3,14 +3,16 @@ from __future__ import annotations
 import warnings
 
 from functools import cached_property
-from typing import Annotated, Literal, Self
+from typing import Annotated, Any, Literal, Self
 
 from pydantic import (
     BaseModel,
     ConfigDict,
     Discriminator,
     Field,
+    ValidationInfo,
     computed_field,
+    model_validator,
 )
 
 from .enums import (
@@ -28,6 +30,7 @@ from .enums import (
     TimeUnit,
     Type,
 )
+from .util.models import get_item_or_attr
 
 
 class CompressionStats(BaseModel):
@@ -65,6 +68,17 @@ class CompressionStats(BaseModel):
     def uncompressed_mb(self) -> float:
         """Uncompressed size in MB."""
         return self.total_uncompressed / (1024 * 1024)
+
+
+class KeyValueMetadata(BaseModel):
+    """Key-value metadata pair with byte range information."""
+
+    model_config = ConfigDict(frozen=True)
+
+    start_offset: int
+    byte_length: int
+    key: str
+    value: str
 
 
 class LogicalTypeInfo(BaseModel):
@@ -506,6 +520,36 @@ class SchemaLeaf(SchemaElement):
     field_id: int | None = None
     logical_type: LogicalTypeInfoUnion | None = None
 
+    @property
+    def definition_level(self) -> int:
+        """Calculate the definition level for this schema element.
+
+        For non-nested schemas:
+        - REQUIRED columns: 0 (never null)
+        - OPTIONAL columns: 1 (can be null or present)
+        - REPEATED columns: 1 (can be null/empty or present)
+
+        For nested schemas, this would need to traverse the parent chain.
+        """
+        if self.repetition == Repetition.REQUIRED:
+            return 0
+        # OPTIONAL or REPEATED
+        return 1
+
+    @property
+    def repetition_level(self) -> int:
+        """Calculate the repetition level for this schema element.
+
+        For non-nested schemas:
+        - Non-REPEATED columns: 0
+        - REPEATED columns: 1
+
+        For nested schemas, this would need to traverse the parent chain.
+        """
+        if self.repetition == Repetition.REPEATED:
+            return 1
+        return 0
+
     def _repr_extra(self) -> list[str]:
         return [
             self.repetition.name,
@@ -564,6 +608,7 @@ class ColumnMetadata(BaseModel):
     type: Type
     encodings: list[Encoding]
     path_in_schema: str
+    schema_element: SchemaLeaf = Field(exclude=True)
     codec: Compression
     num_values: int
     total_uncompressed_size: int
@@ -589,6 +634,29 @@ class ColumnChunk(BaseModel):
     file_offset: int
     metadata: ColumnMetadata
     file_path: str | None
+
+    @model_validator(mode='before')
+    @classmethod
+    def inject_schema_element_from_context(cls, data: Any, info: ValidationInfo):
+        """Inject schema element from context if not provided."""
+        if not isinstance(data, dict) or not info.context:
+            return data
+
+        if 'schema_element' in data or 'schema_root' not in info.context:
+            return data
+
+        schema_root = info.context['schema_root']
+
+        try:
+            path = data['metadata']['path_in_schema']
+        except KeyError:
+            return data
+
+        schema_element = schema_root.find_element(path)
+        if schema_element and isinstance(schema_element, SchemaLeaf):
+            data = {**data, 'schema_element': schema_element}
+
+        return data
 
     @classmethod
     def new(
@@ -625,6 +693,10 @@ class ColumnChunk(BaseModel):
     @cached_property
     def path_in_schema(self) -> str:
         return self.metadata.path_in_schema
+
+    @cached_property
+    def schema_element(self) -> SchemaLeaf:
+        return self.metadata.schema_element
 
     @cached_property
     def codec(self) -> Compression:
@@ -709,16 +781,90 @@ class RowGroup(BaseModel):
         return len(self.column_chunks)
 
 
+type RowGroups = list[RowGroup]
+
+
 class FileMetadata(BaseModel):
     """Logical representation of file metadata."""
 
     model_config = ConfigDict(frozen=True)
 
     version: int
-    schema_root: SchemaRoot = Field(alias='schema')
-    row_groups: list[RowGroup]
+    schema_root: SchemaRoot
+    row_groups: RowGroups
     created_by: str | None = None
-    key_value_metadata: dict[str, str] = Field(default_factory=dict)
+    key_value_metadata: list[KeyValueMetadata] = Field(default_factory=list)
+
+    @model_validator(mode='before')
+    @classmethod
+    def inject_schema_references(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        try:
+            schema_root = data['schema_root']
+            row_groups: RowGroups | list[dict] = data['row_groups']
+        except KeyError:
+            return data
+
+        if not isinstance(schema_root, SchemaRoot):
+            schema_root = SchemaRoot(**schema_root)
+            data['schema_root'] = schema_root
+
+        updated_row_groups: list[RowGroup | dict] = []
+        for row_group in row_groups:
+            updated = False
+            try:
+                column_chunks: dict[str, ColumnChunk | dict] = get_item_or_attr(
+                    row_group,
+                    'column_chunks',
+                )
+            except ValueError:
+                return data
+
+            updated_column_chunks: dict[str, ColumnChunk | dict] = {}
+            for column_chunk in column_chunks.values():
+                try:
+                    metadata: ColumnMetadata | dict[str, Any] = get_item_or_attr(
+                        column_chunk,
+                        'metadata',
+                    )
+                    path: str = get_item_or_attr(
+                        metadata,
+                        'path_in_schema',
+                    )
+                except ValueError:
+                    return data
+
+                # Find and inject the logical metadata reference
+                schema_element = schema_root.find_element(path)
+                if (
+                    hasattr(metadata, 'schema_element')
+                    and metadata.schema_element is schema_element
+                ):
+                    updated_column_chunks[path] = column_chunk
+                    continue
+
+                updated = True
+                _chunk = (
+                    column_chunk
+                    if isinstance(column_chunk, dict)
+                    else column_chunk.__dict__
+                )
+                _meta = metadata if isinstance(metadata, dict) else metadata.__dict__
+                _meta['schema_element'] = schema_element
+                _chunk['metadata'] = _meta
+                updated_column_chunks[path] = _chunk
+
+            if not updated:
+                updated_row_groups.append(row_group)
+                continue
+
+            _rg = row_group if isinstance(row_group, dict) else row_group.__dict__
+            _rg['column_chunks'] = updated_column_chunks
+            updated_row_groups.append(_rg)
+
+        return {**data, 'row_groups': updated_row_groups}
 
     @computed_field
     @cached_property
