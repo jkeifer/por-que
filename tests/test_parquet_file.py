@@ -1,3 +1,4 @@
+import base64
 import json
 
 from pathlib import Path
@@ -7,7 +8,34 @@ import pytest
 from por_que import ParquetFile
 from por_que.util.http_file import HttpFile
 
-METADATA_FIXTURES = Path(__file__).parent / 'fixtures' / 'metadata'
+FIXTURES = Path(__file__).parent / 'fixtures'
+METADATA_FIXTURES = FIXTURES / 'metadata'
+DATA_FIXTURES = FIXTURES / 'data'
+ENCODED_PREFIX = '*-*-*-||por-que_base64_encoded||-*-*-*>'
+
+
+class Base64Encoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, bytes):
+            return ENCODED_PREFIX + base64.b64encode(o).decode()
+        return json.JSONEncoder.default(self, o)
+
+
+class Base64Decoder(json.JSONDecoder):
+    def decode(self, s):  # type: ignore
+        # Parse normally first
+        obj = super().decode(s)
+        # Then post-process
+        return self._decode_base64_strings(obj)
+
+    def _decode_base64_strings(self, obj):
+        if isinstance(obj, str) and obj.startswith(ENCODED_PREFIX):
+            return base64.b64decode(obj[len(ENCODED_PREFIX) :])
+        if isinstance(obj, dict):
+            return {k: self._decode_base64_strings(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [self._decode_base64_strings(item) for item in obj]
+        return obj
 
 
 @pytest.mark.parametrize(
@@ -17,6 +45,7 @@ METADATA_FIXTURES = Path(__file__).parent / 'fixtures' / 'metadata'
         'nested_structs.rust',
         'delta_encoding_optional_column',
         'data_index_bloom_encoding_with_length',
+        'geospatial/crs-projjson',
     ],
 )
 def test_parquet_file(
@@ -60,6 +89,7 @@ def test_parquet_file(
         'nested_structs.rust',
         'delta_encoding_optional_column',
         'data_index_bloom_encoding_with_length',
+        'geospatial/crs-projjson',
     ],
 )
 def test_parquet_file_from_dict(
@@ -69,10 +99,6 @@ def test_parquet_file_from_dict(
     fixture = METADATA_FIXTURES / f'{parquet_file_name}_expected.json'
 
     with HttpFile(parquet_url) as hf:
-        print(hf)
-        hf.seek(-4, 2)
-        print(hf.read())
-        hf.seek(0)
         pf = ParquetFile.from_reader(hf, parquet_url)
 
         actual = pf.to_dict()
@@ -86,3 +112,37 @@ def test_parquet_file_from_dict(
             json.loads(fixture.read_text()),
         ).to_dict()
         assert actual == expected
+
+
+@pytest.mark.parametrize(
+    'parquet_file_name',
+    [
+        'alltypes_plain',
+        'nested_structs.rust',
+        'delta_encoding_optional_column',
+        'data_index_bloom_encoding_with_length',
+        'geospatial/crs-projjson',
+    ],
+)
+def test_read_data(
+    parquet_file_name: str,
+    parquet_url: str,
+) -> None:
+    fixture = DATA_FIXTURES / f'{parquet_file_name}_expected.json'
+
+    with HttpFile(parquet_url) as hf:
+        pf = ParquetFile.from_reader(hf, parquet_url)
+        actual = [cc.parse_all_data_pages(hf) for cc in pf.column_chunks]
+
+        # we try to load the fixture file to compare
+        # if it doesn't exist we write the fixture to file
+        # to update, delete the fixture file it and re-run
+        try:
+            expected = json.loads(fixture.read_text(), cls=Base64Decoder)
+            assert actual == expected
+        except FileNotFoundError:
+            print(actual)
+            fixture.write_text(json.dumps(actual, indent=2, cls=Base64Encoder))
+            pytest.skip(
+                f'Generated fixture {fixture}. Re-run test to compare.',
+            )

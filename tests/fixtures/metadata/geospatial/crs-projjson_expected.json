@@ -1,0 +1,244 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/geospatial/crs-projjson.parquet",
+  "filesize": 15417,
+  "column_chunks": [
+    {
+      "path_in_schema": "wkt",
+      "start_offset": 4,
+      "total_byte_size": 8636,
+      "codec": 0,
+      "num_values": 1,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 8610,
+          "header_size": 21,
+          "compressed_page_size": 9,
+          "uncompressed_page_size": 9,
+          "crc": null,
+          "num_values": 1,
+          "encoding": 8,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": {
+            "min_value": null,
+            "max_value": null,
+            "null_count": 0,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 4,
+        "header_size": 18,
+        "compressed_page_size": 8588,
+        "uncompressed_page_size": 8588,
+        "crc": null,
+        "num_values": 1,
+        "encoding": 0,
+        "is_sorted": false
+      },
+      "page_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "geometry",
+      "start_offset": 8640,
+      "total_byte_size": 3597,
+      "codec": 0,
+      "num_values": 1,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 12209,
+          "header_size": 19,
+          "compressed_page_size": 9,
+          "uncompressed_page_size": 9,
+          "crc": null,
+          "num_values": 1,
+          "encoding": 8,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": {
+            "min_value": null,
+            "max_value": null,
+            "null_count": null,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 8640,
+        "header_size": 16,
+        "compressed_page_size": 3553,
+        "uncompressed_page_size": 3553,
+        "crc": null,
+        "num_values": 1,
+        "encoding": 0,
+        "is_sorted": false
+      },
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 12237,
+    "total_byte_size": 3172,
+    "metadata": {
+      "version": 2,
+      "schema_root": {
+        "element_type": "root",
+        "name": "schema",
+        "start_offset": 12241,
+        "byte_length": 13,
+        "num_children": 2,
+        "children": {
+          "wkt": {
+            "element_type": "column",
+            "name": "wkt",
+            "start_offset": 12254,
+            "byte_length": 16,
+            "type": 6,
+            "repetition": 1,
+            "converted_type": 0,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 10,
+            "logical_type": {
+              "logical_type": 1
+            }
+          },
+          "geometry": {
+            "element_type": "column",
+            "name": "geometry",
+            "start_offset": 12270,
+            "byte_length": 49,
+            "type": 6,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": 10,
+            "logical_type": {
+              "logical_type": 17
+            }
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "wkt": {
+              "file_offset": 0,
+              "metadata": {
+                "type": 6,
+                "encodings": [
+                  0,
+                  3,
+                  8
+                ],
+                "path_in_schema": "wkt",
+                "codec": 0,
+                "num_values": 1,
+                "total_uncompressed_size": 8636,
+                "total_compressed_size": 8636,
+                "data_page_offset": 8610,
+                "start_offset": 12328,
+                "byte_length": 64,
+                "dictionary_page_offset": 4,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": null,
+                  "max_value": null,
+                  "null_count": 0,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            },
+            "geometry": {
+              "file_offset": 0,
+              "metadata": {
+                "type": 6,
+                "encodings": [
+                  0,
+                  3,
+                  8
+                ],
+                "path_in_schema": "geometry",
+                "codec": 0,
+                "num_values": 1,
+                "total_uncompressed_size": 3597,
+                "total_compressed_size": 3597,
+                "data_page_offset": 12209,
+                "start_offset": 12396,
+                "byte_length": 107,
+                "dictionary_page_offset": 8640,
+                "index_page_offset": null,
+                "statistics": null,
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 12233,
+          "row_count": 1,
+          "start_offset": 12323,
+          "byte_length": 194,
+          "compression_stats": {
+            "total_compressed": 12233,
+            "total_uncompressed": 12233,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.011666297912597656,
+            "uncompressed_mb": 0.011666297912597656
+          }
+        }
+      ],
+      "created_by": "parquet-cpp-arrow version 20.0.0-SNAPSHOT",
+      "key_value_metadata": [
+        {
+          "start_offset": 12519,
+          "byte_length": 2340,
+          "key": "projjson_epsg_5070",
+          "value": "{\"$schema\":\"https://proj.org/schemas/v0.7/projjson.schema.json\",\"type\":\"ProjectedCRS\",\"name\":\"NAD83 / Conus Albers\",\"base_crs\":{\"name\":\"NAD83\",\"datum\":{\"type\":\"GeodeticReferenceFrame\",\"name\":\"North American Datum 1983\",\"ellipsoid\":{\"name\":\"GRS 1980\",\"semi_major_axis\":6378137,\"inverse_flattening\":298.257222101}},\"coordinate_system\":{\"subtype\":\"ellipsoidal\",\"axis\":[{\"name\":\"Geodetic latitude\",\"abbreviation\":\"Lat\",\"direction\":\"north\",\"unit\":\"degree\"},{\"name\":\"Geodetic longitude\",\"abbreviation\":\"Lon\",\"direction\":\"east\",\"unit\":\"degree\"}]},\"id\":{\"authority\":\"EPSG\",\"code\":4269}},\"conversion\":{\"name\":\"Conus Albers\",\"method\":{\"name\":\"Albers Equal Area\",\"id\":{\"authority\":\"EPSG\",\"code\":9822}},\"parameters\":[{\"name\":\"Latitude of false origin\",\"value\":23,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8821}},{\"name\":\"Longitude of false origin\",\"value\":-96,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8822}},{\"name\":\"Latitude of 1st standard parallel\",\"value\":29.5,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8823}},{\"name\":\"Latitude of 2nd standard parallel\",\"value\":45.5,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8824}},{\"name\":\"Easting at false origin\",\"value\":0,\"unit\":\"metre\",\"id\":{\"authority\":\"EPSG\",\"code\":8826}},{\"name\":\"Northing at false origin\",\"value\":0,\"unit\":\"metre\",\"id\":{\"authority\":\"EPSG\",\"code\":8827}}]},\"coordinate_system\":{\"subtype\":\"Cartesian\",\"axis\":[{\"name\":\"Easting\",\"abbreviation\":\"X\",\"direction\":\"east\",\"unit\":\"metre\"},{\"name\":\"Northing\",\"abbreviation\":\"Y\",\"direction\":\"north\",\"unit\":\"metre\"}]},\"scope\":\"Data analysis and small scale data presentation for contiguous lower 48 states.\",\"area\":\"United States (USA) - CONUS onshore - Alabama; Arizona; Arkansas; California; Colorado; Connecticut; Delaware; Florida; Georgia; Idaho; Illinois; Indiana; Iowa; Kansas; Kentucky; Louisiana; Maine; Maryland; Massachusetts; Michigan; Minnesota; Mississippi; Missouri; Montana; Nebraska; Nevada; New Hampshire; New Jersey; New Mexico; New York; North Carolina; North Dakota; Ohio; Oklahoma; Oregon; Pennsylvania; Rhode Island; South Carolina; South Dakota; Tennessee; Texas; Utah; Vermont; Virginia; Washington; West Virginia; Wisconsin; Wyoming.\",\"bbox\":{\"south_latitude\":24.41,\"west_longitude\":-124.79,\"north_latitude\":49.38,\"east_longitude\":-66.91},\"id\":{\"authority\":\"EPSG\",\"code\":5070}}"
+        },
+        {
+          "start_offset": 14859,
+          "byte_length": 498,
+          "key": "ARROW:schema",
+          "value": "/////2ABAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAIAAAAEAQAAGAAAAAAAEgAYAAgABgAHAAwAAAAQABQAEgAAAAAAAQQUAAAAyAAAAAgAAAAYAAAAAAAAAAgAAABnZW9tZXRyeQAAAAACAAAATAAAAAQAAADE////HAAAAAQAAAAMAAAAZ2VvYXJyb3cud2tiAAAAABQAAABBUlJPVzpleHRlbnNpb246bmFtZQAAAAAIAAwABAAIAAgAAAA0AAAABAAAACYAAAB7ImNycyI6ICJwcm9qanNvbjpwcm9qanNvbl9lcHNnXzUwNzAifQAAGAAAAEFSUk9XOmV4dGVuc2lvbjptZXRhZGF0YQAAAADM////EAAUAAgABgAHAAwAAAAQABAAAAAAAAEFEAAAABgAAAAEAAAAAAAAAAMAAAB3a3QABAAEAAQAAAAAAAAA"
+        }
+      ],
+      "compression_stats": {
+        "total_compressed": 12233,
+        "total_uncompressed": 12233,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.011666297912597656,
+        "uncompressed_mb": 0.011666297912597656
+      },
+      "column_count": 2,
+      "row_count": 1,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

@@ -56,7 +56,8 @@
           "page_locations": [],
           "unencoded_byte_array_data_bytes": null
         }
-      }
+      },
+      "row_group": 0
     }
   ],
   "metadata": {
@@ -64,7 +65,7 @@
     "total_byte_size": 524,
     "metadata": {
       "version": 1,
-      "schema": {
+      "schema_root": {
         "element_type": "root",
         "name": "arrow_schema",
         "start_offset": 2357,
@@ -83,7 +84,9 @@
             "scale": null,
             "precision": null,
             "field_id": 10,
-            "logical_type": null
+            "logical_type": {
+              "logical_type": 1
+            }
           }
         }
       },
@@ -138,11 +141,26 @@
         }
       ],
       "created_by": "parquet-rs version 49.0.0",
-      "key_value_metadata": {
-        "parquet.avro.schema": "{\"type\":\"record\",\"name\":\"data\",\"fields\":[{\"name\":\"String\",\"type\":[\"null\",\"string\"],\"doc\":\"Type inferred from 'Hello'\",\"default\":null}]}",
-        "writer.model.name": "avro",
-        "ARROW:schema": "/////3AAAAAQAAAAAAAKAAwACgAJAAQACgAAABAAAAAAAQQACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUABAADgAPAAQAAAAIABAAAAAYAAAADAAAAAAAAQUQAAAAAAAAAAQABAAEAAAABgAAAFN0cmluZwAA"
-      },
+      "key_value_metadata": [
+        {
+          "start_offset": 2485,
+          "byte_length": 160,
+          "key": "parquet.avro.schema",
+          "value": "{\"type\":\"record\",\"name\":\"data\",\"fields\":[{\"name\":\"String\",\"type\":[\"null\",\"string\"],\"doc\":\"Type inferred from 'Hello'\",\"default\":null}]}"
+        },
+        {
+          "start_offset": 2645,
+          "byte_length": 26,
+          "key": "writer.model.name",
+          "value": "avro"
+        },
+        {
+          "start_offset": 2671,
+          "byte_length": 178,
+          "key": "ARROW:schema",
+          "value": "/////3AAAAAQAAAAAAAKAAwACgAJAAQACgAAABAAAAAAAQQACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUABAADgAPAAQAAAAIABAAAAAYAAAADAAAAAAAAQUQAAAAAAAAAAQABAAEAAAABgAAAFN0cmluZwAA"
+        }
+      ],
       "compression_stats": {
         "total_compressed": 199,
         "total_uncompressed": 199,

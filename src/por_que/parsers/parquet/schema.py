@@ -88,14 +88,19 @@ class SchemaParser(BaseParser):
             if field_type == ThriftFieldType.STOP:
                 break
 
+            # Handle complex types that need special parsing
+            if (
+                field_type == ThriftFieldType.STRUCT
+                and field_id == SchemaElementFieldId.LOGICAL_TYPE
+            ):
+                logical_type = self._parse_logical_type()
+                continue
+
             # `read_value` returns the primitive value, or None if it's a
             # complex type or should be skipped.
             value = struct_parser.read_value(field_type)
             if value is None:
-                # This indicates a complex type that the caller must handle,
-                # or a type that was skipped.
                 continue
-
             match field_id:
                 case SchemaElementFieldId.TYPE:
                     _type = Type(value)
@@ -116,6 +121,7 @@ class SchemaParser(BaseParser):
                 case SchemaElementFieldId.FIELD_ID:
                     field_id = value
                 case SchemaElementFieldId.LOGICAL_TYPE:
+                    # This should not happen since logical_type is complex
                     logical_type = self._parse_logical_type()
                 case _:
                     # This case is not strictly necessary since `read_value`
@@ -234,11 +240,19 @@ class SchemaParser(BaseParser):
         The LogicalType is a union with different types for different logical types.
         Each union variant has its own field ID and structure.
         """
+        start_pos = self.parser.pos
+        logger.debug('Parsing logical type at position %d', start_pos)
         struct_parser = ThriftStructParser(self.parser)
+        result_type: LogicalTypeInfoUnion | None = None
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
+            logger.debug('  Logical type field: type=%d, id=%d', field_type, field_id)
             if field_type == ThriftFieldType.STOP:
+                logger.debug(
+                    '  Logical type parsing complete at position %d',
+                    self.parser.pos,
+                )
                 break
 
             value = struct_parser.read_value(field_type)
@@ -246,8 +260,10 @@ class SchemaParser(BaseParser):
                 # Complex type that needs special handling
                 match field_id:
                     case LogicalType.STRING:
-                        return StringTypeInfo()
+                        result_type = StringTypeInfo()
                     case LogicalType.INTEGER:
+                        # These types need complex parsing - call their methods
+                        # and they should handle reading to their own STOP
                         return self._parse_int_type()
                     case LogicalType.DECIMAL:
                         return self._parse_decimal_type()
@@ -256,29 +272,29 @@ class SchemaParser(BaseParser):
                     case LogicalType.TIMESTAMP:
                         return self._parse_timestamp_type()
                     case LogicalType.DATE:
-                        return DateTypeInfo()
+                        result_type = DateTypeInfo()
                     case LogicalType.ENUM:
-                        return EnumTypeInfo()
+                        result_type = EnumTypeInfo()
                     case LogicalType.JSON:
-                        return JsonTypeInfo()
+                        result_type = JsonTypeInfo()
                     case LogicalType.BSON:
-                        return BsonTypeInfo()
+                        result_type = BsonTypeInfo()
                     case LogicalType.UUID:
-                        return UuidTypeInfo()
+                        result_type = UuidTypeInfo()
                     case LogicalType.FLOAT16:
-                        return Float16TypeInfo()
+                        result_type = Float16TypeInfo()
                     case LogicalType.MAP:
-                        return MapTypeInfo()
+                        result_type = MapTypeInfo()
                     case LogicalType.LIST:
-                        return ListTypeInfo()
+                        result_type = ListTypeInfo()
                     case LogicalType.VARIANT:
-                        return VariantTypeInfo()
+                        result_type = VariantTypeInfo()
                     case LogicalType.GEOMETRY:
-                        return GeometryTypeInfo()
+                        result_type = GeometryTypeInfo()
                     case LogicalType.GEOGRAPHY:
-                        return GeographyTypeInfo()
+                        result_type = GeographyTypeInfo()
                     case LogicalType.UNKNOWN:
-                        return UnknownTypeInfo()
+                        result_type = UnknownTypeInfo()
                     case _:
                         # Unknown type, skip it
                         continue
@@ -286,7 +302,7 @@ class SchemaParser(BaseParser):
                 # Simple value, shouldn't happen for union types
                 continue
 
-        return None
+        return result_type
 
     def _parse_int_type(self) -> IntTypeInfo:
         """Parse an IntType struct."""

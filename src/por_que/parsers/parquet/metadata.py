@@ -11,7 +11,7 @@ Teaching Points:
 import logging
 
 from por_que.exceptions import ThriftParsingError
-from por_que.file_metadata import FileMetadata, SchemaRoot
+from por_que.file_metadata import FileMetadata, KeyValueMetadata, SchemaRoot
 from por_que.parsers.thrift.enums import ThriftFieldType
 from por_que.parsers.thrift.parser import ThriftCompactParser, ThriftStructParser
 from por_que.protocols import ReadableSeekable
@@ -71,7 +71,7 @@ class MetadataParser(BaseParser):
         schema_root: SchemaRoot | None = None
         row_groups = []
         created_by = None
-        key_value_metadata = {}
+        key_value_metadata = []
 
         while True:
             field_type, field_id = struct_parser.read_field_header()
@@ -124,7 +124,7 @@ class MetadataParser(BaseParser):
         # Construct the frozen FileMetadata object with all values
         return FileMetadata(
             version=version,
-            schema=schema_root,
+            schema_root=schema_root,
             row_groups=row_groups,
             created_by=created_by,
             key_value_metadata=key_value_metadata,
@@ -168,7 +168,7 @@ class MetadataParser(BaseParser):
 
         return row_groups
 
-    def _parse_key_value_metadata_field(self) -> dict[str, str]:
+    def _parse_key_value_metadata_field(self) -> list[KeyValueMetadata]:
         """
         Parse the key_value_metadata field.
 
@@ -179,6 +179,7 @@ class MetadataParser(BaseParser):
         """
 
         def parse_key_value():
+            start_offset = self.parser.pos
             struct_parser = ThriftStructParser(self.parser)
             key = None
             value = None
@@ -197,13 +198,19 @@ class MetadataParser(BaseParser):
                 elif field_id == KeyValueFieldId.VALUE:
                     value = field_value.decode('utf-8')
 
+            end_offset = self.parser.pos
+            byte_length = end_offset - start_offset
             if key is None or value is None:
                 raise ThriftParsingError(
                     'Incomplete key/value pair: missing key or value field. '
                     'This may indicate corrupted metadata.',
                 )
 
-            return key, value
+            return KeyValueMetadata(
+                start_offset=start_offset,
+                byte_length=byte_length,
+                key=key,
+                value=value,
+            )
 
-        kvs = self.read_list(parse_key_value)
-        return {k: v for k, v in kvs if k}
+        return self.read_list(parse_key_value)
