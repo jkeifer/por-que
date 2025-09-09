@@ -8,7 +8,7 @@ from io import SEEK_END
 from pathlib import Path
 from typing import Any, Literal, Self, assert_never
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 from ._version import get_version
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
@@ -40,17 +40,13 @@ class AsdictTarget(StrEnum):
     JSON = 'json'
 
 
-class PorQueMeta(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
+class PorQueMeta(BaseModel, frozen=True):
     format_version: Literal[0] = 0
     por_que_version: str = get_version()
 
 
-class PhysicalPageIndex(BaseModel):
+class PhysicalPageIndex(BaseModel, frozen=True):
     """Physical location and parsed content of Page Index data."""
-
-    model_config = ConfigDict(frozen=True)
 
     column_index_offset: int
     column_index_length: int
@@ -91,10 +87,8 @@ class PhysicalPageIndex(BaseModel):
         )
 
 
-class PhysicalColumnChunk(BaseModel):
+class PhysicalColumnChunk(BaseModel, frozen=True):
     """A container for all the data for a single column within a row group."""
-
-    model_config = ConfigDict(frozen=True)
 
     path_in_schema: str
     start_offset: int
@@ -257,10 +251,8 @@ class PhysicalColumnChunk(BaseModel):
         return data
 
 
-class PhysicalMetadata(BaseModel):
+class PhysicalMetadata(BaseModel, frozen=True):
     """The physical layout of the file metadata within the file."""
-
-    model_config = ConfigDict(frozen=True)
 
     start_offset: int
     total_byte_size: int
@@ -296,10 +288,8 @@ class PhysicalMetadata(BaseModel):
         )
 
 
-class ParquetFile(BaseModel):
+class ParquetFile(BaseModel, frozen=True):
     """The root object representing the entire physical file structure."""
-
-    model_config = ConfigDict(frozen=True)
 
     source: str
     filesize: int

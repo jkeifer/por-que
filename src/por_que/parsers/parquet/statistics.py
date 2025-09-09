@@ -312,21 +312,22 @@ class StatisticsParser(BaseParser):
         - DECIMAL logical type encodes fixed-point numbers
         - Binary format varies by logical type
         """
-        if (
-            logical_type_info is not None
-            and logical_type_info.logical_type == LogicalType.DECIMAL
-        ):
-            # For now, return hex representation of decimal
-            # Full decimal parsing requires precision/scale from schema
-            return f'0x{raw_bytes.hex()}'
+        if logical_type_info is not None:
+            if logical_type_info.logical_type == LogicalType.DECIMAL:
+                # For now, return hex representation of decimal
+                # Full decimal parsing requires precision/scale from schema
+                return f'0x{raw_bytes.hex()}'
+            if logical_type_info.logical_type == LogicalType.FLOAT16:
+                # Float16 values are binary data, return hex representation
+                return f'0x{raw_bytes.hex()}'
 
-        # Default to UTF-8 for backward compatibility
+        # Default to UTF-8 for backward compatibility,
+        # but fall back to hex for binary data
         try:
             return raw_bytes.decode('utf-8')
-        except UnicodeDecodeError as e:
-            raise ParquetDataError(
-                f'FIXED_LEN_BYTE_ARRAY could not be decoded as UTF-8: {e}',
-            ) from e
+        except UnicodeDecodeError:
+            # If it's not valid UTF-8, return as hex (likely binary data)
+            return f'0x{raw_bytes.hex()}'
 
     def _deserialize_date(self, raw_bytes: bytes) -> str:
         """

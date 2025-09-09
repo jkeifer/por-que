@@ -1,0 +1,154 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/float16_nonzeros_and_nans.parquet",
+  "filesize": 501,
+  "column_chunks": [
+    {
+      "path_in_schema": "x",
+      "start_offset": 4,
+      "total_byte_size": 76,
+      "codec": 0,
+      "num_values": 8,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 32,
+          "header_size": 37,
+          "compressed_page_size": 11,
+          "uncompressed_page_size": 11,
+          "crc": null,
+          "num_values": 8,
+          "encoding": 8,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": {
+            "min_value": "0x0040",
+            "max_value": "0x00c0",
+            "null_count": 1,
+            "distinct_count": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 4,
+        "header_size": 14,
+        "compressed_page_size": 14,
+        "uncompressed_page_size": 14,
+        "crc": null,
+        "num_values": 7,
+        "encoding": 0,
+        "is_sorted": false
+      },
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 147,
+    "total_byte_size": 346,
+    "metadata": {
+      "version": 2,
+      "schema_root": {
+        "element_type": "root",
+        "name": "schema",
+        "start_offset": 151,
+        "byte_length": 13,
+        "num_children": 1,
+        "children": {
+          "x": {
+            "element_type": "column",
+            "name": "x",
+            "start_offset": 164,
+            "byte_length": 14,
+            "type": 7,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": 2,
+            "scale": null,
+            "precision": null,
+            "field_id": 10,
+            "logical_type": {
+              "logical_type": 15
+            }
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "x": {
+              "file_offset": 80,
+              "metadata": {
+                "type": 7,
+                "encodings": [
+                  0,
+                  3,
+                  8
+                ],
+                "path_in_schema": "x",
+                "codec": 0,
+                "num_values": 8,
+                "total_uncompressed_size": 76,
+                "total_compressed_size": 76,
+                "data_page_offset": 32,
+                "start_offset": 188,
+                "byte_length": 62,
+                "dictionary_page_offset": 4,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": "0x0040",
+                  "max_value": "0x00c0",
+                  "null_count": 1,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 76,
+          "row_count": 8,
+          "start_offset": 182,
+          "byte_length": 82,
+          "compression_stats": {
+            "total_compressed": 76,
+            "total_uncompressed": 76,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 7.2479248046875e-05,
+            "uncompressed_mb": 7.2479248046875e-05
+          }
+        }
+      ],
+      "created_by": "parquet-cpp-arrow version 15.0.0-SNAPSHOT",
+      "key_value_metadata": [
+        {
+          "start_offset": 266,
+          "byte_length": 178,
+          "key": "ARROW:schema",
+          "value": "/////3AAAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUAAgABgAHAAwAAAAQABAAAAAAAAEDEAAAABgAAAAEAAAAAAAAAAEAAAB4AAAABAAEAAQAAAAAAAAA"
+        }
+      ],
+      "compression_stats": {
+        "total_compressed": 76,
+        "total_uncompressed": 76,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 7.2479248046875e-05,
+        "uncompressed_mb": 7.2479248046875e-05
+      },
+      "column_count": 1,
+      "row_count": 8,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

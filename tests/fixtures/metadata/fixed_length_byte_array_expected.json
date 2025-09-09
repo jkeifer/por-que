@@ -1,0 +1,253 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/fixed_length_byte_array.parquet",
+  "filesize": 4335,
+  "column_chunks": [
+    {
+      "path_in_schema": "flba_field",
+      "start_offset": 4,
+      "total_byte_size": 3839,
+      "codec": 0,
+      "num_values": 1000,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 4,
+          "header_size": 26,
+          "compressed_page_size": 364,
+          "uncompressed_page_size": 364,
+          "crc": 457485117,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 394,
+          "header_size": 26,
+          "compressed_page_size": 364,
+          "uncompressed_page_size": 364,
+          "crc": 704075052,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 784,
+          "header_size": 26,
+          "compressed_page_size": 324,
+          "uncompressed_page_size": 324,
+          "crc": 1633876584,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 1134,
+          "header_size": 26,
+          "compressed_page_size": 360,
+          "uncompressed_page_size": 360,
+          "crc": 1644194397,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 1520,
+          "header_size": 25,
+          "compressed_page_size": 348,
+          "uncompressed_page_size": 348,
+          "crc": -77917420,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 1893,
+          "header_size": 26,
+          "compressed_page_size": 356,
+          "uncompressed_page_size": 356,
+          "crc": 1561114215,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 2275,
+          "header_size": 26,
+          "compressed_page_size": 356,
+          "uncompressed_page_size": 356,
+          "crc": 2074897887,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 2657,
+          "header_size": 26,
+          "compressed_page_size": 368,
+          "uncompressed_page_size": 368,
+          "crc": -381632928,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 3051,
+          "header_size": 26,
+          "compressed_page_size": 364,
+          "uncompressed_page_size": 364,
+          "crc": 2014870926,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        },
+        {
+          "page_type": 0,
+          "start_offset": 3441,
+          "header_size": 26,
+          "compressed_page_size": 376,
+          "uncompressed_page_size": 376,
+          "crc": 1895299597,
+          "num_values": 100,
+          "encoding": 0,
+          "definition_level_encoding": 4,
+          "repetition_level_encoding": 4,
+          "statistics": null
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": null,
+      "page_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 4075,
+    "total_byte_size": 252,
+    "metadata": {
+      "version": 1,
+      "schema_root": {
+        "element_type": "root",
+        "name": "schema",
+        "start_offset": 4079,
+        "byte_length": 11,
+        "num_children": 1,
+        "children": {
+          "flba_field": {
+            "element_type": "column",
+            "name": "flba_field",
+            "start_offset": 4090,
+            "byte_length": 19,
+            "type": 7,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": 4,
+            "scale": null,
+            "precision": null,
+            "field_id": 4,
+            "logical_type": null
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "column_chunks": {
+            "flba_field": {
+              "file_offset": 4,
+              "metadata": {
+                "type": 7,
+                "encodings": [
+                  4,
+                  0
+                ],
+                "path_in_schema": "flba_field",
+                "codec": 0,
+                "num_values": 1000,
+                "total_uncompressed_size": 3839,
+                "total_compressed_size": 3839,
+                "data_page_offset": 4,
+                "start_offset": 4119,
+                "byte_length": 59,
+                "dictionary_page_offset": null,
+                "index_page_offset": null,
+                "statistics": {
+                  "min_value": null,
+                  "max_value": null,
+                  "null_count": 105,
+                  "distinct_count": null
+                },
+                "column_index_offset": null,
+                "column_index_length": null,
+                "column_index": null,
+                "offset_index": null
+              },
+              "file_path": null
+            }
+          },
+          "total_byte_size": 3839,
+          "row_count": 1000,
+          "start_offset": 4114,
+          "byte_length": 91,
+          "compression_stats": {
+            "total_compressed": 3839,
+            "total_uncompressed": 3839,
+            "ratio": 1.0,
+            "space_saved_percent": 0.0,
+            "compressed_mb": 0.0036611557006835938,
+            "uncompressed_mb": 0.0036611557006835938
+          }
+        }
+      ],
+      "created_by": "parquet-mr version 1.13.0-SNAPSHOT (build d057b39d93014fe40f5067ee4a33621e65c91552)",
+      "key_value_metadata": [
+        {
+          "start_offset": 4207,
+          "byte_length": 29,
+          "key": "writer.model.name",
+          "value": "example"
+        }
+      ],
+      "compression_stats": {
+        "total_compressed": 3839,
+        "total_uncompressed": 3839,
+        "ratio": 1.0,
+        "space_saved_percent": 0.0,
+        "compressed_mb": 0.0036611557006835938,
+        "uncompressed_mb": 0.0036611557006835938
+      },
+      "column_count": 1,
+      "row_count": 1000,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

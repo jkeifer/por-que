@@ -7,7 +7,6 @@ from typing import Annotated, Any, Literal, Self
 
 from pydantic import (
     BaseModel,
-    ConfigDict,
     Discriminator,
     Field,
     ValidationInfo,
@@ -33,10 +32,8 @@ from .enums import (
 from .util.models import get_item_or_attr
 
 
-class CompressionStats(BaseModel):
+class CompressionStats(BaseModel, frozen=True):
     """Compression statistics for data."""
-
-    model_config = ConfigDict(frozen=True)
 
     total_compressed: int
     total_uncompressed: int
@@ -70,10 +67,8 @@ class CompressionStats(BaseModel):
         return self.total_uncompressed / (1024 * 1024)
 
 
-class KeyValueMetadata(BaseModel):
+class KeyValueMetadata(BaseModel, frozen=True):
     """Key-value metadata pair with byte range information."""
-
-    model_config = ConfigDict(frozen=True)
 
     start_offset: int
     byte_length: int
@@ -81,21 +76,19 @@ class KeyValueMetadata(BaseModel):
     value: str
 
 
-class LogicalTypeInfo(BaseModel):
+class LogicalTypeInfo(BaseModel, frozen=True):
     """Base class for logical type information."""
-
-    model_config = ConfigDict(frozen=True)
 
     logical_type: LogicalType
 
 
-class StringTypeInfo(LogicalTypeInfo):
+class StringTypeInfo(LogicalTypeInfo, frozen=True):
     """String logical type."""
 
     logical_type: Literal[LogicalType.STRING] = LogicalType.STRING
 
 
-class IntTypeInfo(LogicalTypeInfo):
+class IntTypeInfo(LogicalTypeInfo, frozen=True):
     """Integer logical type with bit width and signedness."""
 
     logical_type: Literal[LogicalType.INTEGER] = LogicalType.INTEGER
@@ -103,7 +96,7 @@ class IntTypeInfo(LogicalTypeInfo):
     is_signed: bool = True
 
 
-class DecimalTypeInfo(LogicalTypeInfo):
+class DecimalTypeInfo(LogicalTypeInfo, frozen=True):
     """Decimal logical type with scale and precision."""
 
     logical_type: Literal[LogicalType.DECIMAL] = LogicalType.DECIMAL
@@ -111,7 +104,7 @@ class DecimalTypeInfo(LogicalTypeInfo):
     precision: int = 10
 
 
-class TimeTypeInfo(LogicalTypeInfo):
+class TimeTypeInfo(LogicalTypeInfo, frozen=True):
     """Time logical type with unit and UTC adjustment."""
 
     logical_type: Literal[LogicalType.TIME] = LogicalType.TIME
@@ -119,7 +112,7 @@ class TimeTypeInfo(LogicalTypeInfo):
     unit: TimeUnit = TimeUnit.MILLIS
 
 
-class TimestampTypeInfo(LogicalTypeInfo):
+class TimestampTypeInfo(LogicalTypeInfo, frozen=True):
     """Timestamp logical type with unit and UTC adjustment."""
 
     logical_type: Literal[LogicalType.TIMESTAMP] = LogicalType.TIMESTAMP
@@ -127,73 +120,73 @@ class TimestampTypeInfo(LogicalTypeInfo):
     unit: TimeUnit = TimeUnit.MILLIS
 
 
-class DateTypeInfo(LogicalTypeInfo):
+class DateTypeInfo(LogicalTypeInfo, frozen=True):
     """Date logical type."""
 
     logical_type: Literal[LogicalType.DATE] = LogicalType.DATE
 
 
-class EnumTypeInfo(LogicalTypeInfo):
+class EnumTypeInfo(LogicalTypeInfo, frozen=True):
     """Enum logical type."""
 
     logical_type: Literal[LogicalType.ENUM] = LogicalType.ENUM
 
 
-class JsonTypeInfo(LogicalTypeInfo):
+class JsonTypeInfo(LogicalTypeInfo, frozen=True):
     """JSON logical type."""
 
     logical_type: Literal[LogicalType.JSON] = LogicalType.JSON
 
 
-class BsonTypeInfo(LogicalTypeInfo):
+class BsonTypeInfo(LogicalTypeInfo, frozen=True):
     """BSON logical type."""
 
     logical_type: Literal[LogicalType.BSON] = LogicalType.BSON
 
 
-class UuidTypeInfo(LogicalTypeInfo):
+class UuidTypeInfo(LogicalTypeInfo, frozen=True):
     """UUID logical type."""
 
     logical_type: Literal[LogicalType.UUID] = LogicalType.UUID
 
 
-class Float16TypeInfo(LogicalTypeInfo):
+class Float16TypeInfo(LogicalTypeInfo, frozen=True):
     """Float16 logical type."""
 
     logical_type: Literal[LogicalType.FLOAT16] = LogicalType.FLOAT16
 
 
-class MapTypeInfo(LogicalTypeInfo):
+class MapTypeInfo(LogicalTypeInfo, frozen=True):
     """Map logical type."""
 
     logical_type: Literal[LogicalType.MAP] = LogicalType.MAP
 
 
-class ListTypeInfo(LogicalTypeInfo):
+class ListTypeInfo(LogicalTypeInfo, frozen=True):
     """List logical type."""
 
     logical_type: Literal[LogicalType.LIST] = LogicalType.LIST
 
 
-class VariantTypeInfo(LogicalTypeInfo):
+class VariantTypeInfo(LogicalTypeInfo, frozen=True):
     """Variant logical type."""
 
     logical_type: Literal[LogicalType.VARIANT] = LogicalType.VARIANT
 
 
-class GeometryTypeInfo(LogicalTypeInfo):
+class GeometryTypeInfo(LogicalTypeInfo, frozen=True):
     """Geometry logical type."""
 
     logical_type: Literal[LogicalType.GEOMETRY] = LogicalType.GEOMETRY
 
 
-class GeographyTypeInfo(LogicalTypeInfo):
+class GeographyTypeInfo(LogicalTypeInfo, frozen=True):
     """Geography logical type."""
 
     logical_type: Literal[LogicalType.GEOGRAPHY] = LogicalType.GEOGRAPHY
 
 
-class UnknownTypeInfo(LogicalTypeInfo):
+class UnknownTypeInfo(LogicalTypeInfo, frozen=True):
     """Unknown logical type."""
 
     logical_type: Literal[LogicalType.UNKNOWN] = LogicalType.UNKNOWN
@@ -248,9 +241,7 @@ CONVERTED_TYPE_TO_LOGICAL_TYPE: dict[ConvertedType, LogicalTypeInfo] = {
 }
 
 
-class SchemaElement(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
+class SchemaElement(BaseModel, frozen=True):
     element_type: SchemaElementType
     name: str
     start_offset: int
@@ -421,7 +412,7 @@ class SchemaElement(BaseModel):
         )
 
 
-class BaseSchemaGroup(SchemaElement):
+class BaseSchemaGroup(SchemaElement, frozen=True):
     element_type: SchemaElementType = SchemaElementType.GROUP
     num_children: int
     children: dict[str, SchemaGroup | SchemaLeaf] = Field(default_factory=dict)
@@ -492,11 +483,11 @@ class BaseSchemaGroup(SchemaElement):
         return result
 
 
-class SchemaRoot(BaseSchemaGroup):
+class SchemaRoot(BaseSchemaGroup, frozen=True):
     element_type: SchemaElementType = SchemaElementType.ROOT
 
 
-class SchemaGroup(BaseSchemaGroup):
+class SchemaGroup(BaseSchemaGroup, frozen=True):
     repetition: Repetition
     converted_type: ConvertedType | None
     field_id: int | None = None
@@ -509,7 +500,7 @@ class SchemaGroup(BaseSchemaGroup):
         ]
 
 
-class SchemaLeaf(SchemaElement):
+class SchemaLeaf(SchemaElement, frozen=True):
     element_type: SchemaElementType = SchemaElementType.COLUMN
     type: Type
     repetition: Repetition
@@ -558,38 +549,30 @@ class SchemaLeaf(SchemaElement):
         ]
 
 
-class ColumnStatistics(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
+class ColumnStatistics(BaseModel, frozen=True):
     min_value: str | int | float | bool | None = None
     max_value: str | int | float | bool | None = None
     null_count: int | None = None
     distinct_count: int | None = None
 
 
-class PageLocation(BaseModel):
+class PageLocation(BaseModel, frozen=True):
     """Location information for a page within a column chunk."""
-
-    model_config = ConfigDict(frozen=True)
 
     offset: int  # File offset of the page
     compressed_page_size: int  # Compressed size of the page
     first_row_index: int  # First row index of the page
 
 
-class OffsetIndex(BaseModel):
+class OffsetIndex(BaseModel, frozen=True):
     """Index containing page locations and sizes for efficient seeking."""
-
-    model_config = ConfigDict(frozen=True)
 
     page_locations: list[PageLocation]
     unencoded_byte_array_data_bytes: list[int] | None = None
 
 
-class ColumnIndex(BaseModel):
+class ColumnIndex(BaseModel, frozen=True):
     """Index containing min/max statistics and null information for pages."""
-
-    model_config = ConfigDict(frozen=True)
 
     null_pages: list[bool]  # Which pages are all null
     min_values: list[bytes]  # Raw min values for each page
@@ -600,10 +583,8 @@ class ColumnIndex(BaseModel):
     definition_level_histograms: list[int] | None = None
 
 
-class ColumnMetadata(BaseModel):
+class ColumnMetadata(BaseModel, frozen=True):
     """Detailed metadata about column chunk content and encoding."""
-
-    model_config = ConfigDict(frozen=True)
 
     type: Type
     encodings: list[Encoding]
@@ -626,10 +607,8 @@ class ColumnMetadata(BaseModel):
     offset_index: OffsetIndex | None = None
 
 
-class ColumnChunk(BaseModel):
+class ColumnChunk(BaseModel, frozen=True):
     """File-level organization of column chunk."""
-
-    model_config = ConfigDict(frozen=True)
 
     file_offset: int
     metadata: ColumnMetadata
@@ -747,10 +726,8 @@ class ColumnChunk(BaseModel):
         return self.metadata.offset_index
 
 
-class RowGroup(BaseModel):
+class RowGroup(BaseModel, frozen=True):
     """Logical representation of row group metadata."""
-
-    model_config = ConfigDict(frozen=True)
 
     column_chunks: dict[str, ColumnChunk]
     total_byte_size: int
@@ -784,10 +761,8 @@ class RowGroup(BaseModel):
 type RowGroups = list[RowGroup]
 
 
-class FileMetadata(BaseModel):
+class FileMetadata(BaseModel, frozen=True):
     """Logical representation of file metadata."""
-
-    model_config = ConfigDict(frozen=True)
 
     version: int
     schema_root: SchemaRoot
