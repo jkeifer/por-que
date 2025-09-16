@@ -1,0 +1,10 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/float16_zeros_and_nans.parquet",
+  "data": {
+    "x": [
+      null,
+      0.0,
+      NaN
+    ]
+  }
+}

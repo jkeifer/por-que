@@ -10,6 +10,8 @@ Teaching Points:
 
 import logging
 
+from typing import assert_never
+
 from por_que.enums import ConvertedType, LogicalType, Repetition, TimeUnit, Type
 from por_que.exceptions import ThriftParsingError
 from por_que.file_metadata import (
@@ -154,7 +156,12 @@ class SchemaParser(BaseParser):
         )
         return element
 
-    def read_schema_tree(self, elements_iter) -> SchemaRoot | SchemaGroup | SchemaLeaf:
+    def read_schema_tree(
+        self,
+        elements_iter,
+        current_def_level: int = 0,
+        current_rep_level: int = 0,
+    ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         """
         Recursively build nested schema tree from flat list of elements.
 
@@ -163,9 +170,12 @@ class SchemaParser(BaseParser):
         - Each parent element specifies how many children follow it
         - This enables efficient reconstruction of the full tree structure
         - The tree structure mirrors how nested data is stored in columns
+        - Definition and repetition levels are calculated during tree building
 
         Args:
             elements_iter: Iterator over flat list of schema elements
+            current_def_level: Current definition level in the tree
+            current_rep_level: Current repetition level in the tree
 
         Returns:
             SchemaRoot with all children attached
@@ -181,26 +191,99 @@ class SchemaParser(BaseParser):
                 'schema where a parent element claims more children than exist.',
             ) from None
 
-        if isinstance(element, SchemaRoot | SchemaGroup):
-            logger.debug(
-                'Building schema tree for %s with %d children',
-                element.name,
-                element.num_children,
+        match element:
+            case SchemaRoot() | SchemaGroup():
+                return self._read_schema_group(
+                    element,
+                    elements_iter,
+                    current_def_level,
+                    current_rep_level,
+                )
+            case SchemaLeaf():
+                return self._read_schema_leaf(
+                    element,
+                    current_def_level,
+                    current_rep_level,
+                )
+            case _ as unreachable:
+                assert_never(unreachable)
+
+    def _read_schema_group(
+        self,
+        element: SchemaGroup | SchemaRoot,
+        elements_iter,
+        current_def_level: int,
+        current_rep_level: int,
+    ) -> SchemaGroup | SchemaRoot:
+        logger.debug(
+            'Building schema tree for %s with %d children',
+            element.name,
+            element.num_children,
+        )
+
+        # Calculate levels for children based on this group's repetition
+        child_def_level = current_def_level
+        child_rep_level = current_rep_level
+
+        if isinstance(element, SchemaGroup):
+            # Definition level increases for non-REQUIRED fields
+            if element.repetition != Repetition.REQUIRED:
+                child_def_level += 1
+            # Repetition level increases for REPEATED fields
+            if element.repetition == Repetition.REPEATED:
+                child_rep_level += 1
+
+        for i in range(element.num_children):
+            child = self.read_schema_tree(
+                elements_iter,
+                child_def_level,
+                child_rep_level,
             )
 
-            for i in range(element.num_children):
-                child = self.read_schema_tree(elements_iter)
+            if isinstance(child, SchemaRoot):
+                raise ThriftParsingError('Schema can have only one root')
 
-                if isinstance(child, SchemaRoot):
-                    raise ThriftParsingError('Schema can have only one root')
+            element.add_element(child)
+            logger.debug(
+                '  Added child %d/%d: %s',
+                i + 1,
+                element.num_children,
+                child.name,
+            )
 
-                element.add_element(child)
-                logger.debug(
-                    '  Added child %d/%d: %s',
-                    i + 1,
-                    element.num_children,
-                    child.name,
-                )
+        return element
+
+    def _read_schema_leaf(
+        self,
+        element: SchemaLeaf,
+        current_def_level: int,
+        current_rep_level: int,
+    ) -> SchemaLeaf:
+        # Calculate final levels for this leaf
+        final_def_level = current_def_level
+        final_rep_level = current_rep_level
+
+        # Add this leaf's contribution to levels
+        if element.repetition != Repetition.REQUIRED:
+            final_def_level += 1
+        if element.repetition == Repetition.REPEATED:
+            final_rep_level += 1
+
+        # Update the leaf with calculated levels
+        # Since the model is frozen, we need to use model_copy
+        element = element.model_copy(
+            update={
+                'definition_level': final_def_level,
+                'repetition_level': final_rep_level,
+            },
+        )
+
+        logger.debug(
+            '  Leaf %s: def_level=%d, rep_level=%d',
+            element.name,
+            final_def_level,
+            final_rep_level,
+        )
 
         return element
 
@@ -349,7 +432,7 @@ class SchemaParser(BaseParser):
     def _parse_time_type(self) -> TimeTypeInfo:
         """Parse a TimeType struct."""
         struct_parser = ThriftStructParser(self.parser)
-        is_adjusted_to_utc = False
+        is_adjusted_to_utc = True
         unit = TimeUnit.MILLIS
 
         while True:
@@ -371,7 +454,8 @@ class SchemaParser(BaseParser):
     def _parse_timestamp_type(self) -> TimestampTypeInfo:
         """Parse a TimestampType struct."""
         struct_parser = ThriftStructParser(self.parser)
-        is_adjusted_to_utc = False
+        # Default to True to match PyArrow's behavior when isAdjustedToUTC is omitted
+        is_adjusted_to_utc = True
         unit = TimeUnit.MILLIS
 
         while True:

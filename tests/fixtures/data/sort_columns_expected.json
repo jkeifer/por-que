@@ -1,22 +1,21 @@
-[
-  [
-    null,
-    2,
-    1
-  ],
-  [
-    "a",
-    "b",
-    "c"
-  ],
-  [
-    null,
-    2,
-    1
-  ],
-  [
-    "a",
-    "b",
-    "c"
-  ]
-]
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/sort_columns.parquet",
+  "data": {
+    "a": [
+      null,
+      2,
+      1,
+      null,
+      2,
+      1
+    ],
+    "b": [
+      "a",
+      "b",
+      "c",
+      "a",
+      "b",
+      "c"
+    ]
+  }
+}

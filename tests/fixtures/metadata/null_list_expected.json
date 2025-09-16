@@ -69,7 +69,9 @@
                     "field_id": 10,
                     "logical_type": {
                       "logical_type": 11
-                    }
+                    },
+                    "definition_level": 3,
+                    "repetition_level": 1
                   }
                 },
                 "repetition": 2,

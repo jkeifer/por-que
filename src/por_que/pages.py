@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Discriminator
+from pydantic import BaseModel, Discriminator
 
 from .enums import Compression, Encoding, PageType, Type
 from .file_metadata import (
@@ -21,13 +21,11 @@ from .parsers.thrift.parser import ThriftCompactParser
 from .protocols import ReadableSeekable
 
 
-class Page(BaseModel):
+class Page(BaseModel, frozen=True):
     """
     Base class for all page types, containing both logical and physical
     information.
     """
-
-    model_config = ConfigDict(frozen=True)
 
     page_type: PageType
     start_offset: int
@@ -66,7 +64,7 @@ class Page(BaseModel):
         return page_parser.read_page(offset)
 
 
-class DictionaryPage(Page):
+class DictionaryPage(Page, frozen=True):
     """A page containing dictionary-encoded values."""
 
     page_type: Literal[PageType.DICTIONARY_PAGE] = PageType.DICTIONARY_PAGE
@@ -79,6 +77,7 @@ class DictionaryPage(Page):
         reader: ReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
+        schema_element,
     ) -> DictType:
         """Parse the dictionary page content into Python objects.
 
@@ -86,6 +85,7 @@ class DictionaryPage(Page):
             reader: File-like object to read from
             physical_type: Physical type of the dictionary values
             compression_codec: Compression codec used
+            schema_element: Schema element with type information
 
         Returns:
             List of dictionary values as Python objects
@@ -96,10 +96,11 @@ class DictionaryPage(Page):
             dictionary_page=self,
             physical_type=physical_type,
             compression_codec=compression_codec,
+            schema_element=schema_element,
         )
 
 
-class DataPageV1(Page):
+class DataPageV1(Page, frozen=True):
     """A version 1 data page."""
 
     page_type: Literal[PageType.DATA_PAGE] = PageType.DATA_PAGE
@@ -140,7 +141,7 @@ class DataPageV1(Page):
         )
 
 
-class DataPageV2(Page):
+class DataPageV2(Page, frozen=True):
     """A version 2 data page."""
 
     page_type: Literal[PageType.DATA_PAGE_V2] = PageType.DATA_PAGE_V2
@@ -184,7 +185,7 @@ class DataPageV2(Page):
         )
 
 
-class IndexPage(Page):
+class IndexPage(Page, frozen=True):
     """A page containing row group and offset statistics."""
 
     page_type: Literal[PageType.INDEX_PAGE] = PageType.INDEX_PAGE

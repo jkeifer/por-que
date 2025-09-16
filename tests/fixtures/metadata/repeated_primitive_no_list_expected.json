@@ -191,7 +191,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 1
           },
           "String_list": {
             "element_type": "column",
@@ -205,7 +207,9 @@
             "scale": null,
             "precision": null,
             "field_id": 6,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 1
           },
           "group_of_lists": {
             "element_type": "group",
@@ -226,7 +230,9 @@
                 "scale": null,
                 "precision": null,
                 "field_id": 4,
-                "logical_type": null
+                "logical_type": null,
+                "definition_level": 1,
+                "repetition_level": 1
               },
               "String_list_in_group": {
                 "element_type": "column",
@@ -240,7 +246,9 @@
                 "scale": null,
                 "precision": null,
                 "field_id": 6,
-                "logical_type": null
+                "logical_type": null,
+                "definition_level": 1,
+                "repetition_level": 1
               }
             },
             "repetition": 0,

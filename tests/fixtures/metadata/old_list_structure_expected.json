@@ -67,7 +67,9 @@
                     "scale": null,
                     "precision": null,
                     "field_id": 4,
-                    "logical_type": null
+                    "logical_type": null,
+                    "definition_level": 2,
+                    "repetition_level": 2
                   }
                 },
                 "repetition": 2,

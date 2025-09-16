@@ -71,7 +71,9 @@
             "field_id": 10,
             "logical_type": {
               "logical_type": 1
-            }
+            },
+            "definition_level": 1,
+            "repetition_level": 0
           }
         }
       },
