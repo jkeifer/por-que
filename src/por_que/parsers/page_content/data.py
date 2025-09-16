@@ -11,7 +11,6 @@ correctness and robustness.
 
 from __future__ import annotations
 
-import io
 import logging
 import math
 import struct
@@ -142,7 +141,7 @@ class DataPageParser:
 
         # DataPageV1: Everything is compressed together
         compressed_data = reader.read(data_page.compressed_page_size)
-        decompressed_data = self._decompress_data(
+        decompressed_data = compressors.decompress_data(
             compressed_data,
             compression_codec,
             data_page.uncompressed_page_size,
@@ -235,9 +234,9 @@ class DataPageParser:
         compressed_values = stream.read()
         # DataPageV2 has is_compressed as the authoritative source
         # as to whether the page is compressed, except it is optional
-        # so we simply fall back to the length check in _decompress_data
+        # so we simply fall back to the length check in decompress_data
         values_stream = BytesIO(
-            self._decompress_data(
+            compressors.decompress_data(
                 compressed_values,
                 compression_codec,
                 (
@@ -259,45 +258,6 @@ class DataPageParser:
             apply_logical_types,
             excluded_logical_columns,
         )
-
-    def _decompress_data(
-        self,
-        compressed_data: bytes,
-        codec: Compression,
-        uncompressed_size: int,
-    ) -> bytes:
-        """
-        Decompress page data following Parquet specification.
-        """
-        # Check if page is actually compressed based on size comparison
-        if (
-            codec == Compression.UNCOMPRESSED
-            or len(compressed_data) == uncompressed_size
-        ):
-            # data isn't actually compressed
-            return compressed_data
-
-        match codec:
-            case Compression.SNAPPY:
-                # snappy.decompress returns str if encoding is provided
-                # but we don't provide an encoding so we know we have bytes
-                return compressors.get_snappy().decompress(compressed_data)  # type: ignore
-            case Compression.GZIP:
-                return compressors.get_gzip().decompress(compressed_data)
-            case Compression.LZO:
-                return compressors.get_lzo().decompress(compressed_data)
-            case Compression.BROTLI:
-                return compressors.get_brotli().decompress(compressed_data)
-            case Compression.ZSTD:
-                dctx = compressors.get_zstd().ZstdDecompressor()
-                # Use streaming decompression for frames without content size
-                input_stream = io.BytesIO(compressed_data)
-                reader = dctx.stream_reader(input_stream)
-                return reader.readall()
-            case _ as unsupported_codec:
-                raise ValueError(
-                    f"Compression codec '{unsupported_codec}' is not supported",
-                )
 
     def _read_and_reassemble_values(
         self,

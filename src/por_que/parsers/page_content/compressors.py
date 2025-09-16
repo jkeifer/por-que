@@ -1,4 +1,54 @@
+import io
+
+from por_que.enums import Compression
 from por_que.exceptions import ParquetDataError
+
+
+def decompress_data(
+    compressed_data: bytes,
+    codec: Compression,
+    expected_size: int | None = None,
+) -> bytes:
+    """
+    Decompress data using the specified compression codec.
+
+    Args:
+        compressed_data: The compressed bytes to decompress
+        codec: The compression codec to use
+        expected_size: Expected uncompressed size (for validation and optimization)
+
+    Returns:
+        Decompressed bytes
+
+    Raises:
+        ParquetDataError: If compression codec is unsupported
+        ValueError: If compression codec is unsupported (for data.py compatibility)
+    """
+    # Handle uncompressed data
+    if codec == Compression.UNCOMPRESSED:
+        return compressed_data
+
+    # If sizes match, data might not actually be compressed
+    if expected_size is not None and len(compressed_data) == expected_size:
+        return compressed_data
+
+    match codec:
+        case Compression.SNAPPY:
+            return get_snappy().decompress(compressed_data)
+        case Compression.GZIP:
+            return get_gzip().decompress(compressed_data)
+        case Compression.LZO:
+            return get_lzo().decompress(compressed_data)
+        case Compression.BROTLI:
+            return get_brotli().decompress(compressed_data)
+        case Compression.ZSTD:
+            dctx = get_zstd().ZstdDecompressor()
+            # Use streaming decompression for frames without content size
+            input_stream = io.BytesIO(compressed_data)
+            reader = dctx.stream_reader(input_stream)
+            return reader.readall()
+        case _:
+            raise ValueError(f"Compression codec '{codec}' is not supported")
 
 
 def get_brotli():

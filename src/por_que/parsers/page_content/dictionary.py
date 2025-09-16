@@ -70,7 +70,11 @@ class DictionaryPageParser:
             )
 
         # Decompress content
-        decompressed_data = self._decompress_data(compressed_data, compression_codec)
+        decompressed_data = compressors.decompress_data(
+            compressed_data,
+            compression_codec,
+            dictionary_page.uncompressed_page_size,
+        )
 
         # Verify decompressed size matches expected
         if len(decompressed_data) != dictionary_page.uncompressed_page_size:
@@ -88,30 +92,6 @@ class DictionaryPageParser:
             dictionary_page.encoding,
             schema_element,
         )
-
-    def _decompress_data(self, compressed_data: bytes, codec: Compression) -> bytes:
-        """Decompress data using the specified compression codec."""
-        match codec:
-            case Compression.UNCOMPRESSED:
-                return compressed_data
-            case Compression.SNAPPY:
-                return compressors.get_snappy().decompress(compressed_data)
-            case Compression.GZIP:
-                return compressors.get_gzip().decompress(compressed_data)
-            case Compression.LZO:
-                return compressors.get_lzo().decompress(compressed_data)
-            case Compression.BROTLI:
-                return compressors.get_brotli().decompress(compressed_data)
-            case Compression.ZSTD:
-                import io
-
-                dctx = compressors.get_zstd().ZstdDecompressor()
-                # Use streaming decompression for frames without content size
-                input_stream = io.BytesIO(compressed_data)
-                reader = dctx.stream_reader(input_stream)
-                return reader.readall()
-            case _:
-                raise ParquetDataError(f'Unsupported compression codec: {codec}')
 
     def _parse_values(  # noqa: C901
         self,
