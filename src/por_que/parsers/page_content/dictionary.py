@@ -43,6 +43,7 @@ class DictionaryPageParser:
         dictionary_page: DictionaryPage,
         physical_type: Type,
         compression_codec: Compression,
+        schema_element,
     ) -> DictType:
         """
         Parse dictionary page content into Python objects.
@@ -85,6 +86,7 @@ class DictionaryPageParser:
             dictionary_page.num_values,
             physical_type,
             dictionary_page.encoding,
+            schema_element,
         )
 
     def _decompress_data(self, compressed_data: bytes, codec: Compression) -> bytes:
@@ -117,6 +119,7 @@ class DictionaryPageParser:
         num_values: int,
         physical_type: Type,
         encoding: Encoding,
+        schema_element,
     ) -> DictType:
         """Parse values from decompressed data."""
         if encoding not in (Encoding.PLAIN, Encoding.PLAIN_DICTIONARY):
@@ -144,9 +147,19 @@ class DictionaryPageParser:
             case Type.BYTE_ARRAY:
                 values = physical_types.parse_byte_array_values(stream, num_values)
             case Type.FIXED_LEN_BYTE_ARRAY:
-                # Would need type_length from schema for this
-                raise ParquetDataError(
-                    'FIXED_LEN_BYTE_ARRAY dictionary parsing not yet implemented',
+                # Get type length from schema element
+                if (
+                    not schema_element
+                    or not hasattr(schema_element, 'type_length')
+                    or schema_element.type_length is None
+                ):
+                    raise ParquetDataError(
+                        'FIXED_LEN_BYTE_ARRAY requires type_length from schema element',
+                    )
+                values = physical_types.parse_fixed_len_byte_array_values(
+                    stream,
+                    num_values,
+                    schema_element.type_length,
                 )
             case _:
                 raise ParquetDataError(f'Unsupported physical type: {physical_type}')

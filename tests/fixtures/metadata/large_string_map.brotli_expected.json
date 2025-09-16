@@ -143,7 +143,9 @@
                     "field_id": 10,
                     "logical_type": {
                       "logical_type": 1
-                    }
+                    },
+                    "definition_level": 2,
+                    "repetition_level": 1
                   },
                   "value": {
                     "element_type": "column",
@@ -157,7 +159,9 @@
                     "scale": null,
                     "precision": null,
                     "field_id": 4,
-                    "logical_type": null
+                    "logical_type": null,
+                    "definition_level": 3,
+                    "repetition_level": 1
                   }
                 },
                 "repetition": 2,

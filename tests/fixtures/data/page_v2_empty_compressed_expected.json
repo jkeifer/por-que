@@ -1,0 +1,17 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/page_v2_empty_compressed.parquet",
+  "data": {
+    "integer_column": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

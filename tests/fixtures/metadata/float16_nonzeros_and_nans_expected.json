@@ -70,7 +70,9 @@
             "field_id": 10,
             "logical_type": {
               "logical_type": 15
-            }
+            },
+            "definition_level": 1,
+            "repetition_level": 0
           }
         }
       },

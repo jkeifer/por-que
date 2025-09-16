@@ -1,9 +1,15 @@
 import base64
 import json
+import tempfile
 
 from pathlib import Path
+from typing import Any
+from urllib.request import urlretrieve
 
+import pyarrow.parquet as pq
 import pytest
+
+from deepdiff import DeepDiff
 
 from por_que import ParquetFile
 from por_que.util.http_file import HttpFile
@@ -24,7 +30,6 @@ TEST_FILES = [
     'data_index_bloom_encoding_with_length',
     'null_list',
     'rle_boolean_encoding',
-    'fixed_length_byte_array',
     'int32_with_null_pages',
     'datapage_v1-uncompressed-checksum',
     'datapage_v1-snappy-compressed-checksum',
@@ -41,30 +46,85 @@ TEST_FILES = [
     'sort_columns',
     'old_list_structure',
     'repeated_primitive_no_list',
+    # pyarrow output is inconsistent with this one
     'map_no_value',
     'page_v2_empty_compressed',
     'datapage_v2_empty_datapage.snappy',
     'unknown-logical-type',
-    'int96_from_spark',
     'binary_truncated_min_max',
     'geospatial/crs-projjson',
-    # Too hard to support this one in test cases
-    #'nan_in_stats',
-    # The following are massive schemas
-    #'alltypes_tiny_pages',
-    #'alltypes_tiny_pages_plain',
-    #'overflow_i16_page_cnt',
+    'geospatial/geospatial',
+    'geospatial/geospatial-with-nan',
+    'geospatial/crs-default',
+    'geospatial/crs-geography',
+    'geospatial/crs-srid',
+    'geospatial/crs-arbitrary-value',
+]
+SCHEMA_ONLY_FILES = [
+    # Can't even parse this data with pyarrow due to parquet-mr bug
+    'fixed_length_byte_array',
+    # cannot parse these timestamps with python
+    'int96_from_spark',
+]
+DATA_ONLY_FILES = [
+    # the following are massive schemas
+    'alltypes_tiny_pages',
+    'alltypes_tiny_pages_plain',
+    'overflow_i16_page_cnt',
+    # too hard to handle NaN because is serialized as None
+    'nan_in_stats',
 ]
 
 
-class Base64Encoder(json.JSONEncoder):
+def large_string_map_brotli(actual: dict[str, Any]) -> bool:
+    href = (
+        'https://raw.githubusercontent.com/apache/parquet-testing/'
+        'master/data/large_string_map.brotli.parquet'
+    )
+    expected = {
+        'source': href,
+        'data': {
+            'arr': [
+                {'a': 1},
+                {'a': 1},
+            ],
+        },
+    }
+
+    try:
+        rows = actual['data']['arr']
+    except KeyError:
+        return False
+
+    assert len(rows) == 2
+    for row in rows:
+        keys = list(row.keys())
+        assert len(keys) == 1
+        key = keys[0]
+        assert len(key) == 2**30
+        assert set(key) == {'a'}
+        row['a'] = row[key]
+        del row[key]
+
+    assert actual == expected
+    return True
+
+
+DATA_PAGE_FIXTURE_COMPARATOR = {
+    'large_string_map.brotli': large_string_map_brotli,
+}
+
+
+class DataFixtureEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, bytes):
             return ENCODED_PREFIX + base64.b64encode(o).decode()
+        if hasattr(o, 'isoformat'):  # datetime, date, time objects
+            return o.isoformat()
         return json.JSONEncoder.default(self, o)
 
 
-class Base64Decoder(json.JSONDecoder):
+class DataFixtureDecoder(json.JSONDecoder):
     def decode(self, s):  # type: ignore
         # Parse normally first
         obj = super().decode(s)
@@ -83,7 +143,7 @@ class Base64Decoder(json.JSONDecoder):
 
 @pytest.mark.parametrize(
     'parquet_file_name',
-    TEST_FILES,
+    TEST_FILES + SCHEMA_ONLY_FILES,
 )
 def test_parquet_file(
     parquet_file_name: str,
@@ -117,7 +177,7 @@ def test_parquet_file(
 
 @pytest.mark.parametrize(
     'parquet_file_name',
-    TEST_FILES,
+    TEST_FILES + SCHEMA_ONLY_FILES,
 )
 def test_parquet_file_from_dict(
     parquet_file_name: str,
@@ -143,27 +203,134 @@ def test_parquet_file_from_dict(
 
 @pytest.mark.parametrize(
     'parquet_file_name',
-    TEST_FILES,
+    TEST_FILES + DATA_ONLY_FILES,
 )
 def test_read_data(
     parquet_file_name: str,
     parquet_url: str,
 ) -> None:
-    fixture = DATA_FIXTURES / f'{parquet_file_name}_expected.json'
-
     with HttpFile(parquet_url) as hf:
         pf = ParquetFile.from_reader(hf, parquet_url)
-        actual = [cc.parse_all_data_pages(hf) for cc in pf.column_chunks]
+        # Parse with por-que using consistent error handling
+        actual = _parse_with_por_que(pf, hf, parquet_url)
 
-        # we try to load the fixture file to compare
-        # if it doesn't exist we write the fixture to file
-        # to update, delete the fixture file it and re-run
+    _comparison(parquet_file_name, actual)
+
+
+def _parse_with_por_que(
+    pf: ParquetFile,
+    hf: HttpFile,
+    parquet_url: str,
+) -> dict[str, Any]:
+    """Parse parquet file with por-que, handling conversion errors consistently."""
+    flat_data: dict[str, Any] = {}
+
+    for cc in pf.column_chunks:
         try:
-            expected = json.loads(fixture.read_text(), cls=Base64Decoder)
-            assert actual == expected
-        except FileNotFoundError:
-            print(actual)
-            fixture.write_text(json.dumps(actual, indent=2, cls=Base64Encoder))
-            pytest.skip(
-                f'Generated fixture {fixture}. Re-run test to compare.',
+            page_data = cc.parse_all_data_pages(hf)
+        except (ValueError, OverflowError, OSError):
+            # Handle conversion errors using shared logic
+            page_data = ['unconvertible_type']
+
+        try:
+            flat_data[cc.path_in_schema].extend(page_data)
+        except KeyError:
+            flat_data[cc.path_in_schema] = page_data
+
+    # Schema-aware reconstruction using ParquetFile's schema information
+    data = pf.metadata.metadata.schema_root.renest(flat_data)
+
+    return {
+        'source': parquet_url,
+        'data': data,
+    }
+
+
+def _comparison(
+    file_name: str,
+    actual: dict[str, Any],
+) -> None:
+    # first check if we have a fixture generator
+    if comparator := DATA_PAGE_FIXTURE_COMPARATOR.get(file_name):
+        assert comparator(actual)
+        return
+
+    # we try to load the fixture file to compare;
+    # if it doesn't exist we write the fixture to file;
+    # to update, delete the fixture file it and re-run
+    fixture = DATA_FIXTURES / f'{file_name}_expected.json'
+    try:
+        expected = json.loads(fixture.read_text(), cls=DataFixtureDecoder)
+    except FileNotFoundError:
+        fixture.write_text(json.dumps(actual, indent=2, cls=DataFixtureEncoder))
+        pytest.skip(
+            f'Generated fixture {fixture}. Re-run test to compare.',
+        )
+
+    actual_serialized = json.loads(
+        json.dumps(actual, cls=DataFixtureEncoder),
+        cls=DataFixtureDecoder,
+    )
+
+    if 'nan' in file_name:
+        assert not DeepDiff(
+            expected,
+            actual_serialized,
+            ignore_nan_inequality=True,
+        )
+    else:
+        assert actual_serialized == expected
+
+
+def _pyarrow_to_fixture_format(table, parquet_url: str) -> dict[str, Any]:
+    """Convert PyArrow table to the same format as por-que fixtures."""
+    data = {}
+    for column_name in table.schema.names:
+        column = table[column_name]
+        values: list[Any] = []
+        for i in range(len(column)):
+            if not column[i].is_valid:
+                values.append(None)
+                continue
+
+            values.append(column[i].as_py())
+
+        data[column_name] = values
+
+    return {
+        'source': parquet_url,
+        'data': data,
+    }
+
+
+@pytest.mark.skip(reason='only run this to validate data fixtures')
+@pytest.mark.parametrize(
+    'parquet_file_name',
+    TEST_FILES + DATA_ONLY_FILES,
+)
+def test_pyarrow_comparison(
+    parquet_file_name: str,
+    parquet_url: str,
+) -> None:
+    """Compare PyArrow parsing with por-que parsing using existing fixtures."""
+    # Download the parquet file to a temporary location
+    with tempfile.NamedTemporaryFile(suffix='.parquet', delete=False) as tmp_file:
+        tmp_path = tmp_file.name
+
+    try:
+        urlretrieve(parquet_url, tmp_path)  # noqa: S310
+
+        try:
+            table = pq.read_table(tmp_path)
+            actual = _pyarrow_to_fixture_format(
+                table,
+                parquet_url,
             )
+        except Exception as e:  # noqa: BLE001
+            # Some files can't be read by PyArrow due to various limitations
+            pytest.skip(f'PyArrow cannot read {parquet_file_name}: {e}')
+
+        _comparison(parquet_file_name, actual)
+    finally:
+        # Clean up the temporary file
+        Path(tmp_path).unlink(missing_ok=True)

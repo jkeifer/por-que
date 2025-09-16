@@ -1,12 +1,15 @@
-[
-  [
-    "known string 1",
-    "known string 2",
-    "known string 3"
-  ],
-  [
-    "unknown string 1",
-    "unknown string 2",
-    "unknown string 3"
-  ]
-]
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/unknown-logical-type.parquet",
+  "data": {
+    "column with known type": [
+      "known string 1",
+      "known string 2",
+      "known string 3"
+    ],
+    "column with unknown type": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>dW5rbm93biBzdHJpbmcgMQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>dW5rbm93biBzdHJpbmcgMg==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>dW5rbm93biBzdHJpbmcgMw=="
+    ]
+  }
+}

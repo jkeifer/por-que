@@ -1,0 +1,8 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/datapage_v2_empty_datapage.snappy.parquet",
+  "data": {
+    "value": [
+      null
+    ]
+  }
+}

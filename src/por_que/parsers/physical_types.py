@@ -58,10 +58,9 @@ def parse_int96_values(stream: BytesIO, num_values: int) -> list[int]:
     """Parse INT96 values from stream (stored as 12-byte values)."""
     values = []
     for _ in range(num_values):
-        data = stream.read(12)  # INT96 is 12 bytes
+        data = stream.read(12)
         if len(data) != 12:
             break
-        # Convert 12-byte little-endian value to integer
         value = int.from_bytes(data, 'little')
         values.append(value)
     return values
@@ -105,6 +104,26 @@ def parse_byte_array_values(stream: BytesIO, num_values: int) -> list[bytes]:
         data = stream.read(length)
         if len(data) != length:
             break
+        values.append(data)
+
+    return values
+
+
+def parse_fixed_len_byte_array_values(
+    stream: BytesIO,
+    num_values: int,
+    type_length: int,
+) -> list[bytes]:
+    """Parse FIXED_LEN_BYTE_ARRAY values from stream."""
+    values = []
+    for i in range(num_values):
+        # Read fixed-length data
+        data = stream.read(type_length)
+        if len(data) != type_length:
+            raise ParquetDataError(
+                f'Expected to read {type_length} bytes for FIXED_LEN_BYTE_ARRAY value '
+                f'{i + 1}/{num_values}, but got {len(data)} bytes',
+            )
         values.append(data)
 
     return values

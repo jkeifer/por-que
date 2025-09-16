@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import warnings
 
+from collections.abc import Callable
 from functools import cached_property
 from typing import Annotated, Any, Literal, Self
 
@@ -108,7 +109,7 @@ class TimeTypeInfo(LogicalTypeInfo, frozen=True):
     """Time logical type with unit and UTC adjustment."""
 
     logical_type: Literal[LogicalType.TIME] = LogicalType.TIME
-    is_adjusted_to_utc: bool = False
+    is_adjusted_to_utc: bool = True
     unit: TimeUnit = TimeUnit.MILLIS
 
 
@@ -116,7 +117,7 @@ class TimestampTypeInfo(LogicalTypeInfo, frozen=True):
     """Timestamp logical type with unit and UTC adjustment."""
 
     logical_type: Literal[LogicalType.TIMESTAMP] = LogicalType.TIMESTAMP
-    is_adjusted_to_utc: bool = False
+    is_adjusted_to_utc: bool = True
     unit: TimeUnit = TimeUnit.MILLIS
 
 
@@ -332,6 +333,9 @@ class SchemaElement(BaseModel, frozen=True):
                 logical_type=logical_type,
                 start_offset=start_offset,
                 byte_length=byte_length,
+                # Levels will be calculated later during schema tree building
+                definition_level=0,
+                repetition_level=0,
             )
 
         # Root element could look essentially like any other group,
@@ -486,6 +490,242 @@ class BaseSchemaGroup(SchemaElement, frozen=True):
 class SchemaRoot(BaseSchemaGroup, frozen=True):
     element_type: SchemaElementType = SchemaElementType.ROOT
 
+    def renest(self, flat_data: dict[str, list]) -> dict[str, Any]:
+        """
+        Reconstruct nested structures from flattened column paths
+        using schema information.
+
+        Uses the actual Parquet schema to determine correct reconstruction for:
+        - MAP logical types -> {key: value} dictionaries
+        - LIST logical types -> [item, item, ...] arrays
+        - STRUCT types -> {field: value, ...} objects
+
+        Args:
+            flat_data: Dictionary mapping column paths to values.
+                      Keys are dotted paths (e.g., "person.name", "arr.key_value.key").
+                      Values should be lists of data.
+
+        Returns:
+            Dictionary with schema-aware reconstructed nested structures.
+        """
+        # Convert flat paths to path segments for tree traversal
+        path_segments_data = {
+            tuple(path.split('.')): data for path, data in flat_data.items()
+        }
+
+        # Recursively reconstruct using schema tree
+        result = {}
+        for name, child_element in self.children.items():
+            result[name] = self._reconstruct_from_schema_tree(
+                child_element,
+                (name,),
+                path_segments_data,
+            )
+
+        return result
+
+    def _reconstruct_from_schema_tree(
+        self,
+        schema_element: SchemaGroup | SchemaLeaf,
+        current_path: tuple[str, ...],
+        path_data: dict[tuple[str, ...], list],
+    ) -> Any:
+        """Reconstruct data using pure recursive DFS traversal."""
+        # Base case: if this exact path has data, return it
+        if isinstance(schema_element, SchemaLeaf):
+            return path_data[current_path]
+
+        # If no children, return empty
+        if not schema_element.children:
+            return []
+
+        # Recursively process all children (DFS)
+        children_data = {}
+        for child_name, child_element in schema_element.children.items():
+            child_path = (*current_path, child_name)
+            child_result = self._reconstruct_from_schema_tree(
+                child_element,
+                child_path,
+                path_data,
+            )
+            if child_result:
+                children_data[child_name] = child_result
+
+        # Apply logical type transformations to the recursively built data
+        return self._apply_logical_type_transform(
+            schema_element,
+            children_data,
+        )
+
+    def _apply_logical_type_transform(
+        self,
+        schema_element: SchemaGroup,
+        children_data: dict[str, Any],
+    ) -> Any:
+        """Apply logical type transformations to recursively built child data."""
+        from por_que.enums import LogicalType
+
+        if not children_data:
+            return []
+
+        # Get logical type and apply appropriate transformation
+        logical_type_info = schema_element.get_logical_type()
+
+        if logical_type_info is None:
+            if (
+                schema_element.repetition.name == 'REPEATED'
+                and len(schema_element.children) == 1
+            ):
+                return self._process_standard_list(children_data)
+
+            return self._process_struct(children_data)
+
+        match logical_type_info.logical_type:
+            case LogicalType.MAP:
+                return self._get_map_process_function(schema_element)(children_data)
+            case LogicalType.LIST:
+                return self._process_standard_list(children_data)
+            case _ as unexpected:
+                raise ValueError(
+                    f'Unexpected logical type for group: {unexpected}',
+                )
+
+    def _process_struct(self, children_data: dict[str, Any]) -> Any:
+        # STRUCT: zip child arrays into list of objects
+        return self._zip_struct_fields(children_data)
+
+    def _get_map_process_function(
+        self,
+        schema_element: SchemaGroup,
+    ) -> Callable[[dict[str, Any]], Any]:
+        """Check if MAP schema is valid according to Parquet specification."""
+        # MAP logical type must have canonical three-level structure:
+        # <name> (MAP) { repeated group key_value { required key; <rep> value; } }
+
+        if schema_element.num_children != 1:
+            return self._process_struct
+
+        child = next(iter(schema_element.children.values()))
+
+        if not isinstance(child, SchemaGroup):
+            return self._process_struct
+
+        if child.repetition != Repetition.REPEATED:
+            raise ValueError(f'Unexpected map child repetition: {child.repetition}')
+
+        if child.num_children == 1:
+            return self._process_standard_list
+
+        if child.num_children > 2:
+            raise ValueError(
+                f'Unprocessable map: child has {child.num_children} children',
+            )
+
+        if next(iter(child.children.values())).repetition != Repetition.REQUIRED:
+            return self._process_standard_list
+
+        return self._build_maps
+
+    def _build_maps(self, children_data: dict[str, Any]) -> list[dict[str, Any]]:
+        """Build MAP objects from key/value data using canonical
+        Parquet MAP structure."""
+        # According to Parquet spec, MAP logical types have
+        # canonical three-level structure:
+        # <name> (MAP) { repeated group key_value { required key; <rep> value; } }
+
+        if not children_data:
+            return []
+
+        # Get the repeated group data (canonical name is "key_value")
+        if 'key_value' not in children_data:
+            raise ValueError(
+                "MAP logical type missing required 'key_value' repeated group",
+            )
+
+        key_value_records = children_data['key_value']
+        if not key_value_records:
+            return []
+
+        maps = []
+        for record in key_value_records:
+            if not isinstance(record, dict):
+                raise ValueError('MAP key_value record must be dict')
+
+            fields = list(record.items())
+            if not fields:
+                raise ValueError('MAP key_value record is empty')
+
+            _, key_data = fields[0]
+
+            # Second field is the value (if it exists)
+            value_data = None
+            if len(fields) > 1:
+                _, value_data = fields[1]
+
+            maps.append(self._construct_map(key_data, value_data))
+        return maps
+
+    def _construct_map(self, key_data: Any, value_data: Any) -> dict[Any, Any]:
+        if not isinstance(key_data, list):
+            # Single key/value pair
+            return dict(*[key_data, value_data])
+
+        # Handle array of keys - pair each key with corresponding value or None
+        row_map_as_list = []
+        for j, key in enumerate(key_data):
+            # Check if corresponding value exists, otherwise use None
+            if isinstance(value_data, list) and j < len(value_data):
+                value = value_data[j]
+            else:
+                value = None
+            row_map_as_list.append([key, value])
+        return dict(row_map_as_list)
+
+    def _process_standard_list(self, children_data: dict[str, Any]) -> list:
+        """Process standard LIST logical type with three-level structure."""
+        if not children_data:
+            return []
+
+        # Get the repeated group (should be the only child for LIST types)
+        repeated_group_data = next(iter(children_data.values()))
+        if not repeated_group_data:
+            return []
+
+        # Handle malformed MAP treated as LIST - extract just the values
+        if (
+            isinstance(repeated_group_data, list)
+            and repeated_group_data
+            and isinstance(repeated_group_data[0], dict)
+            and len(repeated_group_data[0]) == 1
+        ):
+            # This looks like a malformed MAP (single field) - extract the field values
+            field_name = next(iter(repeated_group_data[0].keys()))
+            return [record[field_name] for record in repeated_group_data]
+
+        return repeated_group_data
+
+    def _zip_struct_fields(self, fields: dict[str, Any]) -> list[dict]:
+        """Zip struct field arrays into list of objects."""
+        if not fields:
+            return []
+
+        # Get record count from first field
+        first_field = next(iter(fields.values()))
+        num_records = len(first_field) if isinstance(first_field, list) else 1
+
+        # Build struct objects
+        return [
+            {
+                name: (
+                    values[i]
+                    if isinstance(values, list) and i < len(values)
+                    else values
+                )
+                for name, values in fields.items()
+            }
+            for i in range(num_records)
+        ]
+
 
 class SchemaGroup(BaseSchemaGroup, frozen=True):
     repetition: Repetition
@@ -510,36 +750,9 @@ class SchemaLeaf(SchemaElement, frozen=True):
     precision: int | None = None
     field_id: int | None = None
     logical_type: LogicalTypeInfoUnion | None = None
-
-    @property
-    def definition_level(self) -> int:
-        """Calculate the definition level for this schema element.
-
-        For non-nested schemas:
-        - REQUIRED columns: 0 (never null)
-        - OPTIONAL columns: 1 (can be null or present)
-        - REPEATED columns: 1 (can be null/empty or present)
-
-        For nested schemas, this would need to traverse the parent chain.
-        """
-        if self.repetition == Repetition.REQUIRED:
-            return 0
-        # OPTIONAL or REPEATED
-        return 1
-
-    @property
-    def repetition_level(self) -> int:
-        """Calculate the repetition level for this schema element.
-
-        For non-nested schemas:
-        - Non-REPEATED columns: 0
-        - REPEATED columns: 1
-
-        For nested schemas, this would need to traverse the parent chain.
-        """
-        if self.repetition == Repetition.REPEATED:
-            return 1
-        return 0
+    # These levels are calculated during schema parsing based on the full path
+    definition_level: int = 0
+    repetition_level: int = 0
 
     def _repr_extra(self) -> list[str]:
         return [

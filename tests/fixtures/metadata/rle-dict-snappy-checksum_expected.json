@@ -105,7 +105,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 0,
+            "repetition_level": 0
           },
           "binary_field": {
             "element_type": "column",
@@ -119,7 +121,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 0,
+            "repetition_level": 0
           }
         }
       },

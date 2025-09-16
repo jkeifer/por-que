@@ -191,7 +191,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "b": {
             "element_type": "column",
@@ -207,7 +209,9 @@
             "field_id": 10,
             "logical_type": {
               "logical_type": 1
-            }
+            },
+            "definition_level": 1,
+            "repetition_level": 0
           }
         }
       },

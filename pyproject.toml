@@ -55,9 +55,11 @@ all-codecs = [
 
 [tool.uv]
 dev-dependencies = [
+    "deepdiff>=8.6.1",
     "mypy>=1.15.0",
     "pre-commit>=4.2.0",
     "pre-commit-hooks>=5.0.0",
+    "pyarrow>=21.0.0",
     "pytest>=8.3.5",
     "pytest-cov>=6.1.1",
     "ruff>=0.11.6",

@@ -186,6 +186,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             reader=reader,
             physical_type=self.metadata.type,
             compression_codec=self.codec,
+            schema_element=self.metadata.schema_element,
         )
 
     def parse_data_page(

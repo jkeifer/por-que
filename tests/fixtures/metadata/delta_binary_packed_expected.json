@@ -2271,7 +2271,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth1": {
             "element_type": "column",
@@ -2285,7 +2287,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth2": {
             "element_type": "column",
@@ -2299,7 +2303,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth3": {
             "element_type": "column",
@@ -2313,7 +2319,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth4": {
             "element_type": "column",
@@ -2327,7 +2335,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth5": {
             "element_type": "column",
@@ -2341,7 +2351,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth6": {
             "element_type": "column",
@@ -2355,7 +2367,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth7": {
             "element_type": "column",
@@ -2369,7 +2383,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth8": {
             "element_type": "column",
@@ -2383,7 +2399,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth9": {
             "element_type": "column",
@@ -2397,7 +2415,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth10": {
             "element_type": "column",
@@ -2411,7 +2431,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth11": {
             "element_type": "column",
@@ -2425,7 +2447,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth12": {
             "element_type": "column",
@@ -2439,7 +2463,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth13": {
             "element_type": "column",
@@ -2453,7 +2479,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth14": {
             "element_type": "column",
@@ -2467,7 +2495,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth15": {
             "element_type": "column",
@@ -2481,7 +2511,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth16": {
             "element_type": "column",
@@ -2495,7 +2527,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth17": {
             "element_type": "column",
@@ -2509,7 +2543,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth18": {
             "element_type": "column",
@@ -2523,7 +2559,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth19": {
             "element_type": "column",
@@ -2537,7 +2575,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth20": {
             "element_type": "column",
@@ -2551,7 +2591,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth21": {
             "element_type": "column",
@@ -2565,7 +2607,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth22": {
             "element_type": "column",
@@ -2579,7 +2623,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth23": {
             "element_type": "column",
@@ -2593,7 +2639,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth24": {
             "element_type": "column",
@@ -2607,7 +2655,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth25": {
             "element_type": "column",
@@ -2621,7 +2671,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth26": {
             "element_type": "column",
@@ -2635,7 +2687,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth27": {
             "element_type": "column",
@@ -2649,7 +2703,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth28": {
             "element_type": "column",
@@ -2663,7 +2719,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth29": {
             "element_type": "column",
@@ -2677,7 +2735,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth30": {
             "element_type": "column",
@@ -2691,7 +2751,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth31": {
             "element_type": "column",
@@ -2705,7 +2767,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth32": {
             "element_type": "column",
@@ -2719,7 +2783,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth33": {
             "element_type": "column",
@@ -2733,7 +2799,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth34": {
             "element_type": "column",
@@ -2747,7 +2815,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth35": {
             "element_type": "column",
@@ -2761,7 +2831,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth36": {
             "element_type": "column",
@@ -2775,7 +2847,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth37": {
             "element_type": "column",
@@ -2789,7 +2863,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth38": {
             "element_type": "column",
@@ -2803,7 +2879,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth39": {
             "element_type": "column",
@@ -2817,7 +2895,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth40": {
             "element_type": "column",
@@ -2831,7 +2911,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth41": {
             "element_type": "column",
@@ -2845,7 +2927,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth42": {
             "element_type": "column",
@@ -2859,7 +2943,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth43": {
             "element_type": "column",
@@ -2873,7 +2959,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth44": {
             "element_type": "column",
@@ -2887,7 +2975,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth45": {
             "element_type": "column",
@@ -2901,7 +2991,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth46": {
             "element_type": "column",
@@ -2915,7 +3007,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth47": {
             "element_type": "column",
@@ -2929,7 +3023,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth48": {
             "element_type": "column",
@@ -2943,7 +3039,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth49": {
             "element_type": "column",
@@ -2957,7 +3055,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth50": {
             "element_type": "column",
@@ -2971,7 +3071,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth51": {
             "element_type": "column",
@@ -2985,7 +3087,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth52": {
             "element_type": "column",
@@ -2999,7 +3103,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth53": {
             "element_type": "column",
@@ -3013,7 +3119,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth54": {
             "element_type": "column",
@@ -3027,7 +3135,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth55": {
             "element_type": "column",
@@ -3041,7 +3151,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth56": {
             "element_type": "column",
@@ -3055,7 +3167,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth57": {
             "element_type": "column",
@@ -3069,7 +3183,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth58": {
             "element_type": "column",
@@ -3083,7 +3199,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth59": {
             "element_type": "column",
@@ -3097,7 +3215,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth60": {
             "element_type": "column",
@@ -3111,7 +3231,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth61": {
             "element_type": "column",
@@ -3125,7 +3247,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth62": {
             "element_type": "column",
@@ -3139,7 +3263,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth63": {
             "element_type": "column",
@@ -3153,7 +3279,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "bitwidth64": {
             "element_type": "column",
@@ -3167,7 +3295,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           },
           "int_value": {
             "element_type": "column",
@@ -3181,7 +3311,9 @@
             "scale": null,
             "precision": null,
             "field_id": 4,
-            "logical_type": null
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 0
           }
         }
       },
