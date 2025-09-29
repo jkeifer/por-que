@@ -1,0 +1,115 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/alltypes_plain.parquet",
+  "data": {
+    "id": [
+      4,
+      5,
+      6,
+      7,
+      2,
+      3,
+      0,
+      1
+    ],
+    "bool_col": [
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false
+    ],
+    "tinyint_col": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "smallint_col": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "int_col": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "bigint_col": [
+      0,
+      10,
+      0,
+      10,
+      0,
+      10,
+      0,
+      10
+    ],
+    "float_col": [
+      0.0,
+      1.100000023841858,
+      0.0,
+      1.100000023841858,
+      0.0,
+      1.100000023841858,
+      0.0,
+      1.100000023841858
+    ],
+    "double_col": [
+      0.0,
+      10.1,
+      0.0,
+      10.1,
+      0.0,
+      10.1,
+      0.0,
+      10.1
+    ],
+    "date_string_col": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDMvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDMvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDQvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDQvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDIvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDIvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDEvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDEvMDEvMDk="
+    ],
+    "string_col": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MQ=="
+    ],
+    "timestamp_col": [
+      "2009-03-01T00:00:00",
+      "2009-03-01T00:01:00",
+      "2009-04-01T00:00:00",
+      "2009-04-01T00:01:00",
+      "2009-02-01T00:00:00",
+      "2009-02-01T00:01:00",
+      "2009-01-01T00:00:00",
+      "2009-01-01T00:01:00"
+    ]
+  }
+}

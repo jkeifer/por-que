@@ -20,6 +20,7 @@ DATA_FIXTURES = FIXTURES / 'data'
 ENCODED_PREFIX = '*-*-*-||por-que_base64_encoded||-*-*-*>'
 
 TEST_FILES = [
+    'alltypes_plain',
     'delta_byte_array',
     'delta_length_byte_array',
     'delta_binary_packed',
