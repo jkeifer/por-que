@@ -24,16 +24,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 0,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "QUFBQUFBQUFBQUJBQUFBQQ==",
+            "max_value": "QUFBQUFBQUFQUENBQUFBQQ==",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -58,16 +63,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 30,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "RHIu",
+            "max_value": "U2ly",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -92,16 +102,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 32,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "QWFyb24=",
+            "max_value": "WmFjaGFyeQ==",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -126,16 +141,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 24,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "QWRhbXM=",
+            "max_value": "WmFtb3Jh",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -160,16 +180,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 29,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "Tg==",
+            "max_value": "WQ==",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -194,16 +219,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 31,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "QUZHSEFOSVNUQU4=",
+            "max_value": "WklNQkFCV0U=",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -228,16 +258,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
+            "min": null,
+            "max": null,
+            "null_count": 1000,
+            "distinct_count": null,
             "min_value": null,
             "max_value": null,
-            "null_count": 1000,
-            "distinct_count": null
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -262,16 +297,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 31,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "QWFyb24uQnJvd2RlckBpVXBkZGtISTl6OC5vcmc=",
+            "max_value": "WmFjaGFyeS5QYXJzb25zQGhIbW5McmJLc2ZZLmNvbQ==",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     },
     {
@@ -296,16 +336,21 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
-            "min_value": null,
-            "max_value": null,
+            "min": null,
+            "max": null,
             "null_count": 25,
-            "distinct_count": null
+            "distinct_count": null,
+            "min_value": "MjQ1MjI4Mw==",
+            "max_value": "MjQ1MjY0OA==",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     }
   ],
@@ -332,7 +377,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -348,7 +393,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -364,7 +409,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -380,7 +425,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -396,7 +441,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -412,7 +457,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -428,7 +473,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -444,7 +489,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -460,7 +505,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 6,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -469,10 +514,14 @@
       },
       "row_groups": [
         {
+          "start_offset": 67529,
+          "byte_length": 710,
           "column_chunks": {
             "c_customer_id": {
               "file_offset": 4,
               "metadata": {
+                "start_offset": 67534,
+                "byte_length": 86,
                 "type": 6,
                 "encodings": [
                   7
@@ -483,26 +532,41 @@
                 "total_uncompressed_size": 8248,
                 "total_compressed_size": 8248,
                 "data_page_offset": 4,
-                "start_offset": 67534,
-                "byte_length": 86,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 0,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "QUFBQUFBQUFBQUJBQUFBQQ==",
+                  "max_value": "QUFBQUFBQUFQUENBQUFBQQ==",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_salutation": {
               "file_offset": 8252,
               "metadata": {
+                "start_offset": 67626,
+                "byte_length": 59,
                 "type": 6,
                 "encodings": [
                   7
@@ -513,26 +577,41 @@
                 "total_uncompressed_size": 3362,
                 "total_compressed_size": 3362,
                 "data_page_offset": 8252,
-                "start_offset": 67626,
-                "byte_length": 59,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 30,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "RHIu",
+                  "max_value": "U2ly",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_first_name": {
               "file_offset": 11614,
               "metadata": {
+                "start_offset": 67691,
+                "byte_length": 65,
                 "type": 6,
                 "encodings": [
                   7
@@ -543,26 +622,41 @@
                 "total_uncompressed_size": 6595,
                 "total_compressed_size": 6595,
                 "data_page_offset": 11614,
-                "start_offset": 67691,
-                "byte_length": 65,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 32,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "QWFyb24=",
+                  "max_value": "WmFjaGFyeQ==",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_last_name": {
               "file_offset": 18209,
               "metadata": {
+                "start_offset": 67762,
+                "byte_length": 63,
                 "type": 6,
                 "encodings": [
                   7
@@ -573,26 +667,41 @@
                 "total_uncompressed_size": 6955,
                 "total_compressed_size": 6955,
                 "data_page_offset": 18209,
-                "start_offset": 67762,
-                "byte_length": 63,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 24,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "QWRhbXM=",
+                  "max_value": "WmFtb3Jh",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_preferred_cust_flag": {
               "file_offset": 25164,
               "metadata": {
+                "start_offset": 67831,
+                "byte_length": 64,
                 "type": 6,
                 "encodings": [
                   7
@@ -603,26 +712,41 @@
                 "total_uncompressed_size": 1220,
                 "total_compressed_size": 1220,
                 "data_page_offset": 25164,
-                "start_offset": 67831,
-                "byte_length": 64,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 29,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "Tg==",
+                  "max_value": "WQ==",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_birth_country": {
               "file_offset": 26384,
               "metadata": {
+                "start_offset": 67901,
+                "byte_length": 77,
                 "type": 6,
                 "encodings": [
                   7
@@ -633,26 +757,41 @@
                 "total_uncompressed_size": 9599,
                 "total_compressed_size": 9599,
                 "data_page_offset": 26384,
-                "start_offset": 67901,
-                "byte_length": 77,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 31,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "QUZHSEFOSVNUQU4=",
+                  "max_value": "WklNQkFCV0U=",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_login": {
               "file_offset": 35983,
               "metadata": {
+                "start_offset": 67984,
+                "byte_length": 43,
                 "type": 6,
                 "encodings": [
                   7
@@ -663,26 +802,41 @@
                 "total_uncompressed_size": 42,
                 "total_compressed_size": 42,
                 "data_page_offset": 35983,
-                "start_offset": 67984,
-                "byte_length": 43,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
+                  "min": null,
+                  "max": null,
+                  "null_count": 1000,
+                  "distinct_count": null,
                   "min_value": null,
                   "max_value": null,
-                  "null_count": 1000,
-                  "distinct_count": null
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_email_address": {
               "file_offset": 36025,
               "metadata": {
+                "start_offset": 68033,
+                "byte_length": 118,
                 "type": 6,
                 "encodings": [
                   7
@@ -693,26 +847,41 @@
                 "total_uncompressed_size": 27763,
                 "total_compressed_size": 27763,
                 "data_page_offset": 36025,
-                "start_offset": 68033,
-                "byte_length": 118,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 31,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "QWFyb24uQnJvd2RlckBpVXBkZGtISTl6OC5vcmc=",
+                  "max_value": "WmFjaGFyeS5QYXJzb25zQGhIbW5McmJLc2ZZLmNvbQ==",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             },
             "c_last_review_date": {
               "file_offset": 63788,
               "metadata": {
+                "start_offset": 68157,
+                "byte_length": 73,
                 "type": 6,
                 "encodings": [
                   7
@@ -723,28 +892,43 @@
                 "total_uncompressed_size": 3511,
                 "total_compressed_size": 3511,
                 "data_page_offset": 63788,
-                "start_offset": 68157,
-                "byte_length": 73,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": null,
-                  "max_value": null,
+                  "min": null,
+                  "max": null,
                   "null_count": 25,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "MjQ1MjI4Mw==",
+                  "max_value": "MjQ1MjY0OA==",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 3,
+                    "encoding": 7,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             }
           },
           "total_byte_size": 67295,
           "row_count": 1000,
-          "start_offset": 67529,
-          "byte_length": 710,
+          "sorting_columns": null,
+          "file_offset": null,
+          "total_compressed_size": null,
+          "ordinal": null,
           "compression_stats": {
             "total_compressed": 67295,
             "total_uncompressed": 67295,

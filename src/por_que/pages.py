@@ -32,7 +32,7 @@ class Page(BaseModel, frozen=True):
     header_size: int
     compressed_page_size: int
     uncompressed_page_size: int
-    crc: int | None
+    crc: int | None = None
 
     @classmethod
     def from_reader(
@@ -61,7 +61,7 @@ class Page(BaseModel, frozen=True):
             path_in_schema,
         )
 
-        return page_parser.read_page(offset)
+        return page_parser.read_page()
 
 
 class DictionaryPage(Page, frozen=True):
@@ -151,7 +151,7 @@ class DataPageV2(Page, frozen=True):
     encoding: Encoding
     definition_levels_byte_length: int
     repetition_levels_byte_length: int
-    is_compressed: bool
+    is_compressed: bool = True
     statistics: ColumnStatistics | None = None
 
     def parse_content(
@@ -189,8 +189,6 @@ class IndexPage(Page, frozen=True):
     """A page containing row group and offset statistics."""
 
     page_type: Literal[PageType.INDEX_PAGE] = PageType.INDEX_PAGE
-    # Logical content (minimal for now)
-    page_locations: Any | None = None
 
 
 AnyPage = DictionaryPage | DataPageV1 | DataPageV2 | IndexPage

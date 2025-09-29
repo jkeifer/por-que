@@ -9,8 +9,11 @@ Teaching Points:
 """
 
 import logging
+import struct
+import warnings
 
-from typing import assert_never
+from collections.abc import Iterator
+from typing import Any, assert_never
 
 from por_que.enums import ConvertedType, LogicalType, Repetition, TimeUnit, Type
 from por_que.exceptions import ThriftParsingError
@@ -38,8 +41,6 @@ from por_que.file_metadata import (
     UuidTypeInfo,
     VariantTypeInfo,
 )
-from por_que.parsers.thrift.enums import ThriftFieldType
-from por_que.parsers.thrift.parser import ThriftStructParser
 
 from .base import BaseParser
 from .enums import SchemaElementFieldId
@@ -72,89 +73,43 @@ class SchemaParser(BaseParser):
             SchemaElement with parsed metadata and byte range information
         """
         start_offset = self.parser.pos
-        struct_parser = ThriftStructParser(self.parser)
-        logger.debug('Reading schema element at offset %d', start_offset)
-        name: str | None = None
-        _type: Type | None = None
-        type_length: int | None = None
-        repetition: Repetition | None = None
-        num_children: int | None = None
-        converted_type: ConvertedType | None = None
-        scale: int | None = None
-        precision: int | None = None
-        field_id: int | None = None
-        logical_type: LogicalTypeInfoUnion | None = None
+        props: dict[str, Any] = {
+            'start_offset': start_offset,
+        }
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            # Handle complex types that need special parsing
-            if (
-                field_type == ThriftFieldType.STRUCT
-                and field_id == SchemaElementFieldId.LOGICAL_TYPE
-            ):
-                logical_type = self._parse_logical_type()
-                continue
-
-            # `read_value` returns the primitive value, or None if it's a
-            # complex type or should be skipped.
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-            match field_id:
+        for _field_id, field_type, value in self.parse_struct_fields():
+            match _field_id:
                 case SchemaElementFieldId.TYPE:
-                    _type = Type(value)
+                    props['type'] = Type(value)
                 case SchemaElementFieldId.TYPE_LENGTH:
-                    type_length = value
+                    props['type_length'] = value
                 case SchemaElementFieldId.REPETITION_TYPE:
-                    repetition = Repetition(value)
+                    props['repetition'] = Repetition(value)
                 case SchemaElementFieldId.NAME:
-                    name = value.decode('utf-8')
+                    props['name'] = value.decode('utf-8')
                 case SchemaElementFieldId.NUM_CHILDREN:
-                    num_children = value
+                    props['num_children'] = value
                 case SchemaElementFieldId.CONVERTED_TYPE:
-                    converted_type = ConvertedType(value)
+                    props['converted_type'] = ConvertedType(value)
                 case SchemaElementFieldId.SCALE:
-                    scale = value
+                    props['scale'] = value
                 case SchemaElementFieldId.PRECISION:
-                    precision = value
+                    props['precision'] = value
                 case SchemaElementFieldId.FIELD_ID:
-                    field_id = value
+                    props['field_id'] = value
                 case SchemaElementFieldId.LOGICAL_TYPE:
-                    # This should not happen since logical_type is complex
-                    logical_type = self._parse_logical_type()
+                    props['logical_type'] = self._parse_logical_type()
                 case _:
-                    # This case is not strictly necessary since `read_value`
-                    # already skipped unknown fields, but it's good practice.
-                    pass
+                    warnings.warn(
+                        f'Skipping unknown schema field ID {_field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
         end_offset = self.parser.pos
-        byte_length = end_offset - start_offset
+        props['byte_length'] = end_offset - start_offset
 
-        element = SchemaElement.new(
-            name=name,
-            type=_type,
-            type_length=type_length,
-            repetition=repetition,
-            num_children=num_children,
-            converted_type=converted_type,
-            start_offset=start_offset,
-            byte_length=byte_length,
-            scale=scale,
-            precision=precision,
-            field_id=field_id,
-            logical_type=logical_type,
-        )
-
-        logger.debug(
-            'Read schema element: %s (bytes %d-%d)',
-            element,
-            start_offset,
-            end_offset,
-        )
-        return element
+        return SchemaElement.new(**props)
 
     def read_schema_tree(
         self,
@@ -287,7 +242,7 @@ class SchemaParser(BaseParser):
 
         return element
 
-    def parse_schema_field(self) -> SchemaRoot:
+    def parse_schema_field(self, list_iter: Iterator[SchemaElement]) -> SchemaRoot:
         """
         Parse the schema field from file metadata.
 
@@ -301,7 +256,7 @@ class SchemaParser(BaseParser):
             Root SchemaElement with complete tree structure
         """
         # Read flat list of schema elements
-        schema_elements = self.read_list(self.read_schema_element)
+        schema_elements = [self.read_schema_element() for _ in list_iter]
 
         logger.debug('Read %d schema elements, building tree', len(schema_elements))
 
@@ -323,153 +278,134 @@ class SchemaParser(BaseParser):
         The LogicalType is a union with different types for different logical types.
         Each union variant has its own field ID and structure.
         """
-        start_pos = self.parser.pos
-        logger.debug('Parsing logical type at position %d', start_pos)
-        struct_parser = ThriftStructParser(self.parser)
-        result_type: LogicalTypeInfoUnion | None = None
+        logical_type: LogicalTypeInfoUnion | None = None
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            logger.debug('  Logical type field: type=%d, id=%d', field_type, field_id)
-            if field_type == ThriftFieldType.STOP:
-                logger.debug(
-                    '  Logical type parsing complete at position %d',
-                    self.parser.pos,
-                )
-                break
+        for field_id, field_type, _ in self.parse_struct_fields():
+            # types with struct values
+            match field_id:
+                case LogicalType.INTEGER:
+                    logical_type = self._parse_int_type()
+                case LogicalType.DECIMAL:
+                    logical_type = self._parse_decimal_type()
+                case LogicalType.TIME:
+                    logical_type = self._parse_time_type()
+                case LogicalType.TIMESTAMP:
+                    logical_type = self._parse_timestamp_type()
 
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                # Complex type that needs special handling
-                match field_id:
-                    case LogicalType.STRING:
-                        result_type = StringTypeInfo()
-                    case LogicalType.INTEGER:
-                        # These types need complex parsing - call their methods
-                        # and they should handle reading to their own STOP
-                        return self._parse_int_type()
-                    case LogicalType.DECIMAL:
-                        return self._parse_decimal_type()
-                    case LogicalType.TIME:
-                        return self._parse_time_type()
-                    case LogicalType.TIMESTAMP:
-                        return self._parse_timestamp_type()
-                    case LogicalType.DATE:
-                        result_type = DateTypeInfo()
-                    case LogicalType.ENUM:
-                        result_type = EnumTypeInfo()
-                    case LogicalType.JSON:
-                        result_type = JsonTypeInfo()
-                    case LogicalType.BSON:
-                        result_type = BsonTypeInfo()
-                    case LogicalType.UUID:
-                        result_type = UuidTypeInfo()
-                    case LogicalType.FLOAT16:
-                        result_type = Float16TypeInfo()
-                    case LogicalType.MAP:
-                        result_type = MapTypeInfo()
-                    case LogicalType.LIST:
-                        result_type = ListTypeInfo()
-                    case LogicalType.VARIANT:
-                        result_type = VariantTypeInfo()
-                    case LogicalType.GEOMETRY:
-                        result_type = GeometryTypeInfo()
-                    case LogicalType.GEOGRAPHY:
-                        result_type = GeographyTypeInfo()
-                    case LogicalType.UNKNOWN:
-                        result_type = UnknownTypeInfo()
-                    case _:
-                        # Unknown type, skip it
-                        continue
-            else:
-                # Simple value, shouldn't happen for union types
+            if logical_type:
                 continue
 
-        return result_type
+            # types with empty structs
+            # need to skip to the STOP
+            self.maybe_skip_field(field_type)
+
+            match field_id:
+                case LogicalType.STRING:
+                    logical_type = StringTypeInfo()
+                case LogicalType.DATE:
+                    logical_type = DateTypeInfo()
+                case LogicalType.ENUM:
+                    logical_type = EnumTypeInfo()
+                case LogicalType.JSON:
+                    logical_type = JsonTypeInfo()
+                case LogicalType.BSON:
+                    logical_type = BsonTypeInfo()
+                case LogicalType.UUID:
+                    logical_type = UuidTypeInfo()
+                case LogicalType.FLOAT16:
+                    logical_type = Float16TypeInfo()
+                case LogicalType.MAP:
+                    logical_type = MapTypeInfo()
+                case LogicalType.LIST:
+                    logical_type = ListTypeInfo()
+                case LogicalType.VARIANT:
+                    logical_type = VariantTypeInfo()
+                case LogicalType.GEOMETRY:
+                    logical_type = GeometryTypeInfo()
+                case LogicalType.GEOGRAPHY:
+                    logical_type = GeographyTypeInfo()
+                case LogicalType.UNKNOWN:
+                    logical_type = UnknownTypeInfo()
+                case _:
+                    warnings.warn(
+                        f'Unknown logical type {field_id}',
+                        stacklevel=1,
+                    )
+
+        return logical_type
 
     def _parse_int_type(self) -> IntTypeInfo:
         """Parse an IntType struct."""
-        struct_parser = ThriftStructParser(self.parser)
-        bit_width = 32
-        is_signed = True
+        props: dict[str, Any] = {}
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case 1:
+                    props['bit_width'] = struct.unpack('<B', value)[0]
+                case 2:
+                    props['is_signed'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown int type field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-            value = struct_parser.read_value(field_type)
-            if value is not None:
-                match field_id:
-                    case 1:  # bitWidth
-                        bit_width = value
-                    case 2:  # isSigned
-                        is_signed = value
-
-        return IntTypeInfo(bit_width=bit_width, is_signed=is_signed)
+        return IntTypeInfo(**props)
 
     def _parse_decimal_type(self) -> DecimalTypeInfo:
         """Parse a DecimalType struct."""
-        struct_parser = ThriftStructParser(self.parser)
-        scale = 0
-        precision = 10
+        props: dict[str, Any] = {}
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case 1:
+                    props['scale'] = value
+                case 2:
+                    props['precision'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown decimal type field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-            value = struct_parser.read_value(field_type)
-            if value is not None:
-                match field_id:
-                    case 1:  # scale
-                        scale = value
-                    case 2:  # precision
-                        precision = value
-
-        return DecimalTypeInfo(scale=scale, precision=precision)
+        return DecimalTypeInfo(**props)
 
     def _parse_time_type(self) -> TimeTypeInfo:
         """Parse a TimeType struct."""
-        struct_parser = ThriftStructParser(self.parser)
-        is_adjusted_to_utc = True
-        unit = TimeUnit.MILLIS
+        props: dict[str, Any] = {}
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case 1:
+                    props['is_adjusted_to_utc'] = value
+                case 2:
+                    props['unit'] = TimeUnit(value)
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown time type field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-            value = struct_parser.read_value(field_type)
-            if value is not None:
-                match field_id:
-                    case 1:  # isAdjustedToUTC
-                        is_adjusted_to_utc = value
-                    case 2:  # unit (TimeUnit union)
-                        # Map int values to TimeUnit enum
-                        unit = TimeUnit(value)
-
-        return TimeTypeInfo(is_adjusted_to_utc=is_adjusted_to_utc, unit=unit)
+        return TimeTypeInfo(**props)
 
     def _parse_timestamp_type(self) -> TimestampTypeInfo:
         """Parse a TimestampType struct."""
-        struct_parser = ThriftStructParser(self.parser)
-        # Default to True to match PyArrow's behavior when isAdjustedToUTC is omitted
-        is_adjusted_to_utc = True
-        unit = TimeUnit.MILLIS
+        props: dict[str, Any] = {}
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case 1:
+                    props['is_adjusted_to_utc'] = value
+                case 2:
+                    props['unit'] = TimeUnit(value)
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown timestamp type field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-            value = struct_parser.read_value(field_type)
-            if value is not None:
-                match field_id:
-                    case 1:  # isAdjustedToUTC
-                        is_adjusted_to_utc = value
-                    case 2:  # unit (TimeUnit union)
-                        # Map int values to TimeUnit enum
-                        unit = TimeUnit(value)
-
-        return TimestampTypeInfo(is_adjusted_to_utc=is_adjusted_to_utc, unit=unit)
+        return TimestampTypeInfo(**props)

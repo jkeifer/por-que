@@ -10,13 +10,13 @@ Teaching Points:
 
 from __future__ import annotations
 
-import logging
+import warnings
 
 from typing import TYPE_CHECKING, Any
 
 from por_que.enums import Encoding, PageType
-from por_que.parsers.thrift.enums import ThriftFieldType
-from por_que.parsers.thrift.parser import ThriftStructParser
+from por_que.exceptions import ParquetFormatError
+from por_que.file_metadata import ColumnStatistics, SchemaRoot
 
 from .base import BaseParser
 from .enums import (
@@ -25,11 +25,10 @@ from .enums import (
     DictionaryPageHeaderFieldId,
     PageHeaderFieldId,
 )
+from .statistics import StatisticsParser
 
 if TYPE_CHECKING:
     from por_que.pages import AnyPage
-
-logger = logging.getLogger(__name__)
 
 
 class PageParser(BaseParser):
@@ -43,7 +42,13 @@ class PageParser(BaseParser):
     - Compression is handled at the page level, not column level
     """
 
-    def __init__(self, parser, schema=None, column_type=None, path_in_schema=None):
+    def __init__(
+        self,
+        parser,
+        schema_root: SchemaRoot,
+        column_type,
+        path_in_schema,
+    ) -> None:
         """
         Initialize page parser.
 
@@ -54,11 +59,11 @@ class PageParser(BaseParser):
             path_in_schema: Schema path for statistics parsing
         """
         super().__init__(parser)
-        self.schema = schema
+        self.schema_root = schema_root
         self.column_type = column_type
         self.path_in_schema = path_in_schema
 
-    def read_page(self, start_offset: int) -> AnyPage:  # noqa: C901
+    def read_page(self) -> AnyPage:
         """
         Read a complete Page directly from the stream.
 
@@ -72,330 +77,151 @@ class PageParser(BaseParser):
             The appropriate Page subtype (DataPageV1, DataPageV2, DictionaryPage,
             IndexPage)
         """
-        from por_que.pages import DataPageV1, DataPageV2, DictionaryPage, IndexPage
+        start_offset = self.parser.pos
+        props: dict[str, Any] = {
+            'start_offset': start_offset,
+        }
 
-        header_start_offset = self.parser.pos
-        struct_parser = ThriftStructParser(self.parser)
-
-        # Basic page header fields
-        page_type = PageType.DATA_PAGE  # default
-        compressed_page_size = 0
-        uncompressed_page_size = 0
-        crc = None
-
-        # Page-specific fields that we'll collect
-        page_specific_data = {}
-
-        logger.debug('Reading page at offset %d', start_offset)
-
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            # Handle struct types for specific page headers
-            if field_type == ThriftFieldType.STRUCT:
-                match field_id:
-                    case PageHeaderFieldId.DATA_PAGE_HEADER:
-                        page_specific_data.update(self.read_data_page_header())
-                    case PageHeaderFieldId.DICTIONARY_PAGE_HEADER:
-                        page_specific_data.update(
-                            self.read_dictionary_page_header(),
-                        )
-                    case PageHeaderFieldId.DATA_PAGE_HEADER_V2:
-                        page_specific_data.update(
-                            self.read_data_page_header_v2(),
-                        )
-                    case PageHeaderFieldId.INDEX_PAGE_HEADER:
-                        # IndexPageHeader is empty in Parquet spec (just TODO)
-                        # Parse it but expect no fields
-                        page_specific_data.update(self.read_index_page_header())
-                    case _:
-                        struct_parser.skip_field(field_type)
-                continue
-
-            # Handle primitive fields
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case PageHeaderFieldId.TYPE:
-                    page_type = PageType(value)
+                    props['page_type'] = PageType(value)
                 case PageHeaderFieldId.UNCOMPRESSED_PAGE_SIZE:
-                    uncompressed_page_size = value
+                    props['uncompressed_page_size'] = value
                 case PageHeaderFieldId.COMPRESSED_PAGE_SIZE:
-                    compressed_page_size = value
+                    props['compressed_page_size'] = value
                 case PageHeaderFieldId.CRC:
-                    crc = value
+                    props['crc'] = value
+                case PageHeaderFieldId.DATA_PAGE_HEADER:
+                    props.update(self.read_data_page_header())
+                case PageHeaderFieldId.DICTIONARY_PAGE_HEADER:
+                    props.update(self.read_dictionary_page_header())
+                case PageHeaderFieldId.DATA_PAGE_HEADER_V2:
+                    props.update(self.read_data_page_header_v2())
+                case PageHeaderFieldId.INDEX_PAGE_HEADER:
+                    props.update(self.read_index_page_header())
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown page field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
         header_end_offset = self.parser.pos
-        header_size = header_end_offset - header_start_offset
+        props['header_size'] = header_end_offset - start_offset
 
-        # Create appropriate page subtype based on page type
+        return self._make_page(**props)
+
+    def _make_page(self, **kwargs) -> AnyPage:
+        from por_que.pages import DataPageV1, DataPageV2, DictionaryPage, IndexPage
+
         page: AnyPage
-        match page_type:
+        match kwargs.get('page_type'):
             case PageType.DICTIONARY_PAGE:
-                page = DictionaryPage(
-                    page_type=page_type,
-                    start_offset=start_offset,
-                    header_size=header_size,
-                    compressed_page_size=compressed_page_size,
-                    uncompressed_page_size=uncompressed_page_size,
-                    crc=crc,
-                    **page_specific_data,
-                )
+                page = DictionaryPage(**kwargs)
             case PageType.DATA_PAGE:
-                page = DataPageV1(
-                    page_type=page_type,
-                    start_offset=start_offset,
-                    header_size=header_size,
-                    compressed_page_size=compressed_page_size,
-                    uncompressed_page_size=uncompressed_page_size,
-                    crc=crc,
-                    **page_specific_data,
-                )
+                page = DataPageV1(**kwargs)
             case PageType.DATA_PAGE_V2:
-                page = DataPageV2(
-                    page_type=page_type,
-                    start_offset=start_offset,
-                    header_size=header_size,
-                    compressed_page_size=compressed_page_size,
-                    uncompressed_page_size=uncompressed_page_size,
-                    crc=crc,
-                    **page_specific_data,
-                )
+                page = DataPageV2(**kwargs)
             case PageType.INDEX_PAGE:
-                page = IndexPage(
-                    page_type=page_type,
-                    start_offset=start_offset,
-                    header_size=header_size,
-                    compressed_page_size=compressed_page_size,
-                    uncompressed_page_size=uncompressed_page_size,
-                    crc=crc,
-                    page_locations=None,  # Not implemented yet
-                )
-            case _:
-                from por_que.exceptions import ParquetFormatError
-
-                raise ParquetFormatError(f'Unknown page type: {page_type}')
-
-        logger.debug(
-            'Read page: type=%s, compressed=%d bytes, uncompressed=%d bytes',
-            page_type.name,
-            compressed_page_size,
-            uncompressed_page_size,
-        )
+                page = IndexPage(**kwargs)
+            case _ as unknown:
+                raise ParquetFormatError(f'Unknown page type: {unknown}')
 
         return page
 
-    def read_data_page_header(self) -> dict:
+    def _handle_statistics(self) -> ColumnStatistics:
+        return StatisticsParser(self.parser).read_statistics()
+
+    def read_data_page_header(self) -> dict[str, Any]:
         """Read DataPageHeader fields and return as dict."""
-        struct_parser = ThriftStructParser(self.parser)
-        fields: dict[str, Any] = {
-            'num_values': 0,
-            'encoding': Encoding.PLAIN,
-            'definition_level_encoding': Encoding.PLAIN,
-            'repetition_level_encoding': Encoding.PLAIN,
-            'statistics': None,
-        }
+        props: dict[str, Any] = {}
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            # Handle statistics struct if present
-            if field_type == ThriftFieldType.STRUCT:
-                self._handle_data_page_header_struct(struct_parser, field_id, fields)
-                continue
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case DataPageHeaderFieldId.NUM_VALUES:
-                    fields['num_values'] = value
+                    props['num_values'] = value
                 case DataPageHeaderFieldId.ENCODING:
-                    fields['encoding'] = Encoding(value)
+                    props['encoding'] = Encoding(value)
                 case DataPageHeaderFieldId.DEFINITION_LEVEL_ENCODING:
-                    fields['definition_level_encoding'] = Encoding(value)
+                    props['definition_level_encoding'] = Encoding(value)
                 case DataPageHeaderFieldId.REPETITION_LEVEL_ENCODING:
-                    fields['repetition_level_encoding'] = Encoding(value)
+                    props['repetition_level_encoding'] = Encoding(value)
+                case DataPageHeaderFieldId.STATISTICS:
+                    props['statistics'] = self._handle_statistics()
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown data page v1 header field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        return fields
+        return props
 
-    def _handle_data_page_header_struct(self, struct_parser, field_id, fields):
-        """Handle struct fields in DataPageHeader."""
-        if field_id == DataPageHeaderFieldId.STATISTICS:
-            # Parse statistics if we have the necessary context
-            if (
-                self.schema is not None
-                and self.column_type is not None
-                and self.path_in_schema is not None
-            ):
-                from .statistics import StatisticsParser
+    def read_data_page_header_v2(self) -> dict[str, Any]:
+        """Read DataPageHeaderV2 fields using the new generic parser."""
+        props: dict[str, Any] = {}
 
-                stats_parser = StatisticsParser(self.parser, self.schema)
-                fields['statistics'] = stats_parser.read_statistics(
-                    self.column_type,
-                    self.path_in_schema,
-                )
-            else:
-                struct_parser.skip_field(ThriftFieldType.STRUCT)
-        else:
-            struct_parser.skip_field(ThriftFieldType.STRUCT)
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case DataPageHeaderV2FieldId.NUM_VALUES:
+                    props['num_values'] = value
+                case DataPageHeaderV2FieldId.NUM_NULLS:
+                    props['num_nulls'] = value
+                case DataPageHeaderV2FieldId.NUM_ROWS:
+                    props['num_rows'] = value
+                case DataPageHeaderV2FieldId.ENCODING:
+                    props['encoding'] = Encoding(value)
+                case DataPageHeaderV2FieldId.DEFINITION_LEVELS_BYTE_LENGTH:
+                    props['definition_levels_byte_length'] = value
+                case DataPageHeaderV2FieldId.REPETITION_LEVELS_BYTE_LENGTH:
+                    props['repetition_levels_byte_length'] = value
+                case DataPageHeaderV2FieldId.IS_COMPRESSED:
+                    props['is_compressed'] = bool(value)
+                case DataPageHeaderV2FieldId.STATISTICS:
+                    props['statistics'] = self._handle_statistics()
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown data page header v2 field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-    def read_data_page_header_v2(self) -> dict:
-        """Read DataPageHeaderV2 fields and return as dict."""
-        struct_parser = ThriftStructParser(self.parser)
-        fields = self._init_data_page_v2_fields()
+        return props
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
+    def read_dictionary_page_header(self) -> dict[str, Any]:
+        """Read DictionaryPageHeader fields using the new generic parser."""
+        props: dict[str, Any] = {}
 
-            if field_type == ThriftFieldType.STRUCT:
-                self._handle_data_page_v2_struct(struct_parser, field_id, fields)
-                continue
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
-            self._process_data_page_v2_field(fields, field_id, value)
-
-        return fields
-
-    def _init_data_page_v2_fields(self) -> dict:
-        """Initialize default fields for DataPageHeaderV2."""
-        return {
-            'num_values': 0,
-            'num_nulls': 0,
-            'num_rows': 0,
-            'encoding': Encoding.PLAIN,
-            'definition_levels_byte_length': 0,
-            'repetition_levels_byte_length': 0,
-            'is_compressed': True,
-            'statistics': None,
-        }
-
-    def _handle_data_page_v2_struct(self, struct_parser, field_id, fields):
-        """Handle struct fields in DataPageHeaderV2."""
-        if field_id == DataPageHeaderV2FieldId.STATISTICS:
-            # Parse statistics if we have the necessary context
-            if (
-                self.schema is not None
-                and self.column_type is not None
-                and self.path_in_schema is not None
-            ):
-                from .statistics import StatisticsParser
-
-                stats_parser = StatisticsParser(self.parser, self.schema)
-                fields['statistics'] = stats_parser.read_statistics(
-                    self.column_type,
-                    self.path_in_schema,
-                )
-            else:
-                struct_parser.skip_field(ThriftFieldType.STRUCT)
-        else:
-            struct_parser.skip_field(ThriftFieldType.STRUCT)
-
-    def _process_data_page_v2_field(self, fields: dict, field_id: int, value):
-        """Process a single field in DataPageHeaderV2."""
-        match field_id:
-            case DataPageHeaderV2FieldId.NUM_VALUES:
-                fields['num_values'] = value
-            case DataPageHeaderV2FieldId.NUM_NULLS:
-                fields['num_nulls'] = value
-            case DataPageHeaderV2FieldId.NUM_ROWS:
-                fields['num_rows'] = value
-            case DataPageHeaderV2FieldId.ENCODING:
-                fields['encoding'] = Encoding(value)
-            case DataPageHeaderV2FieldId.DEFINITION_LEVELS_BYTE_LENGTH:
-                fields['definition_levels_byte_length'] = value
-            case DataPageHeaderV2FieldId.REPETITION_LEVELS_BYTE_LENGTH:
-                fields['repetition_levels_byte_length'] = value
-            case DataPageHeaderV2FieldId.IS_COMPRESSED:
-                fields['is_compressed'] = bool(value)
-
-    def read_dictionary_page_header(self) -> dict:
-        """Read DictionaryPageHeader fields and return as dict."""
-        struct_parser = ThriftStructParser(self.parser)
-        fields = {
-            'num_values': 0,
-            'encoding': Encoding.PLAIN,
-            'is_sorted': False,
-        }
-
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case DictionaryPageHeaderFieldId.NUM_VALUES:
-                    fields['num_values'] = value
+                    props['num_values'] = value
                 case DictionaryPageHeaderFieldId.ENCODING:
-                    fields['encoding'] = Encoding(value)
+                    props['encoding'] = Encoding(value)
                 case DictionaryPageHeaderFieldId.IS_SORTED:
-                    fields['is_sorted'] = bool(value)
+                    props['is_sorted'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown dictionary page header field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        return fields
+        return props
 
-    def read_index_page_header(self) -> dict:
+    def read_index_page_header(self) -> dict[str, Any]:
         """
-        Read IndexPageHeader fields and return as dict.
+        Read IndexPageHeader fields using the new generic parser.
 
         Note: IndexPageHeader is currently empty in the Parquet specification
         (contains only a TODO comment), so this method doesn't expect any fields.
         """
-        struct_parser = ThriftStructParser(self.parser)
-        fields: dict[str, Any] = {}
+        # IndexPageHeader is empty, but we still parse to consume the struct
+        for field_id, _, _ in self.parse_struct_fields():
+            warnings.warn(
+                f'Skipping unknown dictionary page header field ID {field_id}',
+                stacklevel=1,
+            )
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            # IndexPageHeader is currently empty, so skip any unexpected fields
-            value = struct_parser.read_value(field_type)
-            if value is not None:
-                # Log unexpected field for debugging but don't fail
-                logger.warning(
-                    'Unexpected field %d in IndexPageHeader (spec says empty): %s',
-                    field_id,
-                    value,
-                )
-
-        return fields
-
-    def read_page_data(self, page: AnyPage) -> bytes:
-        """
-        Read page data bytes following the header.
-
-        Teaching Points:
-        - Page data immediately follows the page header in the file
-        - The data may be compressed according to column chunk settings
-        - compressed_page_size tells us exactly how many bytes to read
-        - Decompression happens later using the column's compression codec
-
-        Args:
-            page: Page containing size information
-
-        Returns:
-            Raw page data bytes (potentially compressed)
-        """
-        data_size = page.compressed_page_size
-        logger.debug('Reading %d bytes of page data', data_size)
-
-        data = self.parser.read(data_size)
-        logger.debug('Read page data: %d bytes', len(data))
-
-        return data
+        return {}

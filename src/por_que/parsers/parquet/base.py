@@ -1,14 +1,8 @@
-from collections.abc import Callable
-from typing import TypeVar
+from collections.abc import Iterator
+from typing import Any
 
-from por_que.parsers.thrift.constants import (
-    THRIFT_FIELD_TYPE_MASK,
-    THRIFT_SIZE_SHIFT,
-    THRIFT_SPECIAL_LIST_SIZE,
-)
-from por_que.parsers.thrift.parser import ThriftCompactParser
-
-T = TypeVar('T')
+from por_que.parsers.thrift.enums import ThriftFieldType
+from por_que.parsers.thrift.parser import ThriftCompactParser, ThriftStructParser
 
 
 class BaseParser:
@@ -23,7 +17,7 @@ class BaseParser:
     - The protocol includes type information for self-describing data structures
     """
 
-    def __init__(self, parser: ThriftCompactParser):
+    def __init__(self, parser: ThriftCompactParser) -> None:
         """
         Initialize parser with a Thrift compact protocol parser.
 
@@ -31,30 +25,6 @@ class BaseParser:
             parser: ThriftCompactParser positioned at the start of a struct
         """
         self.parser = parser
-
-    def read_list(self, read_element_func: Callable[[], T]) -> list[T]:
-        """
-        Read a list of elements using Thrift compact protocol.
-
-        Teaching Points:
-        - Lists in Thrift encode element type and count in a header byte
-        - Size field uses 4 bits, with special handling for sizes >= 15
-        - This enables efficient storage of both small and large lists
-        """
-        header = int.from_bytes(self.read())
-        size = header >> THRIFT_SIZE_SHIFT  # Size from upper 4 bits
-        # TODO: determine if we need element type for anything
-        _ = header & THRIFT_FIELD_TYPE_MASK  # Element type from lower 4 bits
-
-        # If size == 15, read actual size from varint
-        if size == THRIFT_SPECIAL_LIST_SIZE:
-            size = self.read_varint()
-
-        elements: list[T] = []
-        for _ in range(size):
-            elements.append(read_element_func())
-
-        return elements
 
     def read(self, length: int = 1) -> bytes:
         return self.parser.read(length)
@@ -79,3 +49,46 @@ class BaseParser:
 
     def read_bytes(self) -> bytes:
         return self.parser.read_bytes()
+
+    def maybe_skip_field(self, field_type: ThriftFieldType | int) -> None:
+        if not isinstance(field_type, ThriftFieldType):
+            field_type = ThriftFieldType(field_type)
+
+        if field_type.is_complex:
+            self.parser.skip_field(field_type)
+
+    def parse_struct_fields(
+        self,
+    ) -> Iterator[tuple[int, int, Any]]:
+        """
+        Yield-based struct field parsing that preserves context and parsing state.
+
+        Teaching Points:
+        - Yields each field as encountered, preserving parsing position
+        - Caller retains full context about which struct type is being parsed
+        - Enables flexible per-field handling without complex orchestration
+        - Avoids parsing state corruption between different field types
+
+        Yields:
+            Tuples of (field_id, field_type, value) where:
+            - For simple types: value is the parsed primitive value
+            - For complex types (LIST, STRUCT): value is None, caller handles parsing
+        """
+        struct_parser = ThriftStructParser(self.parser)
+
+        while True:
+            field_type, field_id = struct_parser.read_field_header()
+
+            match field_type:
+                case ThriftFieldType.STOP:
+                    break
+                case ThriftFieldType.LIST:
+                    # For LIST, must read header and optional STOP
+                    yield field_id, field_type, self.parser.yield_list_elements()
+                case ThriftFieldType.STRUCT:
+                    # For STRUCT, no header to read - just yield
+                    yield field_id, field_type, None
+                case _:
+                    # Handle simple field types (primitives)
+                    value = struct_parser.read_value(field_type)
+                    yield field_id, field_type, value

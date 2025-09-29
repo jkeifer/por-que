@@ -90,20 +90,14 @@ def convert_values_with_logical_type(
     Returns:
         List of converted values
     """
-    if not values:
-        return values
-
-    # Convert each value individually
-    converted_values = []
-    for value in values:
-        converted_value = convert_single_value(
+    return [
+        convert_single_value(
             value,
             physical_type,
             logical_type_info,
         )
-        converted_values.append(converted_value)
-
-    return converted_values
+        for value in values
+    ]
 
 
 def convert_single_value(
@@ -210,7 +204,10 @@ def _convert_int64_value(
             return value
 
 
-def _convert_int96_value(value: int, logical_type_info: LogicalTypeInfo | None):
+def _convert_int96_value(
+    value: int,
+    logical_type_info: LogicalTypeInfo | None,
+) -> datetime.datetime:
     """Convert INT96 value based on logical type."""
     # INT96 is typically used for legacy timestamp storage in Spark/Hive
     # Format: 12 bytes = 8 bytes nanoseconds + 4 bytes Julian day number

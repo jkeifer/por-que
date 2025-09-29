@@ -9,15 +9,22 @@ Teaching Points:
 """
 
 import logging
+import warnings
 
-from por_que.exceptions import ThriftParsingError
-from por_que.file_metadata import FileMetadata, KeyValueMetadata, SchemaRoot
-from por_que.parsers.thrift.enums import ThriftFieldType
-from por_que.parsers.thrift.parser import ThriftCompactParser, ThriftStructParser
+from collections.abc import Iterator
+from typing import Any
+
+from por_que.file_metadata import (
+    FileMetadata,
+    RowGroups,
+    SchemaRoot,
+)
+from por_que.parsers.thrift.parser import ThriftCompactParser
 from por_que.protocols import ReadableSeekable
 
 from .base import BaseParser
-from .enums import FileMetadataFieldId, KeyValueFieldId
+from .enums import FileMetadataFieldId
+from .keyvalue import KeyValueParser
 from .row_group import RowGroupParser
 from .schema import SchemaParser
 
@@ -46,9 +53,9 @@ class MetadataParser(BaseParser):
         parser = ThriftCompactParser(reader, start_offset)
         super().__init__(parser)
 
-    def parse(self) -> FileMetadata:  # noqa: C901
+    def parse(self) -> FileMetadata:
         """
-        Parse the complete FileMetadata structure.
+        Parse the complete FileMetadata structure using the new generic parser.
 
         Teaching Points:
         - FileMetadata contains schema, row groups, and file-level information
@@ -64,87 +71,57 @@ class MetadataParser(BaseParser):
         """
         logger.debug('Starting FileMetadata parsing...')
 
-        struct_parser = ThriftStructParser(self.parser)
+        props: dict[str, Any] = {}
 
-        # Collect values to construct frozen FileMetadata object
-        version = 0
-        schema_root: SchemaRoot | None = None
-        row_groups = []
-        created_by = None
-        key_value_metadata = []
-
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            logger.debug('Processing field %s of type %s', field_id, field_type)
-
-            # Dispatch to specialized parsers for complex list types
-            if field_type == ThriftFieldType.LIST:
-                match field_id:
-                    case FileMetadataFieldId.SCHEMA:
-                        logger.debug('  Parsing schema elements...')
-                        schema_root = self._parse_schema_field()
-                        self.schema = schema_root
-                    case FileMetadataFieldId.ROW_GROUPS:
-                        logger.debug('  Parsing row groups...')
-                        row_groups = self._parse_row_groups_field()
-                    case FileMetadataFieldId.KEY_VALUE_METADATA:
-                        logger.debug('  Parsing key-value metadata...')
-                        key_value_metadata = self._parse_key_value_metadata_field()
-                    case _:
-                        logger.debug('  Skipping unknown list field %s', field_id)
-                        struct_parser.skip_field(field_type)
-                continue
-
-            # Handle primitive types
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case FileMetadataFieldId.VERSION:
-                    version = value
-                    logger.debug('  File format version: %s', value)
+                    props['version'] = value
                 case FileMetadataFieldId.NUM_ROWS:
-                    # num_rows is calculated in __post_init__, so we ignore this
-                    logger.debug(
-                        '  Total rows in file: %s (calculated from row groups)',
-                        value,
-                    )
+                    # we calculate this, so don't need it
+                    pass
                 case FileMetadataFieldId.CREATED_BY:
-                    created_by = value.decode('utf-8')
-                    logger.debug('  Created by: %s', created_by)
-
-        if not schema_root:
-            raise ValueError('Did not parse a schema')
+                    props['created_by'] = (
+                        value.decode('utf-8') if isinstance(value, bytes) else value
+                    )
+                case FileMetadataFieldId.SCHEMA:
+                    props['schema_root'] = SchemaParser(
+                        self.parser,
+                    ).parse_schema_field(value)
+                case FileMetadataFieldId.ROW_GROUPS:
+                    props['row_groups'] = self._parse_row_groups_field(
+                        value,
+                        props['schema_root'],
+                    )
+                case FileMetadataFieldId.KEY_VALUE_METADATA:
+                    props['key_value_metadata'] = [
+                        KeyValueParser(self.parser).parse() for _ in value
+                    ]
+                case FileMetadataFieldId.COLUMN_ORDERS:
+                    # column orders has some complexity
+                    # but little meaning at current
+                    self.maybe_skip_field(field_type)
+                case (
+                    FileMetadataFieldId.ENCRYPTION_ALGORITHM
+                    | FileMetadataFieldId.FOOTER_SIGNING_KEY_METADATA
+                ):
+                    # encryption is not supported
+                    self.maybe_skip_field(field_type)
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown metadata field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
         logger.debug('FileMetadata parsing complete!')
-        # Construct the frozen FileMetadata object with all values
-        return FileMetadata(
-            version=version,
-            schema_root=schema_root,
-            row_groups=row_groups,
-            created_by=created_by,
-            key_value_metadata=key_value_metadata,
-        )
+        return FileMetadata(**props)
 
-    def _parse_schema_field(self) -> SchemaRoot:
-        """
-        Parse the schema field using SchemaParser.
-
-        Teaching Points:
-        - Schema parsing is delegated to a specialized parser
-        - The schema provides the logical structure of the data
-        - Schema must be parsed before statistics for type context
-        """
-        logger.debug('    Delegating to SchemaParser...')
-
-        schema_parser = SchemaParser(self.parser)
-        return schema_parser.parse_schema_field()
-
-    def _parse_row_groups_field(self) -> list:
+    def _parse_row_groups_field(
+        self,
+        list_iter: Iterator,
+        schema_root: SchemaRoot | None,
+    ) -> RowGroups:
         """
         Parse the row_groups field using RowGroupParser.
 
@@ -155,62 +132,14 @@ class MetadataParser(BaseParser):
         """
         logger.debug('    Delegating to RowGroupParser...')
 
-        if not self.schema:
+        if not schema_root:
             raise ValueError('Schema must be parsed before row groups')
 
-        def parse_single_row_group():
-            row_group_parser = RowGroupParser(self.parser, self.schema)
-            return row_group_parser.read_row_group()
-
-        row_groups = self.read_list(parse_single_row_group)
+        row_groups: RowGroups = []
+        row_group_parser = RowGroupParser(self.parser, schema_root)
+        for _ in list_iter:
+            row_groups.append(row_group_parser.read_row_group())
 
         logger.debug('    Parsed %s row groups', len(row_groups))
 
         return row_groups
-
-    def _parse_key_value_metadata_field(self) -> list[KeyValueMetadata]:
-        """
-        Parse the key_value_metadata field.
-
-        Teaching Points:
-        - Key-value metadata provides extensibility
-        - Common uses include encoding information and custom attributes
-        - This metadata is optional and application-specific
-        """
-
-        def parse_key_value():
-            start_offset = self.parser.pos
-            struct_parser = ThriftStructParser(self.parser)
-            key = None
-            value = None
-
-            while True:
-                field_type, field_id = struct_parser.read_field_header()
-                if field_type == ThriftFieldType.STOP:
-                    break
-
-                field_value = struct_parser.read_value(field_type)
-                if field_value is None:
-                    continue
-
-                if field_id == KeyValueFieldId.KEY:
-                    key = field_value.decode('utf-8')
-                elif field_id == KeyValueFieldId.VALUE:
-                    value = field_value.decode('utf-8')
-
-            end_offset = self.parser.pos
-            byte_length = end_offset - start_offset
-            if key is None or value is None:
-                raise ThriftParsingError(
-                    'Incomplete key/value pair: missing key or value field. '
-                    'This may indicate corrupted metadata.',
-                )
-
-            return KeyValueMetadata(
-                start_offset=start_offset,
-                byte_length=byte_length,
-                key=key,
-                value=value,
-            )
-
-        return self.read_list(parse_key_value)

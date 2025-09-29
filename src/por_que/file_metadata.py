@@ -4,7 +4,7 @@ import warnings
 
 from collections.abc import Callable
 from functools import cached_property
-from typing import Annotated, Any, Literal, Self
+from typing import Annotated, Any, Literal
 
 from pydantic import (
     BaseModel,
@@ -22,9 +22,11 @@ from .enums import (
     Compression,
     ConvertedType,
     Encoding,
+    GeospatialType,
     GroupConvertedType,
     GroupLogicalType,
     LogicalType,
+    PageType,
     Repetition,
     SchemaElementType,
     TimeUnit,
@@ -258,18 +260,17 @@ class SchemaElement(BaseModel, frozen=True):
 
     def get_logical_type(self) -> LogicalTypeInfo | None:
         """Get the logical type, prioritizing logical_type field over converted_type."""
-        if hasattr(self, 'logical_type') and self.logical_type is not None:
-            return self.logical_type
+        logical_type = getattr(self, 'logical_type', None)
+
+        if logical_type is not None:
+            return logical_type
 
         # Fallback to converting converted_type to logical equivalent
-        if hasattr(self, 'converted_type'):
-            return self._converted_type_to_logical_type(
-                self.converted_type,
-                getattr(self, 'scale', None),
-                getattr(self, 'precision', None),
-            )
-
-        return None
+        return self._converted_type_to_logical_type(
+            getattr(self, 'converted_type', None),
+            getattr(self, 'scale', None),
+            getattr(self, 'precision', None),
+        )
 
     @staticmethod
     def _converted_type_to_logical_type(
@@ -294,12 +295,12 @@ class SchemaElement(BaseModel, frozen=True):
     def new(
         start_offset: int,
         byte_length: int,
-        name: str | None,
-        type: Type | None,
-        type_length: int | None,
-        repetition: Repetition | None,
-        num_children: int | None,
-        converted_type: ConvertedType | None,
+        name: str | None = None,
+        type: Type | None = None,
+        type_length: int | None = None,
+        repetition: Repetition | None = None,
+        num_children: int | None = None,
+        converted_type: ConvertedType | None = None,
         scale: int | None = None,
         precision: int | None = None,
         field_id: int | None = None,
@@ -508,6 +509,10 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
         Returns:
             Dictionary with schema-aware reconstructed nested structures.
         """
+        # If we have no data then we just return!
+        if not flat_data:
+            return {}
+
         # Convert flat paths to path segments for tree traversal
         path_segments_data = {
             tuple(path.split('.')): data for path, data in flat_data.items()
@@ -762,11 +767,56 @@ class SchemaLeaf(SchemaElement, frozen=True):
         ]
 
 
-class ColumnStatistics(BaseModel, frozen=True):
-    min_value: str | int | float | bool | None = None
-    max_value: str | int | float | bool | None = None
+class ColumnStatistics(
+    BaseModel,
+    frozen=True,
+    ser_json_bytes='base64',
+    val_json_bytes='base64',
+):
+    min_: bytes | None = Field(None, alias='min')
+    max_: bytes | None = Field(None, alias='max')
     null_count: int | None = None
     distinct_count: int | None = None
+    min_value: bytes | None = None
+    max_value: bytes | None = None
+    is_min_value_exact: bool | None = None
+    is_max_value_exact: bool | None = None
+
+
+class SizeStatistics(BaseModel, frozen=True):
+    """Size statistics for BYTE_ARRAY columns."""
+
+    unencoded_byte_array_data_bytes: int | None = None
+    repetition_level_histogram: list[int] | None = None
+    definition_level_histogram: list[int] | None = None
+
+
+class BoundingBox(BaseModel, frozen=True):
+    """Bounding box for GEOMETRY or GEOGRAPHY types."""
+
+    xmin: float
+    xmax: float
+    ymin: float
+    ymax: float
+    zmin: float | None = None
+    zmax: float | None = None
+    mmin: float | None = None
+    mmax: float | None = None
+
+
+class GeospatialStatistics(BaseModel, frozen=True):
+    """Statistics specific to Geometry and Geography logical types."""
+
+    bbox: BoundingBox | None = None
+    geospatial_types: list[GeospatialType] | None = None
+
+
+class PageEncodingStats(BaseModel, frozen=True):
+    """Statistics of a given page type and encoding."""
+
+    page_type: PageType
+    encoding: Encoding
+    count: int
 
 
 class PageLocation(BaseModel, frozen=True):
@@ -784,7 +834,12 @@ class OffsetIndex(BaseModel, frozen=True):
     unencoded_byte_array_data_bytes: list[int] | None = None
 
 
-class ColumnIndex(BaseModel, frozen=True):
+class ColumnIndex(
+    BaseModel,
+    frozen=True,
+    ser_json_bytes='base64',
+    val_json_bytes='base64',
+):
     """Index containing min/max statistics and null information for pages."""
 
     null_pages: list[bool]  # Which pages are all null
@@ -799,6 +854,8 @@ class ColumnIndex(BaseModel, frozen=True):
 class ColumnMetadata(BaseModel, frozen=True):
     """Detailed metadata about column chunk content and encoding."""
 
+    start_offset: int
+    byte_length: int
     type: Type
     encodings: list[Encoding]
     path_in_schema: str
@@ -808,16 +865,14 @@ class ColumnMetadata(BaseModel, frozen=True):
     total_uncompressed_size: int
     total_compressed_size: int
     data_page_offset: int
-    start_offset: int
-    byte_length: int
-    dictionary_page_offset: int | None = None
     index_page_offset: int | None = None
+    dictionary_page_offset: int | None = None
     statistics: ColumnStatistics | None = None
-    # Page Index fields (new in Parquet 2.5+)
-    column_index_offset: int | None = None
-    column_index_length: int | None = None
-    column_index: ColumnIndex | None = None
-    offset_index: OffsetIndex | None = None
+    encoding_stats: list[PageEncodingStats] | None = None
+    bloom_filter_offset: int | None = None
+    bloom_filter_length: int | None = None
+    size_statistics: SizeStatistics | None = None
+    geospatial_statistics: GeospatialStatistics | None = None
 
 
 class ColumnChunk(BaseModel, frozen=True):
@@ -825,7 +880,11 @@ class ColumnChunk(BaseModel, frozen=True):
 
     file_offset: int
     metadata: ColumnMetadata
-    file_path: str | None
+    file_path: str | None = None
+    offset_index_offset: int | None = None
+    offset_index_length: int | None = None
+    column_index_offset: int | None = None
+    column_index_length: int | None = None
 
     @model_validator(mode='before')
     @classmethod
@@ -850,103 +909,93 @@ class ColumnChunk(BaseModel, frozen=True):
 
         return data
 
-    @classmethod
-    def new(
-        cls,
-        file_offset: int | None,
-        metadata: ColumnMetadata | None,
-        file_path: str | None,
-    ) -> Self:
-        if file_offset is None:
-            raise ValueError('file_offset cannot be None')
-
-        if metadata is None:
-            raise ValueError('metadata cannot be None')
-
-        return cls(
-            file_offset=file_offset,
-            metadata=metadata,
-            file_path=file_path,
-        )
-
     # Property accessors for flattened API access
     # We maintain the nested ColumnMetadata structure to stay consistent with
     # the actual Parquet metadata model, but provide these accessors for a
     # more logical and convenient API experience.
-
-    @cached_property
+    @property
     def type(self) -> Type:
         return self.metadata.type
 
-    @cached_property
+    @property
     def encodings(self) -> list[Encoding]:
         return self.metadata.encodings
 
-    @cached_property
+    @property
     def path_in_schema(self) -> str:
         return self.metadata.path_in_schema
 
-    @cached_property
+    @property
     def schema_element(self) -> SchemaLeaf:
         return self.metadata.schema_element
 
-    @cached_property
+    @property
     def codec(self) -> Compression:
         return self.metadata.codec
 
-    @cached_property
+    @property
     def num_values(self) -> int:
         return self.metadata.num_values
 
-    @cached_property
+    @property
     def total_uncompressed_size(self) -> int:
         return self.metadata.total_uncompressed_size
 
-    @cached_property
+    @property
     def total_compressed_size(self) -> int:
         return self.metadata.total_compressed_size
 
-    @cached_property
+    @property
     def data_page_offset(self) -> int:
         return self.metadata.data_page_offset
 
-    @cached_property
-    def dictionary_page_offset(self) -> int | None:
-        return self.metadata.dictionary_page_offset
-
-    @cached_property
+    @property
     def index_page_offset(self) -> int | None:
         return self.metadata.index_page_offset
 
-    @cached_property
+    @property
+    def dictionary_page_offset(self) -> int | None:
+        return self.metadata.dictionary_page_offset
+
+    @property
     def statistics(self) -> ColumnStatistics | None:
         return self.metadata.statistics
 
-    @cached_property
-    def column_index_offset(self) -> int | None:
-        return self.metadata.column_index_offset
+    @property
+    def bloom_filter_offset(self) -> int | None:
+        return self.metadata.bloom_filter_offset
 
-    @cached_property
-    def column_index_length(self) -> int | None:
-        return self.metadata.column_index_length
+    @property
+    def bloom_filter_length(self) -> int | None:
+        return self.metadata.bloom_filter_length
 
-    @cached_property
-    def column_index(self) -> ColumnIndex | None:
-        return self.metadata.column_index
+    @property
+    def size_statistics(self) -> SizeStatistics | None:
+        return self.metadata.size_statistics
 
-    @cached_property
-    def offset_index(self) -> OffsetIndex | None:
-        return self.metadata.offset_index
+    @property
+    def geospatial_statistics(self) -> GeospatialStatistics | None:
+        return self.metadata.geospatial_statistics
+
+
+class SortingColumn(BaseModel, frozen=True):
+    column_idx: int
+    descending: bool
+    nulls_first: bool
 
 
 class RowGroup(BaseModel, frozen=True):
     """Logical representation of row group metadata."""
 
+    start_offset: int
+    byte_length: int
     column_chunks: dict[str, ColumnChunk]
     total_byte_size: int
     row_count: int
-    start_offset: int
-    byte_length: int
+    sorting_columns: list[SortingColumn] | None = None
+    file_offset: int | None = None
+    total_compressed_size: int | None = None
+    ordinal: int | None = None
 
     @computed_field
     @cached_property
@@ -1026,10 +1075,7 @@ class FileMetadata(BaseModel, frozen=True):
 
                 # Find and inject the logical metadata reference
                 schema_element = schema_root.find_element(path)
-                if (
-                    hasattr(metadata, 'schema_element')
-                    and metadata.schema_element is schema_element
-                ):
+                if getattr(metadata, 'schema_element', None) is schema_element:
                     updated_column_chunks[path] = column_chunk
                     continue
 
