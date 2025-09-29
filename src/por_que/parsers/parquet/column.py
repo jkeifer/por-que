@@ -8,19 +8,31 @@ Teaching Points:
 - Path in schema connects column chunks back to the logical schema structure
 """
 
+from __future__ import annotations
+
 import logging
+import warnings
+
+from typing import Any
 
 from por_que.enums import Compression, Encoding, Type
-from por_que.exceptions import ParquetFormatError
-from por_que.file_metadata import ColumnChunk, ColumnMetadata, SchemaLeaf, SchemaRoot
-from por_que.parsers.thrift.enums import ThriftFieldType
-from por_que.parsers.thrift.parser import ThriftStructParser
+from por_que.file_metadata import (
+    ColumnChunk,
+    ColumnMetadata,
+    PageEncodingStats,
+    SchemaRoot,
+    SizeStatistics,
+)
+from por_que.pages import PageType
 
 from .base import BaseParser
 from .enums import (
     ColumnChunkFieldId,
     ColumnMetadataFieldId,
+    PageEncodingStatsFieldId,
+    SizeStatisticsFieldId,
 )
+from .geostats import GeoStatsParser
 from .statistics import StatisticsParser
 
 logger = logging.getLogger(__name__)
@@ -37,7 +49,7 @@ class ColumnParser(BaseParser):
     - Statistics provide query optimization without reading actual data
     """
 
-    def __init__(self, parser, schema: SchemaRoot):
+    def __init__(self, parser, schema: SchemaRoot) -> None:
         """
         Initialize column parser with schema context for statistics.
 
@@ -50,7 +62,7 @@ class ColumnParser(BaseParser):
 
     def read_column_chunk(self) -> ColumnChunk:
         """
-        Read a ColumnChunk struct.
+        Read a ColumnChunk struct using the new generic parser.
 
         Teaching Points:
         - ColumnChunk is a container pointing to column data and metadata
@@ -61,46 +73,38 @@ class ColumnParser(BaseParser):
         Returns:
             ColumnChunk with metadata and file location info
         """
-        struct_parser = ThriftStructParser(self.parser)
-
-        # Collect values for frozen ColumnChunk construction
-        file_offset: int | None = 0
-        metadata: ColumnMetadata | None = None
-        file_path: str | None = None
-
         logger.debug('Reading column chunk')
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
+        props: dict[str, Any] = {}
 
-            if field_type == ThriftFieldType.STRUCT:
-                if field_id == ColumnChunkFieldId.META_DATA:
-                    metadata = self.read_column_metadata()
-                else:
-                    struct_parser.skip_field(field_type)
-                continue
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case ColumnChunkFieldId.FILE_PATH:
-                    file_path = value.decode('utf-8')
+                    props['file_path'] = value.decode('utf-8')
                 case ColumnChunkFieldId.FILE_OFFSET:
-                    file_offset = value
+                    props['file_offset'] = value
+                case ColumnChunkFieldId.OFFSET_INDEX_OFFSET:
+                    props['offset_index_offset'] = value
+                case ColumnChunkFieldId.OFFSET_INDEX_LENGTH:
+                    props['offset_index_length'] = value
+                case ColumnChunkFieldId.COLUMN_INDEX_OFFSET:
+                    props['column_index_offset'] = value
+                case ColumnChunkFieldId.COLUMN_INDEX_LENGTH:
+                    props['column_index_length'] = value
+                case ColumnChunkFieldId.META_DATA:
+                    props['metadata'] = self.read_column_metadata()
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown column chunk field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        return ColumnChunk.new(
-            file_offset=file_offset,
-            metadata=metadata,
-            file_path=file_path,
-        )
+        return ColumnChunk(**props)
 
     def read_column_metadata(self) -> ColumnMetadata:  # noqa: C901
         """
-        Read ColumnMetaData struct.
+        Read ColumnMetaData struct using the new generic parser.
 
         Teaching Points:
         - Column metadata describes how data is stored and encoded
@@ -113,113 +117,108 @@ class ColumnParser(BaseParser):
             ColumnMetadata with complete column information
         """
         start_offset = self.parser.pos
-        struct_parser = ThriftStructParser(self.parser)
-        # Collect values for frozen ColumnMetadata construction
-        type_val = Type.BOOLEAN
-        encodings = []
-        path_in_schema = ''
-        codec = Compression.UNCOMPRESSED
-        num_values = 0
-        total_uncompressed_size = 0
-        total_compressed_size = 0
-        data_page_offset = 0
-        dictionary_page_offset = None
-        index_page_offset = None
-        statistics = None
-        column_index_offset = None
+        props: dict[str, Any] = {
+            'start_offset': start_offset,
+        }
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            # Handle complex types explicitly
-            if field_type == ThriftFieldType.LIST:
-                if field_id == ColumnMetadataFieldId.ENCODINGS:
-                    # Encodings list shows data transformation methods applied
-                    encoding_ints = self.read_list(self.read_i32)
-                    encodings = [Encoding(e) for e in encoding_ints]
-                elif field_id == ColumnMetadataFieldId.PATH_IN_SCHEMA:
-                    # Path connects this column back to schema structure
-                    path_list = self.read_list(self.read_string)
-                    path_in_schema = '.'.join(path_list)
-                else:
-                    struct_parser.skip_field(field_type)
-                continue
-
-            if field_type == ThriftFieldType.STRUCT:
-                if field_id == ColumnMetadataFieldId.STATISTICS:
-                    # Statistics enable predicate pushdown optimization
-                    stats_parser = StatisticsParser(self.parser, self.schema)
-                    statistics = stats_parser.read_statistics(
-                        type_val,
-                        path_in_schema,
-                    )
-                else:
-                    struct_parser.skip_field(field_type)
-                continue
-
-            # Handle primitive types with the generic parser
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case ColumnMetadataFieldId.TYPE:
-                    type_val = Type(value)
+                    props['type'] = Type(value)
                 case ColumnMetadataFieldId.CODEC:
-                    # Compression codec (UNCOMPRESSED, SNAPPY, GZIP, etc.)
-                    codec = Compression(value)
+                    props['codec'] = Compression(value)
                 case ColumnMetadataFieldId.NUM_VALUES:
-                    # Total number of values (excluding NULLs)
-                    num_values = value
+                    props['num_values'] = value
                 case ColumnMetadataFieldId.TOTAL_UNCOMPRESSED_SIZE:
-                    # Raw data size before compression
-                    total_uncompressed_size = value
+                    props['total_uncompressed_size'] = value
                 case ColumnMetadataFieldId.TOTAL_COMPRESSED_SIZE:
-                    # Data size after compression (actual bytes in file)
-                    total_compressed_size = value
+                    props['total_compressed_size'] = value
                 case ColumnMetadataFieldId.DATA_PAGE_OFFSET:
-                    # File offset where data pages begin
-                    data_page_offset = value
+                    props['data_page_offset'] = value
                 case ColumnMetadataFieldId.INDEX_PAGE_OFFSET:
-                    # File offset for index pages (optional optimization)
-                    index_page_offset = value
+                    props['index_page_offset'] = value
                 case ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
-                    # File offset for dictionary page (if dictionary encoding used)
-                    dictionary_page_offset = value
-                case ColumnMetadataFieldId.COLUMN_INDEX_OFFSET:
-                    # File offset for column index (Page Index feature)
-                    column_index_offset = value
+                    props['dictionary_page_offset'] = value
+                case ColumnMetadataFieldId.ENCODINGS:
+                    props['encodings'] = [Encoding(self.read_i32()) for _ in value]
+                case ColumnMetadataFieldId.PATH_IN_SCHEMA:
+                    path_in_schema = '.'.join([self.read_string() for _ in value])
+                    props['path_in_schema'] = path_in_schema
+                    props['schema_element'] = self.schema.find_element(path_in_schema)
+                case ColumnMetadataFieldId.STATISTICS:
+                    props['statistics'] = StatisticsParser(
+                        self.parser,
+                    ).read_statistics()
+                case ColumnMetadataFieldId.ENCODING_STATS:
+                    props['encoding_stats'] = [
+                        self._parse_page_encoding_stats() for _ in value
+                    ]
+                case ColumnMetadataFieldId.BLOOM_FILTER_OFFSET:
+                    props['bloom_filter_offset'] = value
+                case ColumnMetadataFieldId.BLOOM_FILTER_LENGTH:
+                    props['bloom_filter_length'] = value
+                case ColumnMetadataFieldId.SIZE_STATISTICS:
+                    props['size_statistics'] = self._parse_size_statistics()
+                case ColumnMetadataFieldId.GEOSPATIAL_STATISTICS:
+                    props['geospatial_statistics'] = GeoStatsParser(
+                        self.parser,
+                    ).read_geo_stats()
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown column metadata field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
         end_offset = self.parser.pos
-        byte_length = end_offset - start_offset
+        props['byte_length'] = end_offset - start_offset
 
-        schema_element = self.schema.find_element(path_in_schema)
+        return ColumnMetadata(**props)
 
-        if not isinstance(schema_element, SchemaLeaf):
-            raise ParquetFormatError(
-                f'Could not find schema leaf element for path: {path_in_schema}',
-            )
+    def _parse_page_encoding_stats(self) -> PageEncodingStats:
+        """Parse PageEncodingStats structs."""
 
-        # Construct the frozen ColumnMetadata
-        return ColumnMetadata(
-            type=type_val,
-            encodings=encodings,
-            path_in_schema=path_in_schema,
-            schema_element=schema_element,
-            codec=codec,
-            num_values=num_values,
-            total_uncompressed_size=total_uncompressed_size,
-            total_compressed_size=total_compressed_size,
-            data_page_offset=data_page_offset,
-            start_offset=start_offset,
-            byte_length=byte_length,
-            dictionary_page_offset=dictionary_page_offset,
-            index_page_offset=index_page_offset,
-            statistics=statistics,
-            column_index_offset=column_index_offset,
-            column_index_length=None,  # Will be calculated when parsing indexes
-            column_index=None,  # Will be populated when parsing indexes
-            offset_index=None,  # Will be populated when parsing indexes
-        )
+        props: dict[str, Any] = {}
+
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case PageEncodingStatsFieldId.PAGE_TYPE:
+                    props['page_type'] = PageType(value)
+                case PageEncodingStatsFieldId.ENCODING:
+                    props['encoding'] = Encoding(value)
+                case PageEncodingStatsFieldId.COUNT:
+                    props['count'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown page encodings stats field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
+
+        return PageEncodingStats(**props)
+
+    def _parse_size_statistics(self) -> SizeStatistics:
+        """Parse a SizeStatistics struct."""
+
+        props: dict[str, Any] = {}
+
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case SizeStatisticsFieldId.UNENCODED_BYTE_ARRAY_DATA_BYTES:
+                    props['unencoded_byte_array_data_bytes'] = value
+                case SizeStatisticsFieldId.REPETITION_LEVEL_HISTOGRAM:
+                    props['repetition_level_histogram'] = [
+                        self.read_i64() for _ in value
+                    ]
+                case SizeStatisticsFieldId.DEFINITION_LEVEL_HISTOGRAM:
+                    props['definition_level_histogram'] = [
+                        self.read_i64() for _ in value
+                    ]
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown size stats field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
+
+        return SizeStatistics(**props)

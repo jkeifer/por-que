@@ -45,13 +45,12 @@ class PorQueMeta(BaseModel, frozen=True):
     por_que_version: str = get_version()
 
 
-class PhysicalPageIndex(BaseModel, frozen=True):
-    """Physical location and parsed content of Page Index data."""
+class PhysicalColumnIndex(BaseModel, frozen=True):
+    """Physical location and parsed content of Column Index data."""
 
     column_index_offset: int
     column_index_length: int
     column_index: ColumnIndex
-    offset_index: OffsetIndex
 
     @classmethod
     def from_reader(
@@ -68,13 +67,7 @@ class PhysicalPageIndex(BaseModel, frozen=True):
 
         # Parse page index data directly from file
         parser = ThriftCompactParser(reader, column_index_offset)
-        page_index_parser = PageIndexParser(parser)
-
-        # Parse ColumnIndex first
-        column_index = page_index_parser.read_column_index()
-
-        # Parse OffsetIndex second (should immediately follow)
-        offset_index = page_index_parser.read_offset_index()
+        column_index = PageIndexParser(parser).read_column_index()
 
         end_pos = reader.tell()
         byte_length = end_pos - start_pos
@@ -83,6 +76,39 @@ class PhysicalPageIndex(BaseModel, frozen=True):
             column_index_offset=column_index_offset,
             column_index_length=byte_length,
             column_index=column_index,
+        )
+
+
+class PhysicalOffsetIndex(BaseModel, frozen=True):
+    """Physical location and parsed content of Offset Index data."""
+
+    offset_index_offset: int
+    offset_index_length: int
+    offset_index: OffsetIndex
+
+    @classmethod
+    def from_reader(
+        cls,
+        reader: ReadableSeekable,
+        offset_index_offset: int,
+    ) -> Self:
+        """Parse Page Index data from file location."""
+        from .parsers.parquet.page_index import PageIndexParser
+        from .parsers.thrift.parser import ThriftCompactParser
+
+        reader.seek(offset_index_offset)
+        start_pos = reader.tell()
+
+        # Parse page index data directly from file
+        parser = ThriftCompactParser(reader, offset_index_offset)
+        offset_index = PageIndexParser(parser).read_offset_index()
+
+        end_pos = reader.tell()
+        byte_length = end_pos - start_pos
+
+        return cls(
+            offset_index_offset=offset_index_offset,
+            offset_index_length=byte_length,
             offset_index=offset_index,
         )
 
@@ -99,7 +125,8 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     index_pages: list[IndexPage]
     dictionary_page: DictionaryPage | None
     metadata: ColumnChunk = Field(exclude=True)
-    page_index: PhysicalPageIndex | None = None
+    column_index: PhysicalColumnIndex | None = None
+    offset_index: PhysicalOffsetIndex | None = None
     row_group: int
 
     @classmethod
@@ -147,12 +174,18 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                 page.start_offset + page.header_size + page.compressed_page_size
             )
 
-        # Load Page Index if available
-        page_index = None
+        column_index = None
         if chunk_metadata.column_index_offset is not None:
-            page_index = PhysicalPageIndex.from_reader(
+            column_index = PhysicalColumnIndex.from_reader(
                 reader,
                 chunk_metadata.column_index_offset,
+            )
+
+        offset_index = None
+        if chunk_metadata.offset_index_offset is not None:
+            offset_index = PhysicalOffsetIndex.from_reader(
+                reader,
+                chunk_metadata.offset_index_offset,
             )
 
         return cls(
@@ -165,7 +198,8 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             index_pages=index_pages,
             dictionary_page=dictionary_page,
             metadata=chunk_metadata,
-            page_index=page_index,
+            column_index=column_index,
+            offset_index=offset_index,
             row_group=row_group,
         )
 
@@ -289,7 +323,12 @@ class PhysicalMetadata(BaseModel, frozen=True):
         )
 
 
-class ParquetFile(BaseModel, frozen=True):
+class ParquetFile(
+    BaseModel,
+    frozen=True,
+    ser_json_bytes='base64',
+    val_json_bytes='base64',
+):
     """The root object representing the entire physical file structure."""
 
     source: str

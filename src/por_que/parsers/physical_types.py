@@ -10,6 +10,7 @@ import struct
 
 from io import BytesIO
 
+from por_que.enums import Type
 from por_que.exceptions import ParquetDataError
 
 
@@ -129,9 +130,6 @@ def parse_fixed_len_byte_array_values(
     return values
 
 
-# Raw bytes parsing functions for statistics and other use cases
-
-
 def parse_boolean_from_bytes(raw_bytes: bytes) -> bool:
     """Parse boolean value from raw bytes."""
     if len(raw_bytes) != 1:
@@ -172,3 +170,42 @@ def parse_double_from_bytes(raw_bytes: bytes) -> float:
     if len(raw_bytes) != 8:
         raise ParquetDataError(f'DOUBLE value must be 8 bytes, got {len(raw_bytes)}')
     return struct.unpack('<d', raw_bytes)[0]
+
+
+def parse_bytes(
+    raw_bytes: bytes,
+    column_type: Type,
+) -> bytes | str | int | float | bool | None:
+    """
+    Deserialize binary value based on Parquet physical type.
+
+    Args:
+        raw_bytes: Binary representation from statistics
+        column_type: Physical type (Type enum)
+
+    Returns:
+        Deserialized physical type value in appropriate Python type
+
+    Raises:
+        ParquetDataError: If deserialization fails or type is unsupported
+    """
+    if not raw_bytes:
+        return None
+
+    match column_type:
+        case Type.BOOLEAN:
+            return parse_boolean_from_bytes(raw_bytes)
+        case Type.INT32:
+            return parse_int32_from_bytes(raw_bytes)
+        case Type.INT64:
+            return parse_int64_from_bytes(raw_bytes)
+        case Type.INT96:
+            return parse_int96_from_bytes(raw_bytes)
+        case Type.FLOAT:
+            return parse_float_from_bytes(raw_bytes)
+        case Type.DOUBLE:
+            return parse_double_from_bytes(raw_bytes)
+        case Type.BYTE_ARRAY | Type.FIXED_LEN_BYTE_ARRAY:
+            return raw_bytes
+        case _:
+            raise ParquetDataError(f'Unsupported column type: {column_type}')

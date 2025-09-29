@@ -8,12 +8,12 @@ Teaching Points:
 - These structures enable efficient page skipping during queries
 """
 
-import logging
+import warnings
+
+from typing import Any
 
 from por_que.enums import BoundaryOrder
 from por_que.file_metadata import ColumnIndex, OffsetIndex, PageLocation
-from por_que.parsers.thrift.enums import ThriftFieldType
-from por_que.parsers.thrift.parser import ThriftStructParser
 
 from .base import BaseParser
 from .enums import (
@@ -21,8 +21,6 @@ from .enums import (
     OffsetIndexFieldId,
     PageLocationFieldId,
 )
-
-logger = logging.getLogger(__name__)
 
 
 class PageIndexParser(BaseParser):
@@ -38,139 +36,95 @@ class PageIndexParser(BaseParser):
 
     def read_page_location(self) -> PageLocation:
         """
-        Read a PageLocation struct.
+        Read a PageLocation struct using the new generic parser.
+
+        Teaching Points:
+        - Demonstrates the new streamlined parsing approach
+        - All field parsing boilerplate is eliminated
+        - Focus is on the data structure rather than parsing mechanics
 
         Returns:
             PageLocation with file offset, size, and first row index
         """
-        struct_parser = ThriftStructParser(self.parser)
+        props: dict[str, Any] = {}
 
-        offset = 0
-        compressed_page_size = 0
-        first_row_index = 0
-
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case PageLocationFieldId.OFFSET:
-                    offset = value
+                    props['offset'] = value
                 case PageLocationFieldId.COMPRESSED_PAGE_SIZE:
-                    compressed_page_size = value
+                    props['compressed_page_size'] = value
                 case PageLocationFieldId.FIRST_ROW_INDEX:
-                    first_row_index = value
+                    props['first_row_index'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown page location field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        return PageLocation(
-            offset=offset,
-            compressed_page_size=compressed_page_size,
-            first_row_index=first_row_index,
-        )
+        return PageLocation(**props)
 
     def read_offset_index(self) -> OffsetIndex:
         """
-        Read an OffsetIndex struct.
+        Read an OffsetIndex struct using the new generic parser.
 
         Returns:
             OffsetIndex with page locations and optional byte array data
         """
-        struct_parser = ThriftStructParser(self.parser)
+        props: dict[str, Any] = {}
 
-        page_locations = []
-        unencoded_byte_array_data_bytes = None
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case OffsetIndexFieldId.PAGE_LOCATIONS:
+                    props['page_locations'] = [self.read_page_location() for _ in value]
+                case OffsetIndexFieldId.UNENCODED_BYTE_ARRAY_DATA_BYTES:
+                    props['unencoded_byte_array_data_bytes'] = [
+                        self.read_i64() for _ in value
+                    ]
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown offset index field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        logger.debug('Reading OffsetIndex')
+        return OffsetIndex(**props)
 
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            if field_type == ThriftFieldType.LIST:
-                if field_id == OffsetIndexFieldId.PAGE_LOCATIONS:
-                    page_locations = self.read_list(self.read_page_location)
-                elif field_id == OffsetIndexFieldId.UNENCODED_BYTE_ARRAY_DATA_BYTES:
-                    unencoded_byte_array_data_bytes = self.read_list(self.read_i64)
-                else:
-                    struct_parser.skip_field(field_type)
-                continue
-
-            # Skip any unexpected fields
-            struct_parser.skip_field(field_type)
-
-        logger.debug('Read OffsetIndex with %d page locations', len(page_locations))
-        return OffsetIndex(
-            page_locations=page_locations,
-            unencoded_byte_array_data_bytes=unencoded_byte_array_data_bytes,
-        )
-
-    def read_column_index(self) -> ColumnIndex:  # noqa: C901
+    def read_column_index(self) -> ColumnIndex:
         """
-        Read a ColumnIndex struct.
+        Read a ColumnIndex struct using the new generic parser.
 
         Returns:
             ColumnIndex with page statistics and null information
         """
-        struct_parser = ThriftStructParser(self.parser)
+        props: dict[str, Any] = {}
 
-        null_pages = []
-        min_values = []
-        max_values = []
-        boundary_order = BoundaryOrder.UNORDERED
-        null_counts = None
-        repetition_level_histograms = None
-        definition_level_histograms = None
-
-        logger.debug('Reading ColumnIndex')
-
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            if field_type == ThriftFieldType.LIST:
-                match field_id:
-                    case ColumnIndexFieldId.NULL_PAGES:
-                        null_pages = self.read_list(self.read_bool)
-                    case ColumnIndexFieldId.MIN_VALUES:
-                        min_values = self.read_list(self.read_bytes)
-                    case ColumnIndexFieldId.MAX_VALUES:
-                        max_values = self.read_list(self.read_bytes)
-                    case ColumnIndexFieldId.NULL_COUNTS:
-                        null_counts = self.read_list(self.read_i64)
-                    case ColumnIndexFieldId.REPETITION_LEVEL_HISTOGRAMS:
-                        repetition_level_histograms = self.read_list(self.read_i64)
-                    case ColumnIndexFieldId.DEFINITION_LEVEL_HISTOGRAMS:
-                        definition_level_histograms = self.read_list(self.read_i64)
-                    case _:
-                        struct_parser.skip_field(field_type)
-                continue
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case ColumnIndexFieldId.BOUNDARY_ORDER:
-                    boundary_order = BoundaryOrder(value)
+                    props['boundary_order'] = BoundaryOrder(value)
+                case ColumnIndexFieldId.NULL_PAGES:
+                    props['null_pages'] = [self.read_bool() for _ in value]
+                case ColumnIndexFieldId.MIN_VALUES:
+                    props['min_values'] = [self.read_bytes() for _ in value]
+                case ColumnIndexFieldId.MAX_VALUES:
+                    props['max_values'] = [self.read_bytes() for _ in value]
+                case ColumnIndexFieldId.NULL_COUNTS:
+                    props['null_counts'] = [self.read_i64() for _ in value]
+                case ColumnIndexFieldId.REPETITION_LEVEL_HISTOGRAMS:
+                    props['repetition_level_histograms'] = [
+                        self.read_i64() for _ in value
+                    ]
+                case ColumnIndexFieldId.DEFINITION_LEVEL_HISTOGRAMS:
+                    props['definition_level_histograms'] = [
+                        self.read_i64() for _ in value
+                    ]
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown column index field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        logger.debug(
-            'Read ColumnIndex with %d pages, boundary_order=%s',
-            len(null_pages),
-            boundary_order.name,
-        )
-
-        return ColumnIndex(
-            null_pages=null_pages,
-            min_values=min_values,
-            max_values=max_values,
-            boundary_order=boundary_order,
-            null_counts=null_counts,
-            repetition_level_histograms=repetition_level_histograms,
-            definition_level_histograms=definition_level_histograms,
-        )
+        return ColumnIndex(**props)

@@ -1,6 +1,7 @@
 import logging
 import struct
 
+from collections.abc import Iterator
 from typing import Any
 
 from por_que.exceptions import InvalidStringLengthError, ThriftParsingError
@@ -135,7 +136,97 @@ class ThriftCompactParser:
 
     def skip(self, n: int) -> None:
         """Skip n bytes"""
-        self.reader.seek(n, 1)  # Seek relative to current position
+        self.reader.seek(n, 1)
+
+    def read_value(self, field_type: int) -> Any:
+        """Read a value of a given type from the stream."""
+        match field_type:
+            case ThriftFieldType.BOOL_TRUE:
+                return True
+            case ThriftFieldType.BOOL_FALSE:
+                return False
+            case ThriftFieldType.BYTE:
+                return self.read(1)
+            case ThriftFieldType.I16 | ThriftFieldType.I32:
+                return self.read_i32()
+            case ThriftFieldType.I64:
+                return self.read_i64()
+            case ThriftFieldType.DOUBLE:
+                return struct.unpack('<d', self.read(8))[0]
+            case ThriftFieldType.BINARY:
+                return self.read_bytes()
+            case _:
+                self.skip_field(field_type)
+                return None
+
+    def skip_field(self, field_type: int) -> None:  # noqa: C901
+        match field_type:
+            case ThriftFieldType.BOOL_TRUE | ThriftFieldType.BOOL_FALSE:
+                # No data to skip
+                return
+            case ThriftFieldType.BYTE:
+                self.skip(1)
+            case ThriftFieldType.I16 | ThriftFieldType.I32 | ThriftFieldType.I64:
+                self.read_varint()
+            case ThriftFieldType.DOUBLE:
+                self.skip(8)
+            case ThriftFieldType.BINARY:
+                self.skip(self.read_varint())
+            case ThriftFieldType.STRUCT:
+                nested = ThriftStructParser(self)
+                while True:
+                    ftype, _ = nested.read_field_header()
+                    if ftype == ThriftFieldType.STOP:
+                        break
+                    self.skip_field(ftype)
+            case ThriftFieldType.LIST | ThriftFieldType.SET:
+                self.skip_list()
+            case ThriftFieldType.MAP:
+                self.skip_map()
+            case _:
+                raise ThriftParsingError(
+                    f'Unknown thrift type: {field_type}',
+                )
+
+    def skip_list(self) -> None:
+        """Skip a list/set"""
+        for elem_type in self.yield_list_elements():
+            self.skip_field(elem_type)
+
+    def skip_map(self) -> None:
+        """Skip a map"""
+        # Maps always encode size as varint (unlike lists)
+        size = self.read_varint()
+
+        if size > 0:
+            types_byte = int.from_bytes(self.read())
+            key_type = (types_byte >> THRIFT_MAP_TYPE_SHIFT) & THRIFT_FIELD_TYPE_MASK
+            val_type = types_byte & THRIFT_FIELD_TYPE_MASK
+
+            for _ in range(size):
+                self.skip_field(key_type)
+                self.skip_field(val_type)
+
+    def yield_list_elements(
+        self,
+    ) -> Iterator[int]:
+        """
+        Yield for each element in a Thrift compact protocol list.
+
+        Teaching Points:
+        - Lists in Thrift encode element type and count in a header byte
+        - Size field uses 4 bits, with special handling for sizes >= 15
+        - This enables efficient storage of both small and large lists
+        """
+        header: int = int.from_bytes(self.read())
+        size: int = header >> THRIFT_SIZE_SHIFT
+        elem_type = header & THRIFT_FIELD_TYPE_MASK
+
+        # If size == 15, read actual size from varint
+        if size == THRIFT_SPECIAL_LIST_SIZE:
+            size = self.read_varint()
+
+        yield from [elem_type for _ in range(size)]
 
 
 class ThriftStructParser:
@@ -172,12 +263,9 @@ class ThriftStructParser:
         field_type = byte & THRIFT_FIELD_TYPE_MASK
         field_delta = byte >> 4
 
-        if field_delta == 0:
-            # Special case: STOP field is just 0x00, no zigzag varint to read
-            if field_type == ThriftFieldType.STOP:
-                field_delta = 0
-            else:
-                field_delta = self.parser.read_zigzag()
+        # Special case: STOP field is just 0x00, no zigzag varint to read
+        if field_type != ThriftFieldType.STOP and field_delta == 0:
+            field_delta = self.parser.read_zigzag()
 
         self.last_field_id += field_delta
         logger.debug(
@@ -188,92 +276,13 @@ class ThriftStructParser:
         )
         return field_type, self.last_field_id
 
+    def peek_field_header(self) -> tuple[int, int]:
+        pos = self.parser.pos
+        last_field_id = self.last_field_id
+        field_type, field_id = self.read_field_header()
+        self.last_field_id = last_field_id
+        self.parser.reader.seek(pos)
+        return field_type, field_id
+
     def read_value(self, field_type: int) -> Any:
-        """Read a value of a given type from the stream."""
-        match field_type:
-            case ThriftFieldType.BOOL_TRUE:
-                return True
-            case ThriftFieldType.BOOL_FALSE:
-                return False
-            case ThriftFieldType.BYTE:
-                return self.parser.read(1)
-            case ThriftFieldType.I16 | ThriftFieldType.I32:
-                return self.parser.read_i32()
-            case ThriftFieldType.I64:
-                return self.parser.read_i64()
-            case ThriftFieldType.DOUBLE:
-                return struct.unpack('<d', self.parser.read(8))[0]
-            case ThriftFieldType.BINARY:
-                return self.parser.read_bytes()
-            case _:
-                self.skip_field(field_type)
-                return None
-
-    def skip_field(self, field_type: int) -> None:  # noqa: C901
-        """Skip a field based on its type"""
-
-        if (
-            field_type == ThriftFieldType.BOOL_TRUE
-            or field_type == ThriftFieldType.BOOL_FALSE
-        ):
-            # No data to skip
-            return
-
-        if field_type == ThriftFieldType.BYTE:
-            self.parser.skip(1)
-        elif field_type in [
-            ThriftFieldType.I16,
-            ThriftFieldType.I32,
-            ThriftFieldType.I64,
-        ]:
-            self.parser.read_varint()
-        elif field_type == ThriftFieldType.DOUBLE:
-            self.parser.skip(8)
-        elif field_type == ThriftFieldType.BINARY:
-            length = self.parser.read_varint()
-            self.parser.skip(length)
-        elif field_type == ThriftFieldType.STRUCT:
-            # Create a new struct parser for the nested struct
-            nested = ThriftStructParser(self.parser)
-            while True:
-                ftype, _ = nested.read_field_header()
-                if ftype == ThriftFieldType.STOP:
-                    break
-                nested.skip_field(ftype)
-        elif field_type == ThriftFieldType.LIST:
-            self.skip_list()
-        elif field_type == ThriftFieldType.SET:
-            # Same as list
-            self.skip_list()
-        elif field_type == ThriftFieldType.MAP:
-            self.skip_map()
-
-    def skip_list(self) -> None:
-        """Skip a list/set"""
-        header = int.from_bytes(self.parser.read(1))
-        size = header >> THRIFT_SIZE_SHIFT  # Size from upper 4 bits
-        elem_type = header & THRIFT_FIELD_TYPE_MASK  # Element type from lower 4 bits
-
-        # If size == 15, read actual size from varint
-        if size == THRIFT_SPECIAL_LIST_SIZE:
-            size = self.parser.read_varint()
-
-        # Skip all elements
-        skip_parser = ThriftStructParser(self.parser)
-        for _ in range(size):
-            skip_parser.skip_field(elem_type)
-
-    def skip_map(self) -> None:
-        """Skip a map"""
-        # Maps always encode size as varint (unlike lists)
-        size = self.parser.read_varint()
-
-        if size > 0:
-            types_byte = int.from_bytes(self.parser.read())
-            key_type = (types_byte >> THRIFT_MAP_TYPE_SHIFT) & THRIFT_FIELD_TYPE_MASK
-            val_type = types_byte & THRIFT_FIELD_TYPE_MASK
-
-            skip_parser = ThriftStructParser(self.parser)
-            for _ in range(size):
-                skip_parser.skip_field(key_type)
-                skip_parser.skip_field(val_type)
+        return self.parser.read_value(field_type)

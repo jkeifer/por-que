@@ -1,5 +1,7 @@
 from enum import IntEnum
 
+# see https://github.com/apache/parquet-format/blob/master/src/main/thrift/parquet.thrift
+
 
 # Field IDs for Parquet Thrift structures
 class SchemaElementFieldId(IntEnum):
@@ -33,9 +35,10 @@ class ColumnMetadataFieldId(IntEnum):
     DICTIONARY_PAGE_OFFSET = 11
     STATISTICS = 12
     ENCODING_STATS = 13
-    # Page Index fields (Parquet 2.5+)
-    COLUMN_INDEX_OFFSET = 14
+    BLOOM_FILTER_OFFSET = 14
     BLOOM_FILTER_LENGTH = 15
+    SIZE_STATISTICS = 16
+    GEOSPATIAL_STATISTICS = 17
 
 
 class ColumnChunkFieldId(IntEnum):
@@ -44,6 +47,14 @@ class ColumnChunkFieldId(IntEnum):
     FILE_PATH = 1
     FILE_OFFSET = 2
     META_DATA = 3
+    # Page Index fields (Parquet 2.5+)
+    OFFSET_INDEX_OFFSET = 4
+    OFFSET_INDEX_LENGTH = 5
+    COLUMN_INDEX_OFFSET = 6
+    COLUMN_INDEX_LENGTH = 7
+    # Encryption fields
+    CRYPTO_METADATA = 8
+    ENCRYPTED_COLUMN_METADATA = 9
 
 
 class RowGroupFieldId(IntEnum):
@@ -52,6 +63,10 @@ class RowGroupFieldId(IntEnum):
     COLUMNS = 1
     TOTAL_BYTE_SIZE = 2
     NUM_ROWS = 3
+    SORTING_COLUMNS = 4
+    FILE_OFFSET = 5
+    TOTAL_COMPRESSED_SIZE = 6
+    ORDINAL = 7
 
 
 class FileMetadataFieldId(IntEnum):
@@ -63,6 +78,10 @@ class FileMetadataFieldId(IntEnum):
     ROW_GROUPS = 4
     KEY_VALUE_METADATA = 5
     CREATED_BY = 6
+    COLUMN_ORDERS = 7
+    # Encryption fields
+    ENCRYPTION_ALGORITHM = 8
+    FOOTER_SIGNING_KEY_METADATA = 9
 
 
 class KeyValueFieldId(IntEnum):
@@ -75,12 +94,14 @@ class KeyValueFieldId(IntEnum):
 class StatisticsFieldId(IntEnum):
     """Field IDs for Statistics struct in Parquet metadata."""
 
-    MIN_VALUE = 1
-    MAX_VALUE = 2
+    MAX = 1
+    MIN = 2
     NULL_COUNT = 3
     DISTINCT_COUNT = 4
-    MAX_VALUE_DELTA = 5
-    MIN_VALUE_DELTA = 6
+    MAX_VALUE = 5
+    MIN_VALUE = 6
+    IS_MAX_VALUE_EXACT = 7
+    IS_MIN_VALUE_EXACT = 8
 
 
 class PageHeaderFieldId(IntEnum):
@@ -159,3 +180,37 @@ class ColumnIndexFieldId(IntEnum):
     NULL_COUNTS = 5
     REPETITION_LEVEL_HISTOGRAMS = 6
     DEFINITION_LEVEL_HISTOGRAMS = 7
+
+
+class BoundingBoxFieldId(IntEnum):
+    XMIN = 1
+    XMAX = 2
+    YMIN = 3
+    YMAX = 4
+    ZMIN = 5
+    ZMAX = 6
+    MMIN = 7
+    MMAX = 8
+
+
+class GeospatialStatisticsFieldId(IntEnum):
+    BBOX = 1
+    GEOSPATIAL_TYPES = 2
+
+
+class SizeStatisticsFieldId(IntEnum):
+    UNENCODED_BYTE_ARRAY_DATA_BYTES = 1
+    REPETITION_LEVEL_HISTOGRAM = 2
+    DEFINITION_LEVEL_HISTOGRAM = 3
+
+
+class PageEncodingStatsFieldId(IntEnum):
+    PAGE_TYPE = 1
+    ENCODING = 2
+    COUNT = 3
+
+
+class SortingColumnFieldId(IntEnum):
+    COLUMN_IDX = 1
+    DESCENDING = 2
+    NULLS_FIRST = 3

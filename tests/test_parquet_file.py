@@ -115,7 +115,7 @@ DATA_PAGE_FIXTURE_COMPARATOR = {
 }
 
 
-class DataFixtureEncoder(json.JSONEncoder):
+class FixtureEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, bytes):
             return ENCODED_PREFIX + base64.b64encode(o).decode()
@@ -124,7 +124,7 @@ class DataFixtureEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
-class DataFixtureDecoder(json.JSONDecoder):
+class FixtureDecoder(json.JSONDecoder):
     def decode(self, s):  # type: ignore
         # Parse normally first
         obj = super().decode(s)
@@ -169,7 +169,9 @@ def test_parquet_file(
             expected = json.loads(fixture.read_text())
             assert actual == expected
         except FileNotFoundError:
-            fixture.write_text(json.dumps(actual, indent=2))
+            fixture.write_text(
+                json.dumps(actual, indent=2),
+            )
             pytest.skip(
                 f'Generated fixture {fixture}. Re-run test to compare.',
             )
@@ -260,16 +262,18 @@ def _comparison(
     # to update, delete the fixture file it and re-run
     fixture = DATA_FIXTURES / f'{file_name}_expected.json'
     try:
-        expected = json.loads(fixture.read_text(), cls=DataFixtureDecoder)
+        expected = json.loads(fixture.read_text(), cls=FixtureDecoder)
     except FileNotFoundError:
-        fixture.write_text(json.dumps(actual, indent=2, cls=DataFixtureEncoder))
+        fixture.write_text(
+            json.dumps(actual, indent=2, cls=FixtureEncoder),
+        )
         pytest.skip(
             f'Generated fixture {fixture}. Re-run test to compare.',
         )
 
     actual_serialized = json.loads(
-        json.dumps(actual, cls=DataFixtureEncoder),
-        cls=DataFixtureDecoder,
+        json.dumps(actual, cls=FixtureEncoder),
+        cls=FixtureDecoder,
     )
 
     if 'nan' in file_name:

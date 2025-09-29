@@ -25,7 +25,49 @@
       ],
       "index_pages": [],
       "dictionary_page": null,
-      "page_index": null,
+      "column_index": {
+        "column_index_offset": 57,
+        "column_index_length": 33,
+        "column_index": {
+          "null_pages": [
+            false
+          ],
+          "min_values": [
+            "AQAAAA=="
+          ],
+          "max_values": [
+            "BAAAAA=="
+          ],
+          "boundary_order": 1,
+          "null_counts": [
+            0
+          ],
+          "repetition_level_histograms": [
+            1,
+            1,
+            2
+          ],
+          "definition_level_histograms": [
+            0,
+            0,
+            4
+          ]
+        }
+      },
+      "offset_index": {
+        "offset_index_offset": 90,
+        "offset_index_length": 10,
+        "offset_index": {
+          "page_locations": [
+            {
+              "offset": 4,
+              "compressed_page_size": 53,
+              "first_row_index": 0
+            }
+          ],
+          "unencoded_byte_array_data_bytes": null
+        }
+      },
       "row_group": 0
     }
   ],
@@ -66,7 +108,7 @@
                     "type_length": null,
                     "scale": null,
                     "precision": null,
-                    "field_id": 4,
+                    "field_id": null,
                     "logical_type": null,
                     "definition_level": 2,
                     "repetition_level": 2
@@ -74,7 +116,7 @@
                 },
                 "repetition": 2,
                 "converted_type": 3,
-                "field_id": 10,
+                "field_id": null,
                 "logical_type": {
                   "logical_type": 3
                 }
@@ -82,7 +124,7 @@
             },
             "repetition": 0,
             "converted_type": 3,
-            "field_id": 10,
+            "field_id": null,
             "logical_type": {
               "logical_type": 3
             }
@@ -91,10 +133,14 @@
       },
       "row_groups": [
         {
+          "start_offset": 166,
+          "byte_length": 108,
           "column_chunks": {
             "a.array.array": {
               "file_offset": 4,
               "metadata": {
+                "start_offset": 171,
+                "byte_length": 82,
                 "type": 1,
                 "encodings": [
                   3,
@@ -106,28 +152,55 @@
                 "total_uncompressed_size": 53,
                 "total_compressed_size": 53,
                 "data_page_offset": 4,
-                "start_offset": 171,
-                "byte_length": 82,
-                "dictionary_page_offset": null,
                 "index_page_offset": null,
+                "dictionary_page_offset": null,
                 "statistics": {
-                  "min_value": 4,
-                  "max_value": 1,
+                  "min": "AQAAAA==",
+                  "max": "BAAAAA==",
                   "null_count": 0,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "AQAAAA==",
+                  "max_value": "BAAAAA==",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 0,
+                    "encoding": 0,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": {
+                  "unencoded_byte_array_data_bytes": null,
+                  "repetition_level_histogram": [
+                    1,
+                    1,
+                    2
+                  ],
+                  "definition_level_histogram": [
+                    0,
+                    0,
+                    4
+                  ]
+                },
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": 90,
+              "offset_index_length": 10,
+              "column_index_offset": 57,
+              "column_index_length": 33
             }
           },
           "total_byte_size": 53,
           "row_count": 1,
-          "start_offset": 166,
-          "byte_length": 108,
+          "sorting_columns": null,
+          "file_offset": 4,
+          "total_compressed_size": 53,
+          "ordinal": 0,
           "compression_stats": {
             "total_compressed": 53,
             "total_uncompressed": 53,

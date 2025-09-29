@@ -8,17 +8,15 @@ Teaching Points:
 - Column chunks within a row group enable selective column reading
 """
 
-import logging
+import warnings
 
-from por_que.file_metadata import RowGroup, SchemaRoot
-from por_que.parsers.thrift.enums import ThriftFieldType
-from por_que.parsers.thrift.parser import ThriftStructParser
+from typing import Any
+
+from por_que.file_metadata import RowGroup, SchemaRoot, SortingColumn
 
 from .base import BaseParser
 from .column import ColumnParser
-from .enums import RowGroupFieldId
-
-logger = logging.getLogger(__name__)
+from .enums import RowGroupFieldId, SortingColumnFieldId
 
 
 class RowGroupParser(BaseParser):
@@ -45,7 +43,7 @@ class RowGroupParser(BaseParser):
 
     def read_row_group(self) -> RowGroup:
         """
-        Read a RowGroup struct.
+        Read a RowGroup struct using the new generic parser.
 
         Teaching Points:
         - Row groups contain metadata about a horizontal slice of data
@@ -57,67 +55,64 @@ class RowGroupParser(BaseParser):
             RowGroup with metadata and column chunk information
         """
         start_offset = self.parser.pos
-        struct_parser = ThriftStructParser(self.parser)
 
-        # Collect values for frozen RowGroup construction
-        column_chunks_list = []
-        total_byte_size = 0
-        row_count = 0
-
-        logger.debug('Reading row group at offset %d', start_offset)
-
-        while True:
-            field_type, field_id = struct_parser.read_field_header()
-            if field_type == ThriftFieldType.STOP:
-                break
-
-            if field_type == ThriftFieldType.LIST:
-                if field_id == RowGroupFieldId.COLUMNS:
-                    # Parse all column chunks in this row group
-                    # Each column chunk contains data for one column across all rows
-                    column_parser = ColumnParser(self.parser, self.schema)
-                    column_chunks_list = self.read_list(column_parser.read_column_chunk)
-                else:
-                    struct_parser.skip_field(field_type)
-                continue
-
-            value = struct_parser.read_value(field_type)
-            if value is None:
-                continue
-
-            match field_id:
-                case RowGroupFieldId.TOTAL_BYTE_SIZE:
-                    # Total bytes for all column chunks in this row group
-                    # Useful for memory estimation and I/O planning
-                    total_byte_size = value
-                case RowGroupFieldId.NUM_ROWS:
-                    # Number of rows (records) in this row group
-                    # Same across all columns in the row group
-                    row_count = value
-
-        end_offset = self.parser.pos
-        byte_length = end_offset - start_offset
-
-        # Convert column chunks list to dict keyed by path
-        column_chunks = {
-            chunk.metadata.path_in_schema: chunk for chunk in column_chunks_list
+        props: dict[str, Any] = {
+            'start_offset': start_offset,
         }
 
-        # Construct frozen RowGroup
-        rg = RowGroup(
-            column_chunks=column_chunks,
-            total_byte_size=total_byte_size,
-            row_count=row_count,
-            start_offset=start_offset,
-            byte_length=byte_length,
-        )
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case RowGroupFieldId.TOTAL_BYTE_SIZE:
+                    props['total_byte_size'] = value
+                case RowGroupFieldId.NUM_ROWS:
+                    props['row_count'] = value
+                case RowGroupFieldId.COLUMNS:
+                    column_parser = ColumnParser(self.parser, self.schema)
+                    column_chunks_list = [
+                        column_parser.read_column_chunk() for _ in value
+                    ]
+                    props['column_chunks'] = {
+                        chunk.metadata.path_in_schema: chunk
+                        for chunk in column_chunks_list
+                    }
+                case RowGroupFieldId.SORTING_COLUMNS:
+                    props['sorting_columns'] = [
+                        self.parse_sorting_column() for _ in value
+                    ]
+                case RowGroupFieldId.FILE_OFFSET:
+                    props['file_offset'] = value
+                case RowGroupFieldId.TOTAL_COMPRESSED_SIZE:
+                    props['total_compressed_size'] = value
+                case RowGroupFieldId.ORDINAL:
+                    props['ordinal'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown row group field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
 
-        logger.debug(
-            'Read row group with %d columns, %d rows, %d bytes (bytes %d-%d)',
-            len(column_chunks_list),
-            rg.row_count,
-            rg.total_byte_size,
-            start_offset,
-            end_offset,
-        )
-        return rg
+        end_offset = self.parser.pos
+        props['byte_length'] = end_offset - start_offset
+
+        return RowGroup(**props)
+
+    def parse_sorting_column(self) -> SortingColumn:
+        props: dict[str, Any] = {}
+
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case SortingColumnFieldId.COLUMN_IDX:
+                    props['column_idx'] = value
+                case SortingColumnFieldId.DESCENDING:
+                    props['descending'] = value
+                case SortingColumnFieldId.NULLS_FIRST:
+                    props['nulls_first'] = value
+                case _:
+                    warnings.warn(
+                        f'Skipping unknown sorting column field ID {field_id}',
+                        stacklevel=1,
+                    )
+                    self.maybe_skip_field(field_type)
+
+        return SortingColumn(**props)

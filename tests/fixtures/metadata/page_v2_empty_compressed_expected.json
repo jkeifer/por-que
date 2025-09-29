@@ -24,10 +24,14 @@
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
           "statistics": {
+            "min": null,
+            "max": null,
+            "null_count": 10,
+            "distinct_count": null,
             "min_value": null,
             "max_value": null,
-            "null_count": 10,
-            "distinct_count": null
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
           }
         }
       ],
@@ -43,7 +47,8 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null,
+      "column_index": null,
+      "offset_index": null,
       "row_group": 0
     }
   ],
@@ -70,7 +75,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 4,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 1,
             "repetition_level": 0
@@ -79,10 +84,14 @@
       },
       "row_groups": [
         {
+          "start_offset": 169,
+          "byte_length": 75,
           "column_chunks": {
             "integer_column": {
               "file_offset": 65,
               "metadata": {
+                "start_offset": 175,
+                "byte_length": 57,
                 "type": 1,
                 "encodings": [
                   0,
@@ -95,28 +104,48 @@
                 "total_uncompressed_size": 43,
                 "total_compressed_size": 61,
                 "data_page_offset": 27,
-                "start_offset": 175,
-                "byte_length": 57,
-                "dictionary_page_offset": 4,
                 "index_page_offset": null,
+                "dictionary_page_offset": 4,
                 "statistics": {
+                  "min": null,
+                  "max": null,
+                  "null_count": 10,
+                  "distinct_count": null,
                   "min_value": null,
                   "max_value": null,
-                  "null_count": 10,
-                  "distinct_count": null
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 2,
+                    "encoding": 0,
+                    "count": 1
+                  },
+                  {
+                    "page_type": 0,
+                    "encoding": 8,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
             }
           },
           "total_byte_size": 43,
           "row_count": 10,
-          "start_offset": 169,
-          "byte_length": 75,
+          "sorting_columns": null,
+          "file_offset": 4,
+          "total_compressed_size": 61,
+          "ordinal": 0,
           "compression_stats": {
             "total_compressed": 61,
             "total_uncompressed": 43,

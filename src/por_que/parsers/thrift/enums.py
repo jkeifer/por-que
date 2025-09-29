@@ -26,3 +26,7 @@ class ThriftFieldType(IntEnum):
     SET = 10
     MAP = 11
     STRUCT = 12
+
+    @property
+    def is_complex(self) -> bool:
+        return self in (self.LIST, self.SET, self.MAP, self.STRUCT)

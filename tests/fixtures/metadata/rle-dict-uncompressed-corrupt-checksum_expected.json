@@ -38,7 +38,41 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null,
+      "column_index": {
+        "column_index_offset": 142,
+        "column_index_length": 31,
+        "column_index": {
+          "null_pages": [
+            false
+          ],
+          "min_values": [
+            "AAAAAAAAAAA="
+          ],
+          "max_values": [
+            "AAAAAAAAAAA="
+          ],
+          "boundary_order": 1,
+          "null_counts": [
+            0
+          ],
+          "repetition_level_histograms": null,
+          "definition_level_histograms": null
+        }
+      },
+      "offset_index": {
+        "offset_index_offset": 260,
+        "offset_index_length": 10,
+        "offset_index": {
+          "page_locations": [
+            {
+              "offset": 31,
+              "compressed_page_size": 26,
+              "first_row_index": 0
+            }
+          ],
+          "unencoded_byte_array_data_bytes": null
+        }
+      },
       "row_group": 0
     },
     {
@@ -77,7 +111,41 @@
         "encoding": 0,
         "is_sorted": false
       },
-      "page_index": null,
+      "column_index": {
+        "column_index_offset": 173,
+        "column_index_length": 87,
+        "column_index": {
+          "null_pages": [
+            false
+          ],
+          "min_values": [
+            "NjMyNWMzMmItZjQxNy00MWFhLTllMDItOWI4NjAxNTQyYWZm"
+          ],
+          "max_values": [
+            "NjMyNWMzMmItZjQxNy00MWFhLTllMDItOWI4NjAxNTQyYWZm"
+          ],
+          "boundary_order": 1,
+          "null_counts": [
+            0
+          ],
+          "repetition_level_histograms": null,
+          "definition_level_histograms": null
+        }
+      },
+      "offset_index": {
+        "offset_index_offset": 270,
+        "offset_index_length": 11,
+        "offset_index": {
+          "page_locations": [
+            {
+              "offset": 116,
+              "compressed_page_size": 26,
+              "first_row_index": 0
+            }
+          ],
+          "unencoded_byte_array_data_bytes": null
+        }
+      },
       "row_group": 0
     }
   ],
@@ -104,7 +172,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 4,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 0,
             "repetition_level": 0
@@ -120,7 +188,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 4,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 0,
             "repetition_level": 0
@@ -129,10 +197,14 @@
       },
       "row_groups": [
         {
+          "start_offset": 332,
+          "byte_length": 349,
           "column_chunks": {
             "long_field": {
               "file_offset": 31,
               "metadata": {
+                "start_offset": 337,
+                "byte_length": 93,
                 "type": 2,
                 "encodings": [
                   8,
@@ -144,26 +216,46 @@
                 "total_uncompressed_size": 53,
                 "total_compressed_size": 53,
                 "data_page_offset": 31,
-                "start_offset": 337,
-                "byte_length": 93,
-                "dictionary_page_offset": 4,
                 "index_page_offset": null,
+                "dictionary_page_offset": 4,
                 "statistics": {
-                  "min_value": 0,
-                  "max_value": 0,
+                  "min": "AAAAAAAAAAA=",
+                  "max": "AAAAAAAAAAA=",
                   "null_count": 0,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "AAAAAAAAAAA=",
+                  "max_value": "AAAAAAAAAAA=",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 2,
+                    "encoding": 0,
+                    "count": 1
+                  },
+                  {
+                    "page_type": 3,
+                    "encoding": 8,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": 260,
+              "offset_index_length": 10,
+              "column_index_offset": 142,
+              "column_index_length": 31
             },
             "binary_field": {
               "file_offset": 116,
               "metadata": {
+                "start_offset": 445,
+                "byte_length": 210,
                 "type": 6,
                 "encodings": [
                   8,
@@ -175,28 +267,48 @@
                 "total_uncompressed_size": 85,
                 "total_compressed_size": 85,
                 "data_page_offset": 116,
-                "start_offset": 445,
-                "byte_length": 210,
-                "dictionary_page_offset": 57,
                 "index_page_offset": null,
+                "dictionary_page_offset": 57,
                 "statistics": {
-                  "min_value": "6325c32b-f417-41aa-9e02-9b8601542aff",
-                  "max_value": "6325c32b-f417-41aa-9e02-9b8601542aff",
+                  "min": "NjMyNWMzMmItZjQxNy00MWFhLTllMDItOWI4NjAxNTQyYWZm",
+                  "max": "NjMyNWMzMmItZjQxNy00MWFhLTllMDItOWI4NjAxNTQyYWZm",
                   "null_count": 0,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "NjMyNWMzMmItZjQxNy00MWFhLTllMDItOWI4NjAxNTQyYWZm",
+                  "max_value": "NjMyNWMzMmItZjQxNy00MWFhLTllMDItOWI4NjAxNTQyYWZm",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 2,
+                    "encoding": 0,
+                    "count": 1
+                  },
+                  {
+                    "page_type": 3,
+                    "encoding": 8,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": 270,
+              "offset_index_length": 11,
+              "column_index_offset": 173,
+              "column_index_length": 87
             }
           },
           "total_byte_size": 138,
           "row_count": 1000,
-          "start_offset": 332,
-          "byte_length": 349,
+          "sorting_columns": null,
+          "file_offset": 4,
+          "total_compressed_size": 138,
+          "ordinal": 0,
           "compression_stats": {
             "total_compressed": 138,
             "total_uncompressed": 138,

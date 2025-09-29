@@ -35,7 +35,41 @@
         "encoding": 2,
         "is_sorted": false
       },
-      "page_index": null,
+      "column_index": {
+        "column_index_offset": 144,
+        "column_index_length": 31,
+        "column_index": {
+          "null_pages": [
+            false
+          ],
+          "min_values": [
+            "AAAAAAAAAAA="
+          ],
+          "max_values": [
+            "AAAAAAAAAAA="
+          ],
+          "boundary_order": 1,
+          "null_counts": [
+            0
+          ],
+          "repetition_level_histograms": null,
+          "definition_level_histograms": null
+        }
+      },
+      "offset_index": {
+        "offset_index_offset": 262,
+        "offset_index_length": 10,
+        "offset_index": {
+          "page_locations": [
+            {
+              "offset": 31,
+              "compressed_page_size": 27,
+              "first_row_index": 0
+            }
+          ],
+          "unencoded_byte_array_data_bytes": null
+        }
+      },
       "row_group": 0
     },
     {
@@ -71,7 +105,41 @@
         "encoding": 2,
         "is_sorted": false
       },
-      "page_index": null,
+      "column_index": {
+        "column_index_offset": 175,
+        "column_index_length": 87,
+        "column_index": {
+          "null_pages": [
+            false
+          ],
+          "min_values": [
+            "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy"
+          ],
+          "max_values": [
+            "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy"
+          ],
+          "boundary_order": 1,
+          "null_counts": [
+            0
+          ],
+          "repetition_level_histograms": null,
+          "definition_level_histograms": null
+        }
+      },
+      "offset_index": {
+        "offset_index_offset": 272,
+        "offset_index_length": 11,
+        "offset_index": {
+          "page_locations": [
+            {
+              "offset": 117,
+              "compressed_page_size": 27,
+              "first_row_index": 0
+            }
+          ],
+          "unencoded_byte_array_data_bytes": null
+        }
+      },
       "row_group": 0
     }
   ],
@@ -98,7 +166,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 4,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 0,
             "repetition_level": 0
@@ -114,7 +182,7 @@
             "type_length": null,
             "scale": null,
             "precision": null,
-            "field_id": 4,
+            "field_id": null,
             "logical_type": null,
             "definition_level": 0,
             "repetition_level": 0
@@ -123,10 +191,14 @@
       },
       "row_groups": [
         {
+          "start_offset": 334,
+          "byte_length": 349,
           "column_chunks": {
             "long_field": {
               "file_offset": 31,
               "metadata": {
+                "start_offset": 339,
+                "byte_length": 93,
                 "type": 2,
                 "encodings": [
                   2,
@@ -138,26 +210,46 @@
                 "total_uncompressed_size": 54,
                 "total_compressed_size": 54,
                 "data_page_offset": 31,
-                "start_offset": 339,
-                "byte_length": 93,
-                "dictionary_page_offset": 4,
                 "index_page_offset": null,
+                "dictionary_page_offset": 4,
                 "statistics": {
-                  "min_value": 0,
-                  "max_value": 0,
+                  "min": "AAAAAAAAAAA=",
+                  "max": "AAAAAAAAAAA=",
                   "null_count": 0,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "AAAAAAAAAAA=",
+                  "max_value": "AAAAAAAAAAA=",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 2,
+                    "encoding": 2,
+                    "count": 1
+                  },
+                  {
+                    "page_type": 0,
+                    "encoding": 2,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": 262,
+              "offset_index_length": 10,
+              "column_index_offset": 144,
+              "column_index_length": 31
             },
             "binary_field": {
               "file_offset": 117,
               "metadata": {
+                "start_offset": 447,
+                "byte_length": 210,
                 "type": 6,
                 "encodings": [
                   2,
@@ -169,28 +261,48 @@
                 "total_uncompressed_size": 86,
                 "total_compressed_size": 86,
                 "data_page_offset": 117,
-                "start_offset": 447,
-                "byte_length": 210,
-                "dictionary_page_offset": 58,
                 "index_page_offset": null,
+                "dictionary_page_offset": 58,
                 "statistics": {
-                  "min_value": "a655fd0e-9949-4059-bcae-fd6a002a4652",
-                  "max_value": "a655fd0e-9949-4059-bcae-fd6a002a4652",
+                  "min": "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy",
+                  "max": "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy",
                   "null_count": 0,
-                  "distinct_count": null
+                  "distinct_count": null,
+                  "min_value": "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy",
+                  "max_value": "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
                 },
-                "column_index_offset": null,
-                "column_index_length": null,
-                "column_index": null,
-                "offset_index": null
+                "encoding_stats": [
+                  {
+                    "page_type": 2,
+                    "encoding": 2,
+                    "count": 1
+                  },
+                  {
+                    "page_type": 0,
+                    "encoding": 2,
+                    "count": 1
+                  }
+                ],
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
               },
-              "file_path": null
+              "file_path": null,
+              "offset_index_offset": 272,
+              "offset_index_length": 11,
+              "column_index_offset": 175,
+              "column_index_length": 87
             }
           },
           "total_byte_size": 140,
           "row_count": 1000,
-          "start_offset": 334,
-          "byte_length": 349,
+          "sorting_columns": null,
+          "file_offset": 4,
+          "total_compressed_size": 140,
+          "ordinal": 0,
           "compression_stats": {
             "total_compressed": 140,
             "total_uncompressed": 140,
