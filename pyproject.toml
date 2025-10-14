@@ -16,20 +16,13 @@ dependencies = [
 ]
 dynamic = ["version"]
 
-[project.scripts]
-porque = "por_que.cli:cli"
-
 [project.urls]
 Repository = 'https://github.com/jkeifer/por-que'
 
 [project.optional-dependencies]
 all = [
-    "por-que[cli]",
     "por-que[validation]",
     "por-que[all-codecs]",
-]
-cli = [
-    "click>=8.2.1",
 ]
 validation = [
     "jsonschema>=4.25.1",
