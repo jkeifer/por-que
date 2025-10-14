@@ -46,16 +46,18 @@ all-codecs = [
     "por-que[zstd]",
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "deepdiff>=8.6.1",
     "mypy>=1.15.0",
     "pre-commit>=4.2.0",
     "pre-commit-hooks>=5.0.0",
-    "pyarrow>=21.0.0",
     "pytest>=8.3.5",
     "pytest-cov>=6.1.1",
     "ruff>=0.11.6",
+]
+pyarrow = [
+    "pyarrow>=21.0.0",
 ]
 
 [tool.hatch.version]

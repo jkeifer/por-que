@@ -371,10 +371,12 @@ dev = [
     { name = "mypy" },
     { name = "pre-commit" },
     { name = "pre-commit-hooks" },
-    { name = "pyarrow" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
+]
+pyarrow = [
+    { name = "pyarrow" },
 ]
 
 [package.metadata]
@@ -403,11 +405,11 @@ dev = [
     { name = "mypy", specifier = ">=1.15.0" },
     { name = "pre-commit", specifier = ">=4.2.0" },
     { name = "pre-commit-hooks", specifier = ">=5.0.0" },
-    { name = "pyarrow", specifier = ">=21.0.0" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-cov", specifier = ">=6.1.1" },
     { name = "ruff", specifier = ">=0.11.6" },
 ]
+pyarrow = [{ name = "pyarrow", specifier = ">=21.0.0" }]
 
 [[package]]
 name = "pre-commit"
