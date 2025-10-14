@@ -4,7 +4,7 @@ import warnings
 
 from collections.abc import Callable
 from functools import cached_property
-from typing import Annotated, Any, Literal
+from typing import Annotated, Any, Literal, cast
 
 from pydantic import (
     BaseModel,
@@ -25,6 +25,7 @@ from .enums import (
     GeospatialType,
     GroupConvertedType,
     GroupLogicalType,
+    ListSemantics,
     LogicalType,
     PageType,
     Repetition,
@@ -577,11 +578,12 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
         logical_type_info = schema_element.get_logical_type()
 
         if logical_type_info is None:
-            if (
-                schema_element.repetition.name == 'REPEATED'
-                and len(schema_element.children) == 1
-            ):
-                return self._process_standard_list(children_data)
+            if schema_element.repetition.name == 'REPEATED':
+                if len(schema_element.children) == 1:
+                    # REPEATED group with single child → LIST
+                    return self._process_standard_list(children_data)
+                # REPEATED group with multiple children → array of structs
+                return self._process_repeated_struct(children_data)
 
             return self._process_struct(children_data)
 
@@ -598,6 +600,80 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
     def _process_struct(self, children_data: dict[str, Any]) -> Any:
         # STRUCT: zip child arrays into list of objects
         return self._zip_struct_fields(children_data)
+
+    def _process_repeated_struct(self, children_data: dict[str, Any]) -> list[Any]:  # noqa: C901
+        """Convert REPEATED group with multiple children to array of structs.
+
+        For REPEATED groups, each child produces an array per record.  We need
+        to convert from struct-of-arrays to array-of-structs at each record
+        level.
+
+        Input: {
+            'number': [None, [], [5, 6]],
+            'kind': [None, [], ['home', 'work']],
+        }
+        Output: [
+            None,
+            [],
+            [
+                {'number': 5, 'kind': 'home'},
+                {'number': 6, 'kind': 'work'},
+            ],
+        ]
+        """
+        if not children_data:
+            return []
+
+        # Get number of top-level records from first child
+        first_child = next(iter(children_data.values()))
+        num_records = len(first_child) if isinstance(first_child, list) else 1
+
+        result: list[Any] = []
+        for record_idx in range(num_records):
+            # Get all child arrays for this record
+            all_none = True
+            all_empty = True
+            field_arrays = {}
+
+            for field_name, field_data in children_data.items():
+                value = (
+                    field_data[record_idx]
+                    if isinstance(field_data, list) and record_idx < len(field_data)
+                    else field_data
+                )
+                field_arrays[field_name] = value
+
+                if value is not None:
+                    all_none = False
+                if value != []:
+                    all_empty = False
+
+            # If all fields are None, the repeated group is null
+            if all_none:
+                result.append(None)
+            # If all fields are empty arrays, the repeated group is empty
+            elif all_empty:
+                result.append([])
+            else:
+                # Zip the field arrays into structs
+                max_len = max(
+                    len(arr) if isinstance(arr, list) else 0
+                    for arr in field_arrays.values()
+                )
+                structs = []
+                for elem_idx in range(max_len):
+                    struct = {}
+                    for field_name, field_array in field_arrays.items():
+                        if isinstance(field_array, list) and elem_idx < len(
+                            field_array,
+                        ):
+                            struct[field_name] = field_array[elem_idx]
+                        else:
+                            struct[field_name] = None
+                    structs.append(struct)
+                result.append(structs)
+
+        return result
 
     def _get_map_process_function(
         self,
@@ -631,7 +707,7 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
 
         return self._build_maps
 
-    def _build_maps(self, children_data: dict[str, Any]) -> list[dict[str, Any]]:
+    def _build_maps(self, children_data: dict[str, Any]) -> list[dict[str, Any]]:  # noqa: C901
         """Build MAP objects from key/value data using canonical
         Parquet MAP structure."""
         # According to Parquet spec, MAP logical types have
@@ -651,14 +727,40 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
         if not key_value_records:
             return []
 
-        maps = []
+        maps: list[dict[str, Any]] = []
         for record in key_value_records:
+            # Handle different record formats from _process_repeated_struct
+            if isinstance(record, list):
+                if len(record) == 0:
+                    # Empty list → empty map
+                    maps.append({})
+                else:
+                    # List of key-value structs → convert to map
+                    # Each struct has 'key' and 'value' fields
+                    map_dict: dict[str, Any] = {}
+                    for kv_struct in record:
+                        if isinstance(kv_struct, dict):
+                            key = cast(str, kv_struct.get('key'))
+                            value = kv_struct.get('value')
+                            map_dict[key] = value
+                        else:
+                            raise ValueError(
+                                'Expected dict in MAP key_value list, '
+                                f'got {type(kv_struct)}',
+                            )
+                    maps.append(map_dict)
+                continue
+
             if not isinstance(record, dict):
-                raise ValueError('MAP key_value record must be dict')
+                raise ValueError(
+                    f'MAP key_value record must be dict or list, got {type(record)}',
+                )
 
             fields = list(record.items())
             if not fields:
-                raise ValueError('MAP key_value record is empty')
+                # Empty dict means empty map
+                maps.append({})
+                continue
 
             _, key_data = fields[0]
 
@@ -709,7 +811,7 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
 
         return repeated_group_data
 
-    def _zip_struct_fields(self, fields: dict[str, Any]) -> list[dict]:
+    def _zip_struct_fields(self, fields: dict[str, Any]) -> list[dict[str, Any] | None]:
         """Zip struct field arrays into list of objects."""
         if not fields:
             return []
@@ -719,17 +821,32 @@ class SchemaRoot(BaseSchemaGroup, frozen=True):
         num_records = len(first_field) if isinstance(first_field, list) else 1
 
         # Build struct objects
-        return [
-            {
-                name: (
+        result: list[dict[str, Any] | None] = []
+        for i in range(num_records):
+            struct_obj = {}
+            all_none = True
+
+            for name, values in fields.items():
+                value = (
                     values[i]
                     if isinstance(values, list) and i < len(values)
                     else values
                 )
-                for name, values in fields.items()
-            }
-            for i in range(num_records)
-        ]
+                struct_obj[name] = value
+
+                # Check if any field is not None
+                # Note: empty arrays [] are valid values, not null!
+                if value is not None:
+                    all_none = False
+
+            # If all fields are None, the struct itself is None (null parent struct)
+            # But if any field has a value (including []), the struct exists
+            if all_none:
+                result.append(None)
+            else:
+                result.append(struct_obj)
+
+        return result
 
 
 class SchemaGroup(BaseSchemaGroup, frozen=True):
@@ -758,6 +875,9 @@ class SchemaLeaf(SchemaElement, frozen=True):
     # These levels are calculated during schema parsing based on the full path
     definition_level: int = 0
     repetition_level: int = 0
+    # Semantic interpretation for repeated field handling
+    # (set during tree reconstruction)
+    list_semantics: ListSemantics | None = None
 
     def _repr_extra(self) -> list[str]:
         return [

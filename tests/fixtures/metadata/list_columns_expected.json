@@ -1,0 +1,341 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/list_columns.parquet",
+  "filesize": 2526,
+  "column_chunks": [
+    {
+      "path_in_schema": "int64_list.list.item",
+      "start_offset": 4,
+      "total_byte_size": 122,
+      "codec": 1,
+      "num_values": 6,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 46,
+          "header_size": 61,
+          "compressed_page_size": 19,
+          "uncompressed_page_size": 17,
+          "crc": null,
+          "num_values": 6,
+          "encoding": 2,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": {
+            "min": "AQAAAAAAAAA=",
+            "max": "BAAAAAAAAAA=",
+            "null_count": 1,
+            "distinct_count": null,
+            "min_value": "AQAAAAAAAAA=",
+            "max_value": "BAAAAAAAAAA=",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 4,
+        "header_size": 14,
+        "compressed_page_size": 28,
+        "uncompressed_page_size": 32,
+        "crc": null,
+        "num_values": 4,
+        "encoding": 2,
+        "is_sorted": false
+      },
+      "column_index": null,
+      "offset_index": null,
+      "row_group": 0
+    },
+    {
+      "path_in_schema": "utf8_list.list.item",
+      "start_offset": 220,
+      "total_byte_size": 93,
+      "codec": 1,
+      "num_values": 8,
+      "data_pages": [
+        {
+          "page_type": 0,
+          "start_offset": 263,
+          "header_size": 31,
+          "compressed_page_size": 19,
+          "uncompressed_page_size": 17,
+          "crc": null,
+          "num_values": 8,
+          "encoding": 2,
+          "definition_level_encoding": 3,
+          "repetition_level_encoding": 3,
+          "statistics": {
+            "min": null,
+            "max": null,
+            "null_count": 1,
+            "distinct_count": null,
+            "min_value": "YWJj",
+            "max_value": "eHl6",
+            "is_min_value_exact": null,
+            "is_max_value_exact": null
+          }
+        }
+      ],
+      "index_pages": [],
+      "dictionary_page": {
+        "page_type": 2,
+        "start_offset": 220,
+        "header_size": 14,
+        "compressed_page_size": 29,
+        "uncompressed_page_size": 28,
+        "crc": null,
+        "num_values": 4,
+        "encoding": 2,
+        "is_sorted": false
+      },
+      "column_index": null,
+      "offset_index": null,
+      "row_group": 0
+    }
+  ],
+  "metadata": {
+    "start_offset": 378,
+    "total_byte_size": 2140,
+    "metadata": {
+      "version": 1,
+      "schema_root": {
+        "element_type": "root",
+        "name": "schema",
+        "start_offset": 382,
+        "byte_length": 13,
+        "num_children": 2,
+        "children": {
+          "int64_list": {
+            "element_type": "group",
+            "name": "int64_list",
+            "start_offset": 395,
+            "byte_length": 23,
+            "num_children": 1,
+            "children": {
+              "list": {
+                "element_type": "group",
+                "name": "list",
+                "start_offset": 418,
+                "byte_length": 11,
+                "num_children": 1,
+                "children": {
+                  "item": {
+                    "element_type": "column",
+                    "name": "item",
+                    "start_offset": 429,
+                    "byte_length": 11,
+                    "type": 2,
+                    "repetition": 1,
+                    "converted_type": null,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "definition_level": 3,
+                    "repetition_level": 1,
+                    "list_semantics": "modern_list"
+                  }
+                },
+                "repetition": 2,
+                "converted_type": null,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 1,
+            "converted_type": 3,
+            "field_id": null,
+            "logical_type": {
+              "logical_type": 3
+            }
+          },
+          "utf8_list": {
+            "element_type": "group",
+            "name": "utf8_list",
+            "start_offset": 440,
+            "byte_length": 22,
+            "num_children": 1,
+            "children": {
+              "list": {
+                "element_type": "group",
+                "name": "list",
+                "start_offset": 462,
+                "byte_length": 11,
+                "num_children": 1,
+                "children": {
+                  "item": {
+                    "element_type": "column",
+                    "name": "item",
+                    "start_offset": 473,
+                    "byte_length": 17,
+                    "type": 6,
+                    "repetition": 1,
+                    "converted_type": 0,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": {
+                      "logical_type": 1
+                    },
+                    "definition_level": 3,
+                    "repetition_level": 1,
+                    "list_semantics": "modern_list"
+                  }
+                },
+                "repetition": 2,
+                "converted_type": null,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 1,
+            "converted_type": 3,
+            "field_id": null,
+            "logical_type": {
+              "logical_type": 3
+            }
+          }
+        }
+      },
+      "row_groups": [
+        {
+          "start_offset": 494,
+          "byte_length": 167,
+          "column_chunks": {
+            "int64_list.list.item": {
+              "file_offset": 126,
+              "metadata": {
+                "start_offset": 500,
+                "byte_length": 89,
+                "type": 2,
+                "encodings": [
+                  2,
+                  0,
+                  3
+                ],
+                "path_in_schema": "int64_list.list.item",
+                "codec": 1,
+                "num_values": 6,
+                "total_uncompressed_size": 124,
+                "total_compressed_size": 122,
+                "data_page_offset": 46,
+                "index_page_offset": null,
+                "dictionary_page_offset": 4,
+                "statistics": {
+                  "min": "AQAAAAAAAAA=",
+                  "max": "BAAAAAAAAAA=",
+                  "null_count": 1,
+                  "distinct_count": null,
+                  "min_value": "AQAAAAAAAAA=",
+                  "max_value": "BAAAAAAAAAA=",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
+                },
+                "encoding_stats": null,
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
+              },
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
+            },
+            "utf8_list.list.item": {
+              "file_offset": 313,
+              "metadata": {
+                "start_offset": 594,
+                "byte_length": 60,
+                "type": 6,
+                "encodings": [
+                  2,
+                  0,
+                  3
+                ],
+                "path_in_schema": "utf8_list.list.item",
+                "codec": 1,
+                "num_values": 8,
+                "total_uncompressed_size": 90,
+                "total_compressed_size": 93,
+                "data_page_offset": 263,
+                "index_page_offset": null,
+                "dictionary_page_offset": 220,
+                "statistics": {
+                  "min": null,
+                  "max": null,
+                  "null_count": 1,
+                  "distinct_count": null,
+                  "min_value": "YWJj",
+                  "max_value": "eHl6",
+                  "is_min_value_exact": null,
+                  "is_max_value_exact": null
+                },
+                "encoding_stats": null,
+                "bloom_filter_offset": null,
+                "bloom_filter_length": null,
+                "size_statistics": null,
+                "geospatial_statistics": null
+              },
+              "file_path": null,
+              "offset_index_offset": null,
+              "offset_index_length": null,
+              "column_index_offset": null,
+              "column_index_length": null
+            }
+          },
+          "total_byte_size": 215,
+          "row_count": 3,
+          "sorting_columns": null,
+          "file_offset": null,
+          "total_compressed_size": null,
+          "ordinal": null,
+          "compression_stats": {
+            "total_compressed": 215,
+            "total_uncompressed": 214,
+            "ratio": 1.0046728971962617,
+            "space_saved_percent": -0.4672897196261738,
+            "compressed_mb": 0.00020503997802734375,
+            "uncompressed_mb": 0.0002040863037109375
+          }
+        }
+      ],
+      "created_by": "parquet-cpp version 1.5.1-SNAPSHOT",
+      "key_value_metadata": [
+        {
+          "start_offset": 663,
+          "byte_length": 584,
+          "key": "pandas",
+          "value": "{\"index_columns\": [{\"kind\": \"range\", \"name\": null, \"start\": 0, \"stop\": 3, \"step\": 1}], \"column_indexes\": [{\"name\": null, \"field_name\": null, \"pandas_type\": \"unicode\", \"numpy_type\": \"object\", \"metadata\": {\"encoding\": \"UTF-8\"}}], \"columns\": [{\"name\": \"int64_list\", \"field_name\": \"int64_list\", \"pandas_type\": \"list[int64]\", \"numpy_type\": \"object\", \"metadata\": null}, {\"name\": \"utf8_list\", \"field_name\": \"utf8_list\", \"pandas_type\": \"list[unicode]\", \"numpy_type\": \"object\", \"metadata\": null}], \"creator\": {\"library\": \"pyarrow\", \"version\": \"0.15.1\"}, \"pandas_version\": \"0.25.3\"}"
+        },
+        {
+          "start_offset": 1247,
+          "byte_length": 1226,
+          "key": "ARROW:schema",
+          "value": "/////4ADAAAQAAAAAAAKAA4ABgAFAAgACgAAAAABAwAQAAAAAAAKAAwAAAAEAAgACgAAAHQCAAAEAAAAAQAAAAwAAAAIAAwABAAIAAgAAABMAgAABAAAADwCAAB7ImluZGV4X2NvbHVtbnMiOiBbeyJraW5kIjogInJhbmdlIiwgIm5hbWUiOiBudWxsLCAic3RhcnQiOiAwLCAic3RvcCI6IDMsICJzdGVwIjogMX1dLCAiY29sdW1uX2luZGV4ZXMiOiBbeyJuYW1lIjogbnVsbCwgImZpZWxkX25hbWUiOiBudWxsLCAicGFuZGFzX3R5cGUiOiAidW5pY29kZSIsICJudW1weV90eXBlIjogIm9iamVjdCIsICJtZXRhZGF0YSI6IHsiZW5jb2RpbmciOiAiVVRGLTgifX1dLCAiY29sdW1ucyI6IFt7Im5hbWUiOiAiaW50NjRfbGlzdCIsICJmaWVsZF9uYW1lIjogImludDY0X2xpc3QiLCAicGFuZGFzX3R5cGUiOiAibGlzdFtpbnQ2NF0iLCAibnVtcHlfdHlwZSI6ICJvYmplY3QiLCAibWV0YWRhdGEiOiBudWxsfSwgeyJuYW1lIjogInV0ZjhfbGlzdCIsICJmaWVsZF9uYW1lIjogInV0ZjhfbGlzdCIsICJwYW5kYXNfdHlwZSI6ICJsaXN0W3VuaWNvZGVdIiwgIm51bXB5X3R5cGUiOiAib2JqZWN0IiwgIm1ldGFkYXRhIjogbnVsbH1dLCAiY3JlYXRvciI6IHsibGlicmFyeSI6ICJweWFycm93IiwgInZlcnNpb24iOiAiMC4xNS4xIn0sICJwYW5kYXNfdmVyc2lvbiI6ICIwLjI1LjMifQAAAAAGAAAAcGFuZGFzAAACAAAAYAAAAAQAAACE////AAABDEAAAAAQAAAABAAAAAEAAAAIAAAAqP///6T///8AAAEFFAAAAAwAAAAEAAAAAAAAAMT///8EAAAAaXRlbQAAAAAJAAAAdXRmOF9saXN0AAAA3P///wAAAQxkAAAAFAAAAAQAAAABAAAAHAAAAAQABAAEAAAAEAAUAAgABgAHAAwAAAAQABAAAAAAAAECJAAAABQAAAAEAAAAAAAAAAgADAAIAAcACAAAAAAAAAFAAAAABAAAAGl0ZW0AAAAACgAAAGludDY0X2xpc3QAAA=="
+        }
+      ],
+      "compression_stats": {
+        "total_compressed": 215,
+        "total_uncompressed": 214,
+        "ratio": 1.0046728971962617,
+        "space_saved_percent": -0.4672897196261738,
+        "compressed_mb": 0.00020503997802734375,
+        "uncompressed_mb": 0.0002040863037109375
+      },
+      "column_count": 2,
+      "row_count": 3,
+      "row_group_count": 1
+    }
+  },
+  "magic_header": "PAR1",
+  "magic_footer": "PAR1",
+  "_meta": {
+    "format_version": 0
+  }
+}

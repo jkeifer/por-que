@@ -1,0 +1,52 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/repeated_no_annotation.parquet",
+  "data": {
+    "id": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "phoneNumbers": [
+      null,
+      null,
+      {
+        "phone": []
+      },
+      {
+        "phone": [
+          {
+            "number": 5555555555,
+            "kind": null
+          }
+        ]
+      },
+      {
+        "phone": [
+          {
+            "number": 1111111111,
+            "kind": "home"
+          }
+        ]
+      },
+      {
+        "phone": [
+          {
+            "number": 1111111111,
+            "kind": "home"
+          },
+          {
+            "number": 2222222222,
+            "kind": null
+          },
+          {
+            "number": 3333333333,
+            "kind": "mobile"
+          }
+        ]
+      }
+    ]
+  }
+}

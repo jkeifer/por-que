@@ -457,7 +457,8 @@
               "logical_type": 1
             },
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "binary_full_truncation": {
             "element_type": "column",
@@ -473,7 +474,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "utf8_partial_truncation": {
             "element_type": "column",
@@ -491,7 +493,8 @@
               "logical_type": 1
             },
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "binary_partial_truncation": {
             "element_type": "column",
@@ -507,7 +510,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "utf8_no_truncation": {
             "element_type": "column",
@@ -525,7 +529,8 @@
               "logical_type": 1
             },
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "binary_no_truncation": {
             "element_type": "column",
@@ -541,7 +546,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           }
         }
       },

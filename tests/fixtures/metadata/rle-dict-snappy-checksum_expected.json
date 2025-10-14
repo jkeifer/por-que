@@ -175,7 +175,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "binary_field": {
             "element_type": "column",
@@ -191,7 +192,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 0,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           }
         }
       },
