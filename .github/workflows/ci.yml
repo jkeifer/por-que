@@ -18,13 +18,22 @@ jobs:
       matrix:
         python-version:
           - "3.13"
+          - "3.14"
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Sync
-        run: uv sync --all-extras
+        # lzo requires a c lib dep
+        run: |
+          uv sync \
+            --locked \
+            --all-extras \
+            --no-extra all \
+            --no-extra all-codecs \
+            --no-extra lzo \
+            --no-editable
       - name: Pre-Commit Hooks
         run: uv run pre-commit run --all-files
       - name: Test
