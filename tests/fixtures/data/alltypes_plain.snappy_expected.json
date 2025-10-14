@@ -1,0 +1,49 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/alltypes_plain.snappy.parquet",
+  "data": {
+    "id": [
+      6,
+      7
+    ],
+    "bool_col": [
+      true,
+      false
+    ],
+    "tinyint_col": [
+      0,
+      1
+    ],
+    "smallint_col": [
+      0,
+      1
+    ],
+    "int_col": [
+      0,
+      1
+    ],
+    "bigint_col": [
+      0,
+      10
+    ],
+    "float_col": [
+      0.0,
+      1.100000023841858
+    ],
+    "double_col": [
+      0.0,
+      10.1
+    ],
+    "date_string_col": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDQvMDEvMDk=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MDQvMDEvMDk="
+    ],
+    "string_col": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>MQ=="
+    ],
+    "timestamp_col": [
+      "2009-04-01T00:00:00",
+      "2009-04-01T00:01:00"
+    ]
+  }
+}

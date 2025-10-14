@@ -380,7 +380,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_salutation": {
             "element_type": "column",
@@ -396,7 +397,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_first_name": {
             "element_type": "column",
@@ -412,7 +414,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_last_name": {
             "element_type": "column",
@@ -428,7 +431,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_preferred_cust_flag": {
             "element_type": "column",
@@ -444,7 +448,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_birth_country": {
             "element_type": "column",
@@ -460,7 +465,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_login": {
             "element_type": "column",
@@ -476,7 +482,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_email_address": {
             "element_type": "column",
@@ -492,7 +499,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           },
           "c_last_review_date": {
             "element_type": "column",
@@ -508,7 +516,8 @@
             "field_id": null,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           }
         }
       },

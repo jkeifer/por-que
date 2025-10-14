@@ -1,0 +1,19 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/binary.parquet",
+  "data": {
+    "foo": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>AA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>AQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Ag==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Aw==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Bg==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Bw==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>CA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>CQ==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Cg==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Cw=="
+    ]
+  }
+}

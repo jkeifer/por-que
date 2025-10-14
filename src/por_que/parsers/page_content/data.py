@@ -376,7 +376,7 @@ class DataPageParser:
             schema_element,
         )
 
-    def _reconstruct_max_rep_one(
+    def _reconstruct_max_rep_one(  # noqa: C901
         self,
         non_null_values: list,
         definition_levels: list[int],
@@ -387,51 +387,112 @@ class DataPageParser:
         current_list: PageDataType = []
         non_null_iter = iter(non_null_values)
 
+        # Track if we already added a complete list at this repetition level
+        list_already_added = False
+
         for i, (def_level, rep_level) in enumerate(
             zip(definition_levels, repetition_levels, strict=False),
         ):
             # If repetition level is 0, we're starting a new list (or record)
-            if rep_level == 0 and i > 0:
-                # End current list and start new one
+            if rep_level == 0 and i > 0 and not list_already_added:
                 result.append(current_list)
                 current_list = []
 
-            # Add value to current list based on definition level
-            if def_level >= schema_element.definition_level:
-                # Non-null value
-                try:
-                    value = next(non_null_iter)
-                    current_list.append(value)
-                except StopIteration:
-                    raise ParquetDataError(
-                        'Fewer non-null values than specified by definition levels.',
-                    ) from None
-            elif def_level == schema_element.definition_level - 1:
-                # For simple repeated fields, this means the list exists
-                # but this element is null
-                # For complex nested structures, this could be different
-                # Check if this is a simple repeated field (not nested LIST type)
-                if (
-                    hasattr(schema_element, 'logical_type')
-                    and schema_element.logical_type is not None
-                ):
-                    # This is a complex logical type - handle nulls within the structure
-                    current_list.append(None)
-                else:
-                    # This is a simple repeated field
-                    # definition_level - 1 means empty list
-                    # Don't add anything to current_list (it stays empty)
-                    pass
-            # If def_level is lower, it means empty list or null list structure
-            # Don't add any elements - the list exists but is empty
+            # Reset the flag for this iteration
+            list_already_added = False
 
-        # Add the final list
-        if current_list or (definition_levels and definition_levels[-1] > 0):
-            # Always append the current_list (even if empty)
-            # when we have a list structure
+            # Determine list semantics and max definition level
+            from por_que.enums import ListSemantics
+
+            list_semantics = (
+                schema_element.list_semantics
+                if hasattr(schema_element, 'list_semantics')
+                else None
+            )
+            max_def = schema_element.definition_level
+
+            # Match on (list_semantics, def_level, max_def) to determine action
+            match (list_semantics, def_level, max_def):
+                # ============ MODERN LIST ============
+                # Standard is max_def=3, but can be max_def=1 for REQUIRED elements
+
+                case (ListSemantics.MODERN_LIST, 0, m) if m > 1:
+                    # NULL list (only when max_def > 1)
+                    if rep_level == 0:
+                        result.append(None)
+                        current_list = []
+                        list_already_added = True
+
+                case (ListSemantics.MODERN_LIST, 1, m) if m > 2:
+                    # EMPTY list (only for max_def=3)
+                    pass
+
+                case (ListSemantics.MODERN_LIST, 2, m) if m >= 3:
+                    # NULL item within list (only for max_def=3)
+                    current_list.append(None)
+
+                case (ListSemantics.MODERN_LIST, d, m) if d >= m:
+                    # VALUE at max definition level
+                    try:
+                        value = next(non_null_iter)
+                        current_list.append(value)
+                    except StopIteration:
+                        raise ParquetDataError(
+                            'Fewer non-null values than definition levels specify.',
+                        ) from None
+
+                # ============ LEGACY REPEATED ============
+                case (ListSemantics.LEGACY_REPEATED, 0, m) if m > 1:
+                    # NULL parent (only when max_def > 1)
+                    if rep_level == 0:
+                        result.append(None)
+                        current_list = []
+                        list_already_added = True
+
+                case (ListSemantics.LEGACY_REPEATED, d, m) if d >= m:
+                    # VALUE at max definition level
+                    try:
+                        value = next(non_null_iter)
+                        current_list.append(value)
+                    except StopIteration:
+                        raise ParquetDataError(
+                            'Fewer non-null values than definition levels specify.',
+                        ) from None
+
+                case (ListSemantics.LEGACY_REPEATED, d, m) if d == m - 1 and m > 2:
+                    # NULL item (one below max, when max_def > 2)
+                    # For max_def=3: def=2 means null item
+                    # For max_def=2: def=1 means EMPTY, not null item
+                    current_list.append(None)
+
+                case (ListSemantics.LEGACY_REPEATED, _, _):
+                    # All other cases: EMPTY array
+                    # Don't append anything
+                    pass
+
+                # ============ SIMPLE REPEATED (always max_def=1) ============
+                case (None, d, m) if d >= m:
+                    # VALUE at max definition level
+                    try:
+                        value = next(non_null_iter)
+                        current_list.append(value)
+                    except StopIteration:
+                        raise ParquetDataError(
+                            'Fewer non-null values than definition levels specify.',
+                        ) from None
+
+                case (None, _, _):
+                    # All other cases: EMPTY array
+                    # Don't append anything
+                    pass
+
+        # Add the final list if we have one pending
+        if current_list or (
+            definition_levels and definition_levels[-1] > 0 and not list_already_added
+        ):
             result.append(current_list)
-        elif not result:
-            # Handle case where there are no values at all (entire list is null)
+        elif not result and definition_levels and definition_levels[-1] == 0:
+            # Handle edge case where there are no values at all
             result.append(None)
 
         return result

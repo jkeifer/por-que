@@ -1,0 +1,31 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/fixed_length_decimal.parquet",
+  "data": {
+    "value": [
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>1",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>2",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>3",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>4",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>5",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>6",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>7",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>8",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>9",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>10",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>11",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>12",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>13",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>14",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>15",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>16",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>17",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>18",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>19",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>20",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>21",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>22",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>23",
+      "*-*-*-||por-que_decimal_encoded||-*-*-*>24"
+    ]
+  }
+}

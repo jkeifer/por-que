@@ -1,0 +1,31 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/byte_array_decimal.parquet",
+  "data": {
+    "value": [
+      "*-*-*-||por-que_base64_encoded||-*-*-*>ZA==",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>AMg=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>ASw=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>AZA=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>AfQ=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Alg=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Arw=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>AyA=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>A4Q=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>A+g=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BEw=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BLA=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BRQ=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BXg=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Bdw=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BkA=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>BqQ=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>Bwg=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>B2w=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>B9A=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>CDQ=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>CJg=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>CPw=",
+      "*-*-*-||por-que_base64_encoded||-*-*-*>CWA="
+    ]
+  }
+}

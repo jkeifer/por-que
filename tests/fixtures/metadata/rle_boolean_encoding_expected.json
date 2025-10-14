@@ -59,7 +59,8 @@
             "field_id": 1,
             "logical_type": null,
             "definition_level": 1,
-            "repetition_level": 0
+            "repetition_level": 0,
+            "list_semantics": null
           }
         }
       },

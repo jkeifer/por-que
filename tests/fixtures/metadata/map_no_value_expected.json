@@ -243,7 +243,8 @@
                     "field_id": null,
                     "logical_type": null,
                     "definition_level": 1,
-                    "repetition_level": 1
+                    "repetition_level": 1,
+                    "list_semantics": "legacy_repeated"
                   },
                   "value": {
                     "element_type": "column",
@@ -259,7 +260,8 @@
                     "field_id": null,
                     "logical_type": null,
                     "definition_level": 2,
-                    "repetition_level": 1
+                    "repetition_level": 1,
+                    "list_semantics": "legacy_repeated"
                   }
                 },
                 "repetition": 2,
@@ -303,7 +305,8 @@
                     "field_id": null,
                     "logical_type": null,
                     "definition_level": 1,
-                    "repetition_level": 1
+                    "repetition_level": 1,
+                    "list_semantics": "legacy_repeated"
                   }
                 },
                 "repetition": 2,
@@ -347,7 +350,8 @@
                     "field_id": null,
                     "logical_type": null,
                     "definition_level": 1,
-                    "repetition_level": 1
+                    "repetition_level": 1,
+                    "list_semantics": "modern_list"
                   }
                 },
                 "repetition": 2,

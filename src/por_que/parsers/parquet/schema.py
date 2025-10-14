@@ -15,7 +15,14 @@ import warnings
 from collections.abc import Iterator
 from typing import Any, assert_never
 
-from por_que.enums import ConvertedType, LogicalType, Repetition, TimeUnit, Type
+from por_que.enums import (
+    ConvertedType,
+    ListSemantics,
+    LogicalType,
+    Repetition,
+    TimeUnit,
+    Type,
+)
 from por_que.exceptions import ThriftParsingError
 from por_que.file_metadata import (
     BsonTypeInfo,
@@ -116,6 +123,7 @@ class SchemaParser(BaseParser):
         elements_iter,
         current_def_level: int = 0,
         current_rep_level: int = 0,
+        current_list_context: ListSemantics | None = None,
     ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         """
         Recursively build nested schema tree from flat list of elements.
@@ -153,12 +161,14 @@ class SchemaParser(BaseParser):
                     elements_iter,
                     current_def_level,
                     current_rep_level,
+                    current_list_context,
                 )
             case SchemaLeaf():
                 return self._read_schema_leaf(
                     element,
                     current_def_level,
                     current_rep_level,
+                    current_list_context,
                 )
             case _ as unreachable:
                 assert_never(unreachable)
@@ -169,6 +179,7 @@ class SchemaParser(BaseParser):
         elements_iter,
         current_def_level: int,
         current_rep_level: int,
+        current_list_context: ListSemantics | None,
     ) -> SchemaGroup | SchemaRoot:
         logger.debug(
             'Building schema tree for %s with %d children',
@@ -180,6 +191,9 @@ class SchemaParser(BaseParser):
         child_def_level = current_def_level
         child_rep_level = current_rep_level
 
+        # Determine the list context for children
+        child_list_context = current_list_context
+
         if isinstance(element, SchemaGroup):
             # Definition level increases for non-REQUIRED fields
             if element.repetition != Repetition.REQUIRED:
@@ -188,11 +202,23 @@ class SchemaParser(BaseParser):
             if element.repetition == Repetition.REPEATED:
                 child_rep_level += 1
 
+            # Update list context based on this group's logical type
+            logical_type_info = element.get_logical_type()
+            if logical_type_info and logical_type_info.logical_type == LogicalType.LIST:
+                # This group establishes LIST semantics for descendants
+                child_list_context = ListSemantics.MODERN_LIST
+            elif (
+                child_list_context is None and element.repetition == Repetition.REPEATED
+            ):
+                # This is a legacy repeated group with no established list context
+                child_list_context = ListSemantics.LEGACY_REPEATED
+
         for i in range(element.num_children):
             child = self.read_schema_tree(
                 elements_iter,
                 child_def_level,
                 child_rep_level,
+                child_list_context,
             )
 
             if isinstance(child, SchemaRoot):
@@ -213,6 +239,7 @@ class SchemaParser(BaseParser):
         element: SchemaLeaf,
         current_def_level: int,
         current_rep_level: int,
+        current_list_context: ListSemantics | None,
     ) -> SchemaLeaf:
         # Calculate final levels for this leaf
         final_def_level = current_def_level
@@ -224,20 +251,22 @@ class SchemaParser(BaseParser):
         if element.repetition == Repetition.REPEATED:
             final_rep_level += 1
 
-        # Update the leaf with calculated levels
+        # Update the leaf with calculated levels and list semantics
         # Since the model is frozen, we need to use model_copy
         element = element.model_copy(
             update={
                 'definition_level': final_def_level,
                 'repetition_level': final_rep_level,
+                'list_semantics': current_list_context,
             },
         )
 
         logger.debug(
-            '  Leaf %s: def_level=%d, rep_level=%d',
+            '  Leaf %s: def_level=%d, rep_level=%d, list_semantics=%s',
             element.name,
             final_def_level,
             final_rep_level,
+            current_list_context,
         )
 
         return element

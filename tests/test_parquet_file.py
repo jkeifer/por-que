@@ -2,6 +2,7 @@ import base64
 import json
 import tempfile
 
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 from urllib.request import urlretrieve
@@ -17,10 +18,13 @@ from por_que.util.http_file import HttpFile
 FIXTURES = Path(__file__).parent / 'fixtures'
 METADATA_FIXTURES = FIXTURES / 'metadata'
 DATA_FIXTURES = FIXTURES / 'data'
-ENCODED_PREFIX = '*-*-*-||por-que_base64_encoded||-*-*-*>'
+BASE64_ENCODE_PREFIX = '*-*-*-||por-que_base64_encoded||-*-*-*>'
+DECIMAL_ENCODE_PREFIX = '*-*-*-||por-que_decimal_encoded||-*-*-*>'
 
 TEST_FILES = [
     'alltypes_plain',
+    'alltypes_dictionary',
+    'alltypes_plain.snappy',
     'delta_byte_array',
     'delta_length_byte_array',
     'delta_binary_packed',
@@ -44,15 +48,24 @@ TEST_FILES = [
     'concatenated_gzip_members',
     'byte_stream_split.zstd',
     'incorrect_map_schema',
+    'list_columns',
     'sort_columns',
     'old_list_structure',
+    'repeated_no_annotation',
     'repeated_primitive_no_list',
     # pyarrow output is inconsistent with this one
     'map_no_value',
     'page_v2_empty_compressed',
     'datapage_v2_empty_datapage.snappy',
     'unknown-logical-type',
+    'binary',
     'binary_truncated_min_max',
+    'byte_array_decimal',
+    'byte_stream_split.zstd',
+    'byte_stream_split_extended.gzip',
+    # Unknown page type: None
+    #'column_chunk_key_value_metadata',
+    'fixed_length_decimal',
     'geospatial/crs-projjson',
     'geospatial/geospatial',
     'geospatial/geospatial-with-nan',
@@ -97,12 +110,15 @@ def large_string_map_brotli(actual: dict[str, Any]) -> bool:
     except KeyError:
         return False
 
-    assert len(rows) == 2
+    row_count = len(rows)
+    assert row_count == 2
     for row in rows:
         keys = list(row.keys())
-        assert len(keys) == 1
+        key_count = len(keys)
+        assert key_count == 1
         key = keys[0]
-        assert len(key) == 2**30
+        key_len = len(key)
+        assert key_len == 2**30
         assert set(key) == {'a'}
         row['a'] = row[key]
         del row[key]
@@ -119,7 +135,9 @@ DATA_PAGE_FIXTURE_COMPARATOR = {
 class FixtureEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, bytes):
-            return ENCODED_PREFIX + base64.b64encode(o).decode()
+            return BASE64_ENCODE_PREFIX + base64.b64encode(o).decode()
+        if isinstance(o, Decimal):
+            return DECIMAL_ENCODE_PREFIX + str(o)
         if hasattr(o, 'isoformat'):  # datetime, date, time objects
             return o.isoformat()
         return json.JSONEncoder.default(self, o)
@@ -133,8 +151,11 @@ class FixtureDecoder(json.JSONDecoder):
         return self._decode_base64_strings(obj)
 
     def _decode_base64_strings(self, obj):
-        if isinstance(obj, str) and obj.startswith(ENCODED_PREFIX):
-            return base64.b64decode(obj[len(ENCODED_PREFIX) :])
+        if isinstance(obj, str):
+            if obj.startswith(BASE64_ENCODE_PREFIX):
+                return base64.b64decode(obj[len(BASE64_ENCODE_PREFIX) :])
+            if obj.startswith(DECIMAL_ENCODE_PREFIX):
+                return Decimal(obj[len(DECIMAL_ENCODE_PREFIX) :])
         if isinstance(obj, dict):
             return {k: self._decode_base64_strings(v) for k, v in obj.items()}
         if isinstance(obj, list):

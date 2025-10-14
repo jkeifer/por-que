@@ -1,0 +1,33 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/list_columns.parquet",
+  "data": {
+    "int64_list": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        null,
+        1
+      ],
+      [
+        4
+      ]
+    ],
+    "utf8_list": [
+      [
+        "abc",
+        "efg",
+        "hij"
+      ],
+      null,
+      [
+        "efg",
+        null,
+        "hij",
+        "xyz"
+      ]
+    ]
+  }
+}

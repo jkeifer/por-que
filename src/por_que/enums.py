@@ -259,3 +259,10 @@ class GeospatialType(IntEnum):
     SURFACE_ZM = 3014
     POLYHEDRALSURFACE_ZM = 3015
     TIN_ZM = 3016
+
+
+class ListSemantics(StrEnum):
+    """Semantic interpretation for repeated field handling."""
+
+    MODERN_LIST = 'modern_list'  # 3-level LIST logical type semantics
+    LEGACY_REPEATED = 'legacy_repeated'  # Legacy repeated group semantics

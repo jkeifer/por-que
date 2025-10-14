@@ -159,7 +159,8 @@
                       "logical_type": 1
                     },
                     "definition_level": 2,
-                    "repetition_level": 1
+                    "repetition_level": 1,
+                    "list_semantics": "legacy_repeated"
                   },
                   "value": {
                     "element_type": "column",
@@ -175,7 +176,8 @@
                     "field_id": null,
                     "logical_type": null,
                     "definition_level": 3,
-                    "repetition_level": 1
+                    "repetition_level": 1,
+                    "list_semantics": "legacy_repeated"
                   }
                 },
                 "repetition": 2,

@@ -111,7 +111,8 @@
                     "field_id": null,
                     "logical_type": null,
                     "definition_level": 2,
-                    "repetition_level": 2
+                    "repetition_level": 2,
+                    "list_semantics": "modern_list"
                   }
                 },
                 "repetition": 2,
