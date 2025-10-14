@@ -50,18 +50,6 @@ wheels = [
 ]
 
 [[package]]
-name = "click"
-version = "8.2.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/60/6c/8ca2efa64cf75a977a0d7fac081354553ebe483345c734fb6b6515d96bbc/click-8.2.1.tar.gz", hash = "sha256:27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202", size = 286342, upload-time = "2025-05-20T23:19:49.832Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/85/32/10bb5764d90a8eee674e9dc6f4db6a0ab47c8c4d0d83c27f7c39ac415a4d/click-8.2.1-py3-none-any.whl", hash = "sha256:61a3265b914e850b85317d0b3109c7f8cd35a670f963866005d6ef1d5175a12b", size = 102215, upload-time = "2025-05-20T23:19:47.796Z" },
-]
-
-[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -350,7 +338,6 @@ dependencies = [
 [package.optional-dependencies]
 all = [
     { name = "brotli" },
-    { name = "click" },
     { name = "jsonschema" },
     { name = "python-lzo" },
     { name = "python-snappy" },
@@ -364,9 +351,6 @@ all-codecs = [
 ]
 brotli = [
     { name = "brotli" },
-]
-cli = [
-    { name = "click" },
 ]
 lzo = [
     { name = "python-lzo" },
@@ -398,8 +382,6 @@ requires-dist = [
     { name = "brotli", marker = "extra == 'all'", specifier = ">=1.1.0" },
     { name = "brotli", marker = "extra == 'all-codecs'", specifier = ">=1.1.0" },
     { name = "brotli", marker = "extra == 'brotli'", specifier = ">=1.1.0" },
-    { name = "click", marker = "extra == 'all'", specifier = ">=8.2.1" },
-    { name = "click", marker = "extra == 'cli'", specifier = ">=8.2.1" },
     { name = "jsonschema", marker = "extra == 'all'", specifier = ">=4.25.1" },
     { name = "jsonschema", marker = "extra == 'validation'", specifier = ">=4.25.1" },
     { name = "pydantic", specifier = ">=2.11.7" },
@@ -413,7 +395,7 @@ requires-dist = [
     { name = "zstandard", marker = "extra == 'all-codecs'", specifier = ">=0.23.0" },
     { name = "zstandard", marker = "extra == 'zstd'", specifier = ">=0.23.0" },
 ]
-provides-extras = ["all", "all-codecs", "brotli", "cli", "lzo", "snappy", "validation", "zstd"]
+provides-extras = ["all", "all-codecs", "brotli", "lzo", "snappy", "validation", "zstd"]
 
 [package.metadata.requires-dev]
 dev = [
