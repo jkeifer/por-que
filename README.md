@@ -7,6 +7,11 @@
 
 Si, ¿pero por qué? ¡Porque, parquet, python!
 
+## But seriously, why "Por Qué"?
+
+Because asking "why" leads to understanding! This project exists to answer "why
+does Parquet work the way it does?" by implementing it from first principles.
+
 > [!WARNING]
 > This is a project for education, it is NOT suitable for any production uses.
 
@@ -28,47 +33,16 @@ internally.
 - **Compression analysis** - Calculate compression ratios and storage
   efficiency
 - **HTTP support** - Read Parquet files from URLs using range requests
-- **CLI interface** - Easy-to-use command-line tools for exploration
 
 ## Installation
 
 With pip:
 
 ```bash
-pip install 'por-que[cli]'
+pip install 'por-que'
 ```
 
 ## Usage
-
-### Command Line Interface
-
-The CLI uses a unified file/URL argument that auto-detects the source:
-
-```bash
-# Show help
-porque --help
-
-# View file summary (local file or URL)
-porque metadata /path/to/file.parquet summary
-porque metadata https://example.com/file.parquet summary
-
-# View detailed schema
-porque metadata file.parquet schema
-
-# View file statistics and compression info
-porque metadata file.parquet stats
-
-# View row group information
-porque metadata file.parquet rowgroups
-porque metadata file.parquet rowgroups --group 0
-
-# View column metadata
-porque metadata file.parquet columns
-
-# View key-value metadata
-porque metadata file.parquet keyvalue
-porque metadata file.parquet keyvalue "spark.version"
-```
 
 ### Python API
 
@@ -78,30 +52,47 @@ from por_que.util.http_file import HttpFile
 
 # Read from local file
 with open("data.parquet", "rb") as f:
-    parquet_file = ParquetFile(f)
-    print(f"Total rows: {parquet_file.num_rows()}")
-    print(f"Columns: {parquet_file.columns()}")
+    parquet_file = ParquetFile.from_reader(f, "data.parquet")
 
-    # Access metadata
-    metadata = parquet_file.metadata
-    print(f"Parquet version: {metadata.version}")
-    print(f"Row groups: {len(metadata.row_groups)}")
+    # Access file-level metadata
+    print(f"Total rows: {parquet_file.metadata.metadata.row_count}")
+    print(f"Columns: {parquet_file.metadata.metadata.column_count}")
+    print(f"Row groups: {parquet_file.metadata.metadata.row_group_count}")
+    print(f"Parquet version: {parquet_file.metadata.metadata.version}")
+
+    # Access schema information
+    schema = parquet_file.metadata.metadata.schema_root
+    print(f"Schema: {schema}")
+
+    # Access column chunks and parse data
+    for column_chunk in parquet_file.column_chunks:
+        print(f"Column: {column_chunk.path_in_schema}")
+        print(f"  Compression: {column_chunk.codec}")
+        print(f"  Values: {column_chunk.num_values}")
+
+        # Parse all data from the column
+        data = column_chunk.parse_all_data_pages(f)
+        print(f"  First values: {data[:5]}")
 
 # Read from URL
 with HttpFile("https://example.com/data.parquet") as f:
-    parquet_file = ParquetFile(f)
+    parquet_file = ParquetFile.from_reader(f, "https://example.com/data.parquet")
 
-    # Lazy iteration over a column
-    for value in parquet_file.column("user_id"):
-        print(value)  # Values are yielded one at a time
+    # Access pages within a column chunk
+    column_chunk = parquet_file.column_chunks[0]
+    for page in column_chunk.data_pages:
+        print(f"Page at offset {page.start_offset}")
+        print(f"  Type: {page.page_type}")
+        print(f"  Values: {page.num_values}")
+        print(f"  Encoding: {page.encoding}")
 
-    # Access specific row group
-    row_group = parquet_file.row_group(0)
-    column_reader = row_group.column("email")
-    for page in column_reader.read():
-        # Pages contain raw data (decoding not yet implemented)
-        page_header, raw_data = page
-        print(f"Page type: {page_header.type}")
+# Serialize to JSON or dict
+json_output = parquet_file.to_json(indent=2)
+dict_output = parquet_file.to_dict()
+
+# Deserialize from JSON or dict
+restored = ParquetFile.from_json(json_output)
+restored = ParquetFile.from_dict(dict_output)
 ```
 
 ## What You'll Learn
@@ -134,38 +125,42 @@ This implementation prioritizes readability and understanding over performance:
 ## Requirements
 
 - Python 3.13+
-- No runtime dependencies for core parsing
-- Click for CLI interface (optional)
+- Pydantic 2.11+ (for data structure validation and serialization)
 
 ## Architecture
 
 ```plaintext
 src/por_que/
-├── cli/                     # Command-line interface
-│   ├── _cli.py             # Click CLI definitions
-│   ├── formatters.py       # Output formatting functions
-│   └── exceptions.py       # CLI-specific exceptions
 ├── parsers/                 # Low-level binary parsers
 │   ├── parquet/            # Parquet format parsers
-│   │   ├── metadata.py     # Metadata parser
+│   │   ├── metadata.py     # File metadata parser
 │   │   ├── page.py         # Page header parser
-│   │   ├── schema.py       # Schema parser
-│   │   └── ...             # Other format parsers
-│   └── thrift/             # Thrift protocol implementation
-│       ├── parser.py       # Core Thrift parser
-│       └── enums.py        # Thrift type definitions
-├── readers/                 # High-level reader classes
-│   ├── row_group.py        # Row group reader
-│   ├── column_chunk.py     # Column chunk reader
-│   └── page.py             # Page reader
+│   │   ├── page_index.py   # Page index structures
+│   │   ├── schema.py       # Schema tree parser
+│   │   ├── statistics.py   # Statistics parser
+│   │   ├── row_group.py    # Row group metadata
+│   │   ├── column.py       # Column chunk metadata
+│   │   └── ...             # Other metadata parsers
+│   ├── page_content/       # Page data decoding
+│   │   ├── data.py         # Data page decoder
+│   │   ├── dictionary.py   # Dictionary page decoder
+│   │   └── compressors.py  # Compression codecs
+│   ├── thrift/             # Thrift protocol implementation
+│   │   ├── parser.py       # Core Thrift parser
+│   │   └── enums.py        # Thrift type definitions
+│   ├── logical_types.py    # Logical type converters
+│   └── physical_types.py   # Physical type parsers
 ├── util/                    # Utilities
-│   └── http_file.py        # HTTP range request support
-├── parquet_file.py         # Main entry point
+│   ├── http_file.py        # HTTP range request support
+│   ├── file_read_cache.py  # Read caching
+│   └── ...                 # Other utilities
+├── physical.py             # Main ParquetFile class
+├── file_metadata.py        # Metadata data structures
+├── pages.py                # Page data structures
 ├── protocols.py            # Type protocols
-├── types.py                # Data structures and types
 ├── enums.py                # Parquet format enums
-├── stats.py                # Statistics calculation
-└── exceptions.py           # Core exceptions
+├── constants.py            # Format constants
+└── exceptions.py           # Exception classes
 ```
 
 ## Current Capabilities
@@ -174,25 +169,23 @@ src/por_que/
 
 - **Complete metadata parsing** - All Parquet metadata structures
 - **Schema parsing** - Full schema tree with logical types
-- **Page header parsing** - All page types (DATA_PAGE, DATA_PAGE_V2,
-  DICTIONARY_PAGE)
-- **Row group access** - Lazy readers for row groups and columns
-- **Statistics parsing** - Min/max values and null counts
+- **Page parsing** - All page types (DATA_PAGE, DATA_PAGE_V2,
+  DICTIONARY_PAGE, INDEX_PAGE)
+- **Data decoding** - Convert raw page data to Python values
+- **Compression support** - Snappy, GZIP, Brotli, LZ4, LZO, Zstd decompression
+- **Encoding support** - PLAIN, DICTIONARY, RLE, DELTA (all variants),
+  BYTE_STREAM_SPLIT
+- **Nested data** - Definition and repetition level handling
+- **Statistics parsing** - Min/max values, null counts, and distinct counts
+- **Page indexes** - Column and offset index structures
 - **HTTP support** - Range requests for remote file reading
-- **Memory efficiency** - Lazy loading throughout the stack
-
-### Work in Progress
-
-- **Data decoding** - Converting raw page data to Python values
-- **Compression support** - Snappy, GZIP, LZ4, Zstd decompression
-- **Encoding support** - PLAIN, DICTIONARY, RLE, BIT_PACKED decoding
-- **Nested data** - Handling definition and repetition levels
+- **Serialization** - Export to JSON/dict and restore from serialized formats
 
 ### Future Development
 
-- Complete value extraction with all encodings
-- Schema inference and validation
 - Performance optimizations
+- Additional test coverage for edge cases
+- Refactoring and code organization improvements
 
 ### Not Planned
 
@@ -210,8 +203,3 @@ This is primarily an educational project. Feel free to:
 ## License
 
 Apache License 2.0
-
-## Why "Por Qué"?
-
-Because asking "why" leads to understanding! This project exists to answer "why
-does Parquet work the way it does?" by implementing it from first principles.
