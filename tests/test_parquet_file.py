@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Any
 from urllib.request import urlretrieve
 
-import pyarrow.parquet as pq
 import pytest
 
 from deepdiff import DeepDiff
@@ -339,6 +338,8 @@ def test_pyarrow_comparison(
     parquet_url: str,
 ) -> None:
     """Compare PyArrow parsing with por-que parsing using existing fixtures."""
+    import pyarrow.parquet as pq
+
     # Download the parquet file to a temporary location
     with tempfile.NamedTemporaryFile(suffix='.parquet', delete=False) as tmp_file:
         tmp_path = tmp_file.name
