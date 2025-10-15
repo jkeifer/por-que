@@ -17,12 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - name: Create virtual environment
-        run: uv venv
-      - name: Install build
-        run: uv pip install build
       - name: Build
-        run: .venv/bin/python -m build
+        run: uv build
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         if: startsWith(github.ref, 'refs/tags')
