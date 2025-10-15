@@ -80,7 +80,7 @@ class _OpenedHttpFile:
         if prefetch_bytes > 0 and prefetch_direction == 'START':
             self._cache.read(0, prefetch_bytes)
         elif prefetch_bytes > 0 and prefetch_direction == 'END':
-            self._cache.read(prefetch_bytes, self._size)
+            self._cache.read(self._size - prefetch_bytes, self._size)
 
     def _get_file_size(self) -> int:
         """
@@ -195,7 +195,7 @@ class HttpFile:
         self,
         url: str,
         minimum_range_request_bytes: int = 8192,
-        prefetch_bytes: int = 2 * 20,
+        prefetch_bytes: int = 2**20,
         prefetch_direction: Literal['START', 'END'] = 'END',
     ) -> None:
         """

@@ -7,7 +7,11 @@ from por_que.util.http_file import HttpFile
 
 @pytest.mark.parametrize('parquet_file_name', ['alltypes_plain'])
 def test_http_file(parquet_url: str) -> None:
-    with HttpFile(parquet_url) as hf:
+    with HttpFile(
+        parquet_url,
+        minimum_range_request_bytes=80,
+        prefetch_bytes=100,
+    ) as hf:
         # Test initial state
         assert hf.tell() == 0
 
