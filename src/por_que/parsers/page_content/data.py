@@ -24,7 +24,7 @@ from por_que.exceptions import ParquetDataError
 from por_que.file_metadata import SchemaLeaf
 from por_que.parsers import physical_types
 from por_que.parsers.logical_types import convert_values_to_logical_types
-from por_que.protocols import ReadableSeekable
+from por_que.protocols import AsyncReadableSeekable
 
 if TYPE_CHECKING:
     from por_que.pages import DataPageV1, DataPageV2
@@ -47,9 +47,9 @@ type PageDataType[T] = list[T | None]
 class DataPageParser:
     """Parser for data page content."""
 
-    def parse_content(
+    async def parse_content(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         data_page: DataPageV1 | DataPageV2,
         physical_type: Type,
         compression_codec: Compression,
@@ -69,7 +69,7 @@ class DataPageParser:
         # Handle DataPageV1 vs DataPageV2 differently due to their structure
         match data_page:
             case DataPageV1():
-                return self._data_page_v1(
+                return await self._data_page_v1(
                     reader,
                     data_page,
                     physical_type,
@@ -80,7 +80,7 @@ class DataPageParser:
                     excluded_logical_columns,
                 )
             case DataPageV2():
-                return self._data_page_v2(
+                return await self._data_page_v2(
                     reader,
                     data_page,
                     physical_type,
@@ -125,9 +125,9 @@ class DataPageParser:
             )
         return all_values
 
-    def _data_page_v1(
+    async def _data_page_v1(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         data_page: DataPageV1,
         physical_type: Type,
         compression_codec: Compression,
@@ -140,7 +140,7 @@ class DataPageParser:
         definition_levels: list[int] = []
 
         # DataPageV1: Everything is compressed together
-        compressed_data = reader.read(data_page.compressed_page_size)
+        compressed_data = await reader.read(data_page.compressed_page_size)
         decompressed_data = compressors.decompress_data(
             compressed_data,
             compression_codec,
@@ -187,9 +187,9 @@ class DataPageParser:
             excluded_logical_columns,
         )
 
-    def _data_page_v2(
+    async def _data_page_v2(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         data_page: DataPageV2,
         physical_type: Type,
         compression_codec: Compression,
@@ -203,7 +203,7 @@ class DataPageParser:
 
         # DataPageV2: Levels are uncompressed, only values are compressed
         # Read all data (levels + compressed values)
-        all_data = reader.read(data_page.compressed_page_size)
+        all_data = await reader.read(data_page.compressed_page_size)
         stream = BytesIO(all_data)
 
         rep_level_bytes = b''

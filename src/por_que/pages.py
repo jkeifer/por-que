@@ -18,7 +18,7 @@ from .file_metadata import (
 from .parsers.page_content import DataPageParser, DictionaryPageParser, DictType
 from .parsers.parquet.page import PageParser
 from .parsers.thrift.parser import ThriftCompactParser
-from .protocols import ReadableSeekable
+from .protocols import AsyncReadableSeekable
 
 
 class Page(BaseModel, frozen=True):
@@ -35,9 +35,9 @@ class Page(BaseModel, frozen=True):
     crc: int | None = None
 
     @classmethod
-    def from_reader(
+    async def from_reader(
         cls,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         offset: int,
         schema_root: SchemaRoot,
         chunk_metadata: ColumnChunk | None = None,
@@ -61,7 +61,7 @@ class Page(BaseModel, frozen=True):
             path_in_schema,
         )
 
-        return page_parser.read_page()
+        return await page_parser.read_page()
 
 
 class DictionaryPage(Page, frozen=True):
@@ -72,9 +72,9 @@ class DictionaryPage(Page, frozen=True):
     encoding: Encoding
     is_sorted: bool = False
 
-    def parse_content(
+    async def parse_content(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
         schema_element,
@@ -91,7 +91,7 @@ class DictionaryPage(Page, frozen=True):
             List of dictionary values as Python objects
         """
         parser = DictionaryPageParser()
-        return parser.parse_content(
+        return await parser.parse_content(
             reader=reader,
             dictionary_page=self,
             physical_type=physical_type,
@@ -110,9 +110,9 @@ class DataPageV1(Page, frozen=True):
     repetition_level_encoding: Encoding
     statistics: ColumnStatistics | None = None
 
-    def parse_content(
+    async def parse_content(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
         schema_element: SchemaLeaf,
@@ -131,7 +131,7 @@ class DataPageV1(Page, frozen=True):
             List of data values as Python objects
         """
         parser = DataPageParser()
-        return parser.parse_content(
+        return await parser.parse_content(
             reader=reader,
             data_page=self,
             physical_type=physical_type,
@@ -154,9 +154,9 @@ class DataPageV2(Page, frozen=True):
     is_compressed: bool = True
     statistics: ColumnStatistics | None = None
 
-    def parse_content(
+    async def parse_content(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
         schema_element: SchemaLeaf,
@@ -175,7 +175,7 @@ class DataPageV2(Page, frozen=True):
             List of data values as Python objects
         """
         parser = DataPageParser()
-        return parser.parse_content(
+        return await parser.parse_content(
             reader=reader,
             data_page=self,
             physical_type=physical_type,

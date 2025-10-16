@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import asyncio
+import inspect
 import json
 import struct
 
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
-from typing import Any, Literal, Self, assert_never
+from typing import Any, Literal, Self, TypeGuard, assert_never
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -31,8 +33,29 @@ from .pages import (
 )
 from .parsers.page_content import DictType, PageDataType
 from .parsers.parquet.metadata import MetadataParser
-from .protocols import ReadableSeekable
+from .protocols import (
+    AsyncCursableReadableSeekable,
+    AsyncReadableSeekable,
+    ReadableSeekable,
+)
+from .util.async_adapter import AsyncReadableSeekableAdapter
 from .util.models import get_item_or_attr
+
+
+def is_async_reader(
+    reader: ReadableSeekable | AsyncReadableSeekable,
+) -> TypeGuard[AsyncReadableSeekable]:
+    return hasattr(reader, 'read') and inspect.iscoroutinefunction(reader.read)
+
+
+def ensure_async_reader(
+    reader: ReadableSeekable | AsyncReadableSeekable,
+) -> AsyncReadableSeekable:
+    """Convert ReadableSeekable to AsyncReadableSeekable if needed."""
+    if is_async_reader(reader):
+        return reader
+    # erroneous type checking error ignored
+    return AsyncReadableSeekableAdapter(reader)  # type: ignore
 
 
 class AsdictTarget(StrEnum):
@@ -53,9 +76,9 @@ class PhysicalColumnIndex(BaseModel, frozen=True):
     column_index: ColumnIndex
 
     @classmethod
-    def from_reader(
+    async def from_reader(
         cls,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         column_index_offset: int,
     ) -> Self:
         """Parse Page Index data from file location."""
@@ -67,7 +90,7 @@ class PhysicalColumnIndex(BaseModel, frozen=True):
 
         # Parse page index data directly from file
         parser = ThriftCompactParser(reader, column_index_offset)
-        column_index = PageIndexParser(parser).read_column_index()
+        column_index = await PageIndexParser(parser).read_column_index()
 
         end_pos = reader.tell()
         byte_length = end_pos - start_pos
@@ -87,9 +110,9 @@ class PhysicalOffsetIndex(BaseModel, frozen=True):
     offset_index: OffsetIndex
 
     @classmethod
-    def from_reader(
+    async def from_reader(
         cls,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         offset_index_offset: int,
     ) -> Self:
         """Parse Page Index data from file location."""
@@ -101,7 +124,7 @@ class PhysicalOffsetIndex(BaseModel, frozen=True):
 
         # Parse page index data directly from file
         parser = ThriftCompactParser(reader, offset_index_offset)
-        offset_index = PageIndexParser(parser).read_offset_index()
+        offset_index = await PageIndexParser(parser).read_offset_index()
 
         end_pos = reader.tell()
         byte_length = end_pos - start_pos
@@ -130,9 +153,9 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     row_group: int
 
     @classmethod
-    def from_reader(
+    async def from_reader(
         cls,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         chunk_metadata: ColumnChunk,
         schema_root: SchemaRoot,
         row_group: int,
@@ -154,7 +177,12 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
 
         # Read all pages sequentially within the column chunk's byte range
         while current_offset < chunk_end_offset:
-            page = Page.from_reader(reader, current_offset, schema_root, chunk_metadata)
+            page = await Page.from_reader(
+                reader,
+                current_offset,
+                schema_root,
+                chunk_metadata,
+            )
 
             # Sort pages by type
             if isinstance(page, DictionaryPage):
@@ -176,14 +204,14 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
 
         column_index = None
         if chunk_metadata.column_index_offset is not None:
-            column_index = PhysicalColumnIndex.from_reader(
+            column_index = await PhysicalColumnIndex.from_reader(
                 reader,
                 chunk_metadata.column_index_offset,
             )
 
         offset_index = None
         if chunk_metadata.offset_index_offset is not None:
-            offset_index = PhysicalOffsetIndex.from_reader(
+            offset_index = await PhysicalOffsetIndex.from_reader(
                 reader,
                 chunk_metadata.offset_index_offset,
             )
@@ -203,7 +231,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             row_group=row_group,
         )
 
-    def parse_dictionary(self, reader: ReadableSeekable) -> DictType:
+    async def _parse_dictionary(self, reader: AsyncReadableSeekable) -> DictType:
         """Parse dictionary content if dictionary page exists.
 
         Args:
@@ -216,17 +244,17 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         if self.dictionary_page is None:
             return []
 
-        return self.dictionary_page.parse_content(
+        return await self.dictionary_page.parse_content(
             reader=reader,
             physical_type=self.metadata.type,
             compression_codec=self.codec,
             schema_element=self.metadata.schema_element,
         )
 
-    def parse_data_page(
+    async def parse_data_page(
         self,
         page_index: int,
-        reader: ReadableSeekable,
+        reader: ReadableSeekable | AsyncReadableSeekable,
         dictionary_values: DictType | None = None,
     ) -> PageDataType:
         """Parse a data page in this column chunk.
@@ -240,6 +268,8 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         Returns:
             List of data values
         """
+        reader = ensure_async_reader(reader)
+
         try:
             data_page = self.data_pages[page_index]
         except IndexError:
@@ -249,9 +279,9 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             ) from None
 
         if dictionary_values is None:
-            dictionary_values = self.parse_dictionary(reader)
+            dictionary_values = await self._parse_dictionary(reader)
 
-        return data_page.parse_content(
+        return await data_page.parse_content(
             reader=reader,
             physical_type=self.metadata.type,
             compression_codec=self.codec,
@@ -259,9 +289,9 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             dictionary_values=dictionary_values if dictionary_values else None,
         )
 
-    def parse_all_data_pages(
+    async def parse_all_data_pages(
         self,
-        reader: ReadableSeekable,
+        reader: ReadableSeekable | AsyncReadableSeekable,
     ) -> PageDataType:
         """Parse all data from all pages in this column chunk into a single list.
 
@@ -271,12 +301,14 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         Returns:
             Flattened list of all data values from all pages in this column
         """
-        dictionary_values = self.parse_dictionary(reader)
+        reader = ensure_async_reader(reader)
+
+        dictionary_values = await self._parse_dictionary(reader)
 
         data: PageDataType = []
         for page_index in range(len(self.data_pages)):
             data.extend(
-                self.parse_data_page(
+                await self.parse_data_page(
                     page_index,
                     reader,
                     dictionary_values=dictionary_values,
@@ -294,13 +326,13 @@ class PhysicalMetadata(BaseModel, frozen=True):
     metadata: FileMetadata
 
     @classmethod
-    def from_reader(
+    async def from_reader(
         cls,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
     ) -> Self:
         reader.seek(-FOOTER_SIZE, SEEK_END)
         footer_start = reader.tell()
-        footer_bytes = reader.read(FOOTER_SIZE)
+        footer_bytes = await reader.read(FOOTER_SIZE)
         magic_footer = footer_bytes[4:8]
 
         if magic_footer != PARQUET_MAGIC:
@@ -314,7 +346,7 @@ class PhysicalMetadata(BaseModel, frozen=True):
         # Parse metadata directly from file
         metadata_start = footer_start - metadata_size
         reader.seek(metadata_start)
-        metadata = MetadataParser(reader, metadata_start).parse()
+        metadata = await MetadataParser(reader, metadata_start).parse()
 
         return cls(
             start_offset=metadata_start,
@@ -407,19 +439,21 @@ class ParquetFile(
         return {**data, 'column_chunks': updated_chunks}
 
     @classmethod
-    def from_reader(
+    async def from_reader(
         cls,
-        reader: ReadableSeekable,
+        reader: ReadableSeekable | AsyncReadableSeekable,
         source: Path | str,
     ) -> Self:
+        reader = ensure_async_reader(reader)
+
         reader.seek(0, SEEK_END)
         filesize = reader.tell()
 
         if filesize < 12:
             raise ParquetFormatError('Parquet file is too small to be valid')
 
-        phy_metadata = PhysicalMetadata.from_reader(reader)
-        column_chunks = cls._parse_column_chunks(reader, phy_metadata.metadata)
+        phy_metadata = await PhysicalMetadata.from_reader(reader)
+        column_chunks = await cls._parse_column_chunks(reader, phy_metadata.metadata)
 
         return cls(
             source=str(source),
@@ -429,26 +463,36 @@ class ParquetFile(
         )
 
     @classmethod
-    def _parse_column_chunks(
+    async def _parse_column_chunks(
         cls,
-        file_obj: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         metadata: FileMetadata,
     ) -> list[PhysicalColumnChunk]:
-        column_chunks = []
-        schema_root = metadata.schema_root
+        # build list of coroutines to read each column chunk of every row group
+        # not wrapping in tasks here to ensure we can control scheduling order
+        # concurrently vs serialially based on support for parallel cursors
+        coroutines = [
+            PhysicalColumnChunk.from_reader(
+                reader=(
+                    reader.clone()
+                    if isinstance(reader, AsyncCursableReadableSeekable)
+                    else reader
+                ),
+                chunk_metadata=chunk_metadata,
+                schema_root=metadata.schema_root,
+                row_group=row_group_index,
+            )
+            for row_group_index, row_group_metadata in enumerate(metadata.row_groups)
+            for chunk_metadata in row_group_metadata.column_chunks.values()
+        ]
 
-        # Iterate through all row groups and their column chunks
-        for row_group_index, row_group_metadata in enumerate(metadata.row_groups):
-            for chunk_metadata in row_group_metadata.column_chunks.values():
-                column_chunk = PhysicalColumnChunk.from_reader(
-                    reader=file_obj,
-                    chunk_metadata=chunk_metadata,
-                    schema_root=schema_root,
-                    row_group=row_group_index,
-                )
-                column_chunks.append(column_chunk)
+        if isinstance(reader, AsyncCursableReadableSeekable):
+            # run all tasks concurrently, but get results in order
+            tasks = [asyncio.create_task(coro) for coro in coroutines]
+            return [await task for task in tasks]
 
-        return column_chunks
+        # run tasks in serial, awaiting each before starting next
+        return [await asyncio.create_task(coro) for coro in coroutines]
 
     def to_dict(self, target: AsdictTarget = AsdictTarget.DICT) -> dict[str, Any]:
         match target:
