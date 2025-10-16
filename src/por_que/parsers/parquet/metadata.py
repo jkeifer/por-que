@@ -11,7 +11,7 @@ Teaching Points:
 import logging
 import warnings
 
-from collections.abc import Iterator
+from collections.abc import AsyncIterator
 from typing import Any
 
 from por_que.file_metadata import (
@@ -20,7 +20,7 @@ from por_que.file_metadata import (
     SchemaRoot,
 )
 from por_que.parsers.thrift.parser import ThriftCompactParser
-from por_que.protocols import ReadableSeekable
+from por_que.protocols import AsyncReadableSeekable
 
 from .base import BaseParser
 from .enums import FileMetadataFieldId
@@ -42,7 +42,7 @@ class MetadataParser(BaseParser):
     - Component-based design makes complex parsing more manageable
     """
 
-    def __init__(self, reader: ReadableSeekable, start_offset: int):
+    def __init__(self, reader: AsyncReadableSeekable, start_offset: int):
         """
         Initialize metadata parser to read directly from file.
 
@@ -53,7 +53,7 @@ class MetadataParser(BaseParser):
         parser = ThriftCompactParser(reader, start_offset)
         super().__init__(parser)
 
-    def parse(self) -> FileMetadata:
+    async def parse(self) -> FileMetadata:
         """
         Parse the complete FileMetadata structure using the new generic parser.
 
@@ -73,7 +73,7 @@ class MetadataParser(BaseParser):
 
         props: dict[str, Any] = {}
 
-        for field_id, field_type, value in self.parse_struct_fields():
+        async for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case FileMetadataFieldId.VERSION:
                     props['version'] = value
@@ -85,41 +85,41 @@ class MetadataParser(BaseParser):
                         value.decode('utf-8') if isinstance(value, bytes) else value
                     )
                 case FileMetadataFieldId.SCHEMA:
-                    props['schema_root'] = SchemaParser(
+                    props['schema_root'] = await SchemaParser(
                         self.parser,
                     ).parse_schema_field(value)
                 case FileMetadataFieldId.ROW_GROUPS:
-                    props['row_groups'] = self._parse_row_groups_field(
+                    props['row_groups'] = await self._parse_row_groups_field(
                         value,
                         props['schema_root'],
                     )
                 case FileMetadataFieldId.KEY_VALUE_METADATA:
                     props['key_value_metadata'] = [
-                        KeyValueParser(self.parser).parse() for _ in value
+                        await KeyValueParser(self.parser).parse() async for _ in value
                     ]
                 case FileMetadataFieldId.COLUMN_ORDERS:
                     # column orders has some complexity
                     # but little meaning at current
-                    self.maybe_skip_field(field_type)
+                    await self.maybe_skip_field(field_type)
                 case (
                     FileMetadataFieldId.ENCRYPTION_ALGORITHM
                     | FileMetadataFieldId.FOOTER_SIGNING_KEY_METADATA
                 ):
                     # encryption is not supported
-                    self.maybe_skip_field(field_type)
+                    await self.maybe_skip_field(field_type)
                 case _:
                     warnings.warn(
                         f'Skipping unknown metadata field ID {field_id}',
                         stacklevel=1,
                     )
-                    self.maybe_skip_field(field_type)
+                    await self.maybe_skip_field(field_type)
 
         logger.debug('FileMetadata parsing complete!')
         return FileMetadata(**props)
 
-    def _parse_row_groups_field(
+    async def _parse_row_groups_field(
         self,
-        list_iter: Iterator,
+        list_iter: AsyncIterator,
         schema_root: SchemaRoot | None,
     ) -> RowGroups:
         """
@@ -137,8 +137,8 @@ class MetadataParser(BaseParser):
 
         row_groups: RowGroups = []
         row_group_parser = RowGroupParser(self.parser, schema_root)
-        for _ in list_iter:
-            row_groups.append(row_group_parser.read_row_group())
+        async for _ in list_iter:
+            row_groups.append(await row_group_parser.read_row_group())
 
         logger.debug('    Parsed %s row groups', len(row_groups))
 

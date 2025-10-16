@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Protocol, runtime_checkable
 
 
+@runtime_checkable
 class ReadableSeekable(Protocol):
     """Protocol for file-like objects that support reading and seeking.
 
@@ -44,6 +45,10 @@ class AsyncReadableSeekable(Protocol):
 
     def tell(self) -> int:
         """Return current stream position (synchronous - no I/O)."""
+        ...
+
+    async def close(self) -> None:
+        """Close the file."""
         ...
 
 
