@@ -1,7 +1,7 @@
 [![Tests](https://github.com/jkeifer/por-que/actions/workflows/ci.yml/badge.svg)](https://github.com/jkeifer/por-que/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/por-que.svg)](https://badge.fury.io/py/por-que)
 
-# Por Qué: Pure-Python Parquet Parser
+# Por Qué: Python Parquet Parser
 
 ¿Por qué? ¿Por qué no?
 
@@ -17,22 +17,21 @@ does Parquet work the way it does?" by implementing it from first principles.
 
 ## Overview
 
-Por Qué is a pure-Python Apache Parquet parser built from scratch for
-educational purposes. It implements Parquet's binary format parsing without
-external dependencies, providing insights into how Parquet files work
-internally.
+Por Qué is a Python Apache Parquet parser built from scratch for educational
+purposes. It implements Parquet's binary format in highly-readable python to
+more easily provide insights into how Parquet files work internally.
 
 ## Features
 
-- **Pure Python implementation** - No native dependencies, built from scratch
 - **Complete reader stack** - Parse files, row groups, column chunks, and pages
-- **Lazy data loading** - Efficient memory usage with on-demand reading
 - **Metadata inspection** - Parse and display Parquet file metadata
 - **Schema analysis** - View detailed schema structure with logical types
 - **Row group information** - Inspect row group statistics and column metadata
 - **Compression analysis** - Calculate compression ratios and storage
   efficiency
 - **HTTP support** - Read Parquet files from URLs using range requests
+- **Async parallelism** - supports reading from async sources that support
+  parallelism, like the files over HTTP
 
 ## Installation
 
@@ -48,11 +47,11 @@ pip install 'por-que'
 
 ```python
 from por_que import ParquetFile
-from por_que.util.http_file import HttpFile
+from por_que.util.async_http_file import AsyncHttpFile
 
 # Read from local file
 with open("data.parquet", "rb") as f:
-    parquet_file = ParquetFile.from_reader(f, "data.parquet")
+    parquet_file = await ParquetFile.from_reader(f, "data.parquet")
 
     # Access file-level metadata
     print(f"Total rows: {parquet_file.metadata.metadata.row_count}")
@@ -75,8 +74,8 @@ with open("data.parquet", "rb") as f:
         print(f"  First values: {data[:5]}")
 
 # Read from URL
-with HttpFile("https://example.com/data.parquet") as f:
-    parquet_file = ParquetFile.from_reader(f, "https://example.com/data.parquet")
+asnyc with AsyncHttpFile("https://example.com/data.parquet") as f:
+    parquet_file = await ParquetFile.from_reader(f, "https://example.com/data.parquet")
 
     # Access pages within a column chunk
     column_chunk = parquet_file.column_chunks[0]
@@ -122,16 +121,11 @@ This implementation prioritizes readability and understanding over performance:
   `logging.basicConfig(level=logging.DEBUG)`)
 - Structured architecture mirroring Parquet's physical layout
 
-## Requirements
-
-- Python 3.13+
-- Pydantic 2.11+ (for data structure validation and serialization)
-
 ## Architecture
 
 ```plaintext
 src/por_que/
-├── parsers/                 # Low-level binary parsers
+├── parsers/                # Low-level binary parsers
 │   ├── parquet/            # Parquet format parsers
 │   │   ├── metadata.py     # File metadata parser
 │   │   ├── page.py         # Page header parser
@@ -150,9 +144,8 @@ src/por_que/
 │   │   └── enums.py        # Thrift type definitions
 │   ├── logical_types.py    # Logical type converters
 │   └── physical_types.py   # Physical type parsers
-├── util/                    # Utilities
-│   ├── http_file.py        # HTTP range request support
-│   ├── file_read_cache.py  # Read caching
+├── util/                   # Utilities
+│   ├── async_http_file.py  # HTTP range request support
 │   └── ...                 # Other utilities
 ├── physical.py             # Main ParquetFile class
 ├── file_metadata.py        # Metadata data structures
