@@ -437,6 +437,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "arrow_schema",
+        "full_path": "",
         "start_offset": 1708,
         "byte_length": 17,
         "num_children": 6,
@@ -444,6 +445,7 @@
           "utf8_full_truncation": {
             "element_type": "column",
             "name": "utf8_full_truncation",
+            "full_path": "utf8_full_truncation",
             "start_offset": 1725,
             "byte_length": 33,
             "type": 6,
@@ -463,6 +465,7 @@
           "binary_full_truncation": {
             "element_type": "column",
             "name": "binary_full_truncation",
+            "full_path": "binary_full_truncation",
             "start_offset": 1758,
             "byte_length": 29,
             "type": 6,
@@ -480,6 +483,7 @@
           "utf8_partial_truncation": {
             "element_type": "column",
             "name": "utf8_partial_truncation",
+            "full_path": "utf8_partial_truncation",
             "start_offset": 1787,
             "byte_length": 36,
             "type": 6,
@@ -499,6 +503,7 @@
           "binary_partial_truncation": {
             "element_type": "column",
             "name": "binary_partial_truncation",
+            "full_path": "binary_partial_truncation",
             "start_offset": 1823,
             "byte_length": 32,
             "type": 6,
@@ -516,6 +521,7 @@
           "utf8_no_truncation": {
             "element_type": "column",
             "name": "utf8_no_truncation",
+            "full_path": "utf8_no_truncation",
             "start_offset": 1855,
             "byte_length": 31,
             "type": 6,
@@ -535,6 +541,7 @@
           "binary_no_truncation": {
             "element_type": "column",
             "name": "binary_no_truncation",
+            "full_path": "binary_no_truncation",
             "start_offset": 1886,
             "byte_length": 27,
             "type": 6,

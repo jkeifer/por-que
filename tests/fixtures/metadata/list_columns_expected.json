@@ -103,6 +103,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 382,
         "byte_length": 13,
         "num_children": 2,
@@ -110,6 +111,7 @@
           "int64_list": {
             "element_type": "group",
             "name": "int64_list",
+            "full_path": "int64_list",
             "start_offset": 395,
             "byte_length": 23,
             "num_children": 1,
@@ -117,6 +119,7 @@
               "list": {
                 "element_type": "group",
                 "name": "list",
+                "full_path": "int64_list.list",
                 "start_offset": 418,
                 "byte_length": 11,
                 "num_children": 1,
@@ -124,6 +127,7 @@
                   "item": {
                     "element_type": "column",
                     "name": "item",
+                    "full_path": "int64_list.list.item",
                     "start_offset": 429,
                     "byte_length": 11,
                     "type": 2,
@@ -155,6 +159,7 @@
           "utf8_list": {
             "element_type": "group",
             "name": "utf8_list",
+            "full_path": "utf8_list",
             "start_offset": 440,
             "byte_length": 22,
             "num_children": 1,
@@ -162,6 +167,7 @@
               "list": {
                 "element_type": "group",
                 "name": "list",
+                "full_path": "utf8_list.list",
                 "start_offset": 462,
                 "byte_length": 11,
                 "num_children": 1,
@@ -169,6 +175,7 @@
                   "item": {
                     "element_type": "column",
                     "name": "item",
+                    "full_path": "utf8_list.list.item",
                     "start_offset": 473,
                     "byte_length": 17,
                     "type": 6,

@@ -47,6 +47,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "foo.Event",
+        "full_path": "",
         "start_offset": 103,
         "byte_length": 14,
         "num_children": 1,
@@ -54,6 +55,7 @@
           "foo": {
             "element_type": "column",
             "name": "foo",
+            "full_path": "foo",
             "start_offset": 117,
             "byte_length": 12,
             "type": 6,

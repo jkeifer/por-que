@@ -41,6 +41,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 2963,
         "byte_length": 15,
         "num_children": 1,
@@ -48,6 +49,7 @@
           "FRUIT": {
             "element_type": "column",
             "name": "FRUIT",
+            "full_path": "FRUIT",
             "start_offset": 2978,
             "byte_length": 20,
             "type": 6,

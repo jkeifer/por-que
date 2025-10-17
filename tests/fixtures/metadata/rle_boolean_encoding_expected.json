@@ -41,6 +41,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "table",
+        "full_path": "",
         "start_offset": 77,
         "byte_length": 10,
         "num_children": 1,
@@ -48,6 +49,7 @@
           "datatype_boolean": {
             "element_type": "column",
             "name": "datatype_boolean",
+            "full_path": "datatype_boolean",
             "start_offset": 87,
             "byte_length": 25,
             "type": 0,

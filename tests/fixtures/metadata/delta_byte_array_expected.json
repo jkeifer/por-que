@@ -362,6 +362,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "hive_schema",
+        "full_path": "",
         "start_offset": 67303,
         "byte_length": 16,
         "num_children": 9,
@@ -369,6 +370,7 @@
           "c_customer_id": {
             "element_type": "column",
             "name": "c_customer_id",
+            "full_path": "c_customer_id",
             "start_offset": 67319,
             "byte_length": 22,
             "type": 6,
@@ -386,6 +388,7 @@
           "c_salutation": {
             "element_type": "column",
             "name": "c_salutation",
+            "full_path": "c_salutation",
             "start_offset": 67341,
             "byte_length": 21,
             "type": 6,
@@ -403,6 +406,7 @@
           "c_first_name": {
             "element_type": "column",
             "name": "c_first_name",
+            "full_path": "c_first_name",
             "start_offset": 67362,
             "byte_length": 21,
             "type": 6,
@@ -420,6 +424,7 @@
           "c_last_name": {
             "element_type": "column",
             "name": "c_last_name",
+            "full_path": "c_last_name",
             "start_offset": 67383,
             "byte_length": 20,
             "type": 6,
@@ -437,6 +442,7 @@
           "c_preferred_cust_flag": {
             "element_type": "column",
             "name": "c_preferred_cust_flag",
+            "full_path": "c_preferred_cust_flag",
             "start_offset": 67403,
             "byte_length": 30,
             "type": 6,
@@ -454,6 +460,7 @@
           "c_birth_country": {
             "element_type": "column",
             "name": "c_birth_country",
+            "full_path": "c_birth_country",
             "start_offset": 67433,
             "byte_length": 24,
             "type": 6,
@@ -471,6 +478,7 @@
           "c_login": {
             "element_type": "column",
             "name": "c_login",
+            "full_path": "c_login",
             "start_offset": 67457,
             "byte_length": 16,
             "type": 6,
@@ -488,6 +496,7 @@
           "c_email_address": {
             "element_type": "column",
             "name": "c_email_address",
+            "full_path": "c_email_address",
             "start_offset": 67473,
             "byte_length": 24,
             "type": 6,
@@ -505,6 +514,7 @@
           "c_last_review_date": {
             "element_type": "column",
             "name": "c_last_review_date",
+            "full_path": "c_last_review_date",
             "start_offset": 67497,
             "byte_length": 27,
             "type": 6,

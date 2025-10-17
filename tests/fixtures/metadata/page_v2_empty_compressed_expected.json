@@ -60,6 +60,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 131,
         "byte_length": 13,
         "num_children": 1,
@@ -67,6 +68,7 @@
           "integer_column": {
             "element_type": "column",
             "name": "integer_column",
+            "full_path": "integer_column",
             "start_offset": 144,
             "byte_length": 21,
             "type": 1,

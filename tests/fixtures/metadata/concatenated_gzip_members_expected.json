@@ -50,6 +50,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "root",
+        "full_path": "",
         "start_offset": 1528,
         "byte_length": 9,
         "num_children": 1,
@@ -57,6 +58,7 @@
           "long_col": {
             "element_type": "column",
             "name": "long_col",
+            "full_path": "long_col",
             "start_offset": 1537,
             "byte_length": 24,
             "type": 2,

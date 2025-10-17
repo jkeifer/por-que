@@ -13,7 +13,7 @@ import struct
 import warnings
 
 from collections.abc import AsyncIterator
-from typing import Any, assert_never
+from typing import Any, assert_never, cast
 
 from por_que.enums import (
     ConvertedType,
@@ -94,6 +94,7 @@ class SchemaParser(BaseParser):
                     props['repetition'] = Repetition(value)
                 case SchemaElementFieldId.NAME:
                     props['name'] = value.decode('utf-8')
+                    props['full_path'] = props['name']
                 case SchemaElementFieldId.NUM_CHILDREN:
                     props['num_children'] = value
                 case SchemaElementFieldId.CONVERTED_TYPE:
@@ -121,6 +122,7 @@ class SchemaParser(BaseParser):
     def read_schema_tree(
         self,
         elements_iter,
+        current_path: str = '',
         current_def_level: int = 0,
         current_rep_level: int = 0,
         current_list_context: ListSemantics | None = None,
@@ -159,6 +161,7 @@ class SchemaParser(BaseParser):
                 return self._read_schema_group(
                     element,
                     elements_iter,
+                    current_path,
                     current_def_level,
                     current_rep_level,
                     current_list_context,
@@ -166,6 +169,7 @@ class SchemaParser(BaseParser):
             case SchemaLeaf():
                 return self._read_schema_leaf(
                     element,
+                    current_path,
                     current_def_level,
                     current_rep_level,
                     current_list_context,
@@ -177,6 +181,7 @@ class SchemaParser(BaseParser):
         self,
         element: SchemaGroup | SchemaRoot,
         elements_iter,
+        current_path: str,
         current_def_level: int,
         current_rep_level: int,
         current_list_context: ListSemantics | None,
@@ -195,6 +200,9 @@ class SchemaParser(BaseParser):
         child_list_context = current_list_context
 
         if isinstance(element, SchemaGroup):
+            # update current schema path
+            current_path += '.' + element.name if current_path else element.name
+
             # Definition level increases for non-REQUIRED fields
             if element.repetition != Repetition.REQUIRED:
                 child_def_level += 1
@@ -213,9 +221,16 @@ class SchemaParser(BaseParser):
                 # This is a legacy repeated group with no established list context
                 child_list_context = ListSemantics.LEGACY_REPEATED
 
+        element = element.model_copy(
+            update={
+                'full_path': current_path,
+            },
+        )
+
         for i in range(element.num_children):
             child = self.read_schema_tree(
                 elements_iter,
+                current_path,
                 child_def_level,
                 child_rep_level,
                 child_list_context,
@@ -237,6 +252,7 @@ class SchemaParser(BaseParser):
     def _read_schema_leaf(
         self,
         element: SchemaLeaf,
+        current_path: str,
         current_def_level: int,
         current_rep_level: int,
         current_list_context: ListSemantics | None,
@@ -255,6 +271,9 @@ class SchemaParser(BaseParser):
         # Since the model is frozen, we need to use model_copy
         element = element.model_copy(
             update={
+                'full_path': (
+                    current_path + '.' + element.name if current_path else element.name
+                ),
                 'definition_level': final_def_level,
                 'repetition_level': final_rep_level,
                 'list_semantics': current_list_context,
@@ -300,8 +319,7 @@ class SchemaParser(BaseParser):
 
         # Convert flat list to tree structure
         elements_iter = iter(schema_elements)
-        self.read_schema_tree(elements_iter)
-        return schema_root
+        return cast(SchemaRoot, self.read_schema_tree(elements_iter))
 
     async def _parse_logical_type(self) -> LogicalTypeInfoUnion | None:  # noqa: C901
         """

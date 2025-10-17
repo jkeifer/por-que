@@ -125,6 +125,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 3609,
         "byte_length": 13,
         "num_children": 1,
@@ -132,6 +133,7 @@
           "arr": {
             "element_type": "group",
             "name": "arr",
+            "full_path": "arr",
             "start_offset": 3622,
             "byte_length": 16,
             "num_children": 1,
@@ -139,6 +141,7 @@
               "key_value": {
                 "element_type": "group",
                 "name": "key_value",
+                "full_path": "arr.key_value",
                 "start_offset": 3638,
                 "byte_length": 16,
                 "num_children": 2,
@@ -146,6 +149,7 @@
                   "key": {
                     "element_type": "column",
                     "name": "key",
+                    "full_path": "arr.key_value.key",
                     "start_offset": 3654,
                     "byte_length": 16,
                     "type": 6,
@@ -165,6 +169,7 @@
                   "value": {
                     "element_type": "column",
                     "name": "value",
+                    "full_path": "arr.key_value.value",
                     "start_offset": 3670,
                     "byte_length": 12,
                     "type": 1,

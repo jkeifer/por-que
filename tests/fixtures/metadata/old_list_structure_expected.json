@@ -79,6 +79,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "my_record",
+        "full_path": "",
         "start_offset": 104,
         "byte_length": 14,
         "num_children": 1,
@@ -86,6 +87,7 @@
           "a": {
             "element_type": "group",
             "name": "a",
+            "full_path": "a",
             "start_offset": 118,
             "byte_length": 14,
             "num_children": 1,
@@ -93,6 +95,7 @@
               "array": {
                 "element_type": "group",
                 "name": "array",
+                "full_path": "a.array",
                 "start_offset": 132,
                 "byte_length": 18,
                 "num_children": 1,
@@ -100,6 +103,7 @@
                   "array": {
                     "element_type": "column",
                     "name": "array",
+                    "full_path": "a.array.array",
                     "start_offset": 150,
                     "byte_length": 12,
                     "type": 1,
