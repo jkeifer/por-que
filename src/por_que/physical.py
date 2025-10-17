@@ -5,6 +5,7 @@ import inspect
 import json
 import struct
 
+from collections.abc import Coroutine, Sequence
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
@@ -256,6 +257,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         page_index: int,
         reader: ReadableSeekable | AsyncReadableSeekable,
         dictionary_values: DictType | None = None,
+        excluded_logical_columns: Sequence[str] | None = None,
     ) -> PageDataType:
         """Parse a data page in this column chunk.
 
@@ -287,11 +289,13 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             compression_codec=self.codec,
             schema_element=self.metadata.schema_element,
             dictionary_values=dictionary_values if dictionary_values else None,
+            excluded_logical_columns=excluded_logical_columns,
         )
 
     async def parse_all_data_pages(
         self,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        excluded_logical_columns: Sequence[str] | None = None,
     ) -> PageDataType:
         """Parse all data from all pages in this column chunk into a single list.
 
@@ -305,17 +309,27 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
 
         dictionary_values = await self._parse_dictionary(reader)
 
-        data: PageDataType = []
-        for page_index in range(len(self.data_pages)):
-            data.extend(
-                await self.parse_data_page(
-                    page_index,
-                    reader,
-                    dictionary_values=dictionary_values,
+        coroutines = [
+            self.parse_data_page(
+                page_index,
+                (
+                    reader.clone()
+                    if isinstance(reader, AsyncCursableReadableSeekable)
+                    else reader
                 ),
+                dictionary_values=dictionary_values,
+                excluded_logical_columns=excluded_logical_columns,
             )
+            for page_index in range(len(self.data_pages))
+        ]
 
-        return data
+        if isinstance(reader, AsyncCursableReadableSeekable):
+            # run all tasks concurrently, but get results in order
+            tasks = [asyncio.create_task(coro) for coro in coroutines]
+            return [i for task in tasks for i in await task]
+
+        # run tasks in serial, awaiting each before starting next
+        return [i for coro in coroutines for i in await asyncio.create_task(coro)]
 
 
 class PhysicalMetadata(BaseModel, frozen=True):
@@ -514,3 +528,37 @@ class ParquetFile(
     def from_json(cls, json_str: str) -> Self:
         data = json.loads(json_str)
         return cls.from_dict(data)
+
+    async def read_all_data(
+        self,
+        reader: AsyncReadableSeekable,
+        excluded_logical_columns: Sequence[str] | None = None,
+    ) -> dict[str, PageDataType]:
+        from collections import defaultdict
+
+        flat_data: dict[str, PageDataType] = defaultdict(list)
+        coroutines: list[tuple[str, Coroutine]] = [
+            (
+                cc.path_in_schema,
+                cc.parse_all_data_pages(
+                    reader.clone()
+                    if isinstance(reader, AsyncCursableReadableSeekable)
+                    else reader,
+                    excluded_logical_columns=excluded_logical_columns,
+                ),
+            )
+            for cc in self.column_chunks
+        ]
+
+        if isinstance(reader, AsyncCursableReadableSeekable):
+            # run all tasks concurrently, but get results in order
+            tasks = [(path, asyncio.create_task(coro)) for path, coro in coroutines]
+            for path, task in tasks:
+                flat_data[path].extend(await task)
+        else:
+            # run tasks in serial, awaiting each before starting next
+            for path, coroutine in coroutines:
+                flat_data[path].extend(await coroutine)
+
+        # Schema-aware reconstruction using ParquetFile's schema information
+        return self.metadata.metadata.schema_root.renest(flat_data)

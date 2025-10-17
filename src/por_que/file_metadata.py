@@ -248,6 +248,7 @@ CONVERTED_TYPE_TO_LOGICAL_TYPE: dict[ConvertedType, LogicalTypeInfo] = {
 class SchemaElement(BaseModel, frozen=True):
     element_type: SchemaElementType
     name: str
+    full_path: str
     start_offset: int
     byte_length: int
 
@@ -306,6 +307,7 @@ class SchemaElement(BaseModel, frozen=True):
         precision: int | None = None,
         field_id: int | None = None,
         logical_type: LogicalTypeInfoUnion | None = None,
+        **kwargs,
     ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         # Check type compatibility for column/leaf element
         is_column_converted_type = (
@@ -338,6 +340,7 @@ class SchemaElement(BaseModel, frozen=True):
                 # Levels will be calculated later during schema tree building
                 definition_level=0,
                 repetition_level=0,
+                **kwargs,
             )
 
         # Root element could look essentially like any other group,
@@ -355,6 +358,7 @@ class SchemaElement(BaseModel, frozen=True):
                 num_children=num_children,
                 start_offset=start_offset,
                 byte_length=byte_length,
+                **kwargs,
             )
 
         # Root element check: should have no repetition, but some writers
@@ -381,6 +385,7 @@ class SchemaElement(BaseModel, frozen=True):
                 num_children=num_children,
                 start_offset=start_offset,
                 byte_length=byte_length,
+                **kwargs,
             )
 
         # Check type compatibility for group element
@@ -408,6 +413,7 @@ class SchemaElement(BaseModel, frozen=True):
                 byte_length=byte_length,
                 field_id=field_id,
                 logical_type=logical_type,
+                **kwargs,
             )
 
         raise ValueError(

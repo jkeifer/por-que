@@ -355,6 +355,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 709,
         "byte_length": 11,
         "num_children": 3,
@@ -362,6 +363,7 @@
           "Int32_list": {
             "element_type": "column",
             "name": "Int32_list",
+            "full_path": "Int32_list",
             "start_offset": 720,
             "byte_length": 17,
             "type": 1,
@@ -379,6 +381,7 @@
           "String_list": {
             "element_type": "column",
             "name": "String_list",
+            "full_path": "String_list",
             "start_offset": 737,
             "byte_length": 20,
             "type": 6,
@@ -396,6 +399,7 @@
           "group_of_lists": {
             "element_type": "group",
             "name": "group_of_lists",
+            "full_path": "group_of_lists",
             "start_offset": 757,
             "byte_length": 21,
             "num_children": 2,
@@ -403,6 +407,7 @@
               "Int32_list_in_group": {
                 "element_type": "column",
                 "name": "Int32_list_in_group",
+                "full_path": "group_of_lists.Int32_list_in_group",
                 "start_offset": 778,
                 "byte_length": 26,
                 "type": 1,
@@ -420,6 +425,7 @@
               "String_list_in_group": {
                 "element_type": "column",
                 "name": "String_list_in_group",
+                "full_path": "group_of_lists.String_list_in_group",
                 "start_offset": 804,
                 "byte_length": 29,
                 "type": 6,

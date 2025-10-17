@@ -2585,6 +2585,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "hive_schema",
+        "full_path": "",
         "start_offset": 65476,
         "byte_length": 17,
         "num_children": 66,
@@ -2592,6 +2593,7 @@
           "bitwidth0": {
             "element_type": "column",
             "name": "bitwidth0",
+            "full_path": "bitwidth0",
             "start_offset": 65493,
             "byte_length": 16,
             "type": 2,
@@ -2609,6 +2611,7 @@
           "bitwidth1": {
             "element_type": "column",
             "name": "bitwidth1",
+            "full_path": "bitwidth1",
             "start_offset": 65509,
             "byte_length": 16,
             "type": 2,
@@ -2626,6 +2629,7 @@
           "bitwidth2": {
             "element_type": "column",
             "name": "bitwidth2",
+            "full_path": "bitwidth2",
             "start_offset": 65525,
             "byte_length": 16,
             "type": 2,
@@ -2643,6 +2647,7 @@
           "bitwidth3": {
             "element_type": "column",
             "name": "bitwidth3",
+            "full_path": "bitwidth3",
             "start_offset": 65541,
             "byte_length": 16,
             "type": 2,
@@ -2660,6 +2665,7 @@
           "bitwidth4": {
             "element_type": "column",
             "name": "bitwidth4",
+            "full_path": "bitwidth4",
             "start_offset": 65557,
             "byte_length": 16,
             "type": 2,
@@ -2677,6 +2683,7 @@
           "bitwidth5": {
             "element_type": "column",
             "name": "bitwidth5",
+            "full_path": "bitwidth5",
             "start_offset": 65573,
             "byte_length": 16,
             "type": 2,
@@ -2694,6 +2701,7 @@
           "bitwidth6": {
             "element_type": "column",
             "name": "bitwidth6",
+            "full_path": "bitwidth6",
             "start_offset": 65589,
             "byte_length": 16,
             "type": 2,
@@ -2711,6 +2719,7 @@
           "bitwidth7": {
             "element_type": "column",
             "name": "bitwidth7",
+            "full_path": "bitwidth7",
             "start_offset": 65605,
             "byte_length": 16,
             "type": 2,
@@ -2728,6 +2737,7 @@
           "bitwidth8": {
             "element_type": "column",
             "name": "bitwidth8",
+            "full_path": "bitwidth8",
             "start_offset": 65621,
             "byte_length": 16,
             "type": 2,
@@ -2745,6 +2755,7 @@
           "bitwidth9": {
             "element_type": "column",
             "name": "bitwidth9",
+            "full_path": "bitwidth9",
             "start_offset": 65637,
             "byte_length": 16,
             "type": 2,
@@ -2762,6 +2773,7 @@
           "bitwidth10": {
             "element_type": "column",
             "name": "bitwidth10",
+            "full_path": "bitwidth10",
             "start_offset": 65653,
             "byte_length": 17,
             "type": 2,
@@ -2779,6 +2791,7 @@
           "bitwidth11": {
             "element_type": "column",
             "name": "bitwidth11",
+            "full_path": "bitwidth11",
             "start_offset": 65670,
             "byte_length": 17,
             "type": 2,
@@ -2796,6 +2809,7 @@
           "bitwidth12": {
             "element_type": "column",
             "name": "bitwidth12",
+            "full_path": "bitwidth12",
             "start_offset": 65687,
             "byte_length": 17,
             "type": 2,
@@ -2813,6 +2827,7 @@
           "bitwidth13": {
             "element_type": "column",
             "name": "bitwidth13",
+            "full_path": "bitwidth13",
             "start_offset": 65704,
             "byte_length": 17,
             "type": 2,
@@ -2830,6 +2845,7 @@
           "bitwidth14": {
             "element_type": "column",
             "name": "bitwidth14",
+            "full_path": "bitwidth14",
             "start_offset": 65721,
             "byte_length": 17,
             "type": 2,
@@ -2847,6 +2863,7 @@
           "bitwidth15": {
             "element_type": "column",
             "name": "bitwidth15",
+            "full_path": "bitwidth15",
             "start_offset": 65738,
             "byte_length": 17,
             "type": 2,
@@ -2864,6 +2881,7 @@
           "bitwidth16": {
             "element_type": "column",
             "name": "bitwidth16",
+            "full_path": "bitwidth16",
             "start_offset": 65755,
             "byte_length": 17,
             "type": 2,
@@ -2881,6 +2899,7 @@
           "bitwidth17": {
             "element_type": "column",
             "name": "bitwidth17",
+            "full_path": "bitwidth17",
             "start_offset": 65772,
             "byte_length": 17,
             "type": 2,
@@ -2898,6 +2917,7 @@
           "bitwidth18": {
             "element_type": "column",
             "name": "bitwidth18",
+            "full_path": "bitwidth18",
             "start_offset": 65789,
             "byte_length": 17,
             "type": 2,
@@ -2915,6 +2935,7 @@
           "bitwidth19": {
             "element_type": "column",
             "name": "bitwidth19",
+            "full_path": "bitwidth19",
             "start_offset": 65806,
             "byte_length": 17,
             "type": 2,
@@ -2932,6 +2953,7 @@
           "bitwidth20": {
             "element_type": "column",
             "name": "bitwidth20",
+            "full_path": "bitwidth20",
             "start_offset": 65823,
             "byte_length": 17,
             "type": 2,
@@ -2949,6 +2971,7 @@
           "bitwidth21": {
             "element_type": "column",
             "name": "bitwidth21",
+            "full_path": "bitwidth21",
             "start_offset": 65840,
             "byte_length": 17,
             "type": 2,
@@ -2966,6 +2989,7 @@
           "bitwidth22": {
             "element_type": "column",
             "name": "bitwidth22",
+            "full_path": "bitwidth22",
             "start_offset": 65857,
             "byte_length": 17,
             "type": 2,
@@ -2983,6 +3007,7 @@
           "bitwidth23": {
             "element_type": "column",
             "name": "bitwidth23",
+            "full_path": "bitwidth23",
             "start_offset": 65874,
             "byte_length": 17,
             "type": 2,
@@ -3000,6 +3025,7 @@
           "bitwidth24": {
             "element_type": "column",
             "name": "bitwidth24",
+            "full_path": "bitwidth24",
             "start_offset": 65891,
             "byte_length": 17,
             "type": 2,
@@ -3017,6 +3043,7 @@
           "bitwidth25": {
             "element_type": "column",
             "name": "bitwidth25",
+            "full_path": "bitwidth25",
             "start_offset": 65908,
             "byte_length": 17,
             "type": 2,
@@ -3034,6 +3061,7 @@
           "bitwidth26": {
             "element_type": "column",
             "name": "bitwidth26",
+            "full_path": "bitwidth26",
             "start_offset": 65925,
             "byte_length": 17,
             "type": 2,
@@ -3051,6 +3079,7 @@
           "bitwidth27": {
             "element_type": "column",
             "name": "bitwidth27",
+            "full_path": "bitwidth27",
             "start_offset": 65942,
             "byte_length": 17,
             "type": 2,
@@ -3068,6 +3097,7 @@
           "bitwidth28": {
             "element_type": "column",
             "name": "bitwidth28",
+            "full_path": "bitwidth28",
             "start_offset": 65959,
             "byte_length": 17,
             "type": 2,
@@ -3085,6 +3115,7 @@
           "bitwidth29": {
             "element_type": "column",
             "name": "bitwidth29",
+            "full_path": "bitwidth29",
             "start_offset": 65976,
             "byte_length": 17,
             "type": 2,
@@ -3102,6 +3133,7 @@
           "bitwidth30": {
             "element_type": "column",
             "name": "bitwidth30",
+            "full_path": "bitwidth30",
             "start_offset": 65993,
             "byte_length": 17,
             "type": 2,
@@ -3119,6 +3151,7 @@
           "bitwidth31": {
             "element_type": "column",
             "name": "bitwidth31",
+            "full_path": "bitwidth31",
             "start_offset": 66010,
             "byte_length": 17,
             "type": 2,
@@ -3136,6 +3169,7 @@
           "bitwidth32": {
             "element_type": "column",
             "name": "bitwidth32",
+            "full_path": "bitwidth32",
             "start_offset": 66027,
             "byte_length": 17,
             "type": 2,
@@ -3153,6 +3187,7 @@
           "bitwidth33": {
             "element_type": "column",
             "name": "bitwidth33",
+            "full_path": "bitwidth33",
             "start_offset": 66044,
             "byte_length": 17,
             "type": 2,
@@ -3170,6 +3205,7 @@
           "bitwidth34": {
             "element_type": "column",
             "name": "bitwidth34",
+            "full_path": "bitwidth34",
             "start_offset": 66061,
             "byte_length": 17,
             "type": 2,
@@ -3187,6 +3223,7 @@
           "bitwidth35": {
             "element_type": "column",
             "name": "bitwidth35",
+            "full_path": "bitwidth35",
             "start_offset": 66078,
             "byte_length": 17,
             "type": 2,
@@ -3204,6 +3241,7 @@
           "bitwidth36": {
             "element_type": "column",
             "name": "bitwidth36",
+            "full_path": "bitwidth36",
             "start_offset": 66095,
             "byte_length": 17,
             "type": 2,
@@ -3221,6 +3259,7 @@
           "bitwidth37": {
             "element_type": "column",
             "name": "bitwidth37",
+            "full_path": "bitwidth37",
             "start_offset": 66112,
             "byte_length": 17,
             "type": 2,
@@ -3238,6 +3277,7 @@
           "bitwidth38": {
             "element_type": "column",
             "name": "bitwidth38",
+            "full_path": "bitwidth38",
             "start_offset": 66129,
             "byte_length": 17,
             "type": 2,
@@ -3255,6 +3295,7 @@
           "bitwidth39": {
             "element_type": "column",
             "name": "bitwidth39",
+            "full_path": "bitwidth39",
             "start_offset": 66146,
             "byte_length": 17,
             "type": 2,
@@ -3272,6 +3313,7 @@
           "bitwidth40": {
             "element_type": "column",
             "name": "bitwidth40",
+            "full_path": "bitwidth40",
             "start_offset": 66163,
             "byte_length": 17,
             "type": 2,
@@ -3289,6 +3331,7 @@
           "bitwidth41": {
             "element_type": "column",
             "name": "bitwidth41",
+            "full_path": "bitwidth41",
             "start_offset": 66180,
             "byte_length": 17,
             "type": 2,
@@ -3306,6 +3349,7 @@
           "bitwidth42": {
             "element_type": "column",
             "name": "bitwidth42",
+            "full_path": "bitwidth42",
             "start_offset": 66197,
             "byte_length": 17,
             "type": 2,
@@ -3323,6 +3367,7 @@
           "bitwidth43": {
             "element_type": "column",
             "name": "bitwidth43",
+            "full_path": "bitwidth43",
             "start_offset": 66214,
             "byte_length": 17,
             "type": 2,
@@ -3340,6 +3385,7 @@
           "bitwidth44": {
             "element_type": "column",
             "name": "bitwidth44",
+            "full_path": "bitwidth44",
             "start_offset": 66231,
             "byte_length": 17,
             "type": 2,
@@ -3357,6 +3403,7 @@
           "bitwidth45": {
             "element_type": "column",
             "name": "bitwidth45",
+            "full_path": "bitwidth45",
             "start_offset": 66248,
             "byte_length": 17,
             "type": 2,
@@ -3374,6 +3421,7 @@
           "bitwidth46": {
             "element_type": "column",
             "name": "bitwidth46",
+            "full_path": "bitwidth46",
             "start_offset": 66265,
             "byte_length": 17,
             "type": 2,
@@ -3391,6 +3439,7 @@
           "bitwidth47": {
             "element_type": "column",
             "name": "bitwidth47",
+            "full_path": "bitwidth47",
             "start_offset": 66282,
             "byte_length": 17,
             "type": 2,
@@ -3408,6 +3457,7 @@
           "bitwidth48": {
             "element_type": "column",
             "name": "bitwidth48",
+            "full_path": "bitwidth48",
             "start_offset": 66299,
             "byte_length": 17,
             "type": 2,
@@ -3425,6 +3475,7 @@
           "bitwidth49": {
             "element_type": "column",
             "name": "bitwidth49",
+            "full_path": "bitwidth49",
             "start_offset": 66316,
             "byte_length": 17,
             "type": 2,
@@ -3442,6 +3493,7 @@
           "bitwidth50": {
             "element_type": "column",
             "name": "bitwidth50",
+            "full_path": "bitwidth50",
             "start_offset": 66333,
             "byte_length": 17,
             "type": 2,
@@ -3459,6 +3511,7 @@
           "bitwidth51": {
             "element_type": "column",
             "name": "bitwidth51",
+            "full_path": "bitwidth51",
             "start_offset": 66350,
             "byte_length": 17,
             "type": 2,
@@ -3476,6 +3529,7 @@
           "bitwidth52": {
             "element_type": "column",
             "name": "bitwidth52",
+            "full_path": "bitwidth52",
             "start_offset": 66367,
             "byte_length": 17,
             "type": 2,
@@ -3493,6 +3547,7 @@
           "bitwidth53": {
             "element_type": "column",
             "name": "bitwidth53",
+            "full_path": "bitwidth53",
             "start_offset": 66384,
             "byte_length": 17,
             "type": 2,
@@ -3510,6 +3565,7 @@
           "bitwidth54": {
             "element_type": "column",
             "name": "bitwidth54",
+            "full_path": "bitwidth54",
             "start_offset": 66401,
             "byte_length": 17,
             "type": 2,
@@ -3527,6 +3583,7 @@
           "bitwidth55": {
             "element_type": "column",
             "name": "bitwidth55",
+            "full_path": "bitwidth55",
             "start_offset": 66418,
             "byte_length": 17,
             "type": 2,
@@ -3544,6 +3601,7 @@
           "bitwidth56": {
             "element_type": "column",
             "name": "bitwidth56",
+            "full_path": "bitwidth56",
             "start_offset": 66435,
             "byte_length": 17,
             "type": 2,
@@ -3561,6 +3619,7 @@
           "bitwidth57": {
             "element_type": "column",
             "name": "bitwidth57",
+            "full_path": "bitwidth57",
             "start_offset": 66452,
             "byte_length": 17,
             "type": 2,
@@ -3578,6 +3637,7 @@
           "bitwidth58": {
             "element_type": "column",
             "name": "bitwidth58",
+            "full_path": "bitwidth58",
             "start_offset": 66469,
             "byte_length": 17,
             "type": 2,
@@ -3595,6 +3655,7 @@
           "bitwidth59": {
             "element_type": "column",
             "name": "bitwidth59",
+            "full_path": "bitwidth59",
             "start_offset": 66486,
             "byte_length": 17,
             "type": 2,
@@ -3612,6 +3673,7 @@
           "bitwidth60": {
             "element_type": "column",
             "name": "bitwidth60",
+            "full_path": "bitwidth60",
             "start_offset": 66503,
             "byte_length": 17,
             "type": 2,
@@ -3629,6 +3691,7 @@
           "bitwidth61": {
             "element_type": "column",
             "name": "bitwidth61",
+            "full_path": "bitwidth61",
             "start_offset": 66520,
             "byte_length": 17,
             "type": 2,
@@ -3646,6 +3709,7 @@
           "bitwidth62": {
             "element_type": "column",
             "name": "bitwidth62",
+            "full_path": "bitwidth62",
             "start_offset": 66537,
             "byte_length": 17,
             "type": 2,
@@ -3663,6 +3727,7 @@
           "bitwidth63": {
             "element_type": "column",
             "name": "bitwidth63",
+            "full_path": "bitwidth63",
             "start_offset": 66554,
             "byte_length": 17,
             "type": 2,
@@ -3680,6 +3745,7 @@
           "bitwidth64": {
             "element_type": "column",
             "name": "bitwidth64",
+            "full_path": "bitwidth64",
             "start_offset": 66571,
             "byte_length": 17,
             "type": 2,
@@ -3697,6 +3763,7 @@
           "int_value": {
             "element_type": "column",
             "name": "int_value",
+            "full_path": "int_value",
             "start_offset": 66588,
             "byte_length": 16,
             "type": 1,

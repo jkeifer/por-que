@@ -122,6 +122,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "user",
+        "full_path": "",
         "start_offset": 352,
         "byte_length": 9,
         "num_children": 2,
@@ -129,6 +130,7 @@
           "id": {
             "element_type": "column",
             "name": "id",
+            "full_path": "id",
             "start_offset": 361,
             "byte_length": 9,
             "type": 1,
@@ -146,6 +148,7 @@
           "phoneNumbers": {
             "element_type": "group",
             "name": "phoneNumbers",
+            "full_path": "phoneNumbers",
             "start_offset": 370,
             "byte_length": 19,
             "num_children": 1,
@@ -153,6 +156,7 @@
               "phone": {
                 "element_type": "group",
                 "name": "phone",
+                "full_path": "phoneNumbers.phone",
                 "start_offset": 389,
                 "byte_length": 12,
                 "num_children": 2,
@@ -160,6 +164,7 @@
                   "number": {
                     "element_type": "column",
                     "name": "number",
+                    "full_path": "phoneNumbers.phone.number",
                     "start_offset": 401,
                     "byte_length": 13,
                     "type": 2,
@@ -177,6 +182,7 @@
                   "kind": {
                     "element_type": "column",
                     "name": "kind",
+                    "full_path": "phoneNumbers.phone.kind",
                     "start_offset": 414,
                     "byte_length": 13,
                     "type": 6,

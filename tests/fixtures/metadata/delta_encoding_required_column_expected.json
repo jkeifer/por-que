@@ -1082,6 +1082,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "spark_schema",
+        "full_path": "",
         "start_offset": 9921,
         "byte_length": 17,
         "num_children": 17,
@@ -1089,6 +1090,7 @@
           "c_customer_sk:": {
             "element_type": "column",
             "name": "c_customer_sk:",
+            "full_path": "c_customer_sk:",
             "start_offset": 9938,
             "byte_length": 21,
             "type": 1,
@@ -1106,6 +1108,7 @@
           "c_current_cdemo_sk:": {
             "element_type": "column",
             "name": "c_current_cdemo_sk:",
+            "full_path": "c_current_cdemo_sk:",
             "start_offset": 9959,
             "byte_length": 26,
             "type": 1,
@@ -1123,6 +1126,7 @@
           "c_current_hdemo_sk:": {
             "element_type": "column",
             "name": "c_current_hdemo_sk:",
+            "full_path": "c_current_hdemo_sk:",
             "start_offset": 9985,
             "byte_length": 26,
             "type": 1,
@@ -1140,6 +1144,7 @@
           "c_current_addr_sk:": {
             "element_type": "column",
             "name": "c_current_addr_sk:",
+            "full_path": "c_current_addr_sk:",
             "start_offset": 10011,
             "byte_length": 25,
             "type": 1,
@@ -1157,6 +1162,7 @@
           "c_first_shipto_date_sk:": {
             "element_type": "column",
             "name": "c_first_shipto_date_sk:",
+            "full_path": "c_first_shipto_date_sk:",
             "start_offset": 10036,
             "byte_length": 30,
             "type": 1,
@@ -1174,6 +1180,7 @@
           "c_first_sales_date_sk:": {
             "element_type": "column",
             "name": "c_first_sales_date_sk:",
+            "full_path": "c_first_sales_date_sk:",
             "start_offset": 10066,
             "byte_length": 29,
             "type": 1,
@@ -1191,6 +1198,7 @@
           "c_birth_day:": {
             "element_type": "column",
             "name": "c_birth_day:",
+            "full_path": "c_birth_day:",
             "start_offset": 10095,
             "byte_length": 19,
             "type": 1,
@@ -1208,6 +1216,7 @@
           "c_birth_month:": {
             "element_type": "column",
             "name": "c_birth_month:",
+            "full_path": "c_birth_month:",
             "start_offset": 10114,
             "byte_length": 21,
             "type": 1,
@@ -1225,6 +1234,7 @@
           "c_birth_year:": {
             "element_type": "column",
             "name": "c_birth_year:",
+            "full_path": "c_birth_year:",
             "start_offset": 10135,
             "byte_length": 20,
             "type": 1,
@@ -1242,6 +1252,7 @@
           "c_customer_id:": {
             "element_type": "column",
             "name": "c_customer_id:",
+            "full_path": "c_customer_id:",
             "start_offset": 10155,
             "byte_length": 27,
             "type": 6,
@@ -1261,6 +1272,7 @@
           "c_salutation:": {
             "element_type": "column",
             "name": "c_salutation:",
+            "full_path": "c_salutation:",
             "start_offset": 10182,
             "byte_length": 26,
             "type": 6,
@@ -1280,6 +1292,7 @@
           "c_first_name:": {
             "element_type": "column",
             "name": "c_first_name:",
+            "full_path": "c_first_name:",
             "start_offset": 10208,
             "byte_length": 26,
             "type": 6,
@@ -1299,6 +1312,7 @@
           "c_last_name:": {
             "element_type": "column",
             "name": "c_last_name:",
+            "full_path": "c_last_name:",
             "start_offset": 10234,
             "byte_length": 25,
             "type": 6,
@@ -1318,6 +1332,7 @@
           "c_preferred_cust_flag:": {
             "element_type": "column",
             "name": "c_preferred_cust_flag:",
+            "full_path": "c_preferred_cust_flag:",
             "start_offset": 10259,
             "byte_length": 35,
             "type": 6,
@@ -1337,6 +1352,7 @@
           "c_birth_country:": {
             "element_type": "column",
             "name": "c_birth_country:",
+            "full_path": "c_birth_country:",
             "start_offset": 10294,
             "byte_length": 29,
             "type": 6,
@@ -1356,6 +1372,7 @@
           "c_email_address:": {
             "element_type": "column",
             "name": "c_email_address:",
+            "full_path": "c_email_address:",
             "start_offset": 10323,
             "byte_length": 29,
             "type": 6,
@@ -1375,6 +1392,7 @@
           "c_last_review_date:": {
             "element_type": "column",
             "name": "c_last_review_date:",
+            "full_path": "c_last_review_date:",
             "start_offset": 10352,
             "byte_length": 32,
             "type": 6,

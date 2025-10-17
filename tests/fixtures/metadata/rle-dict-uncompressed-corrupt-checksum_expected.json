@@ -157,6 +157,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "m",
+        "full_path": "",
         "start_offset": 285,
         "byte_length": 6,
         "num_children": 2,
@@ -164,6 +165,7 @@
           "long_field": {
             "element_type": "column",
             "name": "long_field",
+            "full_path": "long_field",
             "start_offset": 291,
             "byte_length": 17,
             "type": 2,
@@ -181,6 +183,7 @@
           "binary_field": {
             "element_type": "column",
             "name": "binary_field",
+            "full_path": "binary_field",
             "start_offset": 308,
             "byte_length": 19,
             "type": 6,

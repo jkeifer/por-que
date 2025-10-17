@@ -624,6 +624,7 @@ class DataPageParser:
                     stream,
                     physical_type,
                     num_non_null,
+                    schema_element,
                 )
             case _:
                 raise ParquetDataError(f'Encoding {encoding} not supported.')
@@ -1073,11 +1074,12 @@ class DataPageParser:
 
         return non_null_values
 
-    def _read_byte_stream_split_values(
+    def _read_byte_stream_split_values(  # noqa: C901
         self,
         stream: BytesIO,
         physical_type: Type,
         num_values: int,
+        schema_element: SchemaLeaf,
     ) -> list:
         """Read Byte Stream Split encoded values.
 
@@ -1091,7 +1093,7 @@ class DataPageParser:
         - All byte 2s are grouped together
         - All byte 3s are grouped together
         """
-        values: list[float] = []
+        values: list = []
         match physical_type:
             case Type.FLOAT:
                 bytes_per_value = 4
@@ -1137,6 +1139,80 @@ class DataPageParser:
                     # Reconstruct the 8-byte little-endian double
                     value = struct.unpack('<d', float_bytes)[0]
                     values.append(value)
+            case Type.INT32:
+                bytes_per_value = 4
+                total_bytes = bytes_per_value * num_values
+
+                # Read all the data
+                data = stream.read(total_bytes)
+                if len(data) != total_bytes:
+                    raise ParquetDataError(
+                        f'Expected {total_bytes} bytes for {num_values} INT32 values, '
+                        f'got {len(data)} bytes',
+                    )
+
+                # Reconstruct values by interleaving bytes
+                for i in range(num_values):
+                    # Extract the 4 bytes for this int32 value from the split streams
+                    byte_0 = data[i]
+                    byte_1 = data[num_values + i]
+                    byte_2 = data[2 * num_values + i]
+                    byte_3 = data[3 * num_values + i]
+
+                    # Reconstruct the 4-byte little-endian signed integer
+                    int_bytes = bytes([byte_0, byte_1, byte_2, byte_3])
+                    value = struct.unpack('<i', int_bytes)[0]
+                    values.append(value)
+            case Type.INT64:
+                bytes_per_value = 8
+                total_bytes = bytes_per_value * num_values
+
+                # Read all the data
+                data = stream.read(total_bytes)
+                if len(data) != total_bytes:
+                    raise ParquetDataError(
+                        f'Expected {total_bytes} bytes for {num_values} INT64 values, '
+                        f'got {len(data)} bytes',
+                    )
+
+                # Reconstruct values by interleaving bytes
+                for i in range(num_values):
+                    # Extract the 8 bytes for this int64 value from the split streams
+                    int_bytes = bytes([data[j * num_values + i] for j in range(8)])
+
+                    # Reconstruct the 8-byte little-endian signed integer
+                    value = struct.unpack('<q', int_bytes)[0]
+                    values.append(value)
+            case Type.FIXED_LEN_BYTE_ARRAY:
+                # Get type_length from schema_element
+                if (
+                    not schema_element
+                    or not hasattr(schema_element, 'type_length')
+                    or schema_element.type_length is None
+                ):
+                    raise ParquetDataError(
+                        'FIXED_LEN_BYTE_ARRAY requires type_length from schema element',
+                    )
+
+                bytes_per_value = schema_element.type_length
+                total_bytes = bytes_per_value * num_values
+
+                # Read all the data
+                data = stream.read(total_bytes)
+                if len(data) != total_bytes:
+                    raise ParquetDataError(
+                        f'Expected {total_bytes} bytes for {num_values} '
+                        f'FIXED_LEN_BYTE_ARRAY({bytes_per_value}) values, '
+                        f'got {len(data)} bytes',
+                    )
+
+                # Reconstruct values by interleaving bytes
+                for i in range(num_values):
+                    # Extract the N bytes for this value from the split streams
+                    value_bytes = bytes(
+                        [data[j * num_values + i] for j in range(bytes_per_value)],
+                    )
+                    values.append(value_bytes)
             case _:
                 raise ParquetDataError(
                     'Byte Stream Split encoding not supported '

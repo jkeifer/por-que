@@ -4,6 +4,7 @@ Unified page models that combine logical content with physical layout informatio
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, Discriminator
@@ -117,6 +118,7 @@ class DataPageV1(Page, frozen=True):
         compression_codec: Compression,
         schema_element: SchemaLeaf,
         dictionary_values: list[Any] | None = None,
+        excluded_logical_columns: Sequence[str] | None = None,
     ) -> list[Any]:
         """Parse the data page content into Python objects.
 
@@ -138,6 +140,7 @@ class DataPageV1(Page, frozen=True):
             compression_codec=compression_codec,
             schema_element=schema_element,
             dictionary_values=dictionary_values,
+            excluded_logical_columns=excluded_logical_columns,
         )
 
 
@@ -161,6 +164,7 @@ class DataPageV2(Page, frozen=True):
         compression_codec: Compression,
         schema_element: SchemaLeaf,
         dictionary_values: list[Any] | None = None,
+        excluded_logical_columns: Sequence[str] | None = None,
     ) -> list[Any]:
         """Parse the data page content into Python objects.
 
@@ -182,6 +186,7 @@ class DataPageV2(Page, frozen=True):
             compression_codec=compression_codec,
             schema_element=schema_element,
             dictionary_values=dictionary_values,
+            excluded_logical_columns=excluded_logical_columns,
         )
 
 

@@ -46,6 +46,7 @@ TEST_FILES = [
     'float16_zeros_and_nans',
     'concatenated_gzip_members',
     'byte_stream_split.zstd',
+    'byte_stream_split_extended.gzip',
     'incorrect_map_schema',
     'list_columns',
     'sort_columns',
@@ -60,8 +61,6 @@ TEST_FILES = [
     'binary',
     'binary_truncated_min_max',
     'byte_array_decimal',
-    'byte_stream_split.zstd',
-    'byte_stream_split_extended.gzip',
     # Unknown page type: None
     #'column_chunk_key_value_metadata',
     'fixed_length_decimal',
@@ -87,6 +86,14 @@ DATA_ONLY_FILES = [
     # too hard to handle NaN because is serialized as None
     'nan_in_stats',
 ]
+
+# columns to exclude from logical type conversion, per file
+EXCLUDED_LOGICAL_COLUMNS = {
+    'nested_structs.rust': (
+        'ul_observation_date.max',
+        'ul_observation_date.min',
+    ),
+}
 
 
 def large_string_map_brotli(actual: dict[str, Any]) -> bool:
@@ -237,39 +244,16 @@ async def test_read_data(
 ) -> None:
     async with AsyncHttpFile(parquet_url) as hf:
         pf = await ParquetFile.from_reader(hf, parquet_url)
-        # Parse with por-que using consistent error handling
-        actual = await _parse_with_por_que(pf, hf, parquet_url)
-
+        actual = {
+            'source': parquet_url,
+            'data': await pf.read_all_data(
+                hf,
+                excluded_logical_columns=EXCLUDED_LOGICAL_COLUMNS.get(
+                    parquet_file_name,
+                ),
+            ),
+        }
     _comparison(parquet_file_name, actual)
-
-
-async def _parse_with_por_que(
-    pf: ParquetFile,
-    hf: AsyncHttpFile,
-    parquet_url: str,
-) -> dict[str, Any]:
-    """Parse parquet file with por-que, handling conversion errors consistently."""
-    flat_data: dict[str, Any] = {}
-
-    for cc in pf.column_chunks:
-        try:
-            page_data = await cc.parse_all_data_pages(hf)
-        except (ValueError, OverflowError, OSError):
-            # Handle conversion errors using shared logic
-            page_data = ['unconvertible_type']
-
-        try:
-            flat_data[cc.path_in_schema].extend(page_data)
-        except KeyError:
-            flat_data[cc.path_in_schema] = page_data
-
-    # Schema-aware reconstruction using ParquetFile's schema information
-    data = pf.metadata.metadata.schema_root.renest(flat_data)
-
-    return {
-        'source': parquet_url,
-        'data': data,
-    }
 
 
 def _comparison(
