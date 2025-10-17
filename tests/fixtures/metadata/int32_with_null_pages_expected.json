@@ -269,6 +269,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 3560,
         "byte_length": 11,
         "num_children": 1,
@@ -276,6 +277,7 @@
           "int32_field": {
             "element_type": "column",
             "name": "int32_field",
+            "full_path": "int32_field",
             "start_offset": 3571,
             "byte_length": 18,
             "type": 1,

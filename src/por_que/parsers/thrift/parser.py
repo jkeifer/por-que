@@ -1,11 +1,11 @@
 import logging
 import struct
 
-from collections.abc import Iterator
+from collections.abc import AsyncIterator
 from typing import Any
 
 from por_que.exceptions import InvalidStringLengthError, ThriftParsingError
-from por_que.protocols import ReadableSeekable
+from por_que.protocols import AsyncReadableSeekable
 
 from .constants import (
     DEFAULT_STRING_ENCODING,
@@ -32,14 +32,14 @@ class ThriftCompactParser:
     - Operates directly on file-like objects for true file position tracking
     """
 
-    def __init__(self, reader: ReadableSeekable, start_offset: int) -> None:
+    def __init__(self, reader: AsyncReadableSeekable, start_offset: int) -> None:
         self.reader = reader
         # Ensure we're positioned at the start offset
         self.reader.seek(start_offset)
 
-    def read(self, length: int = 1) -> bytes:
+    async def read(self, length: int = 1) -> bytes:
         """Read bytes from the file."""
-        data = self.reader.read(length)
+        data = await self.reader.read(length)
         if len(data) != length:
             raise ThriftParsingError(
                 f'Unexpected end of file: expected {length} bytes, got {len(data)} '
@@ -53,7 +53,7 @@ class ThriftCompactParser:
         """Current absolute file position."""
         return self.reader.tell()
 
-    def read_varint(self) -> int:
+    async def read_varint(self) -> int:
         """
         Read variable-length integer from the stream.
 
@@ -66,7 +66,7 @@ class ThriftCompactParser:
         result = 0
         shift = 0
         while True:
-            byte_data = self.read(1)
+            byte_data = await self.read(1)
             if not byte_data:
                 break
             byte = int.from_bytes(byte_data)
@@ -82,7 +82,7 @@ class ThriftCompactParser:
         )
         return result
 
-    def read_zigzag(self) -> int:
+    async def read_zigzag(self) -> int:
         """
         Read zigzag-encoded signed integer.
 
@@ -91,22 +91,22 @@ class ThriftCompactParser:
         - Small negative numbers (-1, -2) become small positive numbers (1, 3)
         - This makes varint encoding efficient for negative numbers too
         """
-        n = self.read_varint()
+        n = await self.read_varint()
         result = (n >> 1) ^ -(n & 1)
         logger.debug('Read zigzag: %d (from varint %d)', result, n)
         return result
 
-    def read_bool(self) -> bool:
-        return self.read() == 1
+    async def read_bool(self) -> bool:
+        return await self.read() == 1
 
-    def read_i32(self) -> int:
-        return self.read_zigzag()
+    async def read_i32(self) -> int:
+        return await self.read_zigzag()
 
-    def read_i64(self) -> int:
-        return self.read_zigzag()
+    async def read_i64(self) -> int:
+        return await self.read_zigzag()
 
-    def read_string(self) -> str:
-        length = self.read_varint()
+    async def read_string(self) -> str:
+        length = await self.read_varint()
         logger.debug('Reading string of length %d at pos %d', length, self.pos)
 
         if length < 0:
@@ -115,7 +115,7 @@ class ThriftCompactParser:
                 f'Length cannot be negative.',
             )
 
-        data = self.read(length)
+        data = await self.read(length)
         if len(data) != length:
             raise InvalidStringLengthError(
                 f'Could not read {length} bytes for string at position {self.pos}. '
@@ -126,10 +126,10 @@ class ThriftCompactParser:
         logger.debug('Read string: %r', result)
         return result
 
-    def read_bytes(self) -> bytes:
-        length = self.read_varint()
+    async def read_bytes(self) -> bytes:
+        length = await self.read_varint()
         logger.debug('Reading %d bytes at pos %d', length, self.pos)
-        result = self.read(length)
+        result = await self.read(length)
         hex_preview = result.hex()[:32] + ('...' if len(result) > 16 else '')
         logger.debug('Read %d bytes: %s', length, hex_preview)
         return result
@@ -138,7 +138,7 @@ class ThriftCompactParser:
         """Skip n bytes"""
         self.reader.seek(n, 1)
 
-    def read_value(self, field_type: int) -> Any:
+    async def read_value(self, field_type: int) -> Any:
         """Read a value of a given type from the stream."""
         match field_type:
             case ThriftFieldType.BOOL_TRUE:
@@ -146,20 +146,20 @@ class ThriftCompactParser:
             case ThriftFieldType.BOOL_FALSE:
                 return False
             case ThriftFieldType.BYTE:
-                return self.read(1)
+                return await self.read(1)
             case ThriftFieldType.I16 | ThriftFieldType.I32:
-                return self.read_i32()
+                return await self.read_i32()
             case ThriftFieldType.I64:
-                return self.read_i64()
+                return await self.read_i64()
             case ThriftFieldType.DOUBLE:
-                return struct.unpack('<d', self.read(8))[0]
+                return struct.unpack('<d', await self.read(8))[0]
             case ThriftFieldType.BINARY:
-                return self.read_bytes()
+                return await self.read_bytes()
             case _:
-                self.skip_field(field_type)
+                await self.skip_field(field_type)
                 return None
 
-    def skip_field(self, field_type: int) -> None:  # noqa: C901
+    async def skip_field(self, field_type: int) -> None:  # noqa: C901
         match field_type:
             case ThriftFieldType.BOOL_TRUE | ThriftFieldType.BOOL_FALSE:
                 # No data to skip
@@ -167,49 +167,49 @@ class ThriftCompactParser:
             case ThriftFieldType.BYTE:
                 self.skip(1)
             case ThriftFieldType.I16 | ThriftFieldType.I32 | ThriftFieldType.I64:
-                self.read_varint()
+                await self.read_varint()
             case ThriftFieldType.DOUBLE:
                 self.skip(8)
             case ThriftFieldType.BINARY:
-                self.skip(self.read_varint())
+                self.skip(await self.read_varint())
             case ThriftFieldType.STRUCT:
                 nested = ThriftStructParser(self)
                 while True:
-                    ftype, _ = nested.read_field_header()
+                    ftype, _ = await nested.read_field_header()
                     if ftype == ThriftFieldType.STOP:
                         break
-                    self.skip_field(ftype)
+                    await self.skip_field(ftype)
             case ThriftFieldType.LIST | ThriftFieldType.SET:
-                self.skip_list()
+                await self.skip_list()
             case ThriftFieldType.MAP:
-                self.skip_map()
+                await self.skip_map()
             case _:
                 raise ThriftParsingError(
                     f'Unknown thrift type: {field_type}',
                 )
 
-    def skip_list(self) -> None:
+    async def skip_list(self) -> None:
         """Skip a list/set"""
-        for elem_type in self.yield_list_elements():
-            self.skip_field(elem_type)
+        async for elem_type in self.yield_list_elements():
+            await self.skip_field(elem_type)
 
-    def skip_map(self) -> None:
+    async def skip_map(self) -> None:
         """Skip a map"""
         # Maps always encode size as varint (unlike lists)
-        size = self.read_varint()
+        size = await self.read_varint()
 
         if size > 0:
-            types_byte = int.from_bytes(self.read())
+            types_byte = int.from_bytes(await self.read())
             key_type = (types_byte >> THRIFT_MAP_TYPE_SHIFT) & THRIFT_FIELD_TYPE_MASK
             val_type = types_byte & THRIFT_FIELD_TYPE_MASK
 
             for _ in range(size):
-                self.skip_field(key_type)
-                self.skip_field(val_type)
+                await self.skip_field(key_type)
+                await self.skip_field(val_type)
 
-    def yield_list_elements(
+    async def yield_list_elements(
         self,
-    ) -> Iterator[int]:
+    ) -> AsyncIterator[int]:
         """
         Yield for each element in a Thrift compact protocol list.
 
@@ -218,15 +218,16 @@ class ThriftCompactParser:
         - Size field uses 4 bits, with special handling for sizes >= 15
         - This enables efficient storage of both small and large lists
         """
-        header: int = int.from_bytes(self.read())
+        header: int = int.from_bytes(await self.read())
         size: int = header >> THRIFT_SIZE_SHIFT
         elem_type = header & THRIFT_FIELD_TYPE_MASK
 
         # If size == 15, read actual size from varint
         if size == THRIFT_SPECIAL_LIST_SIZE:
-            size = self.read_varint()
+            size = await self.read_varint()
 
-        yield from [elem_type for _ in range(size)]
+        for _ in range(size):
+            yield elem_type
 
 
 class ThriftStructParser:
@@ -244,7 +245,7 @@ class ThriftStructParser:
         self.parser = parser
         self.last_field_id = 0
 
-    def read_field_header(self) -> tuple[int, int]:
+    async def read_field_header(self) -> tuple[int, int]:
         """
         Read field header and return (field_type, field_id).
 
@@ -255,7 +256,7 @@ class ThriftStructParser:
         - EOF at field header boundary indicates end of parsing
         """
         try:
-            byte = int.from_bytes(self.parser.read(1))
+            byte = int.from_bytes(await self.parser.read(1))
         except ThriftParsingError:
             # EOF at field header boundary is legitimate (end of struct/parsing)
             return ThriftFieldType.STOP, 0
@@ -265,7 +266,7 @@ class ThriftStructParser:
 
         # Special case: STOP field is just 0x00, no zigzag varint to read
         if field_type != ThriftFieldType.STOP and field_delta == 0:
-            field_delta = self.parser.read_zigzag()
+            field_delta = await self.parser.read_zigzag()
 
         self.last_field_id += field_delta
         logger.debug(
@@ -276,13 +277,13 @@ class ThriftStructParser:
         )
         return field_type, self.last_field_id
 
-    def peek_field_header(self) -> tuple[int, int]:
+    async def peek_field_header(self) -> tuple[int, int]:
         pos = self.parser.pos
         last_field_id = self.last_field_id
-        field_type, field_id = self.read_field_header()
+        field_type, field_id = await self.read_field_header()
         self.last_field_id = last_field_id
         self.parser.reader.seek(pos)
         return field_type, field_id
 
-    def read_value(self, field_type: int) -> Any:
-        return self.parser.read_value(field_type)
+    async def read_value(self, field_type: int) -> Any:
+        return await self.parser.read_value(field_type)

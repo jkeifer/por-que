@@ -36,7 +36,7 @@ class StatisticsParser(BaseParser):
     - File-level, row group-level, and page-level statistics provide nested optimization
     """
 
-    def read_statistics(
+    async def read_statistics(
         self,
     ) -> ColumnStatistics:
         """
@@ -57,7 +57,7 @@ class StatisticsParser(BaseParser):
         """
         props: dict[str, Any] = {}
 
-        for field_id, field_type, value in self.parse_struct_fields():
+        async for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case StatisticsFieldId.MIN:
                     props['min'] = value
@@ -80,7 +80,7 @@ class StatisticsParser(BaseParser):
                         f'Skipping unknown statistics field ID {field_id}',
                         stacklevel=1,
                     )
-                    self.maybe_skip_field(field_type)
+                    await self.maybe_skip_field(field_type)
 
         return ColumnStatistics(**props)
 

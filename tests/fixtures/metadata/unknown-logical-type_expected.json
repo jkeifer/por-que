@@ -103,6 +103,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 195,
         "byte_length": 13,
         "num_children": 2,
@@ -110,6 +111,7 @@
           "column with known type": {
             "element_type": "column",
             "name": "column with known type",
+            "full_path": "column with known type",
             "start_offset": 208,
             "byte_length": 35,
             "type": 6,
@@ -129,6 +131,7 @@
           "column with unknown type": {
             "element_type": "column",
             "name": "column with unknown type",
+            "full_path": "column with unknown type",
             "start_offset": 243,
             "byte_length": 37,
             "type": 6,

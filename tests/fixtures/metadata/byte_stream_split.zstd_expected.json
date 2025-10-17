@@ -83,6 +83,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 3602,
         "byte_length": 13,
         "num_children": 2,
@@ -90,6 +91,7 @@
           "f32": {
             "element_type": "column",
             "name": "f32",
+            "full_path": "f32",
             "start_offset": 3615,
             "byte_length": 10,
             "type": 4,
@@ -107,6 +109,7 @@
           "f64": {
             "element_type": "column",
             "name": "f64",
+            "full_path": "f64",
             "start_offset": 3625,
             "byte_length": 10,
             "type": 5,

@@ -61,7 +61,7 @@ def convert_values_to_logical_types(
         List of converted values
     """
     # Skip conversion if column is in excluded set
-    if excluded_columns and schema_element.name in excluded_columns:
+    if excluded_columns and schema_element.full_path in excluded_columns:
         return values
 
     # Get logical type information using the existing SchemaElement method

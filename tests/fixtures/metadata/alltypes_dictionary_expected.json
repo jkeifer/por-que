@@ -408,6 +408,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 971,
         "byte_length": 11,
         "num_children": 11,
@@ -415,6 +416,7 @@
           "id": {
             "element_type": "column",
             "name": "id",
+            "full_path": "id",
             "start_offset": 982,
             "byte_length": 9,
             "type": 1,
@@ -432,6 +434,7 @@
           "bool_col": {
             "element_type": "column",
             "name": "bool_col",
+            "full_path": "bool_col",
             "start_offset": 991,
             "byte_length": 15,
             "type": 0,
@@ -449,6 +452,7 @@
           "tinyint_col": {
             "element_type": "column",
             "name": "tinyint_col",
+            "full_path": "tinyint_col",
             "start_offset": 1006,
             "byte_length": 18,
             "type": 1,
@@ -466,6 +470,7 @@
           "smallint_col": {
             "element_type": "column",
             "name": "smallint_col",
+            "full_path": "smallint_col",
             "start_offset": 1024,
             "byte_length": 19,
             "type": 1,
@@ -483,6 +488,7 @@
           "int_col": {
             "element_type": "column",
             "name": "int_col",
+            "full_path": "int_col",
             "start_offset": 1043,
             "byte_length": 14,
             "type": 1,
@@ -500,6 +506,7 @@
           "bigint_col": {
             "element_type": "column",
             "name": "bigint_col",
+            "full_path": "bigint_col",
             "start_offset": 1057,
             "byte_length": 17,
             "type": 2,
@@ -517,6 +524,7 @@
           "float_col": {
             "element_type": "column",
             "name": "float_col",
+            "full_path": "float_col",
             "start_offset": 1074,
             "byte_length": 16,
             "type": 4,
@@ -534,6 +542,7 @@
           "double_col": {
             "element_type": "column",
             "name": "double_col",
+            "full_path": "double_col",
             "start_offset": 1090,
             "byte_length": 17,
             "type": 5,
@@ -551,6 +560,7 @@
           "date_string_col": {
             "element_type": "column",
             "name": "date_string_col",
+            "full_path": "date_string_col",
             "start_offset": 1107,
             "byte_length": 22,
             "type": 6,
@@ -568,6 +578,7 @@
           "string_col": {
             "element_type": "column",
             "name": "string_col",
+            "full_path": "string_col",
             "start_offset": 1129,
             "byte_length": 17,
             "type": 6,
@@ -585,6 +596,7 @@
           "timestamp_col": {
             "element_type": "column",
             "name": "timestamp_col",
+            "full_path": "timestamp_col",
             "start_offset": 1146,
             "byte_length": 20,
             "type": 3,

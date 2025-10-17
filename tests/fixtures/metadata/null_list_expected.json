@@ -38,6 +38,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "arrow_schema",
+        "full_path": "",
         "start_offset": 84,
         "byte_length": 17,
         "num_children": 1,
@@ -45,6 +46,7 @@
           "emptylist": {
             "element_type": "group",
             "name": "emptylist",
+            "full_path": "emptylist",
             "start_offset": 101,
             "byte_length": 22,
             "num_children": 1,
@@ -52,6 +54,7 @@
               "list": {
                 "element_type": "group",
                 "name": "list",
+                "full_path": "emptylist.list",
                 "start_offset": 123,
                 "byte_length": 11,
                 "num_children": 1,
@@ -59,6 +62,7 @@
                   "item": {
                     "element_type": "column",
                     "name": "item",
+                    "full_path": "emptylist.list.item",
                     "start_offset": 134,
                     "byte_length": 15,
                     "type": 1,

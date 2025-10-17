@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING, TypeVar
 from por_que.enums import Compression, Encoding, Type
 from por_que.exceptions import ParquetDataError
 from por_que.parsers import physical_types
-from por_que.protocols import ReadableSeekable
+from por_que.protocols import AsyncReadableSeekable
 
 if TYPE_CHECKING:
     from por_que.pages import DictionaryPage
@@ -37,9 +37,9 @@ type DictType[T] = list[T]
 class DictionaryPageParser:
     """Parser for dictionary page content."""
 
-    def parse_content(
+    async def parse_content(
         self,
-        reader: ReadableSeekable,
+        reader: AsyncReadableSeekable,
         dictionary_page: DictionaryPage,
         physical_type: Type,
         compression_codec: Compression,
@@ -62,7 +62,7 @@ class DictionaryPageParser:
         reader.seek(content_start)
 
         # Read compressed content
-        compressed_data = reader.read(dictionary_page.compressed_page_size)
+        compressed_data = await reader.read(dictionary_page.compressed_page_size)
         if len(compressed_data) != dictionary_page.compressed_page_size:
             raise ParquetDataError(
                 f'Could not read expected {dictionary_page.compressed_page_size} bytes '

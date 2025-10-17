@@ -41,7 +41,7 @@ class RowGroupParser(BaseParser):
         super().__init__(parser)
         self.schema = schema
 
-    def read_row_group(self) -> RowGroup:
+    async def read_row_group(self) -> RowGroup:
         """
         Read a RowGroup struct using the new generic parser.
 
@@ -60,7 +60,7 @@ class RowGroupParser(BaseParser):
             'start_offset': start_offset,
         }
 
-        for field_id, field_type, value in self.parse_struct_fields():
+        async for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case RowGroupFieldId.TOTAL_BYTE_SIZE:
                     props['total_byte_size'] = value
@@ -69,7 +69,7 @@ class RowGroupParser(BaseParser):
                 case RowGroupFieldId.COLUMNS:
                     column_parser = ColumnParser(self.parser, self.schema)
                     column_chunks_list = [
-                        column_parser.read_column_chunk() for _ in value
+                        await column_parser.read_column_chunk() async for _ in value
                     ]
                     props['column_chunks'] = {
                         chunk.metadata.path_in_schema: chunk
@@ -77,7 +77,7 @@ class RowGroupParser(BaseParser):
                     }
                 case RowGroupFieldId.SORTING_COLUMNS:
                     props['sorting_columns'] = [
-                        self.parse_sorting_column() for _ in value
+                        await self.parse_sorting_column() async for _ in value
                     ]
                 case RowGroupFieldId.FILE_OFFSET:
                     props['file_offset'] = value
@@ -90,17 +90,17 @@ class RowGroupParser(BaseParser):
                         f'Skipping unknown row group field ID {field_id}',
                         stacklevel=1,
                     )
-                    self.maybe_skip_field(field_type)
+                    await self.maybe_skip_field(field_type)
 
         end_offset = self.parser.pos
         props['byte_length'] = end_offset - start_offset
 
         return RowGroup(**props)
 
-    def parse_sorting_column(self) -> SortingColumn:
+    async def parse_sorting_column(self) -> SortingColumn:
         props: dict[str, Any] = {}
 
-        for field_id, field_type, value in self.parse_struct_fields():
+        async for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case SortingColumnFieldId.COLUMN_IDX:
                     props['column_idx'] = value
@@ -113,6 +113,6 @@ class RowGroupParser(BaseParser):
                         f'Skipping unknown sorting column field ID {field_id}',
                         stacklevel=1,
                     )
-                    self.maybe_skip_field(field_type)
+                    await self.maybe_skip_field(field_type)
 
         return SortingColumn(**props)

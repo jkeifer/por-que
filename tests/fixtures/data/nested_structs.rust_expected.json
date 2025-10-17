@@ -343,8 +343,8 @@
     ],
     "ul_observation_date": [
       {
-        "min": "unconvertible_type",
-        "max": "unconvertible_type",
+        "min": 1608822900000000000,
+        "max": 1608822900000000000,
         "mean": "1970-01-01T00:00:00+00:00",
         "count": 495,
         "sum": "1970-01-01T00:00:00+00:00",

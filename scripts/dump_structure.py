@@ -5,6 +5,7 @@ Quick script to dump parquet file structure to JSON.
 Usage: python dump_structure.py <parquet_file_path>
 """
 
+import asyncio
 import sys
 
 from pathlib import Path
@@ -12,7 +13,7 @@ from pathlib import Path
 from por_que import ParquetFile
 
 
-def main():
+async def main():
     if len(sys.argv) != 2:
         print('Usage: python dump_structure.py <parquet_file_path>', file=sys.stderr)  # noqa: T201
         sys.exit(1)
@@ -21,7 +22,7 @@ def main():
 
     try:
         with file_path.open('rb') as f:
-            parquet_file = ParquetFile.from_reader(
+            parquet_file = await ParquetFile.from_reader(
                 f,
                 source=file_path,
             )
@@ -32,4 +33,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())

@@ -269,6 +269,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 4079,
         "byte_length": 11,
         "num_children": 1,
@@ -276,6 +277,7 @@
           "flba_field": {
             "element_type": "column",
             "name": "flba_field",
+            "full_path": "flba_field",
             "start_offset": 4090,
             "byte_length": 19,
             "type": 7,

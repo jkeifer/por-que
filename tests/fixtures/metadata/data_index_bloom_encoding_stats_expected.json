@@ -71,6 +71,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "data",
+        "full_path": "",
         "start_offset": 1236,
         "byte_length": 9,
         "num_children": 1,
@@ -78,6 +79,7 @@
           "String": {
             "element_type": "column",
             "name": "String",
+            "full_path": "String",
             "start_offset": 1245,
             "byte_length": 19,
             "type": 6,

@@ -195,6 +195,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 658,
         "byte_length": 13,
         "num_children": 2,
@@ -202,6 +203,7 @@
           "a": {
             "element_type": "column",
             "name": "a",
+            "full_path": "a",
             "start_offset": 671,
             "byte_length": 8,
             "type": 2,
@@ -219,6 +221,7 @@
           "b": {
             "element_type": "column",
             "name": "b",
+            "full_path": "b",
             "start_offset": 679,
             "byte_length": 14,
             "type": 6,

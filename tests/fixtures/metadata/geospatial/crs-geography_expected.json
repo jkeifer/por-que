@@ -103,6 +103,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 10846,
         "byte_length": 13,
         "num_children": 2,
@@ -110,6 +111,7 @@
           "wkt": {
             "element_type": "column",
             "name": "wkt",
+            "full_path": "wkt",
             "start_offset": 10859,
             "byte_length": 16,
             "type": 6,
@@ -129,6 +131,7 @@
           "geography": {
             "element_type": "column",
             "name": "geography",
+            "full_path": "geography",
             "start_offset": 10875,
             "byte_length": 21,
             "type": 6,

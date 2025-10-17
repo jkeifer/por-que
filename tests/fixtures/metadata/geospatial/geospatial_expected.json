@@ -4289,6 +4289,7 @@
       "schema_root": {
         "element_type": "root",
         "name": "schema",
+        "full_path": "",
         "start_offset": 35960,
         "byte_length": 13,
         "num_children": 3,
@@ -4296,6 +4297,7 @@
           "group": {
             "element_type": "column",
             "name": "group",
+            "full_path": "group",
             "start_offset": 35973,
             "byte_length": 18,
             "type": 6,
@@ -4315,6 +4317,7 @@
           "wkt": {
             "element_type": "column",
             "name": "wkt",
+            "full_path": "wkt",
             "start_offset": 35991,
             "byte_length": 16,
             "type": 6,
@@ -4334,6 +4337,7 @@
           "geometry": {
             "element_type": "column",
             "name": "geometry",
+            "full_path": "geometry",
             "start_offset": 36007,
             "byte_length": 20,
             "type": 6,
