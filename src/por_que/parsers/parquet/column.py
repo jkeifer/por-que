@@ -138,7 +138,8 @@ class ColumnParser(BaseParser):
                 case ColumnMetadataFieldId.INDEX_PAGE_OFFSET:
                     props['index_page_offset'] = value
                 case ColumnMetadataFieldId.DICTIONARY_PAGE_OFFSET:
-                    props['dictionary_page_offset'] = value
+                    # Offset 0 means "no dictionary page" (0 is the file header)
+                    props['dictionary_page_offset'] = value if value > 0 else None
                 case ColumnMetadataFieldId.ENCODINGS:
                     props['encodings'] = [
                         Encoding(await self.read_i32()) async for _ in value

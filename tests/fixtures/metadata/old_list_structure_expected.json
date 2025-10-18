@@ -82,6 +82,8 @@
         "full_path": "",
         "start_offset": 104,
         "byte_length": 14,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "a": {
@@ -90,6 +92,8 @@
             "full_path": "a",
             "start_offset": 118,
             "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
             "num_children": 1,
             "children": {
               "array": {
@@ -98,6 +102,8 @@
                 "full_path": "a.array",
                 "start_offset": 132,
                 "byte_length": 18,
+                "definition_level": 1,
+                "repetition_level": 1,
                 "num_children": 1,
                 "children": {
                   "array": {
@@ -106,6 +112,8 @@
                     "full_path": "a.array.array",
                     "start_offset": 150,
                     "byte_length": 12,
+                    "definition_level": 2,
+                    "repetition_level": 2,
                     "type": 1,
                     "repetition": 2,
                     "converted_type": null,
@@ -114,8 +122,6 @@
                     "precision": null,
                     "field_id": null,
                     "logical_type": null,
-                    "definition_level": 2,
-                    "repetition_level": 2,
                     "list_semantics": "modern_list"
                   }
                 },
@@ -134,7 +140,8 @@
               "logical_type": 3
             }
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

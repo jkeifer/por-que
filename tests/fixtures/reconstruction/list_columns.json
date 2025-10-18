@@ -1,0 +1,199 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/list_columns.parquet",
+  "expected": "fixtures/data/list_columns_expected.json",
+  "data_tuples": {
+    "int64_list.list.item": [
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        3,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        1,
+        3,
+        1
+      ],
+      [
+        4,
+        3,
+        0
+      ]
+    ],
+    "utf8_list.list.item": [
+      [
+        "abc",
+        3,
+        0
+      ],
+      [
+        "efg",
+        3,
+        1
+      ],
+      [
+        "hij",
+        3,
+        1
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        "efg",
+        3,
+        0
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        "hij",
+        3,
+        1
+      ],
+      [
+        "xyz",
+        3,
+        1
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "",
+    "start_offset": 382,
+    "byte_length": 13,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 2,
+    "children": {
+      "int64_list": {
+        "element_type": "group",
+        "name": "int64_list",
+        "full_path": "int64_list",
+        "start_offset": 395,
+        "byte_length": 23,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "int64_list.list",
+            "start_offset": 418,
+            "byte_length": 11,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "item": {
+                "element_type": "column",
+                "name": "item",
+                "full_path": "int64_list.list.item",
+                "start_offset": 429,
+                "byte_length": 11,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "type": 2,
+                "repetition": 1,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "modern_list"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": {
+          "logical_type": 3
+        }
+      },
+      "utf8_list": {
+        "element_type": "group",
+        "name": "utf8_list",
+        "full_path": "utf8_list",
+        "start_offset": 440,
+        "byte_length": 22,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "utf8_list.list",
+            "start_offset": 462,
+            "byte_length": 11,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "item": {
+                "element_type": "column",
+                "name": "item",
+                "full_path": "utf8_list.list.item",
+                "start_offset": 473,
+                "byte_length": 17,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "type": 6,
+                "repetition": 1,
+                "converted_type": 0,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": {
+                  "logical_type": 1
+                },
+                "list_semantics": "modern_list"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": {
+          "logical_type": 3
+        }
+      }
+    },
+    "repetition": 0
+  }
+}

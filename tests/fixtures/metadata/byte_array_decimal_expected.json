@@ -41,6 +41,8 @@
         "full_path": "",
         "start_offset": 201,
         "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "value": {
@@ -49,6 +51,8 @@
             "full_path": "value",
             "start_offset": 214,
             "byte_length": 20,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 5,
@@ -57,11 +61,10 @@
             "precision": 4,
             "field_id": 6,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

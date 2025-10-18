@@ -518,6 +518,8 @@
         "full_path": "",
         "start_offset": 12623,
         "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 14,
         "children": {
           "float16_plain": {
@@ -526,6 +528,8 @@
             "full_path": "float16_plain",
             "start_offset": 12636,
             "byte_length": 26,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": null,
@@ -536,8 +540,6 @@
             "logical_type": {
               "logical_type": 15
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "float16_byte_stream_split": {
@@ -546,6 +548,8 @@
             "full_path": "float16_byte_stream_split",
             "start_offset": 12662,
             "byte_length": 38,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": null,
@@ -556,8 +560,6 @@
             "logical_type": {
               "logical_type": 15
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "float_plain": {
@@ -566,6 +568,8 @@
             "full_path": "float_plain",
             "start_offset": 12700,
             "byte_length": 18,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 4,
             "repetition": 1,
             "converted_type": null,
@@ -574,8 +578,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "float_byte_stream_split": {
@@ -584,6 +586,8 @@
             "full_path": "float_byte_stream_split",
             "start_offset": 12718,
             "byte_length": 30,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 4,
             "repetition": 1,
             "converted_type": null,
@@ -592,8 +596,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "double_plain": {
@@ -602,6 +604,8 @@
             "full_path": "double_plain",
             "start_offset": 12748,
             "byte_length": 19,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 5,
             "repetition": 1,
             "converted_type": null,
@@ -610,8 +614,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "double_byte_stream_split": {
@@ -620,6 +622,8 @@
             "full_path": "double_byte_stream_split",
             "start_offset": 12767,
             "byte_length": 31,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 5,
             "repetition": 1,
             "converted_type": null,
@@ -628,8 +632,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "int32_plain": {
@@ -638,6 +640,8 @@
             "full_path": "int32_plain",
             "start_offset": 12798,
             "byte_length": 18,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -646,8 +650,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "int32_byte_stream_split": {
@@ -656,6 +658,8 @@
             "full_path": "int32_byte_stream_split",
             "start_offset": 12816,
             "byte_length": 30,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -664,8 +668,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "int64_plain": {
@@ -674,6 +676,8 @@
             "full_path": "int64_plain",
             "start_offset": 12846,
             "byte_length": 18,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -682,8 +686,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "int64_byte_stream_split": {
@@ -692,6 +694,8 @@
             "full_path": "int64_byte_stream_split",
             "start_offset": 12864,
             "byte_length": 30,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -700,8 +704,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "flba5_plain": {
@@ -710,6 +712,8 @@
             "full_path": "flba5_plain",
             "start_offset": 12894,
             "byte_length": 20,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": null,
@@ -718,8 +722,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "flba5_byte_stream_split": {
@@ -728,6 +730,8 @@
             "full_path": "flba5_byte_stream_split",
             "start_offset": 12914,
             "byte_length": 32,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": null,
@@ -736,8 +740,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "decimal_plain": {
@@ -746,6 +748,8 @@
             "full_path": "decimal_plain",
             "start_offset": 12946,
             "byte_length": 36,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": 5,
@@ -758,8 +762,6 @@
               "scale": 3,
               "precision": 7
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "decimal_byte_stream_split": {
@@ -768,6 +770,8 @@
             "full_path": "decimal_byte_stream_split",
             "start_offset": 12982,
             "byte_length": 48,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": 5,
@@ -780,11 +784,10 @@
               "scale": 3,
               "precision": 7
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

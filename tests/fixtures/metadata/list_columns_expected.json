@@ -106,6 +106,8 @@
         "full_path": "",
         "start_offset": 382,
         "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 2,
         "children": {
           "int64_list": {
@@ -114,6 +116,8 @@
             "full_path": "int64_list",
             "start_offset": 395,
             "byte_length": 23,
+            "definition_level": 1,
+            "repetition_level": 0,
             "num_children": 1,
             "children": {
               "list": {
@@ -122,6 +126,8 @@
                 "full_path": "int64_list.list",
                 "start_offset": 418,
                 "byte_length": 11,
+                "definition_level": 2,
+                "repetition_level": 1,
                 "num_children": 1,
                 "children": {
                   "item": {
@@ -130,6 +136,8 @@
                     "full_path": "int64_list.list.item",
                     "start_offset": 429,
                     "byte_length": 11,
+                    "definition_level": 3,
+                    "repetition_level": 1,
                     "type": 2,
                     "repetition": 1,
                     "converted_type": null,
@@ -138,8 +146,6 @@
                     "precision": null,
                     "field_id": null,
                     "logical_type": null,
-                    "definition_level": 3,
-                    "repetition_level": 1,
                     "list_semantics": "modern_list"
                   }
                 },
@@ -162,6 +168,8 @@
             "full_path": "utf8_list",
             "start_offset": 440,
             "byte_length": 22,
+            "definition_level": 1,
+            "repetition_level": 0,
             "num_children": 1,
             "children": {
               "list": {
@@ -170,6 +178,8 @@
                 "full_path": "utf8_list.list",
                 "start_offset": 462,
                 "byte_length": 11,
+                "definition_level": 2,
+                "repetition_level": 1,
                 "num_children": 1,
                 "children": {
                   "item": {
@@ -178,6 +188,8 @@
                     "full_path": "utf8_list.list.item",
                     "start_offset": 473,
                     "byte_length": 17,
+                    "definition_level": 3,
+                    "repetition_level": 1,
                     "type": 6,
                     "repetition": 1,
                     "converted_type": 0,
@@ -188,8 +200,6 @@
                     "logical_type": {
                       "logical_type": 1
                     },
-                    "definition_level": 3,
-                    "repetition_level": 1,
                     "list_semantics": "modern_list"
                   }
                 },
@@ -206,7 +216,8 @@
               "logical_type": 3
             }
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

@@ -358,6 +358,8 @@
         "full_path": "",
         "start_offset": 709,
         "byte_length": 11,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 3,
         "children": {
           "Int32_list": {
@@ -366,6 +368,8 @@
             "full_path": "Int32_list",
             "start_offset": 720,
             "byte_length": 17,
+            "definition_level": 1,
+            "repetition_level": 1,
             "type": 1,
             "repetition": 2,
             "converted_type": null,
@@ -374,8 +378,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 1,
             "list_semantics": null
           },
           "String_list": {
@@ -384,6 +386,8 @@
             "full_path": "String_list",
             "start_offset": 737,
             "byte_length": 20,
+            "definition_level": 1,
+            "repetition_level": 1,
             "type": 6,
             "repetition": 2,
             "converted_type": 0,
@@ -392,8 +396,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 1,
             "list_semantics": null
           },
           "group_of_lists": {
@@ -402,6 +404,8 @@
             "full_path": "group_of_lists",
             "start_offset": 757,
             "byte_length": 21,
+            "definition_level": 0,
+            "repetition_level": 0,
             "num_children": 2,
             "children": {
               "Int32_list_in_group": {
@@ -410,6 +414,8 @@
                 "full_path": "group_of_lists.Int32_list_in_group",
                 "start_offset": 778,
                 "byte_length": 26,
+                "definition_level": 1,
+                "repetition_level": 1,
                 "type": 1,
                 "repetition": 2,
                 "converted_type": null,
@@ -418,8 +424,6 @@
                 "precision": null,
                 "field_id": null,
                 "logical_type": null,
-                "definition_level": 1,
-                "repetition_level": 1,
                 "list_semantics": null
               },
               "String_list_in_group": {
@@ -428,6 +432,8 @@
                 "full_path": "group_of_lists.String_list_in_group",
                 "start_offset": 804,
                 "byte_length": 29,
+                "definition_level": 1,
+                "repetition_level": 1,
                 "type": 6,
                 "repetition": 2,
                 "converted_type": 0,
@@ -436,8 +442,6 @@
                 "precision": null,
                 "field_id": null,
                 "logical_type": null,
-                "definition_level": 1,
-                "repetition_level": 1,
                 "list_semantics": null
               }
             },
@@ -446,7 +450,8 @@
             "field_id": null,
             "logical_type": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

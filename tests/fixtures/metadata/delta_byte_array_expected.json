@@ -365,6 +365,8 @@
         "full_path": "",
         "start_offset": 67303,
         "byte_length": 16,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 9,
         "children": {
           "c_customer_id": {
@@ -373,6 +375,8 @@
             "full_path": "c_customer_id",
             "start_offset": 67319,
             "byte_length": 22,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -381,8 +385,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_salutation": {
@@ -391,6 +393,8 @@
             "full_path": "c_salutation",
             "start_offset": 67341,
             "byte_length": 21,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -399,8 +403,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_first_name": {
@@ -409,6 +411,8 @@
             "full_path": "c_first_name",
             "start_offset": 67362,
             "byte_length": 21,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -417,8 +421,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_last_name": {
@@ -427,6 +429,8 @@
             "full_path": "c_last_name",
             "start_offset": 67383,
             "byte_length": 20,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -435,8 +439,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_preferred_cust_flag": {
@@ -445,6 +447,8 @@
             "full_path": "c_preferred_cust_flag",
             "start_offset": 67403,
             "byte_length": 30,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -453,8 +457,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_birth_country": {
@@ -463,6 +465,8 @@
             "full_path": "c_birth_country",
             "start_offset": 67433,
             "byte_length": 24,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -471,8 +475,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_login": {
@@ -481,6 +483,8 @@
             "full_path": "c_login",
             "start_offset": 67457,
             "byte_length": 16,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -489,8 +493,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_email_address": {
@@ -499,6 +501,8 @@
             "full_path": "c_email_address",
             "start_offset": 67473,
             "byte_length": 24,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -507,8 +511,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_last_review_date": {
@@ -517,6 +519,8 @@
             "full_path": "c_last_review_date",
             "start_offset": 67497,
             "byte_length": 27,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -525,11 +529,10 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

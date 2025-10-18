@@ -272,6 +272,8 @@
         "full_path": "",
         "start_offset": 4079,
         "byte_length": 11,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "flba_field": {
@@ -280,6 +282,8 @@
             "full_path": "flba_field",
             "start_offset": 4090,
             "byte_length": 19,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 0,
             "converted_type": null,
@@ -288,11 +292,10 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

@@ -1,0 +1,207 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "repetition": 0,
+    "children": {
+      "data": {
+        "element_type": "group",
+        "name": "data",
+        "full_path": "data",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "repetition": 1,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": null,
+        "children": {
+          "key_value": {
+            "element_type": "group",
+            "name": "key_value",
+            "full_path": "data.key_value",
+            "start_offset": 0,
+            "byte_length": 0,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 2,
+            "repetition": 2,
+            "converted_type": 2,
+            "field_id": null,
+            "logical_type": null,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "data.key_value.key",
+                "start_offset": 0,
+                "byte_length": 0,
+                "type": 6,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "definition_level": 2,
+                "repetition_level": 1,
+                "list_semantics": null
+              },
+              "value": {
+                "element_type": "group",
+                "name": "value",
+                "full_path": "data.key_value.value",
+                "start_offset": 0,
+                "byte_length": 0,
+                "num_children": 1,
+                "repetition": 1,
+                "converted_type": 1,
+                "field_id": null,
+                "logical_type": null,
+                "children": {
+                  "key_value": {
+                    "element_type": "group",
+                    "name": "key_value",
+                    "full_path": "data.key_value.value.key_value",
+                    "start_offset": 0,
+                    "byte_length": 0,
+                    "definition_level": 3,
+                    "repetition_level": 2,
+                    "num_children": 2,
+                    "repetition": 2,
+                    "converted_type": 2,
+                    "field_id": null,
+                    "logical_type": null,
+                    "children": {
+                      "key": {
+                        "element_type": "column",
+                        "name": "key",
+                        "full_path": "data.key_value.value.key_value.key",
+                        "start_offset": 0,
+                        "byte_length": 0,
+                        "type": 6,
+                        "repetition": 0,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "definition_level": 4,
+                        "repetition_level": 2,
+                        "list_semantics": null
+                      },
+                      "value": {
+                        "element_type": "column",
+                        "name": "value",
+                        "full_path": "data.key_value.value.key_value.value",
+                        "start_offset": 0,
+                        "byte_length": 0,
+                        "type": 1,
+                        "repetition": 1,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "definition_level": 5,
+                        "repetition_level": 2,
+                        "list_semantics": null
+                      }
+                    }
+                  }
+                },
+                "definition_level": 2,
+                "repetition_level": 1
+              }
+            }
+          }
+        },
+        "definition_level": 1,
+        "repetition_level": 0
+      }
+    }
+  },
+  "data_tuples": {
+    "data.key_value.key": [
+      [
+        "outer1",
+        2,
+        0
+      ],
+      [
+        "outer2",
+        2,
+        1
+      ]
+    ],
+    "data.key_value.value.key_value.key": [
+      [
+        "inner1",
+        4,
+        0
+      ],
+      [
+        "inner2",
+        4,
+        2
+      ],
+      [
+        "inner3",
+        4,
+        1
+      ]
+    ],
+    "data.key_value.value.key_value.value": [
+      [
+        1,
+        5,
+        0
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        3,
+        5,
+        1
+      ]
+    ]
+  },
+  "expected": {
+    "data": [
+      [
+        [
+          "outer1",
+          [
+            [
+              "inner1",
+              1
+            ],
+            [
+              "inner2",
+              2
+            ]
+          ]
+        ],
+        [
+          "outer2",
+          [
+            [
+              "inner3",
+              3
+            ]
+          ]
+        ]
+      ]
+    ]
+  }
+}

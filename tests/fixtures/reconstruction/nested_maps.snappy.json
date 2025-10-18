@@ -1,0 +1,363 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nested_maps.snappy.parquet",
+  "expected": "fixtures/data/nested_maps.snappy_expected.json",
+  "data_tuples": {
+    "a.key_value.key": [
+      [
+        "a",
+        2,
+        0
+      ],
+      [
+        "b",
+        2,
+        0
+      ],
+      [
+        "c",
+        2,
+        0
+      ],
+      [
+        "d",
+        2,
+        0
+      ],
+      [
+        "e",
+        2,
+        0
+      ],
+      [
+        "f",
+        2,
+        0
+      ]
+    ],
+    "a.key_value.value.key_value.key": [
+      [
+        1,
+        4,
+        0
+      ],
+      [
+        2,
+        4,
+        2
+      ],
+      [
+        1,
+        4,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        3,
+        0
+      ],
+      [
+        1,
+        4,
+        0
+      ],
+      [
+        3,
+        4,
+        0
+      ],
+      [
+        4,
+        4,
+        2
+      ],
+      [
+        5,
+        4,
+        2
+      ]
+    ],
+    "a.key_value.value.key_value.value": [
+      [
+        true,
+        4,
+        0
+      ],
+      [
+        false,
+        4,
+        2
+      ],
+      [
+        true,
+        4,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        3,
+        0
+      ],
+      [
+        true,
+        4,
+        0
+      ],
+      [
+        true,
+        4,
+        0
+      ],
+      [
+        false,
+        4,
+        2
+      ],
+      [
+        true,
+        4,
+        2
+      ]
+    ],
+    "b": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "c": [
+      [
+        1.0,
+        0,
+        0
+      ],
+      [
+        1.0,
+        0,
+        0
+      ],
+      [
+        1.0,
+        0,
+        0
+      ],
+      [
+        1.0,
+        0,
+        0
+      ],
+      [
+        1.0,
+        0,
+        0
+      ],
+      [
+        1.0,
+        0,
+        0
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "spark_schema",
+    "full_path": "",
+    "start_offset": 346,
+    "byte_length": 17,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 3,
+    "children": {
+      "a": {
+        "element_type": "group",
+        "name": "a",
+        "full_path": "a",
+        "start_offset": 363,
+        "byte_length": 10,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "key_value": {
+            "element_type": "group",
+            "name": "key_value",
+            "full_path": "a.key_value",
+            "start_offset": 373,
+            "byte_length": 16,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 2,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "a.key_value.key",
+                "start_offset": 389,
+                "byte_length": 12,
+                "definition_level": 2,
+                "repetition_level": 1,
+                "type": 6,
+                "repetition": 0,
+                "converted_type": 0,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              },
+              "value": {
+                "element_type": "group",
+                "name": "value",
+                "full_path": "a.key_value.value",
+                "start_offset": 401,
+                "byte_length": 14,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "key_value": {
+                    "element_type": "group",
+                    "name": "key_value",
+                    "full_path": "a.key_value.value.key_value",
+                    "start_offset": 415,
+                    "byte_length": 16,
+                    "definition_level": 4,
+                    "repetition_level": 2,
+                    "num_children": 2,
+                    "children": {
+                      "key": {
+                        "element_type": "column",
+                        "name": "key",
+                        "full_path": "a.key_value.value.key_value.key",
+                        "start_offset": 431,
+                        "byte_length": 10,
+                        "definition_level": 4,
+                        "repetition_level": 2,
+                        "type": 1,
+                        "repetition": 0,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "legacy_repeated"
+                      },
+                      "value": {
+                        "element_type": "column",
+                        "name": "value",
+                        "full_path": "a.key_value.value.key_value.value",
+                        "start_offset": 441,
+                        "byte_length": 12,
+                        "definition_level": 4,
+                        "repetition_level": 2,
+                        "type": 0,
+                        "repetition": 0,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "legacy_repeated"
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 1,
+                "converted_type": 1,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": null
+      },
+      "b": {
+        "element_type": "column",
+        "name": "b",
+        "full_path": "b",
+        "start_offset": 453,
+        "byte_length": 8,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "type": 1,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      },
+      "c": {
+        "element_type": "column",
+        "name": "c",
+        "full_path": "c",
+        "start_offset": 461,
+        "byte_length": 8,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "type": 5,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      }
+    },
+    "repetition": 0
+  }
+}

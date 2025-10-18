@@ -1,0 +1,1516 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nullable.impala.parquet",
+  "expected": "fixtures/data/nullable.impala_expected.json",
+  "data_tuples": {
+    "id": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        4,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        6,
+        1,
+        0
+      ],
+      [
+        7,
+        1,
+        0
+      ]
+    ],
+    "int_array.list.element": [
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        3,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        1,
+        3,
+        1
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        3,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ]
+    ],
+    "int_array_Array.list.element.list.element": [
+      [
+        1,
+        5,
+        0
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        3,
+        5,
+        1
+      ],
+      [
+        4,
+        5,
+        2
+      ],
+      [
+        null,
+        4,
+        0
+      ],
+      [
+        1,
+        5,
+        2
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        null,
+        4,
+        2
+      ],
+      [
+        3,
+        5,
+        1
+      ],
+      [
+        null,
+        4,
+        2
+      ],
+      [
+        4,
+        5,
+        2
+      ],
+      [
+        null,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        5,
+        5,
+        1
+      ],
+      [
+        6,
+        5,
+        2
+      ]
+    ],
+    "int_map.map.key": [
+      [
+        "k1",
+        2,
+        0
+      ],
+      [
+        "k2",
+        2,
+        1
+      ],
+      [
+        "k1",
+        2,
+        0
+      ],
+      [
+        "k2",
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        "k1",
+        2,
+        0
+      ],
+      [
+        "k3",
+        2,
+        1
+      ]
+    ],
+    "int_map.map.value": [
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        100,
+        3,
+        1
+      ],
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        2,
+        1
+      ]
+    ],
+    "int_Map_Array.list.element.map.key": [
+      [
+        "k1",
+        4,
+        0
+      ],
+      [
+        "k3",
+        4,
+        0
+      ],
+      [
+        "k1",
+        4,
+        2
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ]
+    ],
+    "int_Map_Array.list.element.map.value": [
+      [
+        1,
+        5,
+        0
+      ],
+      [
+        null,
+        4,
+        0
+      ],
+      [
+        1,
+        5,
+        2
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ]
+    ],
+    "nested_struct.A": [
+      [
+        1,
+        2,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        7,
+        2,
+        0
+      ]
+    ],
+    "nested_struct.b.list.element": [
+      [
+        1,
+        4,
+        0
+      ],
+      [
+        null,
+        3,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        3,
+        4,
+        1
+      ],
+      [
+        null,
+        3,
+        1
+      ]
+    ],
+    "nested_struct.C.d.list.element.list.element.E": [
+      [
+        10,
+        8,
+        0
+      ],
+      [
+        -10,
+        8,
+        2
+      ],
+      [
+        11,
+        8,
+        1
+      ],
+      [
+        null,
+        7,
+        0
+      ],
+      [
+        10,
+        8,
+        2
+      ],
+      [
+        null,
+        7,
+        2
+      ],
+      [
+        -10,
+        8,
+        2
+      ],
+      [
+        null,
+        7,
+        2
+      ],
+      [
+        11,
+        8,
+        1
+      ],
+      [
+        null,
+        6,
+        2
+      ],
+      [
+        null,
+        5,
+        1
+      ],
+      [
+        null,
+        4,
+        1
+      ],
+      [
+        null,
+        3,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        5,
+        0
+      ],
+      [
+        null,
+        6,
+        1
+      ],
+      [
+        null,
+        4,
+        1
+      ]
+    ],
+    "nested_struct.C.d.list.element.list.element.F": [
+      [
+        "aaa",
+        8,
+        0
+      ],
+      [
+        "bbb",
+        8,
+        2
+      ],
+      [
+        "c",
+        8,
+        1
+      ],
+      [
+        null,
+        7,
+        0
+      ],
+      [
+        "aaa",
+        8,
+        2
+      ],
+      [
+        null,
+        7,
+        2
+      ],
+      [
+        "bbb",
+        8,
+        2
+      ],
+      [
+        null,
+        7,
+        2
+      ],
+      [
+        "c",
+        8,
+        1
+      ],
+      [
+        null,
+        6,
+        2
+      ],
+      [
+        null,
+        5,
+        1
+      ],
+      [
+        null,
+        4,
+        1
+      ],
+      [
+        null,
+        3,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        5,
+        0
+      ],
+      [
+        null,
+        6,
+        1
+      ],
+      [
+        null,
+        4,
+        1
+      ]
+    ],
+    "nested_struct.g.map.key": [
+      [
+        "foo",
+        3,
+        0
+      ],
+      [
+        "g1",
+        3,
+        0
+      ],
+      [
+        "g2",
+        3,
+        1
+      ],
+      [
+        "g3",
+        3,
+        1
+      ],
+      [
+        "g4",
+        3,
+        1
+      ],
+      [
+        "g5",
+        3,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        "foo",
+        3,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ]
+    ],
+    "nested_struct.g.map.value.H.i.list.element": [
+      [
+        1.1,
+        8,
+        0
+      ],
+      [
+        2.2,
+        8,
+        0
+      ],
+      [
+        null,
+        7,
+        2
+      ],
+      [
+        null,
+        6,
+        1
+      ],
+      [
+        null,
+        3,
+        1
+      ],
+      [
+        null,
+        5,
+        1
+      ],
+      [
+        null,
+        4,
+        1
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        2.2,
+        8,
+        0
+      ],
+      [
+        3.3,
+        8,
+        2
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "org.apache.impala.ComplexTypesTbl",
+    "full_path": "",
+    "start_offset": 1082,
+    "byte_length": 38,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 6,
+    "children": {
+      "id": {
+        "element_type": "column",
+        "name": "id",
+        "full_path": "id",
+        "start_offset": 1120,
+        "byte_length": 9,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "type": 2,
+        "repetition": 1,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      },
+      "int_array": {
+        "element_type": "group",
+        "name": "int_array",
+        "full_path": "int_array",
+        "start_offset": 1129,
+        "byte_length": 18,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "int_array.list",
+            "start_offset": 1147,
+            "byte_length": 11,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "column",
+                "name": "element",
+                "full_path": "int_array.list.element",
+                "start_offset": 1158,
+                "byte_length": 14,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 1,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "modern_list"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "int_array_Array": {
+        "element_type": "group",
+        "name": "int_array_Array",
+        "full_path": "int_array_Array",
+        "start_offset": 1172,
+        "byte_length": 24,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "int_array_Array.list",
+            "start_offset": 1196,
+            "byte_length": 11,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "int_array_Array.list.element",
+                "start_offset": 1207,
+                "byte_length": 16,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "int_array_Array.list.element.list",
+                    "start_offset": 1223,
+                    "byte_length": 11,
+                    "definition_level": 4,
+                    "repetition_level": 2,
+                    "num_children": 1,
+                    "children": {
+                      "element": {
+                        "element_type": "column",
+                        "name": "element",
+                        "full_path": "int_array_Array.list.element.list.element",
+                        "start_offset": 1234,
+                        "byte_length": 14,
+                        "definition_level": 5,
+                        "repetition_level": 2,
+                        "type": 1,
+                        "repetition": 1,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "modern_list"
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 1,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "int_map": {
+        "element_type": "group",
+        "name": "int_map",
+        "full_path": "int_map",
+        "start_offset": 1248,
+        "byte_length": 16,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "map": {
+            "element_type": "group",
+            "name": "map",
+            "full_path": "int_map.map",
+            "start_offset": 1264,
+            "byte_length": 12,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 2,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "int_map.map.key",
+                "start_offset": 1276,
+                "byte_length": 12,
+                "definition_level": 2,
+                "repetition_level": 1,
+                "type": 6,
+                "repetition": 0,
+                "converted_type": 0,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              },
+              "value": {
+                "element_type": "column",
+                "name": "value",
+                "full_path": "int_map.map.value",
+                "start_offset": 1288,
+                "byte_length": 12,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 1,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              }
+            },
+            "repetition": 2,
+            "converted_type": 2,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": null
+      },
+      "int_Map_Array": {
+        "element_type": "group",
+        "name": "int_Map_Array",
+        "full_path": "int_Map_Array",
+        "start_offset": 1300,
+        "byte_length": 22,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "int_Map_Array.list",
+            "start_offset": 1322,
+            "byte_length": 11,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "int_Map_Array.list.element",
+                "start_offset": 1333,
+                "byte_length": 16,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "map": {
+                    "element_type": "group",
+                    "name": "map",
+                    "full_path": "int_Map_Array.list.element.map",
+                    "start_offset": 1349,
+                    "byte_length": 12,
+                    "definition_level": 4,
+                    "repetition_level": 2,
+                    "num_children": 2,
+                    "children": {
+                      "key": {
+                        "element_type": "column",
+                        "name": "key",
+                        "full_path": "int_Map_Array.list.element.map.key",
+                        "start_offset": 1361,
+                        "byte_length": 12,
+                        "definition_level": 4,
+                        "repetition_level": 2,
+                        "type": 6,
+                        "repetition": 0,
+                        "converted_type": 0,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "modern_list"
+                      },
+                      "value": {
+                        "element_type": "column",
+                        "name": "value",
+                        "full_path": "int_Map_Array.list.element.map.value",
+                        "start_offset": 1373,
+                        "byte_length": 12,
+                        "definition_level": 5,
+                        "repetition_level": 2,
+                        "type": 1,
+                        "repetition": 1,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "modern_list"
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": 2,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 1,
+                "converted_type": 1,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "nested_struct": {
+        "element_type": "group",
+        "name": "nested_struct",
+        "full_path": "nested_struct",
+        "start_offset": 1385,
+        "byte_length": 20,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 4,
+        "children": {
+          "A": {
+            "element_type": "column",
+            "name": "A",
+            "full_path": "nested_struct.A",
+            "start_offset": 1405,
+            "byte_length": 8,
+            "definition_level": 2,
+            "repetition_level": 0,
+            "type": 1,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "b": {
+            "element_type": "group",
+            "name": "b",
+            "full_path": "nested_struct.b",
+            "start_offset": 1413,
+            "byte_length": 10,
+            "definition_level": 2,
+            "repetition_level": 0,
+            "num_children": 1,
+            "children": {
+              "list": {
+                "element_type": "group",
+                "name": "list",
+                "full_path": "nested_struct.b.list",
+                "start_offset": 1423,
+                "byte_length": 11,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "element": {
+                    "element_type": "column",
+                    "name": "element",
+                    "full_path": "nested_struct.b.list.element",
+                    "start_offset": 1434,
+                    "byte_length": 14,
+                    "definition_level": 4,
+                    "repetition_level": 1,
+                    "type": 1,
+                    "repetition": 1,
+                    "converted_type": null,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "list_semantics": "modern_list"
+                  }
+                },
+                "repetition": 2,
+                "converted_type": null,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 1,
+            "converted_type": 3,
+            "field_id": null,
+            "logical_type": null
+          },
+          "C": {
+            "element_type": "group",
+            "name": "C",
+            "full_path": "nested_struct.C",
+            "start_offset": 1448,
+            "byte_length": 8,
+            "definition_level": 2,
+            "repetition_level": 0,
+            "num_children": 1,
+            "children": {
+              "d": {
+                "element_type": "group",
+                "name": "d",
+                "full_path": "nested_struct.C.d",
+                "start_offset": 1456,
+                "byte_length": 10,
+                "definition_level": 3,
+                "repetition_level": 0,
+                "num_children": 1,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "nested_struct.C.d.list",
+                    "start_offset": 1466,
+                    "byte_length": 11,
+                    "definition_level": 4,
+                    "repetition_level": 1,
+                    "num_children": 1,
+                    "children": {
+                      "element": {
+                        "element_type": "group",
+                        "name": "element",
+                        "full_path": "nested_struct.C.d.list.element",
+                        "start_offset": 1477,
+                        "byte_length": 16,
+                        "definition_level": 5,
+                        "repetition_level": 1,
+                        "num_children": 1,
+                        "children": {
+                          "list": {
+                            "element_type": "group",
+                            "name": "list",
+                            "full_path": "nested_struct.C.d.list.element.list",
+                            "start_offset": 1493,
+                            "byte_length": 11,
+                            "definition_level": 6,
+                            "repetition_level": 2,
+                            "num_children": 1,
+                            "children": {
+                              "element": {
+                                "element_type": "group",
+                                "name": "element",
+                                "full_path": "nested_struct.C.d.list.element.list.element",
+                                "start_offset": 1504,
+                                "byte_length": 14,
+                                "definition_level": 7,
+                                "repetition_level": 2,
+                                "num_children": 2,
+                                "children": {
+                                  "E": {
+                                    "element_type": "column",
+                                    "name": "E",
+                                    "full_path": "nested_struct.C.d.list.element.list.element.E",
+                                    "start_offset": 1518,
+                                    "byte_length": 8,
+                                    "definition_level": 8,
+                                    "repetition_level": 2,
+                                    "type": 1,
+                                    "repetition": 1,
+                                    "converted_type": null,
+                                    "type_length": null,
+                                    "scale": null,
+                                    "precision": null,
+                                    "field_id": null,
+                                    "logical_type": null,
+                                    "list_semantics": "modern_list"
+                                  },
+                                  "F": {
+                                    "element_type": "column",
+                                    "name": "F",
+                                    "full_path": "nested_struct.C.d.list.element.list.element.F",
+                                    "start_offset": 1526,
+                                    "byte_length": 10,
+                                    "definition_level": 8,
+                                    "repetition_level": 2,
+                                    "type": 6,
+                                    "repetition": 1,
+                                    "converted_type": 0,
+                                    "type_length": null,
+                                    "scale": null,
+                                    "precision": null,
+                                    "field_id": null,
+                                    "logical_type": null,
+                                    "list_semantics": "modern_list"
+                                  }
+                                },
+                                "repetition": 1,
+                                "converted_type": null,
+                                "field_id": null,
+                                "logical_type": null
+                              }
+                            },
+                            "repetition": 2,
+                            "converted_type": null,
+                            "field_id": null,
+                            "logical_type": null
+                          }
+                        },
+                        "repetition": 1,
+                        "converted_type": 3,
+                        "field_id": null,
+                        "logical_type": null
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 1,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 1,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          },
+          "g": {
+            "element_type": "group",
+            "name": "g",
+            "full_path": "nested_struct.g",
+            "start_offset": 1536,
+            "byte_length": 10,
+            "definition_level": 2,
+            "repetition_level": 0,
+            "num_children": 1,
+            "children": {
+              "map": {
+                "element_type": "group",
+                "name": "map",
+                "full_path": "nested_struct.g.map",
+                "start_offset": 1546,
+                "byte_length": 12,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 2,
+                "children": {
+                  "key": {
+                    "element_type": "column",
+                    "name": "key",
+                    "full_path": "nested_struct.g.map.key",
+                    "start_offset": 1558,
+                    "byte_length": 12,
+                    "definition_level": 3,
+                    "repetition_level": 1,
+                    "type": 6,
+                    "repetition": 0,
+                    "converted_type": 0,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "list_semantics": "legacy_repeated"
+                  },
+                  "value": {
+                    "element_type": "group",
+                    "name": "value",
+                    "full_path": "nested_struct.g.map.value",
+                    "start_offset": 1570,
+                    "byte_length": 12,
+                    "definition_level": 4,
+                    "repetition_level": 1,
+                    "num_children": 1,
+                    "children": {
+                      "H": {
+                        "element_type": "group",
+                        "name": "H",
+                        "full_path": "nested_struct.g.map.value.H",
+                        "start_offset": 1582,
+                        "byte_length": 8,
+                        "definition_level": 5,
+                        "repetition_level": 1,
+                        "num_children": 1,
+                        "children": {
+                          "i": {
+                            "element_type": "group",
+                            "name": "i",
+                            "full_path": "nested_struct.g.map.value.H.i",
+                            "start_offset": 1590,
+                            "byte_length": 10,
+                            "definition_level": 6,
+                            "repetition_level": 1,
+                            "num_children": 1,
+                            "children": {
+                              "list": {
+                                "element_type": "group",
+                                "name": "list",
+                                "full_path": "nested_struct.g.map.value.H.i.list",
+                                "start_offset": 1600,
+                                "byte_length": 11,
+                                "definition_level": 7,
+                                "repetition_level": 2,
+                                "num_children": 1,
+                                "children": {
+                                  "element": {
+                                    "element_type": "column",
+                                    "name": "element",
+                                    "full_path": "nested_struct.g.map.value.H.i.list.element",
+                                    "start_offset": 1611,
+                                    "byte_length": 14,
+                                    "definition_level": 8,
+                                    "repetition_level": 2,
+                                    "type": 5,
+                                    "repetition": 1,
+                                    "converted_type": null,
+                                    "type_length": null,
+                                    "scale": null,
+                                    "precision": null,
+                                    "field_id": null,
+                                    "logical_type": null,
+                                    "list_semantics": "modern_list"
+                                  }
+                                },
+                                "repetition": 2,
+                                "converted_type": null,
+                                "field_id": null,
+                                "logical_type": null
+                              }
+                            },
+                            "repetition": 1,
+                            "converted_type": 3,
+                            "field_id": null,
+                            "logical_type": null
+                          }
+                        },
+                        "repetition": 1,
+                        "converted_type": null,
+                        "field_id": null,
+                        "logical_type": null
+                      }
+                    },
+                    "repetition": 1,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 2,
+                "converted_type": 2,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 1,
+            "converted_type": 1,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      }
+    },
+    "repetition": 0
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "repetition": 0,
+    "children": {
+      "data": {
+        "element_type": "group",
+        "name": "data",
+        "full_path": "data",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "repetition": 1,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": null,
+        "children": {
+          "key_value": {
+            "element_type": "group",
+            "name": "key_value",
+            "full_path": "data.key_value",
+            "start_offset": 0,
+            "byte_length": 0,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 2,
+            "repetition": 2,
+            "converted_type": 2,
+            "field_id": null,
+            "logical_type": null,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "data.key_value.key",
+                "start_offset": 0,
+                "byte_length": 0,
+                "type": 6,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "definition_level": 2,
+                "repetition_level": 1,
+                "list_semantics": null
+              },
+              "value": {
+                "element_type": "group",
+                "name": "value",
+                "full_path": "data.key_value.value",
+                "start_offset": 0,
+                "byte_length": 0,
+                "num_children": 1,
+                "repetition": 1,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "data.key_value.value.list",
+                    "start_offset": 0,
+                    "byte_length": 0,
+                    "definition_level": 4,
+                    "repetition_level": 2,
+                    "num_children": 1,
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "children": {
+                      "element": {
+                        "element_type": "column",
+                        "name": "element",
+                        "full_path": "data.key_value.value.list.element",
+                        "start_offset": 0,
+                        "byte_length": 0,
+                        "type": 1,
+                        "repetition": 1,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "definition_level": 5,
+                        "repetition_level": 2,
+                        "list_semantics": null
+                      }
+                    }
+                  }
+                },
+                "definition_level": 2,
+                "repetition_level": 1
+              }
+            }
+          }
+        },
+        "definition_level": 1,
+        "repetition_level": 0
+      }
+    }
+  },
+  "data_tuples": {
+    "data.key_value.key": [
+      [
+        "first",
+        2,
+        0
+      ],
+      [
+        "second",
+        2,
+        1
+      ]
+    ],
+    "data.key_value.value.list.element": [
+      [
+        1,
+        5,
+        0
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        3,
+        5,
+        1
+      ]
+    ]
+  },
+  "expected": {
+    "data": [
+      [
+        [
+          "first",
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          "second",
+          [
+            3
+          ]
+        ]
+      ]
+    ]
+  }
+}

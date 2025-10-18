@@ -28,8 +28,8 @@ def decompress_data(
     if codec == Compression.UNCOMPRESSED:
         return compressed_data
 
-    # If sizes match, data might not actually be compressed
-    if expected_size is not None and len(compressed_data) == expected_size:
+    # Handle empty data - decompression libraries fail on empty input
+    if len(compressed_data) == 0:
         return compressed_data
 
     match codec:

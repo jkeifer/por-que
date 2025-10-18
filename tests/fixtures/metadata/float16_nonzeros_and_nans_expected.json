@@ -60,6 +60,8 @@
         "full_path": "",
         "start_offset": 151,
         "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "x": {
@@ -68,6 +70,8 @@
             "full_path": "x",
             "start_offset": 164,
             "byte_length": 14,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 7,
             "repetition": 1,
             "converted_type": null,
@@ -78,11 +82,10 @@
             "logical_type": {
               "logical_type": 15
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

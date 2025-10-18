@@ -1,0 +1,91 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "repetition": 0,
+    "children": {
+      "numbers": {
+        "element_type": "group",
+        "name": "numbers",
+        "full_path": "numbers",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "numbers.list",
+            "start_offset": 0,
+            "byte_length": 0,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null,
+            "children": {
+              "element": {
+                "element_type": "column",
+                "name": "element",
+                "full_path": "numbers.list.element",
+                "start_offset": 0,
+                "byte_length": 0,
+                "type": 1,
+                "repetition": 1,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "list_semantics": null
+              }
+            }
+          }
+        },
+        "definition_level": 1,
+        "repetition_level": 0
+      }
+    }
+  },
+  "data_tuples": {
+    "numbers.list.element": [
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        3,
+        3,
+        1
+      ]
+    ]
+  },
+  "expected": {
+    "numbers": [
+      [
+        1,
+        2,
+        3
+      ]
+    ]
+  }
+}

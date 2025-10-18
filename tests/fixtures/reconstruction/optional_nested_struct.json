@@ -1,0 +1,79 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 2,
+    "repetition": 0,
+    "children": {
+      "a": {
+        "element_type": "column",
+        "name": "a",
+        "full_path": "a",
+        "start_offset": 0,
+        "byte_length": 0,
+        "type": 1,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "list_semantics": null
+      },
+      "b": {
+        "element_type": "group",
+        "name": "b",
+        "full_path": "b",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "repetition": 1,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "children": {
+          "c": {
+            "element_type": "column",
+            "name": "c",
+            "full_path": "b.c",
+            "start_offset": 0,
+            "byte_length": 0,
+            "type": 1,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "definition_level": 2,
+            "repetition_level": 0,
+            "list_semantics": null
+          }
+        }
+      }
+    }
+  },
+  "data_tuples": {
+    "a": [
+      [1, 0, 0],
+      [2, 0, 0]
+    ],
+    "b.c": [
+      [10, 2, 0],
+      [null, 0, 0]
+    ]
+  },
+  "expected": {
+    "a": [1, 2],
+    "b": [{"c": 10}, null]
+  }
+}

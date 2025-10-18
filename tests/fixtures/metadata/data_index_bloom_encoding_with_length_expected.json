@@ -93,6 +93,8 @@
         "full_path": "",
         "start_offset": 2357,
         "byte_length": 17,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "String": {
@@ -101,6 +103,8 @@
             "full_path": "String",
             "start_offset": 2374,
             "byte_length": 19,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -111,11 +115,10 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

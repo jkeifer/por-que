@@ -1,0 +1,68 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nested_lists.snappy.parquet",
+  "data": {
+    "a": [
+      [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c"
+          ]
+        ],
+        [
+          null,
+          [
+            "d"
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        [
+          null,
+          [
+            "e"
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ],
+          [
+            "e"
+          ]
+        ],
+        [
+          null,
+          [
+            "f"
+          ]
+        ]
+      ]
+    ],
+    "b": [
+      1,
+      1,
+      1
+    ]
+  }
+}

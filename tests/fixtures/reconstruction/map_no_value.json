@@ -1,0 +1,381 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/map_no_value.parquet",
+  "data_tuples": {
+    "my_map.key_value.key": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        4,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        1
+      ],
+      [
+        6,
+        1,
+        1
+      ],
+      [
+        7,
+        1,
+        0
+      ],
+      [
+        8,
+        1,
+        1
+      ],
+      [
+        9,
+        1,
+        1
+      ]
+    ],
+    "my_map.key_value.value": [
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ]
+    ],
+    "my_map_no_v.key_value.key": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        4,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        1
+      ],
+      [
+        6,
+        1,
+        1
+      ],
+      [
+        7,
+        1,
+        0
+      ],
+      [
+        8,
+        1,
+        1
+      ],
+      [
+        9,
+        1,
+        1
+      ]
+    ],
+    "my_list.list.element": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        4,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        1
+      ],
+      [
+        6,
+        1,
+        1
+      ],
+      [
+        7,
+        1,
+        0
+      ],
+      [
+        8,
+        1,
+        1
+      ],
+      [
+        9,
+        1,
+        1
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "",
+    "start_offset": 366,
+    "byte_length": 11,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 3,
+    "children": {
+      "my_map": {
+        "element_type": "group",
+        "name": "my_map",
+        "full_path": "my_map",
+        "start_offset": 377,
+        "byte_length": 19,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "key_value": {
+            "element_type": "group",
+            "name": "key_value",
+            "full_path": "my_map.key_value",
+            "start_offset": 396,
+            "byte_length": 16,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 2,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "my_map.key_value.key",
+                "start_offset": 412,
+                "byte_length": 10,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              },
+              "value": {
+                "element_type": "column",
+                "name": "value",
+                "full_path": "my_map.key_value.value",
+                "start_offset": 422,
+                "byte_length": 12,
+                "definition_level": 2,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 1,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": {
+          "logical_type": 2
+        }
+      },
+      "my_map_no_v": {
+        "element_type": "group",
+        "name": "my_map_no_v",
+        "full_path": "my_map_no_v",
+        "start_offset": 434,
+        "byte_length": 24,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "key_value": {
+            "element_type": "group",
+            "name": "key_value",
+            "full_path": "my_map_no_v.key_value",
+            "start_offset": 458,
+            "byte_length": 16,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "my_map_no_v.key_value.key",
+                "start_offset": 474,
+                "byte_length": 10,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": {
+          "logical_type": 2
+        }
+      },
+      "my_list": {
+        "element_type": "group",
+        "name": "my_list",
+        "full_path": "my_list",
+        "start_offset": 484,
+        "byte_length": 20,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "my_list.list",
+            "start_offset": 504,
+            "byte_length": 11,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "column",
+                "name": "element",
+                "full_path": "my_list.list.element",
+                "start_offset": 515,
+                "byte_length": 14,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "modern_list"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": {
+          "logical_type": 3
+        }
+      }
+    },
+    "repetition": 0
+  },
+  "expected": "fixtures/data/map_no_value_expected.json"
+}

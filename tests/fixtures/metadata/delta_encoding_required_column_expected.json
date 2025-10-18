@@ -1085,6 +1085,8 @@
         "full_path": "",
         "start_offset": 9921,
         "byte_length": 17,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 17,
         "children": {
           "c_customer_sk:": {
@@ -1093,6 +1095,8 @@
             "full_path": "c_customer_sk:",
             "start_offset": 9938,
             "byte_length": 21,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1101,8 +1105,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_current_cdemo_sk:": {
@@ -1111,6 +1113,8 @@
             "full_path": "c_current_cdemo_sk:",
             "start_offset": 9959,
             "byte_length": 26,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1119,8 +1123,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_current_hdemo_sk:": {
@@ -1129,6 +1131,8 @@
             "full_path": "c_current_hdemo_sk:",
             "start_offset": 9985,
             "byte_length": 26,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1137,8 +1141,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_current_addr_sk:": {
@@ -1147,6 +1149,8 @@
             "full_path": "c_current_addr_sk:",
             "start_offset": 10011,
             "byte_length": 25,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1155,8 +1159,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_first_shipto_date_sk:": {
@@ -1165,6 +1167,8 @@
             "full_path": "c_first_shipto_date_sk:",
             "start_offset": 10036,
             "byte_length": 30,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1173,8 +1177,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_first_sales_date_sk:": {
@@ -1183,6 +1185,8 @@
             "full_path": "c_first_sales_date_sk:",
             "start_offset": 10066,
             "byte_length": 29,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1191,8 +1195,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_birth_day:": {
@@ -1201,6 +1203,8 @@
             "full_path": "c_birth_day:",
             "start_offset": 10095,
             "byte_length": 19,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1209,8 +1213,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_birth_month:": {
@@ -1219,6 +1221,8 @@
             "full_path": "c_birth_month:",
             "start_offset": 10114,
             "byte_length": 21,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1227,8 +1231,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_birth_year:": {
@@ -1237,6 +1239,8 @@
             "full_path": "c_birth_year:",
             "start_offset": 10135,
             "byte_length": 20,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 0,
             "converted_type": null,
@@ -1245,8 +1249,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_customer_id:": {
@@ -1255,6 +1257,8 @@
             "full_path": "c_customer_id:",
             "start_offset": 10155,
             "byte_length": 27,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1265,8 +1269,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_salutation:": {
@@ -1275,6 +1277,8 @@
             "full_path": "c_salutation:",
             "start_offset": 10182,
             "byte_length": 26,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1285,8 +1289,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_first_name:": {
@@ -1295,6 +1297,8 @@
             "full_path": "c_first_name:",
             "start_offset": 10208,
             "byte_length": 26,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1305,8 +1309,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_last_name:": {
@@ -1315,6 +1317,8 @@
             "full_path": "c_last_name:",
             "start_offset": 10234,
             "byte_length": 25,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1325,8 +1329,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_preferred_cust_flag:": {
@@ -1335,6 +1337,8 @@
             "full_path": "c_preferred_cust_flag:",
             "start_offset": 10259,
             "byte_length": 35,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1345,8 +1349,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_birth_country:": {
@@ -1355,6 +1357,8 @@
             "full_path": "c_birth_country:",
             "start_offset": 10294,
             "byte_length": 29,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1365,8 +1369,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_email_address:": {
@@ -1375,6 +1377,8 @@
             "full_path": "c_email_address:",
             "start_offset": 10323,
             "byte_length": 29,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1385,8 +1389,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "c_last_review_date:": {
@@ -1395,6 +1397,8 @@
             "full_path": "c_last_review_date:",
             "start_offset": 10352,
             "byte_length": 32,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -1405,11 +1409,10 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

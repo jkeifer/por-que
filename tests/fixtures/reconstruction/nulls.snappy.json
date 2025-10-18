@@ -1,0 +1,95 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nulls.snappy.parquet",
+  "expected": "fixtures/data/nulls.snappy_expected.json",
+  "data_tuples": {
+    "b_struct.b_c_int": [
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "spark_schema",
+    "full_path": "",
+    "start_offset": 37,
+    "byte_length": 17,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 1,
+    "children": {
+      "b_struct": {
+        "element_type": "group",
+        "name": "b_struct",
+        "full_path": "b_struct",
+        "start_offset": 54,
+        "byte_length": 15,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "b_c_int": {
+            "element_type": "column",
+            "name": "b_c_int",
+            "full_path": "b_struct.b_c_int",
+            "start_offset": 69,
+            "byte_length": 14,
+            "definition_level": 2,
+            "repetition_level": 0,
+            "type": 1,
+            "repetition": 1,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      }
+    },
+    "repetition": 0
+  }
+}

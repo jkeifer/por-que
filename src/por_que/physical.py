@@ -5,7 +5,7 @@ import inspect
 import json
 import struct
 
-from collections.abc import Coroutine, Sequence
+from collections.abc import AsyncIterator, Iterator, Sequence
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
@@ -32,14 +32,16 @@ from .pages import (
     IndexPage,
     Page,
 )
-from .parsers.page_content import DictType, PageDataType
+from .parsers.page_content import DictType, ValueTuple
 from .parsers.parquet.metadata import MetadataParser
 from .protocols import (
     AsyncCursableReadableSeekable,
     AsyncReadableSeekable,
     ReadableSeekable,
 )
+from .structuring import reconstruct as reconstruction
 from .util.async_adapter import AsyncReadableSeekableAdapter
+from .util.iteration import AsyncChain
 from .util.models import get_item_or_attr
 
 
@@ -258,7 +260,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         reader: ReadableSeekable | AsyncReadableSeekable,
         dictionary_values: DictType | None = None,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> PageDataType:
+    ) -> Iterator[ValueTuple]:
         """Parse a data page in this column chunk.
 
         Args:
@@ -296,7 +298,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         self,
         reader: ReadableSeekable | AsyncReadableSeekable,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> PageDataType:
+    ) -> AsyncIterator[ValueTuple]:
         """Parse all data from all pages in this column chunk into a single list.
 
         Args:
@@ -326,10 +328,14 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         if isinstance(reader, AsyncCursableReadableSeekable):
             # run all tasks concurrently, but get results in order
             tasks = [asyncio.create_task(coro) for coro in coroutines]
-            return [i for task in tasks for i in await task]
+            for task in tasks:
+                for value_tuple in await task:
+                    yield value_tuple
 
         # run tasks in serial, awaiting each before starting next
-        return [i for coro in coroutines for i in await asyncio.create_task(coro)]
+        for coroutine in coroutines:
+            for value_tuple in await asyncio.create_task(coroutine):
+                yield value_tuple
 
 
 class PhysicalMetadata(BaseModel, frozen=True):
@@ -533,32 +539,32 @@ class ParquetFile(
         self,
         reader: AsyncReadableSeekable,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> dict[str, PageDataType]:
-        from collections import defaultdict
-
-        flat_data: dict[str, PageDataType] = defaultdict(list)
-        coroutines: list[tuple[str, Coroutine]] = [
-            (
-                cc.path_in_schema,
-                cc.parse_all_data_pages(
-                    reader.clone()
-                    if isinstance(reader, AsyncCursableReadableSeekable)
-                    else reader,
-                    excluded_logical_columns=excluded_logical_columns,
-                ),
+        reconstruct: bool = True,
+    ) -> dict[str, Any]:
+        # we can have multiple column chunks per column
+        # so we need to chain each column chunk iterator together
+        # to get a single iterator per column
+        column_iters: dict[str, AsyncChain[ValueTuple]] = {}
+        for cc in self.column_chunks:
+            value_tuples = cc.parse_all_data_pages(
+                reader.clone()
+                if isinstance(reader, AsyncCursableReadableSeekable)
+                else reader,
+                excluded_logical_columns=excluded_logical_columns,
             )
-            for cc in self.column_chunks
-        ]
+            try:
+                column_iters[cc.path_in_schema].add(value_tuples)
+            except KeyError:
+                column_iters[cc.path_in_schema] = AsyncChain(value_tuples)
 
-        if isinstance(reader, AsyncCursableReadableSeekable):
-            # run all tasks concurrently, but get results in order
-            tasks = [(path, asyncio.create_task(coro)) for path, coro in coroutines]
-            for path, task in tasks:
-                flat_data[path].extend(await task)
-        else:
-            # run tasks in serial, awaiting each before starting next
-            for path, coroutine in coroutines:
-                flat_data[path].extend(await coroutine)
+        # When reconstruct=False, return flat data (tuples) for testing
+        if not reconstruct:
+            return {
+                path: [v async for v in aiter(column_iter)]
+                for path, column_iter in column_iters.items()
+            }
 
-        # Schema-aware reconstruction using ParquetFile's schema information
-        return self.metadata.metadata.schema_root.renest(flat_data)
+        return await reconstruction(
+            self.metadata.metadata.schema_root,
+            {path: aiter(iterable) for path, iterable in column_iters.items()},
+        )

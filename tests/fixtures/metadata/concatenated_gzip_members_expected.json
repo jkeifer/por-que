@@ -53,6 +53,8 @@
         "full_path": "",
         "start_offset": 1528,
         "byte_length": 9,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "long_col": {
@@ -61,6 +63,8 @@
             "full_path": "long_col",
             "start_offset": 1537,
             "byte_length": 24,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 2,
             "repetition": 1,
             "converted_type": 14,
@@ -73,11 +77,10 @@
               "bit_width": 64,
               "is_signed": false
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

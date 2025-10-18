@@ -1,0 +1,137 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "children": {
+      "points": {
+        "element_type": "group",
+        "name": "points",
+        "full_path": "points",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "points.list",
+            "start_offset": 0,
+            "byte_length": 0,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "points.list.element",
+                "start_offset": 0,
+                "byte_length": 0,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 2,
+                "children": {
+                  "x": {
+                    "element_type": "column",
+                    "name": "x",
+                    "full_path": "points.list.element.x",
+                    "start_offset": 0,
+                    "byte_length": 0,
+                    "type": 1,
+                    "repetition": 0,
+                    "converted_type": null,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "definition_level": 3,
+                    "repetition_level": 1,
+                    "list_semantics": null
+                  },
+                  "y": {
+                    "element_type": "column",
+                    "name": "y",
+                    "full_path": "points.list.element.y",
+                    "start_offset": 0,
+                    "byte_length": 0,
+                    "type": 1,
+                    "repetition": 0,
+                    "converted_type": null,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "definition_level": 3,
+                    "repetition_level": 1,
+                    "list_semantics": null
+                  }
+                },
+                "repetition": 1,
+                "converted_type": null,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null,
+        "definition_level": 1,
+        "repetition_level": 0
+      }
+    },
+    "repetition": 0
+  },
+  "data_tuples": {
+    "points.list.element.x": [
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "points.list.element.y": [
+      [
+        10,
+        3,
+        0
+      ],
+      [
+        20,
+        3,
+        1
+      ]
+    ]
+  },
+  "expected": {
+    "points": [
+      [
+        {
+          "x": 1,
+          "y": 10
+        },
+        {
+          "x": 2,
+          "y": 20
+        }
+      ]
+    ]
+  }
+}

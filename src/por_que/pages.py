@@ -4,7 +4,7 @@ Unified page models that combine logical content with physical layout informatio
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
 from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, Discriminator
@@ -16,7 +16,13 @@ from .file_metadata import (
     SchemaLeaf,
     SchemaRoot,
 )
-from .parsers.page_content import DataPageParser, DictionaryPageParser, DictType
+from .parsers.page_content import (
+    DataPageV1Parser,
+    DataPageV2Parser,
+    DictionaryPageParser,
+    DictType,
+    ValueTuple,
+)
 from .parsers.parquet.page import PageParser
 from .parsers.thrift.parser import ThriftCompactParser
 from .protocols import AsyncReadableSeekable
@@ -119,7 +125,7 @@ class DataPageV1(Page, frozen=True):
         schema_element: SchemaLeaf,
         dictionary_values: list[Any] | None = None,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> list[Any]:
+    ) -> Iterator[ValueTuple]:
         """Parse the data page content into Python objects.
 
         Args:
@@ -132,14 +138,14 @@ class DataPageV1(Page, frozen=True):
         Returns:
             List of data values as Python objects
         """
-        parser = DataPageParser()
-        return await parser.parse_content(
+        return await DataPageV1Parser(
             reader=reader,
             data_page=self,
             physical_type=physical_type,
             compression_codec=compression_codec,
             schema_element=schema_element,
             dictionary_values=dictionary_values,
+        ).parse(
             excluded_logical_columns=excluded_logical_columns,
         )
 
@@ -165,7 +171,7 @@ class DataPageV2(Page, frozen=True):
         schema_element: SchemaLeaf,
         dictionary_values: list[Any] | None = None,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> list[Any]:
+    ) -> Iterator[ValueTuple]:
         """Parse the data page content into Python objects.
 
         Args:
@@ -178,14 +184,14 @@ class DataPageV2(Page, frozen=True):
         Returns:
             List of data values as Python objects
         """
-        parser = DataPageParser()
-        return await parser.parse_content(
+        return await DataPageV2Parser(
             reader=reader,
             data_page=self,
             physical_type=physical_type,
             compression_codec=compression_codec,
             schema_element=schema_element,
             dictionary_values=dictionary_values,
+        ).parse(
             excluded_logical_columns=excluded_logical_columns,
         )
 

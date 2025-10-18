@@ -440,6 +440,8 @@
         "full_path": "",
         "start_offset": 1708,
         "byte_length": 17,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 6,
         "children": {
           "utf8_full_truncation": {
@@ -448,6 +450,8 @@
             "full_path": "utf8_full_truncation",
             "start_offset": 1725,
             "byte_length": 33,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -458,8 +462,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "binary_full_truncation": {
@@ -468,6 +470,8 @@
             "full_path": "binary_full_truncation",
             "start_offset": 1758,
             "byte_length": 29,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": null,
@@ -476,8 +480,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "utf8_partial_truncation": {
@@ -486,6 +488,8 @@
             "full_path": "utf8_partial_truncation",
             "start_offset": 1787,
             "byte_length": 36,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -496,8 +500,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "binary_partial_truncation": {
@@ -506,6 +508,8 @@
             "full_path": "binary_partial_truncation",
             "start_offset": 1823,
             "byte_length": 32,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": null,
@@ -514,8 +518,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "utf8_no_truncation": {
@@ -524,6 +526,8 @@
             "full_path": "utf8_no_truncation",
             "start_offset": 1855,
             "byte_length": 31,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": 0,
@@ -534,8 +538,6 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "binary_no_truncation": {
@@ -544,6 +546,8 @@
             "full_path": "binary_no_truncation",
             "start_offset": 1886,
             "byte_length": 27,
+            "definition_level": 0,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 0,
             "converted_type": null,
@@ -552,11 +556,10 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 0,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

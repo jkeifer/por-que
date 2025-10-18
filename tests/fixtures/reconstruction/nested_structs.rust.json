@@ -1,0 +1,5995 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nested_structs.rust.parquet",
+  "expected": "fixtures/data/nested_structs.rust_expected.json",
+  "data_tuples": {
+    "roll_num.min": [
+      [
+        190406409000602,
+        0,
+        0
+      ]
+    ],
+    "roll_num.max": [
+      [
+        190407175004000,
+        0,
+        0
+      ]
+    ],
+    "roll_num.mean": [
+      [
+        190406671229999,
+        0,
+        0
+      ]
+    ],
+    "roll_num.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "roll_num.sum": [
+      [
+        94251302258849568,
+        0,
+        0
+      ]
+    ],
+    "roll_num.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "PC_CUR.min": [
+      [
+        115,
+        0,
+        0
+      ]
+    ],
+    "PC_CUR.max": [
+      [
+        742,
+        0,
+        0
+      ]
+    ],
+    "PC_CUR.mean": [
+      [
+        416,
+        0,
+        0
+      ]
+    ],
+    "PC_CUR.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "PC_CUR.sum": [
+      [
+        206195,
+        0,
+        0
+      ]
+    ],
+    "PC_CUR.variance": [
+      [
+        10374,
+        0,
+        0
+      ]
+    ],
+    "CVA_2012.min": [
+      [
+        737,
+        0,
+        0
+      ]
+    ],
+    "CVA_2012.max": [
+      [
+        32150509,
+        0,
+        0
+      ]
+    ],
+    "CVA_2012.mean": [
+      [
+        2401239,
+        0,
+        0
+      ]
+    ],
+    "CVA_2012.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "CVA_2012.sum": [
+      [
+        1188613496,
+        0,
+        0
+      ]
+    ],
+    "CVA_2012.variance": [
+      [
+        12977533288261,
+        0,
+        0
+      ]
+    ],
+    "CVA_2016.min": [
+      [
+        1000,
+        0,
+        0
+      ]
+    ],
+    "CVA_2016.max": [
+      [
+        35195000,
+        0,
+        0
+      ]
+    ],
+    "CVA_2016.mean": [
+      [
+        3519838,
+        0,
+        0
+      ]
+    ],
+    "CVA_2016.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "CVA_2016.sum": [
+      [
+        1742320297,
+        0,
+        0
+      ]
+    ],
+    "CVA_2016.variance": [
+      [
+        24581100553044,
+        0,
+        0
+      ]
+    ],
+    "BIA_3.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_3.max": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_3.mean": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_3.count": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "BIA_3.sum": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_3.variance": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_4.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_4.max": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_4.mean": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_4.count": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "BIA_4.sum": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "BIA_4.variance": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_FRONTAGE.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_FRONTAGE.max": [
+      [
+        658.63,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_FRONTAGE.mean": [
+      [
+        57.76452991452993,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_FRONTAGE.count": [
+      [
+        351,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_FRONTAGE.sum": [
+      [
+        20275.350000000006,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_FRONTAGE.variance": [
+      [
+        6310.500499135526,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_DEPTH.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_DEPTH.max": [
+      [
+        312.16,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_DEPTH.mean": [
+      [
+        49.40901785714286,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_DEPTH.count": [
+      [
+        336,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_DEPTH.sum": [
+      [
+        16601.43,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_DEPTH.variance": [
+      [
+        3214.842695450431,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_LOT_SIZE.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_LOT_SIZE.max": [
+      [
+        74136.0,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_LOT_SIZE.mean": [
+      [
+        6162.133196721318,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_LOT_SIZE.count": [
+      [
+        366,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_LOT_SIZE.sum": [
+      [
+        2255340.7500000023,
+        0,
+        0
+      ]
+    ],
+    "ACTUAL_LOT_SIZE.variance": [
+      [
+        104255249.59826614,
+        0,
+        0
+      ]
+    ],
+    "GLA.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "GLA.max": [
+      [
+        523800.0,
+        0,
+        0
+      ]
+    ],
+    "GLA.mean": [
+      [
+        19484.146706586827,
+        0,
+        0
+      ]
+    ],
+    "GLA.count": [
+      [
+        334,
+        0,
+        0
+      ]
+    ],
+    "GLA.sum": [
+      [
+        6507705.0,
+        0,
+        0
+      ]
+    ],
+    "GLA.variance": [
+      [
+        3563198650.906335,
+        0,
+        0
+      ]
+    ],
+    "SOURCE_GLA.min": [
+      [
+        2628.0,
+        0,
+        0
+      ]
+    ],
+    "SOURCE_GLA.max": [
+      [
+        16085.0,
+        0,
+        0
+      ]
+    ],
+    "SOURCE_GLA.mean": [
+      [
+        6698.8,
+        0,
+        0
+      ]
+    ],
+    "SOURCE_GLA.count": [
+      [
+        10,
+        0,
+        0
+      ]
+    ],
+    "SOURCE_GLA.sum": [
+      [
+        66988.0,
+        0,
+        0
+      ]
+    ],
+    "SOURCE_GLA.variance": [
+      [
+        28540252.400000002,
+        0,
+        0
+      ]
+    ],
+    "IPS_GLA.min": [
+      [
+        288.0,
+        0,
+        0
+      ]
+    ],
+    "IPS_GLA.max": [
+      [
+        1985.0,
+        0,
+        0
+      ]
+    ],
+    "IPS_GLA.mean": [
+      [
+        1285.0,
+        0,
+        0
+      ]
+    ],
+    "IPS_GLA.count": [
+      [
+        4,
+        0,
+        0
+      ]
+    ],
+    "IPS_GLA.sum": [
+      [
+        5140.0,
+        0,
+        0
+      ]
+    ],
+    "IPS_GLA.variance": [
+      [
+        509875.3333333333,
+        0,
+        0
+      ]
+    ],
+    "GLA_ALL.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "GLA_ALL.max": [
+      [
+        523800.0,
+        0,
+        0
+      ]
+    ],
+    "GLA_ALL.mean": [
+      [
+        18907.566091954024,
+        0,
+        0
+      ]
+    ],
+    "GLA_ALL.count": [
+      [
+        348,
+        0,
+        0
+      ]
+    ],
+    "GLA_ALL.sum": [
+      [
+        6579833.0,
+        0,
+        0
+      ]
+    ],
+    "GLA_ALL.variance": [
+      [
+        3428378496.7881336,
+        0,
+        0
+      ]
+    ],
+    "bia.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "bia.max": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "bia.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "bia.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "bia.sum": [
+      [
+        452,
+        0,
+        0
+      ]
+    ],
+    "bia.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_LOT_SIZE.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_LOT_SIZE.max": [
+      [
+        64749.63000000001,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_LOT_SIZE.mean": [
+      [
+        4951.024888352274,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_LOT_SIZE.count": [
+      [
+        352,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_LOT_SIZE.sum": [
+      [
+        1742760.7607000005,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_LOT_SIZE.variance": [
+      [
+        81195383.98823886,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_area.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_area.max": [
+      [
+        2.8000000000000003,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_area.mean": [
+      [
+        0.14237550619122732,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_area.count": [
+      [
+        352,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_area.sum": [
+      [
+        50.11617817931202,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_area.variance": [
+      [
+        0.07516922114035923,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_FRONTAGE.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_FRONTAGE.max": [
+      [
+        658063.0,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_FRONTAGE.mean": [
+      [
+        1991.3067846607655,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_FRONTAGE.count": [
+      [
+        339,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_FRONTAGE.sum": [
+      [
+        675052.9999999995,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_FRONTAGE.variance": [
+      [
+        1277234044.0126908,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_DEPTH.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_DEPTH.max": [
+      [
+        300.7,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_DEPTH.mean": [
+      [
+        65.32364985163204,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_DEPTH.count": [
+      [
+        337,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_DEPTH.sum": [
+      [
+        22014.069999999996,
+        0,
+        0
+      ]
+    ],
+    "EFFECTIVE_DEPTH.variance": [
+      [
+        3904.805190507992,
+        0,
+        0
+      ]
+    ],
+    "rw_area_tot.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "rw_area_tot.max": [
+      [
+        18169.0,
+        0,
+        0
+      ]
+    ],
+    "rw_area_tot.mean": [
+      [
+        1528.077097505669,
+        0,
+        0
+      ]
+    ],
+    "rw_area_tot.count": [
+      [
+        441,
+        0,
+        0
+      ]
+    ],
+    "rw_area_tot.sum": [
+      [
+        673882.0,
+        0,
+        0
+      ]
+    ],
+    "rw_area_tot.variance": [
+      [
+        6122348.621315204,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_sqft.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_sqft.max": [
+      [
+        121968.0,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_sqft.mean": [
+      [
+        6201.877049689864,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_sqft.count": [
+      [
+        352,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_sqft.sum": [
+      [
+        2183060.721490832,
+        0,
+        0
+      ]
+    ],
+    "effective_lot_sqft.variance": [
+      [
+        142631612.6463931,
+        0,
+        0
+      ]
+    ],
+    "dup.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "dup.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "dup.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "dup.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "dup.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "dup.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "nonCTXT.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "nonCTXT.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "nonCTXT.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "nonCTXT.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "nonCTXT.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "nonCTXT.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "vacantland.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "vacantland.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "vacantland.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "vacantland.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "vacantland.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "vacantland.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "parkingbillboard.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "parkingbillboard.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "parkingbillboard.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "parkingbillboard.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "parkingbillboard.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "parkingbillboard.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "cvalte10.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "cvalte10.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "cvalte10.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "cvalte10.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "cvalte10.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "cvalte10.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "condootherhotel.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "condootherhotel.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "condootherhotel.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "condootherhotel.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "condootherhotel.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "condootherhotel.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "calculated_lot_size.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "calculated_lot_size.max": [
+      [
+        100.0,
+        0,
+        0
+      ]
+    ],
+    "calculated_lot_size.mean": [
+      [
+        1.2345679012345678,
+        0,
+        0
+      ]
+    ],
+    "calculated_lot_size.count": [
+      [
+        81,
+        0,
+        0
+      ]
+    ],
+    "calculated_lot_size.sum": [
+      [
+        100.0,
+        0,
+        0
+      ]
+    ],
+    "calculated_lot_size.variance": [
+      [
+        123.45679012345684,
+        0,
+        0
+      ]
+    ],
+    "calculated_efflot_size.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "calculated_efflot_size.max": [
+      [
+        4172.084000000002,
+        0,
+        0
+      ]
+    ],
+    "calculated_efflot_size.mean": [
+      [
+        42.29786138613863,
+        0,
+        0
+      ]
+    ],
+    "calculated_efflot_size.count": [
+      [
+        101,
+        0,
+        0
+      ]
+    ],
+    "calculated_efflot_size.sum": [
+      [
+        4272.084000000002,
+        0,
+        0
+      ]
+    ],
+    "calculated_efflot_size.variance": [
+      [
+        172355.84886194076,
+        0,
+        0
+      ]
+    ],
+    "missingsite.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsite.max": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "missingsite.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsite.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "missingsite.sum": [
+      [
+        208,
+        0,
+        0
+      ]
+    ],
+    "missingsite.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missinggla.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missinggla.max": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "missinggla.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missinggla.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "missinggla.sum": [
+      [
+        44,
+        0,
+        0
+      ]
+    ],
+    "missinggla.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsitegla.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsitegla.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsitegla.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsitegla.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "missingsitegla.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "missingsitegla.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "actual_lot_size_sqft.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "actual_lot_size_sqft.max": [
+      [
+        121968.0,
+        0,
+        0
+      ]
+    ],
+    "actual_lot_size_sqft.mean": [
+      [
+        8685.222814207653,
+        0,
+        0
+      ]
+    ],
+    "actual_lot_size_sqft.count": [
+      [
+        366,
+        0,
+        0
+      ]
+    ],
+    "actual_lot_size_sqft.sum": [
+      [
+        3178791.550000001,
+        0,
+        0
+      ]
+    ],
+    "actual_lot_size_sqft.variance": [
+      [
+        243347757.98270744,
+        0,
+        0
+      ]
+    ],
+    "lotsize_sqft.min": [
+      [
+        0.0,
+        0,
+        0
+      ]
+    ],
+    "lotsize_sqft.max": [
+      [
+        121968.0,
+        0,
+        0
+      ]
+    ],
+    "lotsize_sqft.mean": [
+      [
+        8841.174394454862,
+        0,
+        0
+      ]
+    ],
+    "lotsize_sqft.count": [
+      [
+        364,
+        0,
+        0
+      ]
+    ],
+    "lotsize_sqft.sum": [
+      [
+        3218187.4795815693,
+        0,
+        0
+      ]
+    ],
+    "lotsize_sqft.variance": [
+      [
+        244563632.41811454,
+        0,
+        0
+      ]
+    ],
+    "count.min": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "count.max": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "count.mean": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "count.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "count.sum": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "count.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "ul_observation_date.min": [
+      [
+        1608822900000000000,
+        0,
+        0
+      ]
+    ],
+    "ul_observation_date.max": [
+      [
+        1608822900000000000,
+        0,
+        0
+      ]
+    ],
+    "ul_observation_date.mean": [
+      [
+        "1970-01-01T00:00:00+00:00",
+        0,
+        0
+      ]
+    ],
+    "ul_observation_date.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "ul_observation_date.sum": [
+      [
+        "1970-01-01T00:00:00+00:00",
+        0,
+        0
+      ]
+    ],
+    "ul_observation_date.variance": [
+      [
+        "1970-01-01T00:00:00+00:00",
+        0,
+        0
+      ]
+    ],
+    "ul_tz_offset_minutes_ul_observation_date.min": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "ul_tz_offset_minutes_ul_observation_date.max": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "ul_tz_offset_minutes_ul_observation_date.mean": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "ul_tz_offset_minutes_ul_observation_date.count": [
+      [
+        495,
+        0,
+        0
+      ]
+    ],
+    "ul_tz_offset_minutes_ul_observation_date.sum": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "ul_tz_offset_minutes_ul_observation_date.variance": [
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "",
+    "start_offset": 33666,
+    "byte_length": 11,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 36,
+    "children": {
+      "roll_num": {
+        "element_type": "group",
+        "name": "roll_num",
+        "full_path": "roll_num",
+        "start_offset": 33677,
+        "byte_length": 15,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "roll_num.min",
+            "start_offset": 33692,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "roll_num.max",
+            "start_offset": 33704,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "roll_num.mean",
+            "start_offset": 33716,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "roll_num.count",
+            "start_offset": 33729,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "roll_num.sum",
+            "start_offset": 33743,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "roll_num.variance",
+            "start_offset": 33755,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "PC_CUR": {
+        "element_type": "group",
+        "name": "PC_CUR",
+        "full_path": "PC_CUR",
+        "start_offset": 33772,
+        "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "PC_CUR.min",
+            "start_offset": 33785,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "PC_CUR.max",
+            "start_offset": 33797,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "PC_CUR.mean",
+            "start_offset": 33809,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "PC_CUR.count",
+            "start_offset": 33822,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "PC_CUR.sum",
+            "start_offset": 33836,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "PC_CUR.variance",
+            "start_offset": 33848,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "CVA_2012": {
+        "element_type": "group",
+        "name": "CVA_2012",
+        "full_path": "CVA_2012",
+        "start_offset": 33865,
+        "byte_length": 15,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "CVA_2012.min",
+            "start_offset": 33880,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "CVA_2012.max",
+            "start_offset": 33892,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "CVA_2012.mean",
+            "start_offset": 33904,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "CVA_2012.count",
+            "start_offset": 33917,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "CVA_2012.sum",
+            "start_offset": 33931,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "CVA_2012.variance",
+            "start_offset": 33943,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "CVA_2016": {
+        "element_type": "group",
+        "name": "CVA_2016",
+        "full_path": "CVA_2016",
+        "start_offset": 33960,
+        "byte_length": 15,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "CVA_2016.min",
+            "start_offset": 33975,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "CVA_2016.max",
+            "start_offset": 33987,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "CVA_2016.mean",
+            "start_offset": 33999,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "CVA_2016.count",
+            "start_offset": 34012,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "CVA_2016.sum",
+            "start_offset": 34026,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "CVA_2016.variance",
+            "start_offset": 34038,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "BIA_3": {
+        "element_type": "group",
+        "name": "BIA_3",
+        "full_path": "BIA_3",
+        "start_offset": 34055,
+        "byte_length": 12,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "BIA_3.min",
+            "start_offset": 34067,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "BIA_3.max",
+            "start_offset": 34077,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "BIA_3.mean",
+            "start_offset": 34087,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "BIA_3.count",
+            "start_offset": 34098,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "BIA_3.sum",
+            "start_offset": 34112,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "BIA_3.variance",
+            "start_offset": 34122,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "BIA_4": {
+        "element_type": "group",
+        "name": "BIA_4",
+        "full_path": "BIA_4",
+        "start_offset": 34137,
+        "byte_length": 12,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "BIA_4.min",
+            "start_offset": 34149,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "BIA_4.max",
+            "start_offset": 34159,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "BIA_4.mean",
+            "start_offset": 34169,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "BIA_4.count",
+            "start_offset": 34180,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "BIA_4.sum",
+            "start_offset": 34194,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "BIA_4.variance",
+            "start_offset": 34204,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "ACTUAL_FRONTAGE": {
+        "element_type": "group",
+        "name": "ACTUAL_FRONTAGE",
+        "full_path": "ACTUAL_FRONTAGE",
+        "start_offset": 34219,
+        "byte_length": 22,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "ACTUAL_FRONTAGE.min",
+            "start_offset": 34241,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "ACTUAL_FRONTAGE.max",
+            "start_offset": 34251,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "ACTUAL_FRONTAGE.mean",
+            "start_offset": 34261,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "ACTUAL_FRONTAGE.count",
+            "start_offset": 34272,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "ACTUAL_FRONTAGE.sum",
+            "start_offset": 34286,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "ACTUAL_FRONTAGE.variance",
+            "start_offset": 34296,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "ACTUAL_DEPTH": {
+        "element_type": "group",
+        "name": "ACTUAL_DEPTH",
+        "full_path": "ACTUAL_DEPTH",
+        "start_offset": 34311,
+        "byte_length": 19,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "ACTUAL_DEPTH.min",
+            "start_offset": 34330,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "ACTUAL_DEPTH.max",
+            "start_offset": 34340,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "ACTUAL_DEPTH.mean",
+            "start_offset": 34350,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "ACTUAL_DEPTH.count",
+            "start_offset": 34361,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "ACTUAL_DEPTH.sum",
+            "start_offset": 34375,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "ACTUAL_DEPTH.variance",
+            "start_offset": 34385,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "ACTUAL_LOT_SIZE": {
+        "element_type": "group",
+        "name": "ACTUAL_LOT_SIZE",
+        "full_path": "ACTUAL_LOT_SIZE",
+        "start_offset": 34400,
+        "byte_length": 22,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "ACTUAL_LOT_SIZE.min",
+            "start_offset": 34422,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "ACTUAL_LOT_SIZE.max",
+            "start_offset": 34432,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "ACTUAL_LOT_SIZE.mean",
+            "start_offset": 34442,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "ACTUAL_LOT_SIZE.count",
+            "start_offset": 34453,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "ACTUAL_LOT_SIZE.sum",
+            "start_offset": 34467,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "ACTUAL_LOT_SIZE.variance",
+            "start_offset": 34477,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "GLA": {
+        "element_type": "group",
+        "name": "GLA",
+        "full_path": "GLA",
+        "start_offset": 34492,
+        "byte_length": 10,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "GLA.min",
+            "start_offset": 34502,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "GLA.max",
+            "start_offset": 34512,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "GLA.mean",
+            "start_offset": 34522,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "GLA.count",
+            "start_offset": 34533,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "GLA.sum",
+            "start_offset": 34547,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "GLA.variance",
+            "start_offset": 34557,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "SOURCE_GLA": {
+        "element_type": "group",
+        "name": "SOURCE_GLA",
+        "full_path": "SOURCE_GLA",
+        "start_offset": 34572,
+        "byte_length": 17,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "SOURCE_GLA.min",
+            "start_offset": 34589,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "SOURCE_GLA.max",
+            "start_offset": 34599,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "SOURCE_GLA.mean",
+            "start_offset": 34609,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "SOURCE_GLA.count",
+            "start_offset": 34620,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "SOURCE_GLA.sum",
+            "start_offset": 34634,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "SOURCE_GLA.variance",
+            "start_offset": 34644,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "IPS_GLA": {
+        "element_type": "group",
+        "name": "IPS_GLA",
+        "full_path": "IPS_GLA",
+        "start_offset": 34659,
+        "byte_length": 14,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "IPS_GLA.min",
+            "start_offset": 34673,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "IPS_GLA.max",
+            "start_offset": 34683,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "IPS_GLA.mean",
+            "start_offset": 34693,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "IPS_GLA.count",
+            "start_offset": 34704,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "IPS_GLA.sum",
+            "start_offset": 34718,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "IPS_GLA.variance",
+            "start_offset": 34728,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "GLA_ALL": {
+        "element_type": "group",
+        "name": "GLA_ALL",
+        "full_path": "GLA_ALL",
+        "start_offset": 34743,
+        "byte_length": 14,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "GLA_ALL.min",
+            "start_offset": 34757,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "GLA_ALL.max",
+            "start_offset": 34767,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "GLA_ALL.mean",
+            "start_offset": 34777,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "GLA_ALL.count",
+            "start_offset": 34788,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "GLA_ALL.sum",
+            "start_offset": 34802,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "GLA_ALL.variance",
+            "start_offset": 34812,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "bia": {
+        "element_type": "group",
+        "name": "bia",
+        "full_path": "bia",
+        "start_offset": 34827,
+        "byte_length": 10,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "bia.min",
+            "start_offset": 34837,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "bia.max",
+            "start_offset": 34849,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "bia.mean",
+            "start_offset": 34861,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "bia.count",
+            "start_offset": 34874,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "bia.sum",
+            "start_offset": 34888,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "bia.variance",
+            "start_offset": 34900,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "EFFECTIVE_LOT_SIZE": {
+        "element_type": "group",
+        "name": "EFFECTIVE_LOT_SIZE",
+        "full_path": "EFFECTIVE_LOT_SIZE",
+        "start_offset": 34917,
+        "byte_length": 25,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "EFFECTIVE_LOT_SIZE.min",
+            "start_offset": 34942,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "EFFECTIVE_LOT_SIZE.max",
+            "start_offset": 34952,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "EFFECTIVE_LOT_SIZE.mean",
+            "start_offset": 34962,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "EFFECTIVE_LOT_SIZE.count",
+            "start_offset": 34973,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "EFFECTIVE_LOT_SIZE.sum",
+            "start_offset": 34987,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "EFFECTIVE_LOT_SIZE.variance",
+            "start_offset": 34997,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "effective_lot_area": {
+        "element_type": "group",
+        "name": "effective_lot_area",
+        "full_path": "effective_lot_area",
+        "start_offset": 35012,
+        "byte_length": 25,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "effective_lot_area.min",
+            "start_offset": 35037,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "effective_lot_area.max",
+            "start_offset": 35047,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "effective_lot_area.mean",
+            "start_offset": 35057,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "effective_lot_area.count",
+            "start_offset": 35068,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "effective_lot_area.sum",
+            "start_offset": 35082,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "effective_lot_area.variance",
+            "start_offset": 35092,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "EFFECTIVE_FRONTAGE": {
+        "element_type": "group",
+        "name": "EFFECTIVE_FRONTAGE",
+        "full_path": "EFFECTIVE_FRONTAGE",
+        "start_offset": 35107,
+        "byte_length": 25,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "EFFECTIVE_FRONTAGE.min",
+            "start_offset": 35132,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "EFFECTIVE_FRONTAGE.max",
+            "start_offset": 35142,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "EFFECTIVE_FRONTAGE.mean",
+            "start_offset": 35152,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "EFFECTIVE_FRONTAGE.count",
+            "start_offset": 35163,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "EFFECTIVE_FRONTAGE.sum",
+            "start_offset": 35177,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "EFFECTIVE_FRONTAGE.variance",
+            "start_offset": 35187,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "EFFECTIVE_DEPTH": {
+        "element_type": "group",
+        "name": "EFFECTIVE_DEPTH",
+        "full_path": "EFFECTIVE_DEPTH",
+        "start_offset": 35202,
+        "byte_length": 22,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "EFFECTIVE_DEPTH.min",
+            "start_offset": 35224,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "EFFECTIVE_DEPTH.max",
+            "start_offset": 35234,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "EFFECTIVE_DEPTH.mean",
+            "start_offset": 35244,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "EFFECTIVE_DEPTH.count",
+            "start_offset": 35255,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "EFFECTIVE_DEPTH.sum",
+            "start_offset": 35269,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "EFFECTIVE_DEPTH.variance",
+            "start_offset": 35279,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "rw_area_tot": {
+        "element_type": "group",
+        "name": "rw_area_tot",
+        "full_path": "rw_area_tot",
+        "start_offset": 35294,
+        "byte_length": 18,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "rw_area_tot.min",
+            "start_offset": 35312,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "rw_area_tot.max",
+            "start_offset": 35322,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "rw_area_tot.mean",
+            "start_offset": 35332,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "rw_area_tot.count",
+            "start_offset": 35343,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "rw_area_tot.sum",
+            "start_offset": 35357,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "rw_area_tot.variance",
+            "start_offset": 35367,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "effective_lot_sqft": {
+        "element_type": "group",
+        "name": "effective_lot_sqft",
+        "full_path": "effective_lot_sqft",
+        "start_offset": 35382,
+        "byte_length": 25,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "effective_lot_sqft.min",
+            "start_offset": 35407,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "effective_lot_sqft.max",
+            "start_offset": 35417,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "effective_lot_sqft.mean",
+            "start_offset": 35427,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "effective_lot_sqft.count",
+            "start_offset": 35438,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "effective_lot_sqft.sum",
+            "start_offset": 35452,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "effective_lot_sqft.variance",
+            "start_offset": 35462,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "dup": {
+        "element_type": "group",
+        "name": "dup",
+        "full_path": "dup",
+        "start_offset": 35477,
+        "byte_length": 10,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "dup.min",
+            "start_offset": 35487,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "dup.max",
+            "start_offset": 35499,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "dup.mean",
+            "start_offset": 35511,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "dup.count",
+            "start_offset": 35524,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "dup.sum",
+            "start_offset": 35538,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "dup.variance",
+            "start_offset": 35550,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "nonCTXT": {
+        "element_type": "group",
+        "name": "nonCTXT",
+        "full_path": "nonCTXT",
+        "start_offset": 35567,
+        "byte_length": 14,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "nonCTXT.min",
+            "start_offset": 35581,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "nonCTXT.max",
+            "start_offset": 35593,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "nonCTXT.mean",
+            "start_offset": 35605,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "nonCTXT.count",
+            "start_offset": 35618,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "nonCTXT.sum",
+            "start_offset": 35632,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "nonCTXT.variance",
+            "start_offset": 35644,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "vacantland": {
+        "element_type": "group",
+        "name": "vacantland",
+        "full_path": "vacantland",
+        "start_offset": 35661,
+        "byte_length": 17,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "vacantland.min",
+            "start_offset": 35678,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "vacantland.max",
+            "start_offset": 35690,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "vacantland.mean",
+            "start_offset": 35702,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "vacantland.count",
+            "start_offset": 35715,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "vacantland.sum",
+            "start_offset": 35729,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "vacantland.variance",
+            "start_offset": 35741,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "parkingbillboard": {
+        "element_type": "group",
+        "name": "parkingbillboard",
+        "full_path": "parkingbillboard",
+        "start_offset": 35758,
+        "byte_length": 23,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "parkingbillboard.min",
+            "start_offset": 35781,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "parkingbillboard.max",
+            "start_offset": 35793,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "parkingbillboard.mean",
+            "start_offset": 35805,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "parkingbillboard.count",
+            "start_offset": 35818,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "parkingbillboard.sum",
+            "start_offset": 35832,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "parkingbillboard.variance",
+            "start_offset": 35844,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "cvalte10": {
+        "element_type": "group",
+        "name": "cvalte10",
+        "full_path": "cvalte10",
+        "start_offset": 35861,
+        "byte_length": 15,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "cvalte10.min",
+            "start_offset": 35876,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "cvalte10.max",
+            "start_offset": 35888,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "cvalte10.mean",
+            "start_offset": 35900,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "cvalte10.count",
+            "start_offset": 35913,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "cvalte10.sum",
+            "start_offset": 35927,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "cvalte10.variance",
+            "start_offset": 35939,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "condootherhotel": {
+        "element_type": "group",
+        "name": "condootherhotel",
+        "full_path": "condootherhotel",
+        "start_offset": 35956,
+        "byte_length": 22,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "condootherhotel.min",
+            "start_offset": 35978,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "condootherhotel.max",
+            "start_offset": 35990,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "condootherhotel.mean",
+            "start_offset": 36002,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "condootherhotel.count",
+            "start_offset": 36015,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "condootherhotel.sum",
+            "start_offset": 36029,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "condootherhotel.variance",
+            "start_offset": 36041,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "calculated_lot_size": {
+        "element_type": "group",
+        "name": "calculated_lot_size",
+        "full_path": "calculated_lot_size",
+        "start_offset": 36058,
+        "byte_length": 26,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "calculated_lot_size.min",
+            "start_offset": 36084,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "calculated_lot_size.max",
+            "start_offset": 36094,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "calculated_lot_size.mean",
+            "start_offset": 36104,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "calculated_lot_size.count",
+            "start_offset": 36115,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "calculated_lot_size.sum",
+            "start_offset": 36129,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "calculated_lot_size.variance",
+            "start_offset": 36139,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "calculated_efflot_size": {
+        "element_type": "group",
+        "name": "calculated_efflot_size",
+        "full_path": "calculated_efflot_size",
+        "start_offset": 36154,
+        "byte_length": 29,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "calculated_efflot_size.min",
+            "start_offset": 36183,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "calculated_efflot_size.max",
+            "start_offset": 36193,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "calculated_efflot_size.mean",
+            "start_offset": 36203,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "calculated_efflot_size.count",
+            "start_offset": 36214,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "calculated_efflot_size.sum",
+            "start_offset": 36228,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "calculated_efflot_size.variance",
+            "start_offset": 36238,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "missingsite": {
+        "element_type": "group",
+        "name": "missingsite",
+        "full_path": "missingsite",
+        "start_offset": 36253,
+        "byte_length": 18,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "missingsite.min",
+            "start_offset": 36271,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "missingsite.max",
+            "start_offset": 36283,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "missingsite.mean",
+            "start_offset": 36295,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "missingsite.count",
+            "start_offset": 36308,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "missingsite.sum",
+            "start_offset": 36322,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "missingsite.variance",
+            "start_offset": 36334,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "missinggla": {
+        "element_type": "group",
+        "name": "missinggla",
+        "full_path": "missinggla",
+        "start_offset": 36351,
+        "byte_length": 17,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "missinggla.min",
+            "start_offset": 36368,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "missinggla.max",
+            "start_offset": 36380,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "missinggla.mean",
+            "start_offset": 36392,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "missinggla.count",
+            "start_offset": 36405,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "missinggla.sum",
+            "start_offset": 36419,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "missinggla.variance",
+            "start_offset": 36431,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "missingsitegla": {
+        "element_type": "group",
+        "name": "missingsitegla",
+        "full_path": "missingsitegla",
+        "start_offset": 36448,
+        "byte_length": 21,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "missingsitegla.min",
+            "start_offset": 36469,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "missingsitegla.max",
+            "start_offset": 36481,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "missingsitegla.mean",
+            "start_offset": 36493,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "missingsitegla.count",
+            "start_offset": 36506,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "missingsitegla.sum",
+            "start_offset": 36520,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "missingsitegla.variance",
+            "start_offset": 36532,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "actual_lot_size_sqft": {
+        "element_type": "group",
+        "name": "actual_lot_size_sqft",
+        "full_path": "actual_lot_size_sqft",
+        "start_offset": 36549,
+        "byte_length": 27,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "actual_lot_size_sqft.min",
+            "start_offset": 36576,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "actual_lot_size_sqft.max",
+            "start_offset": 36586,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "actual_lot_size_sqft.mean",
+            "start_offset": 36596,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "actual_lot_size_sqft.count",
+            "start_offset": 36607,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "actual_lot_size_sqft.sum",
+            "start_offset": 36621,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "actual_lot_size_sqft.variance",
+            "start_offset": 36631,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "lotsize_sqft": {
+        "element_type": "group",
+        "name": "lotsize_sqft",
+        "full_path": "lotsize_sqft",
+        "start_offset": 36646,
+        "byte_length": 19,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "lotsize_sqft.min",
+            "start_offset": 36665,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "lotsize_sqft.max",
+            "start_offset": 36675,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "lotsize_sqft.mean",
+            "start_offset": 36685,
+            "byte_length": 11,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "lotsize_sqft.count",
+            "start_offset": 36696,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "lotsize_sqft.sum",
+            "start_offset": 36710,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "lotsize_sqft.variance",
+            "start_offset": 36720,
+            "byte_length": 15,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 5,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "count": {
+        "element_type": "group",
+        "name": "count",
+        "full_path": "count",
+        "start_offset": 36735,
+        "byte_length": 12,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "count.min",
+            "start_offset": 36747,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "count.max",
+            "start_offset": 36759,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "count.mean",
+            "start_offset": 36771,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "count.count",
+            "start_offset": 36784,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "count.sum",
+            "start_offset": 36798,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "count.variance",
+            "start_offset": 36810,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "ul_observation_date": {
+        "element_type": "group",
+        "name": "ul_observation_date",
+        "full_path": "ul_observation_date",
+        "start_offset": 36827,
+        "byte_length": 26,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "ul_observation_date.min",
+            "start_offset": 36853,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 10,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "ul_observation_date.max",
+            "start_offset": 36865,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 10,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "ul_observation_date.mean",
+            "start_offset": 36877,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 10,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "ul_observation_date.count",
+            "start_offset": 36890,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "ul_observation_date.sum",
+            "start_offset": 36904,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 10,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "ul_observation_date.variance",
+            "start_offset": 36916,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 10,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      },
+      "ul_tz_offset_minutes_ul_observation_date": {
+        "element_type": "group",
+        "name": "ul_tz_offset_minutes_ul_observation_date",
+        "full_path": "ul_tz_offset_minutes_ul_observation_date",
+        "start_offset": 36933,
+        "byte_length": 47,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 6,
+        "children": {
+          "min": {
+            "element_type": "column",
+            "name": "min",
+            "full_path": "ul_tz_offset_minutes_ul_observation_date.min",
+            "start_offset": 36980,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "max": {
+            "element_type": "column",
+            "name": "max",
+            "full_path": "ul_tz_offset_minutes_ul_observation_date.max",
+            "start_offset": 36992,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "mean": {
+            "element_type": "column",
+            "name": "mean",
+            "full_path": "ul_tz_offset_minutes_ul_observation_date.mean",
+            "start_offset": 37004,
+            "byte_length": 13,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "count": {
+            "element_type": "column",
+            "name": "count",
+            "full_path": "ul_tz_offset_minutes_ul_observation_date.count",
+            "start_offset": 37017,
+            "byte_length": 14,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 14,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "sum": {
+            "element_type": "column",
+            "name": "sum",
+            "full_path": "ul_tz_offset_minutes_ul_observation_date.sum",
+            "start_offset": 37031,
+            "byte_length": 12,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "variance": {
+            "element_type": "column",
+            "name": "variance",
+            "full_path": "ul_tz_offset_minutes_ul_observation_date.variance",
+            "start_offset": 37043,
+            "byte_length": 17,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 2,
+            "repetition": 0,
+            "converted_type": 18,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      }
+    },
+    "repetition": 0
+  }
+}

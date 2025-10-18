@@ -1,0 +1,315 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/repeated_primitive_no_list.parquet",
+  "expected": "fixtures/data/repeated_primitive_no_list_expected.json",
+  "data_tuples": {
+    "Int32_list": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        4,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        6,
+        1,
+        1
+      ],
+      [
+        7,
+        1,
+        1
+      ],
+      [
+        8,
+        1,
+        1
+      ]
+    ],
+    "String_list": [
+      [
+        "foo",
+        1,
+        0
+      ],
+      [
+        "zero",
+        1,
+        1
+      ],
+      [
+        "one",
+        1,
+        1
+      ],
+      [
+        "two",
+        1,
+        1
+      ],
+      [
+        "three",
+        1,
+        0
+      ],
+      [
+        "four",
+        1,
+        0
+      ],
+      [
+        "five",
+        1,
+        0
+      ],
+      [
+        "six",
+        1,
+        1
+      ],
+      [
+        "seven",
+        1,
+        1
+      ],
+      [
+        "eight",
+        1,
+        1
+      ]
+    ],
+    "group_of_lists.Int32_list_in_group": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        4,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        6,
+        1,
+        1
+      ],
+      [
+        7,
+        1,
+        1
+      ],
+      [
+        8,
+        1,
+        1
+      ]
+    ],
+    "group_of_lists.String_list_in_group": [
+      [
+        "foo",
+        1,
+        0
+      ],
+      [
+        "zero",
+        1,
+        1
+      ],
+      [
+        "one",
+        1,
+        1
+      ],
+      [
+        "two",
+        1,
+        1
+      ],
+      [
+        "three",
+        1,
+        0
+      ],
+      [
+        "four",
+        1,
+        0
+      ],
+      [
+        "five",
+        1,
+        0
+      ],
+      [
+        "six",
+        1,
+        1
+      ],
+      [
+        "seven",
+        1,
+        1
+      ],
+      [
+        "eight",
+        1,
+        1
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "",
+    "start_offset": 709,
+    "byte_length": 11,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 3,
+    "children": {
+      "Int32_list": {
+        "element_type": "column",
+        "name": "Int32_list",
+        "full_path": "Int32_list",
+        "start_offset": 720,
+        "byte_length": 17,
+        "definition_level": 1,
+        "repetition_level": 1,
+        "type": 1,
+        "repetition": 2,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      },
+      "String_list": {
+        "element_type": "column",
+        "name": "String_list",
+        "full_path": "String_list",
+        "start_offset": 737,
+        "byte_length": 20,
+        "definition_level": 1,
+        "repetition_level": 1,
+        "type": 6,
+        "repetition": 2,
+        "converted_type": 0,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      },
+      "group_of_lists": {
+        "element_type": "group",
+        "name": "group_of_lists",
+        "full_path": "group_of_lists",
+        "start_offset": 757,
+        "byte_length": 21,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 2,
+        "children": {
+          "Int32_list_in_group": {
+            "element_type": "column",
+            "name": "Int32_list_in_group",
+            "full_path": "group_of_lists.Int32_list_in_group",
+            "start_offset": 778,
+            "byte_length": 26,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "type": 1,
+            "repetition": 2,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "String_list_in_group": {
+            "element_type": "column",
+            "name": "String_list_in_group",
+            "full_path": "group_of_lists.String_list_in_group",
+            "start_offset": 804,
+            "byte_length": 29,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "type": 6,
+            "repetition": 2,
+            "converted_type": 0,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      }
+    },
+    "repetition": 0
+  }
+}

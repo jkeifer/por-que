@@ -1,0 +1,105 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "repetition": 0,
+    "children": {
+      "items": {
+        "element_type": "group",
+        "name": "items",
+        "full_path": "items",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 2,
+        "repetition": 2,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null,
+        "children": {
+          "id": {
+            "element_type": "column",
+            "name": "id",
+            "full_path": "items.id",
+            "start_offset": 0,
+            "byte_length": 0,
+            "type": 1,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "list_semantics": null
+          },
+          "name": {
+            "element_type": "column",
+            "name": "name",
+            "full_path": "items.name",
+            "start_offset": 0,
+            "byte_length": 0,
+            "type": 6,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "list_semantics": null
+          }
+        },
+        "definition_level": 0,
+        "repetition_level": 1
+      }
+    }
+  },
+  "data_tuples": {
+    "items.id": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        1
+      ]
+    ],
+    "items.name": [
+      [
+        "first",
+        1,
+        0
+      ],
+      [
+        "second",
+        1,
+        1
+      ]
+    ]
+  },
+  "expected": {
+    "items": [
+      [
+        {
+          "id": 1,
+          "name": "first"
+        },
+        {
+          "id": 2,
+          "name": "second"
+        }
+      ]
+    ]
+  }
+}

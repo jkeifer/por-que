@@ -44,6 +44,8 @@
         "full_path": "",
         "start_offset": 77,
         "byte_length": 10,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "datatype_boolean": {
@@ -52,6 +54,8 @@
             "full_path": "datatype_boolean",
             "start_offset": 87,
             "byte_length": 25,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 0,
             "repetition": 1,
             "converted_type": null,
@@ -60,11 +64,10 @@
             "precision": null,
             "field_id": 1,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {
