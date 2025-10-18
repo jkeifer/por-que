@@ -1,0 +1,8 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/single_nan.parquet",
+  "data": {
+    "mycol": [
+      null
+    ]
+  }
+}

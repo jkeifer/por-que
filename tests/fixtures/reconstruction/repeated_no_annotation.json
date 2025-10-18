@@ -1,0 +1,221 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/repeated_no_annotation.parquet",
+  "expected": "fixtures/data/repeated_no_annotation_expected.json",
+  "data_tuples": {
+    "id": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        0
+      ],
+      [
+        3,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ]
+    ],
+    "phoneNumbers.phone.number": [
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        5555555555,
+        2,
+        0
+      ],
+      [
+        1111111111,
+        2,
+        0
+      ],
+      [
+        1111111111,
+        2,
+        0
+      ],
+      [
+        2222222222,
+        2,
+        1
+      ],
+      [
+        3333333333,
+        2,
+        1
+      ]
+    ],
+    "phoneNumbers.phone.kind": [
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        0,
+        0
+      ],
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        null,
+        2,
+        0
+      ],
+      [
+        "home",
+        3,
+        0
+      ],
+      [
+        "home",
+        3,
+        0
+      ],
+      [
+        null,
+        2,
+        1
+      ],
+      [
+        "mobile",
+        3,
+        1
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "user",
+    "full_path": "",
+    "start_offset": 352,
+    "byte_length": 9,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 2,
+    "children": {
+      "id": {
+        "element_type": "column",
+        "name": "id",
+        "full_path": "id",
+        "start_offset": 361,
+        "byte_length": 9,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "type": 1,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      },
+      "phoneNumbers": {
+        "element_type": "group",
+        "name": "phoneNumbers",
+        "full_path": "phoneNumbers",
+        "start_offset": 370,
+        "byte_length": 19,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "phone": {
+            "element_type": "group",
+            "name": "phone",
+            "full_path": "phoneNumbers.phone",
+            "start_offset": 389,
+            "byte_length": 12,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 2,
+            "children": {
+              "number": {
+                "element_type": "column",
+                "name": "number",
+                "full_path": "phoneNumbers.phone.number",
+                "start_offset": 401,
+                "byte_length": 13,
+                "definition_level": 2,
+                "repetition_level": 1,
+                "type": 2,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              },
+              "kind": {
+                "element_type": "column",
+                "name": "kind",
+                "full_path": "phoneNumbers.phone.kind",
+                "start_offset": 414,
+                "byte_length": 13,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "type": 6,
+                "repetition": 1,
+                "converted_type": 0,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      }
+    },
+    "repetition": 0
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "repetition": 0,
+    "children": {
+      "matrix": {
+        "element_type": "group",
+        "name": "matrix",
+        "full_path": "matrix",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "repetition": 1,
+        "definition_level": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "matrix.list",
+            "start_offset": 0,
+            "byte_length": 0,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "matrix.list.element",
+                "start_offset": 0,
+                "byte_length": 0,
+                "num_children": 1,
+                "repetition": 1,
+                "definition_level": 2,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "matrix.list.element.list",
+                    "start_offset": 0,
+                    "byte_length": 0,
+                    "definition_level": 4,
+                    "repetition_level": 2,
+                    "num_children": 1,
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "children": {
+                      "element": {
+                        "element_type": "column",
+                        "name": "element",
+                        "full_path": "matrix.list.element.list.element",
+                        "start_offset": 0,
+                        "byte_length": 0,
+                        "type": 1,
+                        "repetition": 1,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "definition_level": 5,
+                        "repetition_level": 2,
+                        "list_semantics": null
+                      }
+                    }
+                  }
+                },
+                "repetition_level": 1
+              }
+            }
+          }
+        },
+        "repetition_level": 0
+      }
+    }
+  },
+  "data_tuples": {
+    "matrix.list.element.list.element": [
+      [
+        1,
+        5,
+        0
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        3,
+        5,
+        1
+      ],
+      [
+        4,
+        5,
+        2
+      ]
+    ]
+  },
+  "expected": {
+    "matrix": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ]
+  }
+}

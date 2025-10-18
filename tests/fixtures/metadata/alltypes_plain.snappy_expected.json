@@ -411,6 +411,8 @@
         "full_path": "",
         "start_offset": 1009,
         "byte_length": 11,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 11,
         "children": {
           "id": {
@@ -419,6 +421,8 @@
             "full_path": "id",
             "start_offset": 1020,
             "byte_length": 9,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -427,8 +431,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "bool_col": {
@@ -437,6 +439,8 @@
             "full_path": "bool_col",
             "start_offset": 1029,
             "byte_length": 15,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 0,
             "repetition": 1,
             "converted_type": null,
@@ -445,8 +449,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "tinyint_col": {
@@ -455,6 +457,8 @@
             "full_path": "tinyint_col",
             "start_offset": 1044,
             "byte_length": 18,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -463,8 +467,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "smallint_col": {
@@ -473,6 +475,8 @@
             "full_path": "smallint_col",
             "start_offset": 1062,
             "byte_length": 19,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -481,8 +485,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "int_col": {
@@ -491,6 +493,8 @@
             "full_path": "int_col",
             "start_offset": 1081,
             "byte_length": 14,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -499,8 +503,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "bigint_col": {
@@ -509,6 +511,8 @@
             "full_path": "bigint_col",
             "start_offset": 1095,
             "byte_length": 17,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -517,8 +521,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "float_col": {
@@ -527,6 +529,8 @@
             "full_path": "float_col",
             "start_offset": 1112,
             "byte_length": 16,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 4,
             "repetition": 1,
             "converted_type": null,
@@ -535,8 +539,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "double_col": {
@@ -545,6 +547,8 @@
             "full_path": "double_col",
             "start_offset": 1128,
             "byte_length": 17,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 5,
             "repetition": 1,
             "converted_type": null,
@@ -553,8 +557,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "date_string_col": {
@@ -563,6 +565,8 @@
             "full_path": "date_string_col",
             "start_offset": 1145,
             "byte_length": 22,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": null,
@@ -571,8 +575,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "string_col": {
@@ -581,6 +583,8 @@
             "full_path": "string_col",
             "start_offset": 1167,
             "byte_length": 17,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": null,
@@ -589,8 +593,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "timestamp_col": {
@@ -599,6 +601,8 @@
             "full_path": "timestamp_col",
             "start_offset": 1184,
             "byte_length": 20,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 3,
             "repetition": 1,
             "converted_type": null,
@@ -607,11 +611,10 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

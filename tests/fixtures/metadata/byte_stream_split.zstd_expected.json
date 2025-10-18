@@ -86,6 +86,8 @@
         "full_path": "",
         "start_offset": 3602,
         "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 2,
         "children": {
           "f32": {
@@ -94,6 +96,8 @@
             "full_path": "f32",
             "start_offset": 3615,
             "byte_length": 10,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 4,
             "repetition": 1,
             "converted_type": null,
@@ -102,8 +106,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "f64": {
@@ -112,6 +114,8 @@
             "full_path": "f64",
             "start_offset": 3625,
             "byte_length": 10,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 5,
             "repetition": 1,
             "converted_type": null,
@@ -120,11 +124,10 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

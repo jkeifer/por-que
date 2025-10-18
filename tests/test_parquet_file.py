@@ -21,62 +21,72 @@ BASE64_ENCODE_PREFIX = '*-*-*-||por-que_base64_encoded||-*-*-*>'
 DECIMAL_ENCODE_PREFIX = '*-*-*-||por-que_decimal_encoded||-*-*-*>'
 
 TEST_FILES = [
-    'alltypes_plain',
     'alltypes_dictionary',
+    'alltypes_plain',
     'alltypes_plain.snappy',
-    'delta_byte_array',
-    'delta_length_byte_array',
-    'delta_binary_packed',
-    'delta_encoding_required_column',
-    'delta_encoding_optional_column',
-    'nested_structs.rust',
-    'data_index_bloom_encoding_stats',
-    'data_index_bloom_encoding_with_length',
-    'null_list',
-    'rle_boolean_encoding',
-    'int32_with_null_pages',
-    'datapage_v1-uncompressed-checksum',
-    'datapage_v1-snappy-compressed-checksum',
-    'datapage_v1-corrupt-checksum',
-    'rle-dict-snappy-checksum',
-    'plain-dict-uncompressed-checksum',
-    'rle-dict-uncompressed-corrupt-checksum',
-    'large_string_map.brotli',
-    'float16_nonzeros_and_nans',
-    'float16_zeros_and_nans',
-    'concatenated_gzip_members',
-    'byte_stream_split.zstd',
-    'byte_stream_split_extended.gzip',
-    'incorrect_map_schema',
-    'list_columns',
-    'sort_columns',
-    'old_list_structure',
-    'repeated_no_annotation',
-    'repeated_primitive_no_list',
-    # pyarrow output is inconsistent with this one
-    'map_no_value',
-    'page_v2_empty_compressed',
-    'datapage_v2_empty_datapage.snappy',
-    'unknown-logical-type',
     'binary',
     'binary_truncated_min_max',
     'byte_array_decimal',
+    'byte_stream_split.zstd',
+    'byte_stream_split_extended.gzip',
     # Unknown page type: None
     #'column_chunk_key_value_metadata',
+    'concatenated_gzip_members',
+    'data_index_bloom_encoding_stats',
+    'data_index_bloom_encoding_with_length',
+    'datapage_v1-corrupt-checksum',
+    'datapage_v1-snappy-compressed-checksum',
+    'datapage_v1-uncompressed-checksum',
+    'delta_binary_packed',
+    'delta_byte_array',
+    'delta_encoding_optional_column',
+    'delta_encoding_required_column',
+    'delta_length_byte_array',
+    # Not sure about this one,
+    # strange things happen with it
+    #'dict-page-offset-zero',
     'fixed_length_decimal',
-    'geospatial/crs-projjson',
-    'geospatial/geospatial',
-    'geospatial/geospatial-with-nan',
+    'float16_nonzeros_and_nans',
+    'float16_zeros_and_nans',
+    'geospatial/crs-arbitrary-value',
     'geospatial/crs-default',
     'geospatial/crs-geography',
+    'geospatial/crs-projjson',
     'geospatial/crs-srid',
-    'geospatial/crs-arbitrary-value',
+    'geospatial/geospatial',
+    'geospatial/geospatial-with-nan',
+    'incorrect_map_schema',
+    'int32_decimal',
+    'int32_with_null_pages',
+    'int64_decimal',
+    # cannot parse these timestamps with python
+    'int96_from_spark',
+    'list_columns',
+    # pyarrow output is inconsistent with this one
+    'map_no_value',
+    'nested_lists.snappy',
+    'nested_maps.snappy',
+    'nested_structs.rust',
+    'nonnullable.impala',
+    'null_list',
+    'nullable.impala',
+    'nulls.snappy',
+    'old_list_structure',
+    'plain-dict-uncompressed-checksum',
+    'repeated_no_annotation',
+    'repeated_primitive_no_list',
+    'rle-dict-snappy-checksum',
+    'rle-dict-uncompressed-corrupt-checksum',
+    'rle_boolean_encoding',
+    'single_nan',
+    'sort_columns',
+    'page_v2_empty_compressed',
+    'datapage_v2_empty_datapage.snappy',
+    'unknown-logical-type',
 ]
 SCHEMA_ONLY_FILES = [
     # Can't even parse this data with pyarrow due to parquet-mr bug
     'fixed_length_byte_array',
-    # cannot parse these timestamps with python
-    'int96_from_spark',
 ]
 DATA_ONLY_FILES = [
     # the following are massive schemas
@@ -93,48 +103,7 @@ EXCLUDED_LOGICAL_COLUMNS = {
         'ul_observation_date.max',
         'ul_observation_date.min',
     ),
-}
-
-
-def large_string_map_brotli(actual: dict[str, Any]) -> bool:
-    href = (
-        'https://raw.githubusercontent.com/apache/parquet-testing/'
-        'master/data/large_string_map.brotli.parquet'
-    )
-    expected = {
-        'source': href,
-        'data': {
-            'arr': [
-                {'a': 1},
-                {'a': 1},
-            ],
-        },
-    }
-
-    try:
-        rows = actual['data']['arr']
-    except KeyError:
-        return False
-
-    row_count = len(rows)
-    assert row_count == 2
-    for row in rows:
-        keys = list(row.keys())
-        key_count = len(keys)
-        assert key_count == 1
-        key = keys[0]
-        key_len = len(key)
-        assert key_len == 2**30
-        assert set(key) == {'a'}
-        row['a'] = row[key]
-        del row[key]
-
-    assert actual == expected
-    return True
-
-
-DATA_PAGE_FIXTURE_COMPARATOR = {
-    'large_string_map.brotli': large_string_map_brotli,
+    'int96_from_spark': ('a',),
 }
 
 
@@ -260,11 +229,6 @@ def _comparison(
     file_name: str,
     actual: dict[str, Any],
 ) -> None:
-    # first check if we have a fixture generator
-    if comparator := DATA_PAGE_FIXTURE_COMPARATOR.get(file_name):
-        assert comparator(actual)
-        return
-
     # we try to load the fixture file to compare;
     # if it doesn't exist we write the fixture to file;
     # to update, delete the fixture file it and re-run

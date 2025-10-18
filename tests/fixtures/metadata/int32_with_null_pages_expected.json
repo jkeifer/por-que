@@ -272,6 +272,8 @@
         "full_path": "",
         "start_offset": 3560,
         "byte_length": 11,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "int32_field": {
@@ -280,6 +282,8 @@
             "full_path": "int32_field",
             "start_offset": 3571,
             "byte_length": 18,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 1,
             "repetition": 1,
             "converted_type": null,
@@ -288,11 +292,10 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

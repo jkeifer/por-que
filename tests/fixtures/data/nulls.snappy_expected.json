@@ -1,0 +1,31 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nulls.snappy.parquet",
+  "data": {
+    "b_struct": [
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      },
+      {
+        "b_c_int": null
+      }
+    ]
+  }
+}

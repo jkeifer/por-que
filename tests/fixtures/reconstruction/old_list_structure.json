@@ -1,0 +1,95 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/old_list_structure.parquet",
+  "expected": "fixtures/data/old_list_structure_expected.json",
+  "data_tuples": {
+    "a.array.array": [
+      [
+        1,
+        2,
+        0
+      ],
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        1
+      ],
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "my_record",
+    "full_path": "",
+    "start_offset": 104,
+    "byte_length": 14,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 1,
+    "children": {
+      "a": {
+        "element_type": "group",
+        "name": "a",
+        "full_path": "a",
+        "start_offset": 118,
+        "byte_length": 14,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "array": {
+            "element_type": "group",
+            "name": "array",
+            "full_path": "a.array",
+            "start_offset": 132,
+            "byte_length": 18,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "array": {
+                "element_type": "column",
+                "name": "array",
+                "full_path": "a.array.array",
+                "start_offset": 150,
+                "byte_length": 12,
+                "definition_level": 2,
+                "repetition_level": 2,
+                "type": 1,
+                "repetition": 2,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "modern_list"
+              }
+            },
+            "repetition": 2,
+            "converted_type": 3,
+            "field_id": null,
+            "logical_type": {
+              "logical_type": 3
+            }
+          }
+        },
+        "repetition": 0,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": {
+          "logical_type": 3
+        }
+      }
+    },
+    "repetition": 0
+  }
+}

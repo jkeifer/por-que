@@ -8,13 +8,12 @@ page parsers.
 
 import struct
 
-from io import BytesIO
-
 from por_que.enums import Type
 from por_que.exceptions import ParquetDataError
+from por_que.protocols import ReadableSeekable
 
 
-def parse_boolean_values(stream: BytesIO, num_values: int) -> list[bool]:
+def parse_boolean_values(stream: ReadableSeekable, num_values: int) -> list[bool]:
     """Parse boolean values from stream."""
     values = []
     # Booleans are packed in bits
@@ -31,7 +30,7 @@ def parse_boolean_values(stream: BytesIO, num_values: int) -> list[bool]:
     return values
 
 
-def parse_int32_values(stream: BytesIO, num_values: int) -> list[int]:
+def parse_int32_values(stream: ReadableSeekable, num_values: int) -> list[int]:
     """Parse INT32 values from stream."""
     values = []
     for _ in range(num_values):
@@ -43,7 +42,7 @@ def parse_int32_values(stream: BytesIO, num_values: int) -> list[int]:
     return values
 
 
-def parse_int64_values(stream: BytesIO, num_values: int) -> list[int]:
+def parse_int64_values(stream: ReadableSeekable, num_values: int) -> list[int]:
     """Parse INT64 values from stream."""
     values = []
     for _ in range(num_values):
@@ -55,7 +54,7 @@ def parse_int64_values(stream: BytesIO, num_values: int) -> list[int]:
     return values
 
 
-def parse_int96_values(stream: BytesIO, num_values: int) -> list[int]:
+def parse_int96_values(stream: ReadableSeekable, num_values: int) -> list[int]:
     """Parse INT96 values from stream (stored as 12-byte values)."""
     values = []
     for _ in range(num_values):
@@ -67,7 +66,7 @@ def parse_int96_values(stream: BytesIO, num_values: int) -> list[int]:
     return values
 
 
-def parse_float_values(stream: BytesIO, num_values: int) -> list[float]:
+def parse_float_values(stream: ReadableSeekable, num_values: int) -> list[float]:
     """Parse FLOAT values from stream."""
     values = []
     for _ in range(num_values):
@@ -79,7 +78,7 @@ def parse_float_values(stream: BytesIO, num_values: int) -> list[float]:
     return values
 
 
-def parse_double_values(stream: BytesIO, num_values: int) -> list[float]:
+def parse_double_values(stream: ReadableSeekable, num_values: int) -> list[float]:
     """Parse DOUBLE values from stream."""
     values = []
     for _ in range(num_values):
@@ -91,7 +90,7 @@ def parse_double_values(stream: BytesIO, num_values: int) -> list[float]:
     return values
 
 
-def parse_byte_array_values(stream: BytesIO, num_values: int) -> list[bytes]:
+def parse_byte_array_values(stream: ReadableSeekable, num_values: int) -> list[bytes]:
     """Parse BYTE_ARRAY values from stream."""
     values = []
     for _ in range(num_values):
@@ -111,7 +110,7 @@ def parse_byte_array_values(stream: BytesIO, num_values: int) -> list[bytes]:
 
 
 def parse_fixed_len_byte_array_values(
-    stream: BytesIO,
+    stream: ReadableSeekable,
     num_values: int,
     type_length: int,
 ) -> list[bytes]:

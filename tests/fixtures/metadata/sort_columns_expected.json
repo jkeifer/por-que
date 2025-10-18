@@ -198,6 +198,8 @@
         "full_path": "",
         "start_offset": 658,
         "byte_length": 13,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 2,
         "children": {
           "a": {
@@ -206,6 +208,8 @@
             "full_path": "a",
             "start_offset": 671,
             "byte_length": 8,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 2,
             "repetition": 1,
             "converted_type": null,
@@ -214,8 +218,6 @@
             "precision": null,
             "field_id": null,
             "logical_type": null,
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           },
           "b": {
@@ -224,6 +226,8 @@
             "full_path": "b",
             "start_offset": 679,
             "byte_length": 14,
+            "definition_level": 1,
+            "repetition_level": 0,
             "type": 6,
             "repetition": 1,
             "converted_type": 0,
@@ -234,11 +238,10 @@
             "logical_type": {
               "logical_type": 1
             },
-            "definition_level": 1,
-            "repetition_level": 0,
             "list_semantics": null
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

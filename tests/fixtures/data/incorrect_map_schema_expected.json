@@ -3,14 +3,14 @@
   "data": {
     "my_map": [
       [
-        {
-          "key": "parent",
-          "value": "another"
-        },
-        {
-          "key": "name",
-          "value": "report"
-        }
+        [
+          "parent",
+          "another"
+        ],
+        [
+          "name",
+          "report"
+        ]
       ]
     ]
   }

@@ -1,30 +1,23 @@
-"""
-Data page content parsing for Parquet files.
-
-This module provides functionality to parse the actual content of data pages,
-converting the compressed binary data into meaningful Python objects with
-proper handling of repetition levels, definition levels, and various encodings.
-
-This implementation is modeled after the parquet-mr reference library to ensure
-correctness and robustness.
-"""
-
 from __future__ import annotations
 
 import logging
 import math
 import struct
 
-from collections.abc import Sequence
+from abc import ABC, abstractmethod
+from collections.abc import Iterator, Sequence
+from dataclasses import dataclass
 from io import BytesIO
-from typing import TYPE_CHECKING, TypeVar, assert_never
+from typing import TYPE_CHECKING, Any
 
 from por_que.enums import Compression, Encoding, Type
 from por_que.exceptions import ParquetDataError
 from por_que.file_metadata import SchemaLeaf
 from por_que.parsers import physical_types
-from por_que.parsers.logical_types import convert_values_to_logical_types
-from por_que.protocols import AsyncReadableSeekable
+from por_que.parsers.logical_types import (
+    convert_single_value,
+)
+from por_que.protocols import AsyncReadableSeekable, ReadableSeekable
 
 if TYPE_CHECKING:
     from por_que.pages import DataPageV1, DataPageV2
@@ -34,579 +27,204 @@ from .dictionary import DictType
 
 logger = logging.getLogger(__name__)
 
-T = TypeVar(
-    'T',
-    bool,
-    int,
-    float,
-    bytes,
-)
-type PageDataType[T] = list[T | None]
+type ValueTuple = tuple[Any | None, int, int]
 
 
-class DataPageParser:
+@dataclass(slots=True, frozen=True)
+class _ParseOutput:
+    values_stream: ReadableSeekable
+    definition_levels: list[int]
+    repetition_levels: list[int]
+
+
+class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
     """Parser for data page content."""
 
-    async def parse_content(
+    def __init__(
         self,
+        data_page: P,
         reader: AsyncReadableSeekable,
-        data_page: DataPageV1 | DataPageV2,
         physical_type: Type,
         compression_codec: Compression,
         schema_element: SchemaLeaf,
         dictionary_values: DictType | None = None,
+    ) -> None:
+        self.data_page = data_page
+        self.reader = reader
+        self.physical_type = physical_type
+        self.compression_codec = compression_codec
+        self.schema_element = schema_element
+        self.dictionary_values = dictionary_values
+
+    @abstractmethod
+    async def _parse(self) -> _ParseOutput:
+        raise NotImplementedError
+
+    async def parse(
+        self,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> PageDataType:
+    ) -> Iterator[ValueTuple]:
         """
         Parse data page content into Python objects. This is the public entry point.
         """
-        from por_que.pages import DataPageV1, DataPageV2
+        self.reader.seek(self.data_page.start_offset + self.data_page.header_size)
 
-        content_start = data_page.start_offset + data_page.header_size
-        reader.seek(content_start)
-
-        # Handle DataPageV1 vs DataPageV2 differently due to their structure
-        match data_page:
-            case DataPageV1():
-                return await self._data_page_v1(
-                    reader,
-                    data_page,
-                    physical_type,
-                    compression_codec,
-                    schema_element,
-                    dictionary_values,
-                    apply_logical_types,
-                    excluded_logical_columns,
-                )
-            case DataPageV2():
-                return await self._data_page_v2(
-                    reader,
-                    data_page,
-                    physical_type,
-                    compression_codec,
-                    schema_element,
-                    dictionary_values,
-                    apply_logical_types,
-                    excluded_logical_columns,
-                )
-            case _ as unreachable:
-                assert_never(unreachable)
-
-    def __main_parsing(
-        self,
-        values_stream: BytesIO,
-        data_page: DataPageV1 | DataPageV2,
-        physical_type: Type,
-        schema_element: SchemaLeaf,
-        repetition_levels: list[int],
-        definition_levels: list[int],
-        dictionary_values: DictType | None = None,
-        apply_logical_types: bool = True,
-        excluded_logical_columns: Sequence[str] | None = None,
-    ) -> PageDataType:
-        all_values = self._read_and_reassemble_values(
-            values_stream,
-            data_page.encoding,
-            physical_type,
-            data_page.num_values,
-            dictionary_values,
-            definition_levels,
-            repetition_levels,
-            schema_element,
-        )
-
-        if apply_logical_types:
-            all_values = convert_values_to_logical_types(
-                all_values,
-                physical_type,
-                schema_element,
-                excluded_logical_columns,
-            )
-        return all_values
-
-    async def _data_page_v1(
-        self,
-        reader: AsyncReadableSeekable,
-        data_page: DataPageV1,
-        physical_type: Type,
-        compression_codec: Compression,
-        schema_element: SchemaLeaf,
-        dictionary_values: DictType | None = None,
-        apply_logical_types: bool = True,
-        excluded_logical_columns: Sequence[str] | None = None,
-    ) -> PageDataType:
-        repetition_levels: list[int] = []
-        definition_levels: list[int] = []
-
-        # DataPageV1: Everything is compressed together
-        compressed_data = await reader.read(data_page.compressed_page_size)
-        decompressed_data = compressors.decompress_data(
-            compressed_data,
-            compression_codec,
-            data_page.uncompressed_page_size,
-        )
-
-        # Sanity check: decompressed data must match expected uncompressed size
-        if len(decompressed_data) != data_page.uncompressed_page_size:
-            raise ParquetDataError(
-                f"Decompressed data size ({len(decompressed_data)}) doesn't match "
-                f'expected uncompressed size ({data_page.uncompressed_page_size})',
-            )
-
-        stream = BytesIO(decompressed_data)
-
-        # Read repetition levels if the schema indicates they exist
-        if schema_element.repetition_level > 0:
-            bit_width = (schema_element.repetition_level).bit_length()
-            repetition_levels = self._decode_rle_with_length_prefix(
-                stream,
-                bit_width,
-                data_page.num_values,
-            )
-
-        # Read definition levels if the schema indicates they exist
-        # This handles REQUIRED fields inside OPTIONAL/REPEATED parents
-        if schema_element.definition_level > 0:
-            bit_width = (schema_element.definition_level).bit_length()
-            definition_levels = self._decode_rle_with_length_prefix(
-                stream,
-                bit_width,
-                data_page.num_values,
-            )
-
-        return self.__main_parsing(
-            stream,
-            data_page,
-            physical_type,
-            schema_element,
-            repetition_levels,
-            definition_levels,
-            dictionary_values,
-            apply_logical_types,
-            excluded_logical_columns,
-        )
-
-    async def _data_page_v2(
-        self,
-        reader: AsyncReadableSeekable,
-        data_page: DataPageV2,
-        physical_type: Type,
-        compression_codec: Compression,
-        schema_element: SchemaLeaf,
-        dictionary_values: DictType | None = None,
-        apply_logical_types: bool = True,
-        excluded_logical_columns: Sequence[str] | None = None,
-    ) -> PageDataType:
-        repetition_levels: list[int] = []
-        definition_levels: list[int] = []
-
-        # DataPageV2: Levels are uncompressed, only values are compressed
-        # Read all data (levels + compressed values)
-        all_data = await reader.read(data_page.compressed_page_size)
-        stream = BytesIO(all_data)
-
-        rep_level_bytes = b''
-        if data_page.repetition_levels_byte_length > 0:
-            rep_level_bytes = stream.read(
-                data_page.repetition_levels_byte_length,
-            )
-            bit_width = (schema_element.repetition_level).bit_length()
-            repetition_levels = self._decode_rle_levels(
-                BytesIO(rep_level_bytes),
-                bit_width,
-                data_page.num_values,
-            )
-
-        def_level_bytes = b''
-        if data_page.definition_levels_byte_length > 0:
-            def_level_bytes = stream.read(
-                data_page.definition_levels_byte_length,
-            )
-            bit_width = (schema_element.definition_level).bit_length()
-            definition_levels = self._decode_rle_levels(
-                BytesIO(def_level_bytes),
-                bit_width,
-                data_page.num_values,
-            )
-
-        # Now decompress the remaining values data
-        compressed_values = stream.read()
-        # DataPageV2 has is_compressed as the authoritative source
-        # as to whether the page is compressed, except it is optional
-        # so we simply fall back to the length check in decompress_data
-        values_stream = BytesIO(
-            compressors.decompress_data(
-                compressed_values,
-                compression_codec,
-                (
-                    data_page.uncompressed_page_size
-                    - len(rep_level_bytes)
-                    - len(def_level_bytes)
-                ),
-            ),
-        )
-
-        return self.__main_parsing(
-            values_stream,
-            data_page,
-            physical_type,
-            schema_element,
-            repetition_levels,
-            definition_levels,
-            dictionary_values,
-            apply_logical_types,
-            excluded_logical_columns,
+        return self._read_and_reassemble_values(
+            await self._parse(),
+            apply_logical_types=apply_logical_types,
+            excluded_logical_columns=excluded_logical_columns,
         )
 
     def _read_and_reassemble_values(
         self,
-        stream: BytesIO,
-        encoding: Encoding,
-        physical_type: Type,
-        num_values: int,
-        dictionary_values: DictType | None,
-        definition_levels: list[int],
-        repetition_levels: list[int],
-        schema_element: SchemaLeaf,
-    ) -> PageDataType:
+        parse_output: _ParseOutput,
+        apply_logical_types: bool = True,
+        excluded_logical_columns: Sequence[str] | None = None,
+    ) -> Iterator[ValueTuple]:
         # Handle REQUIRED columns without definition levels
         # If no definition levels exist for a REQUIRED column, all values are non-null
-        if not definition_levels and schema_element.repetition.name == 'REQUIRED':
+        if (
+            not parse_output.definition_levels
+            and self.schema_element.repetition.name == 'REQUIRED'
+        ):
             # For REQUIRED columns, schema's definition_level is 0
             # But when there are no nulls, we don't have definition levels in the data
             # So we treat all values as non-null
-            num_non_null = num_values
-        elif not definition_levels:
+            num_non_null = self.data_page.num_values
+        elif not parse_output.definition_levels:
             # This shouldn't happen for OPTIONAL/REPEATED columns
-            num_non_null = num_values
-        elif schema_element.repetition.name == 'REQUIRED' and definition_levels:
+            num_non_null = self.data_page.num_values
+        elif (
+            parse_output.definition_levels
+            and self.schema_element.repetition.name == 'REQUIRED'
+        ):
             # REQUIRED column with nulls: has definition levels [0, 1]
             # level 1 = non-null, level 0 = null
-            num_non_null = sum(1 for level in definition_levels if level > 0)
+            num_non_null = sum(
+                1 for level in parse_output.definition_levels if level > 0
+            )
         else:
             # OPTIONAL/REPEATED: check against schema's definition level
             num_non_null = sum(
                 1
-                for level in definition_levels
-                if level >= schema_element.definition_level
+                for level in parse_output.definition_levels
+                if level >= self.schema_element.definition_level
             )
 
         non_null_values: list = self._read_values(
-            stream,
-            encoding,
-            physical_type,
+            parse_output.values_stream,
             num_non_null,
-            dictionary_values,
-            schema_element,
-            num_values,
         )
 
-        # Handle repeated values using repetition levels from page data
+        return self._create_tuple_stream(
+            non_null_values,
+            parse_output.definition_levels,
+            parse_output.repetition_levels,
+            apply_logical_types,
+            excluded_logical_columns,
+        )
 
-        # Check if this is part of a repeated/list structure
-        # repetition_level > 0 indicates list/repeated elements
-        if schema_element.repetition_level > 0:
-            return self._reconstruct_repeated_values(
-                non_null_values,
-                definition_levels,
-                repetition_levels,
-                schema_element,
-            )
+    def _create_tuple_stream(
+        self,
+        non_null_values: list,
+        definition_levels: list[int],
+        repetition_levels: list[int],
+        apply_logical_types: bool,
+        excluded_logical_columns: Sequence[str] | None,
+    ) -> Iterator[ValueTuple]:
+        """Yield (value, definition_level, repetition_level) tuples as a stream.
 
-        # Handle simple (non-repeated) values
-        all_values: PageDataType = []
+        This is used when reconstruct=False to provide raw data for testing the
+        reconstruction algorithm. Logical type conversion is applied per-value.
+
+        Yields:
+            Tuples of (value, definition_level, repetition_level)
+        """
+        # Get logical type info once for all values
+        apply_logical_types = apply_logical_types and not (
+            excluded_logical_columns
+            and self.schema_element.full_path in excluded_logical_columns
+        )
+        logical_type_info = self.schema_element.get_logical_type()
+
+        # Helper to convert value if needed
+        def convert_value(value):
+            if apply_logical_types and value is not None:
+                return convert_single_value(
+                    value,
+                    self.physical_type,
+                    logical_type_info,
+                )
+            return value
 
         # If we have no definition levels, all values are non-null
         if not definition_levels:
-            all_values = non_null_values
-        else:
-            non_null_iter = iter(non_null_values)
-            # The max_definition_level indicates this element has a non-null value.
-            # Levels less than that indicate nulls at this level.
-            for level in definition_levels:
-                # For REQUIRED columns with nulls, check level > 0
-                # For OPTIONAL/REPEATED, check level >= schema_element.definition_level
-                if schema_element.definition_level == 0:
-                    is_non_null = level > 0
-                else:
-                    is_non_null = level >= schema_element.definition_level
+            # Yield tuples with DL=0 and RL=0 for all values
+            for value in non_null_values:
+                yield (convert_value(value), 0, 0)
+            return
 
-                if is_non_null:
-                    try:
-                        all_values.append(next(non_null_iter))
-                    except StopIteration:
-                        raise ParquetDataError(
-                            'Fewer non-null values than specified '
-                            'by definition levels.',
-                        ) from None
-                else:
-                    all_values.append(None)
-        return all_values
+        # Iterate through levels and yield tuples
+        non_null_iter = iter(non_null_values)
 
-    def _reconstruct_repeated_values(
-        self,
-        non_null_values: list,
-        definition_levels: list[int],
-        repetition_levels: list[int],
-        schema_element: SchemaLeaf,
-    ) -> PageDataType:
-        """Reconstruct repeated/list values using repetition and definition levels.
-
-        For nested lists (max_repetition_level > 1), we need to handle multiple
-        levels of nesting based on the repetition level values.
-        """
+        # Ensure we have repetition levels for each definition level
+        # If not, fill with zeros
         if not repetition_levels:
-            # No repetition levels means simple repeated field
-            return non_null_values
+            repetition_levels = [0] * len(definition_levels)
 
-        # For simple repeated fields (max_rep_level == 1)
-        if schema_element.repetition_level == 1:
-            return self._reconstruct_max_rep_one(
-                non_null_values,
-                definition_levels,
-                repetition_levels,
-                schema_element,
-            )
-
-        return self._reconstruct_max_rep_many(
-            non_null_values,
+        for def_level, rep_level in zip(
             definition_levels,
             repetition_levels,
-            schema_element,
-        )
-
-    def _reconstruct_max_rep_one(  # noqa: C901
-        self,
-        non_null_values: list,
-        definition_levels: list[int],
-        repetition_levels: list[int],
-        schema_element: SchemaLeaf,
-    ) -> PageDataType:
-        result: PageDataType = []
-        current_list: PageDataType = []
-        non_null_iter = iter(non_null_values)
-
-        # Track if we already added a complete list at this repetition level
-        list_already_added = False
-
-        for i, (def_level, rep_level) in enumerate(
-            zip(definition_levels, repetition_levels, strict=False),
+            strict=False,
         ):
-            # If repetition level is 0, we're starting a new list (or record)
-            if rep_level == 0 and i > 0 and not list_already_added:
-                result.append(current_list)
-                current_list = []
+            # Determine if this entry has a non-null value
+            if self.schema_element.definition_level == 0:
+                is_non_null = def_level > 0
+            else:
+                is_non_null = def_level >= self.schema_element.definition_level
 
-            # Reset the flag for this iteration
-            list_already_added = False
-
-            # Determine list semantics and max definition level
-            from por_que.enums import ListSemantics
-
-            list_semantics = (
-                schema_element.list_semantics
-                if hasattr(schema_element, 'list_semantics')
-                else None
-            )
-            max_def = schema_element.definition_level
-
-            # Match on (list_semantics, def_level, max_def) to determine action
-            match (list_semantics, def_level, max_def):
-                # ============ MODERN LIST ============
-                # Standard is max_def=3, but can be max_def=1 for REQUIRED elements
-
-                case (ListSemantics.MODERN_LIST, 0, m) if m > 1:
-                    # NULL list (only when max_def > 1)
-                    if rep_level == 0:
-                        result.append(None)
-                        current_list = []
-                        list_already_added = True
-
-                case (ListSemantics.MODERN_LIST, 1, m) if m > 2:
-                    # EMPTY list (only for max_def=3)
-                    pass
-
-                case (ListSemantics.MODERN_LIST, 2, m) if m >= 3:
-                    # NULL item within list (only for max_def=3)
-                    current_list.append(None)
-
-                case (ListSemantics.MODERN_LIST, d, m) if d >= m:
-                    # VALUE at max definition level
-                    try:
-                        value = next(non_null_iter)
-                        current_list.append(value)
-                    except StopIteration:
-                        raise ParquetDataError(
-                            'Fewer non-null values than definition levels specify.',
-                        ) from None
-
-                # ============ LEGACY REPEATED ============
-                case (ListSemantics.LEGACY_REPEATED, 0, m) if m > 1:
-                    # NULL parent (only when max_def > 1)
-                    if rep_level == 0:
-                        result.append(None)
-                        current_list = []
-                        list_already_added = True
-
-                case (ListSemantics.LEGACY_REPEATED, d, m) if d >= m:
-                    # VALUE at max definition level
-                    try:
-                        value = next(non_null_iter)
-                        current_list.append(value)
-                    except StopIteration:
-                        raise ParquetDataError(
-                            'Fewer non-null values than definition levels specify.',
-                        ) from None
-
-                case (ListSemantics.LEGACY_REPEATED, d, m) if d == m - 1 and m > 2:
-                    # NULL item (one below max, when max_def > 2)
-                    # For max_def=3: def=2 means null item
-                    # For max_def=2: def=1 means EMPTY, not null item
-                    current_list.append(None)
-
-                case (ListSemantics.LEGACY_REPEATED, _, _):
-                    # All other cases: EMPTY array
-                    # Don't append anything
-                    pass
-
-                # ============ SIMPLE REPEATED (always max_def=1) ============
-                case (None, d, m) if d >= m:
-                    # VALUE at max definition level
-                    try:
-                        value = next(non_null_iter)
-                        current_list.append(value)
-                    except StopIteration:
-                        raise ParquetDataError(
-                            'Fewer non-null values than definition levels specify.',
-                        ) from None
-
-                case (None, _, _):
-                    # All other cases: EMPTY array
-                    # Don't append anything
-                    pass
-
-        # Add the final list if we have one pending
-        if current_list or (
-            definition_levels and definition_levels[-1] > 0 and not list_already_added
-        ):
-            result.append(current_list)
-        elif not result and definition_levels and definition_levels[-1] == 0:
-            # Handle edge case where there are no values at all
-            result.append(None)
-
-        return result
-
-    def _reconstruct_max_rep_many(  # noqa: C901
-        self,
-        non_null_values: list,
-        definition_levels: list[int],
-        repetition_levels: list[int],
-        schema_element: SchemaLeaf,
-    ) -> PageDataType:
-        max_rep_level = schema_element.repetition_level
-        result: PageDataType = []
-        # For nested lists (max_rep_level > 1), we need to handle multiple levels
-        # This handles cases like the old_list_structure with 3-level nesting
-        stack: list[list] = []  # Stack of lists at each level
-        non_null_iter = iter(non_null_values)
-        new_list: PageDataType
-
-        for i, (def_level, rep_level) in enumerate(
-            zip(definition_levels, repetition_levels, strict=False),
-        ):
-            # Determine how many levels to pop based on repetition level
-            # rep_level tells us at which level to continue
-            if i == 0 or rep_level == 0:
-                # Starting a new record
-                # Clear the stack and start fresh
-                if stack and len(stack) > 0:
-                    # Save the previous record - collapse from innermost out
-                    while len(stack) > 1:
-                        stack.pop()
-                    if stack:
-                        result.append(stack[0])
-                stack = []
-                # Initialize stack for new record with empty lists at each level
-                for level in range(max_rep_level):
-                    new_list = []
-                    stack.append(new_list)
-                    # Link the lists together
-                    if level > 0:
-                        stack[level - 1].append(new_list)
-            elif rep_level < max_rep_level:
-                # Pop back to the repetition level and start a new list there
-                # First, we need to unlink and save the current inner lists
-                while len(stack) > rep_level:
-                    stack.pop()
-
-                # Create new lists from rep_level to max_rep_level
-                for level in range(rep_level, max_rep_level):
-                    new_list = []
-                    stack.append(new_list)
-                    # Link to parent
-                    if level > 0:
-                        stack[level - 1].append(new_list)
-
-            # Add the value at the deepest level if non-null
-            if def_level >= schema_element.definition_level:
+            if is_non_null:
                 try:
                     value = next(non_null_iter)
-                    if stack:
-                        stack[-1].append(value)
+                    yield (convert_value(value), def_level, rep_level)
                 except StopIteration:
                     raise ParquetDataError(
                         'Fewer non-null values than specified by definition levels.',
                     ) from None
-            elif def_level > 0 and stack:
-                # Null value within the list
-                stack[-1].append(None)
-
-        # Finish the last record - just take the root list
-        if stack:
-            result.append(stack[0])
-
-        return result if result else [None]
+            else:
+                yield (None, def_level, rep_level)
 
     def _read_values(
         self,
-        stream: BytesIO,
-        encoding: Encoding,
-        physical_type: Type,
+        stream: ReadableSeekable,
         num_non_null: int,
-        dictionary_values: DictType | None,
-        schema_element: SchemaLeaf,
-        num_values: int,
-    ) -> list:
+    ) -> list[bool] | list[int] | list[float] | list[bytes]:
         """Selects the correct value decoder based on the encoding."""
         if num_non_null == 0:
             return []
 
-        match encoding:
+        match self.data_page.encoding:
             case Encoding.PLAIN:
                 return self._read_plain_values(
                     stream,
-                    physical_type,
                     num_non_null,
-                    schema_element,
                 )
             case Encoding.PLAIN_DICTIONARY | Encoding.RLE_DICTIONARY:
                 return self._read_dictionary_values(
                     stream,
                     num_non_null,
-                    dictionary_values,
                 )
             case Encoding.RLE:
                 return self._read_rle_values(
                     stream,
-                    physical_type,
                     num_non_null,
                 )
             case Encoding.DELTA_BINARY_PACKED:
                 return self._read_delta_binary_packed_values(
                     stream,
                     num_non_null,
-                    physical_type,
+                    self.physical_type,
                 )
             case Encoding.DELTA_BYTE_ARRAY:
                 return self._read_delta_byte_array_values(
@@ -617,21 +235,20 @@ class DataPageParser:
                 return self._read_delta_length_byte_array_values(
                     stream,
                     num_non_null,
-                    num_values,
                 )
             case Encoding.BYTE_STREAM_SPLIT:
                 return self._read_byte_stream_split_values(
                     stream,
-                    physical_type,
                     num_non_null,
-                    schema_element,
                 )
             case _:
-                raise ParquetDataError(f'Encoding {encoding} not supported.')
+                raise ParquetDataError(
+                    f'Encoding {self.data_page.encoding} not supported.',
+                )
 
     def _decode_rle_with_length_prefix(
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         bit_width: int,
         num_values: int,
     ) -> list[int]:
@@ -644,7 +261,7 @@ class DataPageParser:
 
     def _decode_rle_levels(
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         bit_width: int,
         num_expected: int,
     ) -> list[int]:
@@ -680,7 +297,7 @@ class DataPageParser:
 
         return values
 
-    def _read_varint(self, stream: BytesIO) -> int | None:
+    def _read_varint(self, stream: ReadableSeekable) -> int | None:
         result, shift = 0, 0
         while True:
             byte_data = stream.read(1)
@@ -692,7 +309,7 @@ class DataPageParser:
                 return result
             shift += 7
 
-    def _read_zigzag_varint(self, stream: BytesIO) -> int | None:
+    def _read_zigzag_varint(self, stream: ReadableSeekable) -> int | None:
         value = self._read_varint(stream)
         if value is None:
             return None
@@ -721,7 +338,7 @@ class DataPageParser:
 
     def _read_bit_packed_integers(
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         count: int,
         bit_width: int,
     ) -> list[int]:
@@ -767,12 +384,10 @@ class DataPageParser:
 
     def _read_plain_values(
         self,
-        stream: BytesIO,
-        physical_type: Type,
+        stream: ReadableSeekable,
         num_values: int,
-        schema_element: SchemaLeaf,
-    ) -> list:
-        match physical_type:
+    ) -> list[bool] | list[int] | list[float] | list[bytes]:
+        match self.physical_type:
             case Type.BOOLEAN:
                 return physical_types.parse_boolean_values(stream, num_values)
             case Type.INT32:
@@ -789,9 +404,9 @@ class DataPageParser:
                 return physical_types.parse_byte_array_values(stream, num_values)
             case Type.FIXED_LEN_BYTE_ARRAY:
                 if (
-                    not schema_element
-                    or not hasattr(schema_element, 'type_length')
-                    or schema_element.type_length is None
+                    not self.schema_element
+                    or not hasattr(self.schema_element, 'type_length')
+                    or self.schema_element.type_length is None
                 ):
                     raise ParquetDataError(
                         'FIXED_LEN_BYTE_ARRAY requires type_length from schema element',
@@ -799,18 +414,19 @@ class DataPageParser:
                 return physical_types.parse_fixed_len_byte_array_values(
                     stream,
                     num_values,
-                    schema_element.type_length,
+                    self.schema_element.type_length,
                 )
             case _:
-                raise ParquetDataError(f'Unsupported physical type: {physical_type}')
+                raise ParquetDataError(
+                    f'Unsupported physical type: {self.physical_type}',
+                )
 
     def _read_dictionary_values(
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         num_values: int,
-        dictionary_values: DictType[T] | None,
-    ) -> list[T]:
-        if dictionary_values is None:
+    ) -> DictType:
+        if self.dictionary_values is None:
             raise ParquetDataError('Dictionary values required')
         bit_width_bytes = stream.read(1)
         if not bit_width_bytes:
@@ -822,28 +438,27 @@ class DataPageParser:
             num_values,
         )
         # Validate indices are within bounds
-        dict_size = len(dictionary_values)
+        dict_size = len(self.dictionary_values)
         for idx in indices:
             if idx >= dict_size:
                 raise ParquetDataError(
                     f'Dictionary index {idx} out of bounds '
                     f'(dictionary size: {dict_size})',
                 )
-        return [dictionary_values[i] for i in indices]
+        return [self.dictionary_values[i] for i in indices]
 
     def _read_rle_values(
         self,
-        stream: BytesIO,
-        physical_type: Type,
+        stream: ReadableSeekable,
         num_values: int,
-    ) -> list:
+    ) -> list[bool] | list[int]:
         """Read RLE-encoded values.
 
         RLE encoding is primarily used for boolean values in Parquet.
         For boolean values, each bit represents a boolean value, with runs
         of repeated values encoded efficiently.
         """
-        if physical_type == Type.BOOLEAN:
+        if self.physical_type == Type.BOOLEAN:
             # For boolean RLE, we use bit width of 1
             bit_width = 1
             # RLE data for booleans uses 4-byte length prefix
@@ -866,19 +481,20 @@ class DataPageParser:
         rle_values = self._decode_rle_levels(stream, bit_width, num_values)
 
         # Convert to appropriate type based on physical type
-        match physical_type:
+        match self.physical_type:
             case Type.INT32:
                 return rle_values
             case Type.INT64:
                 return rle_values
             case _:
                 raise ParquetDataError(
-                    f'RLE encoding not supported for physical type: {physical_type}',
+                    'RLE encoding not supported for physical type: '
+                    f'{self.physical_type}',
                 )
 
     def _read_delta_binary_packed_values(  # noqa: C901
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         num_values: int,
         physical_type: Type,
     ) -> list[int]:
@@ -973,7 +589,7 @@ class DataPageParser:
 
     def _read_delta_byte_array_values(
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         num_non_null_values: int,
     ) -> list[bytes]:
         # DELTA_BYTE_ARRAY format (from parquet-format spec):
@@ -1038,9 +654,8 @@ class DataPageParser:
 
     def _read_delta_length_byte_array_values(
         self,
-        stream: BytesIO,
+        stream: ReadableSeekable,
         num_non_null_values: int,
-        num_values: int,
     ) -> list[bytes]:
         # DELTA_LENGTH_BYTE_ARRAY format (from parquet-format spec):
         # 1. DELTA_BINARY_PACKED lengths (for ALL values, including nulls)
@@ -1050,7 +665,7 @@ class DataPageParser:
         # This is different from other encodings where we only read non-null counts
         lengths = self._read_delta_binary_packed_values(
             stream,
-            num_values,
+            self.data_page.num_values,
             Type.INT32,  # Lengths are 32-bit integers
         )
 
@@ -1076,11 +691,9 @@ class DataPageParser:
 
     def _read_byte_stream_split_values(  # noqa: C901
         self,
-        stream: BytesIO,
-        physical_type: Type,
+        stream: ReadableSeekable,
         num_values: int,
-        schema_element: SchemaLeaf,
-    ) -> list:
+    ) -> list[bool] | list[int] | list[float] | list[bytes]:
         """Read Byte Stream Split encoded values.
 
         Byte Stream Split encoding is designed for floating point values.
@@ -1094,7 +707,7 @@ class DataPageParser:
         - All byte 3s are grouped together
         """
         values: list = []
-        match physical_type:
+        match self.physical_type:
             case Type.FLOAT:
                 bytes_per_value = 4
                 total_bytes = bytes_per_value * num_values
@@ -1186,15 +799,15 @@ class DataPageParser:
             case Type.FIXED_LEN_BYTE_ARRAY:
                 # Get type_length from schema_element
                 if (
-                    not schema_element
-                    or not hasattr(schema_element, 'type_length')
-                    or schema_element.type_length is None
+                    not self.schema_element
+                    or not hasattr(self.schema_element, 'type_length')
+                    or self.schema_element.type_length is None
                 ):
                     raise ParquetDataError(
                         'FIXED_LEN_BYTE_ARRAY requires type_length from schema element',
                     )
 
-                bytes_per_value = schema_element.type_length
+                bytes_per_value = self.schema_element.type_length
                 total_bytes = bytes_per_value * num_values
 
                 # Read all the data
@@ -1216,7 +829,113 @@ class DataPageParser:
             case _:
                 raise ParquetDataError(
                     'Byte Stream Split encoding not supported '
-                    f'for physical type: {physical_type}',
+                    f'for physical type: {self.physical_type}',
                 )
 
         return values
+
+
+class DataPageV1Parser(BaseDataPageParser):
+    async def _parse(self) -> _ParseOutput:
+        repetition_levels: list[int] = []
+        definition_levels: list[int] = []
+
+        # DataPageV1: Everything is compressed together
+        compressed_data = await self.reader.read(self.data_page.compressed_page_size)
+        decompressed_data = compressors.decompress_data(
+            compressed_data,
+            self.compression_codec,
+            self.data_page.uncompressed_page_size,
+        )
+
+        # Sanity check: decompressed data must match expected uncompressed size
+        if len(decompressed_data) != self.data_page.uncompressed_page_size:
+            raise ParquetDataError(
+                f"Decompressed data size ({len(decompressed_data)}) doesn't match "
+                f'expected uncompressed size ({self.data_page.uncompressed_page_size})',
+            )
+
+        stream = BytesIO(decompressed_data)
+
+        # Read repetition levels if the schema indicates they exist
+        if self.schema_element.repetition_level > 0:
+            bit_width = (self.schema_element.repetition_level).bit_length()
+            repetition_levels = self._decode_rle_with_length_prefix(
+                stream,
+                bit_width,
+                self.data_page.num_values,
+            )
+
+        # Read definition levels if the schema indicates they exist
+        # This handles REQUIRED fields inside OPTIONAL/REPEATED parents
+        if self.schema_element.definition_level > 0:
+            bit_width = (self.schema_element.definition_level).bit_length()
+            definition_levels = self._decode_rle_with_length_prefix(
+                stream,
+                bit_width,
+                self.data_page.num_values,
+            )
+
+        return _ParseOutput(
+            stream,
+            definition_levels,
+            repetition_levels,
+        )
+
+
+class DataPageV2Parser(BaseDataPageParser):
+    async def _parse(self) -> _ParseOutput:
+        repetition_levels: list[int] = []
+        definition_levels: list[int] = []
+
+        # DataPageV2: Levels are uncompressed, only values are compressed
+        # Read all data (levels + compressed values)
+        all_data = await self.reader.read(self.data_page.compressed_page_size)
+        stream = BytesIO(all_data)
+
+        rep_level_bytes = b''
+        if self.data_page.repetition_levels_byte_length > 0:
+            rep_level_bytes = stream.read(
+                self.data_page.repetition_levels_byte_length,
+            )
+            bit_width = (self.schema_element.repetition_level).bit_length()
+            repetition_levels = self._decode_rle_levels(
+                BytesIO(rep_level_bytes),
+                bit_width,
+                self.data_page.num_values,
+            )
+
+        def_level_bytes = b''
+        if self.data_page.definition_levels_byte_length > 0:
+            def_level_bytes = stream.read(
+                self.data_page.definition_levels_byte_length,
+            )
+            bit_width = (self.schema_element.definition_level).bit_length()
+            definition_levels = self._decode_rle_levels(
+                BytesIO(def_level_bytes),
+                bit_width,
+                self.data_page.num_values,
+            )
+
+        # Now decompress the remaining values data
+        compressed_values = stream.read()
+        # DataPageV2 has is_compressed as the authoritative source
+        # as to whether the page is compressed, except it is optional
+        # so we simply fall back to the length check in decompress_data
+        values_stream = BytesIO(
+            compressors.decompress_data(
+                compressed_values,
+                self.compression_codec,
+                (
+                    self.data_page.uncompressed_page_size
+                    - len(rep_level_bytes)
+                    - len(def_level_bytes)
+                ),
+            ),
+        )
+
+        return _ParseOutput(
+            values_stream,
+            definition_levels,
+            repetition_levels,
+        )

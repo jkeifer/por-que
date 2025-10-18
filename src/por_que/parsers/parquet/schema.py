@@ -186,44 +186,39 @@ class SchemaParser(BaseParser):
         current_rep_level: int,
         current_list_context: ListSemantics | None,
     ) -> SchemaGroup | SchemaRoot:
-        logger.debug(
-            'Building schema tree for %s with %d children',
-            element.name,
-            element.num_children,
-        )
-
-        # Calculate levels for children based on this group's repetition
-        child_def_level = current_def_level
-        child_rep_level = current_rep_level
-
-        # Determine the list context for children
-        child_list_context = current_list_context
-
         if isinstance(element, SchemaGroup):
             # update current schema path
             current_path += '.' + element.name if current_path else element.name
 
-            # Definition level increases for non-REQUIRED fields
-            if element.repetition != Repetition.REQUIRED:
-                child_def_level += 1
-            # Repetition level increases for REPEATED fields
-            if element.repetition == Repetition.REPEATED:
-                child_rep_level += 1
+        logger.debug(
+            'Building schema tree for %s with %d children',
+            element.name,
+            current_path,
+            element.num_children,
+        )
 
-            # Update list context based on this group's logical type
-            logical_type_info = element.get_logical_type()
-            if logical_type_info and logical_type_info.logical_type == LogicalType.LIST:
-                # This group establishes LIST semantics for descendants
-                child_list_context = ListSemantics.MODERN_LIST
-            elif (
-                child_list_context is None and element.repetition == Repetition.REPEATED
-            ):
-                # This is a legacy repeated group with no established list context
-                child_list_context = ListSemantics.LEGACY_REPEATED
+        # Calculate levels based on this group's repetition
+        # Definition level increases for non-REQUIRED fields
+        if element.repetition != Repetition.REQUIRED:
+            current_def_level += 1
+        # Repetition level increases for REPEATED fields
+        if element.repetition == Repetition.REPEATED:
+            current_rep_level += 1
+
+        # Update list context based on this group's logical type
+        logical_type_info = element.get_logical_type()
+        if logical_type_info and logical_type_info.logical_type == LogicalType.LIST:
+            # This group establishes LIST semantics for descendants
+            current_list_context = ListSemantics.MODERN_LIST
+        elif current_list_context is None and element.repetition == Repetition.REPEATED:
+            # This is a legacy repeated group with no established list context
+            current_list_context = ListSemantics.LEGACY_REPEATED
 
         element = element.model_copy(
             update={
                 'full_path': current_path,
+                'definition_level': current_def_level,
+                'repetition_level': current_rep_level,
             },
         )
 
@@ -231,9 +226,9 @@ class SchemaParser(BaseParser):
             child = self.read_schema_tree(
                 elements_iter,
                 current_path,
-                child_def_level,
-                child_rep_level,
-                child_list_context,
+                current_def_level,
+                current_rep_level,
+                current_list_context,
             )
 
             if isinstance(child, SchemaRoot):

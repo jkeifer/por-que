@@ -134,6 +134,8 @@
         "full_path": "",
         "start_offset": 225,
         "byte_length": 16,
+        "definition_level": 0,
+        "repetition_level": 0,
         "num_children": 1,
         "children": {
           "my_map": {
@@ -142,6 +144,8 @@
             "full_path": "my_map",
             "start_offset": 241,
             "byte_length": 19,
+            "definition_level": 1,
+            "repetition_level": 0,
             "num_children": 1,
             "children": {
               "key_value": {
@@ -150,6 +154,8 @@
                 "full_path": "my_map.key_value",
                 "start_offset": 260,
                 "byte_length": 18,
+                "definition_level": 2,
+                "repetition_level": 1,
                 "num_children": 2,
                 "children": {
                   "key": {
@@ -158,6 +164,8 @@
                     "full_path": "my_map.key_value.key",
                     "start_offset": 278,
                     "byte_length": 16,
+                    "definition_level": 3,
+                    "repetition_level": 1,
                     "type": 6,
                     "repetition": 1,
                     "converted_type": 0,
@@ -168,8 +176,6 @@
                     "logical_type": {
                       "logical_type": 1
                     },
-                    "definition_level": 3,
-                    "repetition_level": 1,
                     "list_semantics": "legacy_repeated"
                   },
                   "value": {
@@ -178,6 +184,8 @@
                     "full_path": "my_map.key_value.value",
                     "start_offset": 294,
                     "byte_length": 18,
+                    "definition_level": 3,
+                    "repetition_level": 1,
                     "type": 6,
                     "repetition": 1,
                     "converted_type": 0,
@@ -188,8 +196,6 @@
                     "logical_type": {
                       "logical_type": 1
                     },
-                    "definition_level": 3,
-                    "repetition_level": 1,
                     "list_semantics": "legacy_repeated"
                   }
                 },
@@ -206,7 +212,8 @@
               "logical_type": 2
             }
           }
-        }
+        },
+        "repetition": 0
       },
       "row_groups": [
         {

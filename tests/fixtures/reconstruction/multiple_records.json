@@ -1,0 +1,65 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 2,
+    "repetition": 0,
+    "children": {
+      "id": {
+        "element_type": "column",
+        "name": "id",
+        "full_path": "id",
+        "start_offset": 0,
+        "byte_length": 0,
+        "type": 1,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "list_semantics": null
+      },
+      "value": {
+        "element_type": "column",
+        "name": "value",
+        "full_path": "value",
+        "start_offset": 0,
+        "byte_length": 0,
+        "type": 6,
+        "repetition": 1,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "list_semantics": null
+      }
+    }
+  },
+  "data_tuples": {
+    "id": [
+      [1, 0, 0],
+      [2, 0, 0],
+      [3, 0, 0]
+    ],
+    "value": [
+      ["first", 1, 0],
+      ["second", 1, 0],
+      ["third", 1, 0]
+    ]
+  },
+  "expected": {
+    "id": [1, 2, 3],
+    "value": ["first", "second", "third"]
+  }
+}

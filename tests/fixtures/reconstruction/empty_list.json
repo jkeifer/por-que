@@ -1,0 +1,71 @@
+{
+  "schema_root": {
+    "element_type": "root",
+    "name": "schema",
+    "full_path": "schema",
+    "start_offset": 0,
+    "byte_length": 0,
+    "num_children": 1,
+    "repetition": 0,
+    "children": {
+      "nums": {
+        "element_type": "group",
+        "name": "nums",
+        "full_path": "nums",
+        "start_offset": 0,
+        "byte_length": 0,
+        "num_children": 1,
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "nums.list",
+            "start_offset": 0,
+            "byte_length": 0,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null,
+            "children": {
+              "element": {
+                "element_type": "column",
+                "name": "element",
+                "full_path": "nums.list.element",
+                "start_offset": 0,
+                "byte_length": 0,
+                "type": 1,
+                "repetition": 1,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "list_semantics": null
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "data_tuples": {
+    "nums.list.element": [
+      [null, 1, 0]
+    ]
+  },
+  "expected": {
+    "nums": [[]]
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nested_lists.snappy.parquet",
+  "expected": "fixtures/data/nested_lists.snappy_expected.json",
+  "data_tuples": {
+    "a.list.element.list.element.list.element": [
+      [
+        "a",
+        7,
+        0
+      ],
+      [
+        "b",
+        7,
+        3
+      ],
+      [
+        "c",
+        7,
+        2
+      ],
+      [
+        null,
+        4,
+        1
+      ],
+      [
+        "d",
+        7,
+        2
+      ],
+      [
+        "a",
+        7,
+        0
+      ],
+      [
+        "b",
+        7,
+        3
+      ],
+      [
+        "c",
+        7,
+        2
+      ],
+      [
+        "d",
+        7,
+        3
+      ],
+      [
+        null,
+        4,
+        1
+      ],
+      [
+        "e",
+        7,
+        2
+      ],
+      [
+        "a",
+        7,
+        0
+      ],
+      [
+        "b",
+        7,
+        3
+      ],
+      [
+        "c",
+        7,
+        2
+      ],
+      [
+        "d",
+        7,
+        3
+      ],
+      [
+        "e",
+        7,
+        2
+      ],
+      [
+        null,
+        4,
+        1
+      ],
+      [
+        "f",
+        7,
+        2
+      ]
+    ],
+    "b": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "spark_schema",
+    "full_path": "",
+    "start_offset": 168,
+    "byte_length": 17,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 2,
+    "children": {
+      "a": {
+        "element_type": "group",
+        "name": "a",
+        "full_path": "a",
+        "start_offset": 185,
+        "byte_length": 10,
+        "definition_level": 1,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "a.list",
+            "start_offset": 195,
+            "byte_length": 11,
+            "definition_level": 2,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "a.list.element",
+                "start_offset": 206,
+                "byte_length": 16,
+                "definition_level": 3,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "a.list.element.list",
+                    "start_offset": 222,
+                    "byte_length": 11,
+                    "definition_level": 4,
+                    "repetition_level": 2,
+                    "num_children": 1,
+                    "children": {
+                      "element": {
+                        "element_type": "group",
+                        "name": "element",
+                        "full_path": "a.list.element.list.element",
+                        "start_offset": 233,
+                        "byte_length": 16,
+                        "definition_level": 5,
+                        "repetition_level": 2,
+                        "num_children": 1,
+                        "children": {
+                          "list": {
+                            "element_type": "group",
+                            "name": "list",
+                            "full_path": "a.list.element.list.element.list",
+                            "start_offset": 249,
+                            "byte_length": 11,
+                            "definition_level": 6,
+                            "repetition_level": 3,
+                            "num_children": 1,
+                            "children": {
+                              "element": {
+                                "element_type": "column",
+                                "name": "element",
+                                "full_path": "a.list.element.list.element.list.element",
+                                "start_offset": 260,
+                                "byte_length": 16,
+                                "definition_level": 7,
+                                "repetition_level": 3,
+                                "type": 6,
+                                "repetition": 1,
+                                "converted_type": 0,
+                                "type_length": null,
+                                "scale": null,
+                                "precision": null,
+                                "field_id": null,
+                                "logical_type": null,
+                                "list_semantics": "modern_list"
+                              }
+                            },
+                            "repetition": 2,
+                            "converted_type": null,
+                            "field_id": null,
+                            "logical_type": null
+                          }
+                        },
+                        "repetition": 1,
+                        "converted_type": 3,
+                        "field_id": null,
+                        "logical_type": null
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 1,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 1,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "b": {
+        "element_type": "column",
+        "name": "b",
+        "full_path": "b",
+        "start_offset": 276,
+        "byte_length": 8,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "type": 1,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      }
+    },
+    "repetition": 0
+  }
+}

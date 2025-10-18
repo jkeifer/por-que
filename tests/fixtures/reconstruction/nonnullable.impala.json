@@ -1,0 +1,816 @@
+{
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/nonnullable.impala.parquet",
+  "expected": "fixtures/data/nonnullable.impala_expected.json",
+  "data_tuples": {
+    "ID": [
+      [
+        8,
+        0,
+        0
+      ]
+    ],
+    "Int_Array.list.element": [
+      [
+        -1,
+        1,
+        0
+      ]
+    ],
+    "int_array_array.list.element.list.element": [
+      [
+        -1,
+        2,
+        0
+      ],
+      [
+        -2,
+        2,
+        2
+      ],
+      [
+        null,
+        1,
+        1
+      ]
+    ],
+    "Int_Map.map.key": [
+      [
+        "k1",
+        1,
+        0
+      ]
+    ],
+    "Int_Map.map.value": [
+      [
+        -1,
+        1,
+        0
+      ]
+    ],
+    "int_map_array.list.element.map.key": [
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        "k1",
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ]
+    ],
+    "int_map_array.list.element.map.value": [
+      [
+        null,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ],
+      [
+        null,
+        1,
+        1
+      ]
+    ],
+    "nested_Struct.a": [
+      [
+        -1,
+        0,
+        0
+      ]
+    ],
+    "nested_Struct.B.list.element": [
+      [
+        -1,
+        1,
+        0
+      ]
+    ],
+    "nested_Struct.c.D.list.element.list.element.e": [
+      [
+        -1,
+        2,
+        0
+      ]
+    ],
+    "nested_Struct.c.D.list.element.list.element.f": [
+      [
+        "nonnullable",
+        2,
+        0
+      ]
+    ],
+    "nested_Struct.G.map.key": [
+      [
+        null,
+        0,
+        0
+      ]
+    ],
+    "nested_Struct.G.map.value.h.i.list.element": [
+      [
+        null,
+        0,
+        0
+      ]
+    ]
+  },
+  "schema_root": {
+    "element_type": "root",
+    "name": "org.apache.impala.ComplexTypesTbl",
+    "full_path": "",
+    "start_offset": 639,
+    "byte_length": 38,
+    "definition_level": 0,
+    "repetition_level": 0,
+    "num_children": 6,
+    "children": {
+      "ID": {
+        "element_type": "column",
+        "name": "ID",
+        "full_path": "ID",
+        "start_offset": 677,
+        "byte_length": 9,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "type": 2,
+        "repetition": 0,
+        "converted_type": null,
+        "type_length": null,
+        "scale": null,
+        "precision": null,
+        "field_id": null,
+        "logical_type": null,
+        "list_semantics": null
+      },
+      "Int_Array": {
+        "element_type": "group",
+        "name": "Int_Array",
+        "full_path": "Int_Array",
+        "start_offset": 686,
+        "byte_length": 18,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "Int_Array.list",
+            "start_offset": 704,
+            "byte_length": 11,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "column",
+                "name": "element",
+                "full_path": "Int_Array.list.element",
+                "start_offset": 715,
+                "byte_length": 14,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "modern_list"
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "int_array_array": {
+        "element_type": "group",
+        "name": "int_array_array",
+        "full_path": "int_array_array",
+        "start_offset": 729,
+        "byte_length": 24,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "int_array_array.list",
+            "start_offset": 753,
+            "byte_length": 11,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "int_array_array.list.element",
+                "start_offset": 764,
+                "byte_length": 16,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "int_array_array.list.element.list",
+                    "start_offset": 780,
+                    "byte_length": 11,
+                    "definition_level": 2,
+                    "repetition_level": 2,
+                    "num_children": 1,
+                    "children": {
+                      "element": {
+                        "element_type": "column",
+                        "name": "element",
+                        "full_path": "int_array_array.list.element.list.element",
+                        "start_offset": 791,
+                        "byte_length": 14,
+                        "definition_level": 2,
+                        "repetition_level": 2,
+                        "type": 1,
+                        "repetition": 0,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "modern_list"
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 0,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "Int_Map": {
+        "element_type": "group",
+        "name": "Int_Map",
+        "full_path": "Int_Map",
+        "start_offset": 805,
+        "byte_length": 16,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "map": {
+            "element_type": "group",
+            "name": "map",
+            "full_path": "Int_Map.map",
+            "start_offset": 821,
+            "byte_length": 12,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 2,
+            "children": {
+              "key": {
+                "element_type": "column",
+                "name": "key",
+                "full_path": "Int_Map.map.key",
+                "start_offset": 833,
+                "byte_length": 12,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "type": 6,
+                "repetition": 0,
+                "converted_type": 0,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              },
+              "value": {
+                "element_type": "column",
+                "name": "value",
+                "full_path": "Int_Map.map.value",
+                "start_offset": 845,
+                "byte_length": 12,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "type": 1,
+                "repetition": 0,
+                "converted_type": null,
+                "type_length": null,
+                "scale": null,
+                "precision": null,
+                "field_id": null,
+                "logical_type": null,
+                "list_semantics": "legacy_repeated"
+              }
+            },
+            "repetition": 2,
+            "converted_type": 2,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 1,
+        "field_id": null,
+        "logical_type": null
+      },
+      "int_map_array": {
+        "element_type": "group",
+        "name": "int_map_array",
+        "full_path": "int_map_array",
+        "start_offset": 857,
+        "byte_length": 22,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 1,
+        "children": {
+          "list": {
+            "element_type": "group",
+            "name": "list",
+            "full_path": "int_map_array.list",
+            "start_offset": 879,
+            "byte_length": 11,
+            "definition_level": 1,
+            "repetition_level": 1,
+            "num_children": 1,
+            "children": {
+              "element": {
+                "element_type": "group",
+                "name": "element",
+                "full_path": "int_map_array.list.element",
+                "start_offset": 890,
+                "byte_length": 16,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "map": {
+                    "element_type": "group",
+                    "name": "map",
+                    "full_path": "int_map_array.list.element.map",
+                    "start_offset": 906,
+                    "byte_length": 12,
+                    "definition_level": 2,
+                    "repetition_level": 2,
+                    "num_children": 2,
+                    "children": {
+                      "key": {
+                        "element_type": "column",
+                        "name": "key",
+                        "full_path": "int_map_array.list.element.map.key",
+                        "start_offset": 918,
+                        "byte_length": 12,
+                        "definition_level": 2,
+                        "repetition_level": 2,
+                        "type": 6,
+                        "repetition": 0,
+                        "converted_type": 0,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "modern_list"
+                      },
+                      "value": {
+                        "element_type": "column",
+                        "name": "value",
+                        "full_path": "int_map_array.list.element.map.value",
+                        "start_offset": 930,
+                        "byte_length": 12,
+                        "definition_level": 2,
+                        "repetition_level": 2,
+                        "type": 1,
+                        "repetition": 0,
+                        "converted_type": null,
+                        "type_length": null,
+                        "scale": null,
+                        "precision": null,
+                        "field_id": null,
+                        "logical_type": null,
+                        "list_semantics": "modern_list"
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": 2,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 0,
+                "converted_type": 1,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 2,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": 3,
+        "field_id": null,
+        "logical_type": null
+      },
+      "nested_Struct": {
+        "element_type": "group",
+        "name": "nested_Struct",
+        "full_path": "nested_Struct",
+        "start_offset": 942,
+        "byte_length": 20,
+        "definition_level": 0,
+        "repetition_level": 0,
+        "num_children": 4,
+        "children": {
+          "a": {
+            "element_type": "column",
+            "name": "a",
+            "full_path": "nested_Struct.a",
+            "start_offset": 962,
+            "byte_length": 8,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "type": 1,
+            "repetition": 0,
+            "converted_type": null,
+            "type_length": null,
+            "scale": null,
+            "precision": null,
+            "field_id": null,
+            "logical_type": null,
+            "list_semantics": null
+          },
+          "B": {
+            "element_type": "group",
+            "name": "B",
+            "full_path": "nested_Struct.B",
+            "start_offset": 970,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "num_children": 1,
+            "children": {
+              "list": {
+                "element_type": "group",
+                "name": "list",
+                "full_path": "nested_Struct.B.list",
+                "start_offset": 980,
+                "byte_length": 11,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "num_children": 1,
+                "children": {
+                  "element": {
+                    "element_type": "column",
+                    "name": "element",
+                    "full_path": "nested_Struct.B.list.element",
+                    "start_offset": 991,
+                    "byte_length": 14,
+                    "definition_level": 1,
+                    "repetition_level": 1,
+                    "type": 1,
+                    "repetition": 0,
+                    "converted_type": null,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "list_semantics": "modern_list"
+                  }
+                },
+                "repetition": 2,
+                "converted_type": null,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 0,
+            "converted_type": 3,
+            "field_id": null,
+            "logical_type": null
+          },
+          "c": {
+            "element_type": "group",
+            "name": "c",
+            "full_path": "nested_Struct.c",
+            "start_offset": 1005,
+            "byte_length": 8,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "num_children": 1,
+            "children": {
+              "D": {
+                "element_type": "group",
+                "name": "D",
+                "full_path": "nested_Struct.c.D",
+                "start_offset": 1013,
+                "byte_length": 10,
+                "definition_level": 0,
+                "repetition_level": 0,
+                "num_children": 1,
+                "children": {
+                  "list": {
+                    "element_type": "group",
+                    "name": "list",
+                    "full_path": "nested_Struct.c.D.list",
+                    "start_offset": 1023,
+                    "byte_length": 11,
+                    "definition_level": 1,
+                    "repetition_level": 1,
+                    "num_children": 1,
+                    "children": {
+                      "element": {
+                        "element_type": "group",
+                        "name": "element",
+                        "full_path": "nested_Struct.c.D.list.element",
+                        "start_offset": 1034,
+                        "byte_length": 16,
+                        "definition_level": 1,
+                        "repetition_level": 1,
+                        "num_children": 1,
+                        "children": {
+                          "list": {
+                            "element_type": "group",
+                            "name": "list",
+                            "full_path": "nested_Struct.c.D.list.element.list",
+                            "start_offset": 1050,
+                            "byte_length": 11,
+                            "definition_level": 2,
+                            "repetition_level": 2,
+                            "num_children": 1,
+                            "children": {
+                              "element": {
+                                "element_type": "group",
+                                "name": "element",
+                                "full_path": "nested_Struct.c.D.list.element.list.element",
+                                "start_offset": 1061,
+                                "byte_length": 14,
+                                "definition_level": 2,
+                                "repetition_level": 2,
+                                "num_children": 2,
+                                "children": {
+                                  "e": {
+                                    "element_type": "column",
+                                    "name": "e",
+                                    "full_path": "nested_Struct.c.D.list.element.list.element.e",
+                                    "start_offset": 1075,
+                                    "byte_length": 8,
+                                    "definition_level": 2,
+                                    "repetition_level": 2,
+                                    "type": 1,
+                                    "repetition": 0,
+                                    "converted_type": null,
+                                    "type_length": null,
+                                    "scale": null,
+                                    "precision": null,
+                                    "field_id": null,
+                                    "logical_type": null,
+                                    "list_semantics": "modern_list"
+                                  },
+                                  "f": {
+                                    "element_type": "column",
+                                    "name": "f",
+                                    "full_path": "nested_Struct.c.D.list.element.list.element.f",
+                                    "start_offset": 1083,
+                                    "byte_length": 10,
+                                    "definition_level": 2,
+                                    "repetition_level": 2,
+                                    "type": 6,
+                                    "repetition": 0,
+                                    "converted_type": 0,
+                                    "type_length": null,
+                                    "scale": null,
+                                    "precision": null,
+                                    "field_id": null,
+                                    "logical_type": null,
+                                    "list_semantics": "modern_list"
+                                  }
+                                },
+                                "repetition": 0,
+                                "converted_type": null,
+                                "field_id": null,
+                                "logical_type": null
+                              }
+                            },
+                            "repetition": 2,
+                            "converted_type": null,
+                            "field_id": null,
+                            "logical_type": null
+                          }
+                        },
+                        "repetition": 0,
+                        "converted_type": 3,
+                        "field_id": null,
+                        "logical_type": null
+                      }
+                    },
+                    "repetition": 2,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 0,
+                "converted_type": 3,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 0,
+            "converted_type": null,
+            "field_id": null,
+            "logical_type": null
+          },
+          "G": {
+            "element_type": "group",
+            "name": "G",
+            "full_path": "nested_Struct.G",
+            "start_offset": 1093,
+            "byte_length": 10,
+            "definition_level": 0,
+            "repetition_level": 0,
+            "num_children": 1,
+            "children": {
+              "map": {
+                "element_type": "group",
+                "name": "map",
+                "full_path": "nested_Struct.G.map",
+                "start_offset": 1103,
+                "byte_length": 12,
+                "definition_level": 1,
+                "repetition_level": 1,
+                "num_children": 2,
+                "children": {
+                  "key": {
+                    "element_type": "column",
+                    "name": "key",
+                    "full_path": "nested_Struct.G.map.key",
+                    "start_offset": 1115,
+                    "byte_length": 12,
+                    "definition_level": 1,
+                    "repetition_level": 1,
+                    "type": 6,
+                    "repetition": 0,
+                    "converted_type": 0,
+                    "type_length": null,
+                    "scale": null,
+                    "precision": null,
+                    "field_id": null,
+                    "logical_type": null,
+                    "list_semantics": "legacy_repeated"
+                  },
+                  "value": {
+                    "element_type": "group",
+                    "name": "value",
+                    "full_path": "nested_Struct.G.map.value",
+                    "start_offset": 1127,
+                    "byte_length": 12,
+                    "definition_level": 1,
+                    "repetition_level": 1,
+                    "num_children": 1,
+                    "children": {
+                      "h": {
+                        "element_type": "group",
+                        "name": "h",
+                        "full_path": "nested_Struct.G.map.value.h",
+                        "start_offset": 1139,
+                        "byte_length": 8,
+                        "definition_level": 1,
+                        "repetition_level": 1,
+                        "num_children": 1,
+                        "children": {
+                          "i": {
+                            "element_type": "group",
+                            "name": "i",
+                            "full_path": "nested_Struct.G.map.value.h.i",
+                            "start_offset": 1147,
+                            "byte_length": 10,
+                            "definition_level": 1,
+                            "repetition_level": 1,
+                            "num_children": 1,
+                            "children": {
+                              "list": {
+                                "element_type": "group",
+                                "name": "list",
+                                "full_path": "nested_Struct.G.map.value.h.i.list",
+                                "start_offset": 1157,
+                                "byte_length": 11,
+                                "definition_level": 2,
+                                "repetition_level": 2,
+                                "num_children": 1,
+                                "children": {
+                                  "element": {
+                                    "element_type": "column",
+                                    "name": "element",
+                                    "full_path": "nested_Struct.G.map.value.h.i.list.element",
+                                    "start_offset": 1168,
+                                    "byte_length": 14,
+                                    "definition_level": 2,
+                                    "repetition_level": 2,
+                                    "type": 5,
+                                    "repetition": 0,
+                                    "converted_type": null,
+                                    "type_length": null,
+                                    "scale": null,
+                                    "precision": null,
+                                    "field_id": null,
+                                    "logical_type": null,
+                                    "list_semantics": "modern_list"
+                                  }
+                                },
+                                "repetition": 2,
+                                "converted_type": null,
+                                "field_id": null,
+                                "logical_type": null
+                              }
+                            },
+                            "repetition": 0,
+                            "converted_type": 3,
+                            "field_id": null,
+                            "logical_type": null
+                          }
+                        },
+                        "repetition": 0,
+                        "converted_type": null,
+                        "field_id": null,
+                        "logical_type": null
+                      }
+                    },
+                    "repetition": 0,
+                    "converted_type": null,
+                    "field_id": null,
+                    "logical_type": null
+                  }
+                },
+                "repetition": 2,
+                "converted_type": 2,
+                "field_id": null,
+                "logical_type": null
+              }
+            },
+            "repetition": 0,
+            "converted_type": 1,
+            "field_id": null,
+            "logical_type": null
+          }
+        },
+        "repetition": 0,
+        "converted_type": null,
+        "field_id": null,
+        "logical_type": null
+      }
+    },
+    "repetition": 0
+  }
+}
