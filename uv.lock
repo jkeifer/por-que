@@ -357,6 +357,20 @@ wheels = [
 ]
 
 [[package]]
+name = "hctef"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/07/a3/7af0bcfe7504e196fd5481e51b6e264b8f0aca30fc3bd859a2d1f522c6ab/hctef-0.1.0.tar.gz", hash = "sha256:b691f6067c96f69067c4fc11c897a2737a40ff350b1d8e4f9e67ecc7682a872e", size = 77241, upload-time = "2025-10-21T00:11:47.026Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6c/10/d1451fc633148b24ee7b6b793a653851e48f6b6dee8b6774a7a58494c219/hctef-0.1.0-py3-none-any.whl", hash = "sha256:daa4382380800a120149fb6607bd7592549a09eb484198f6b62ac50e0ec12186", size = 15199, upload-time = "2025-10-21T00:11:45.979Z" },
+]
+
+[package.optional-dependencies]
+async = [
+    { name = "aiohttp" },
+]
+
+[[package]]
 name = "identify"
 version = "2.6.13"
 source = { registry = "https://pypi.org/simple" }
@@ -557,8 +571,8 @@ wheels = [
 name = "por-que"
 source = { editable = "." }
 dependencies = [
-    { name = "aiohttp" },
     { name = "brotli" },
+    { name = "hctef", extra = ["async"] },
     { name = "pydantic" },
     { name = "python-snappy" },
     { name = "zstandard" },
@@ -586,8 +600,8 @@ pyarrow = [
 
 [package.metadata]
 requires-dist = [
-    { name = "aiohttp", specifier = ">=3.13.0" },
     { name = "brotli", specifier = ">=1.1.0" },
+    { name = "hctef", extras = ["async"], specifier = ">=0.1.0" },
     { name = "pydantic", specifier = ">=2.11.7" },
     { name = "python-lzo", marker = "extra == 'lzo'", specifier = ">=1.15" },
     { name = "python-snappy", specifier = ">=0.6.1" },

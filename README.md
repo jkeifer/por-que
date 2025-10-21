@@ -46,8 +46,7 @@ pip install 'por-que'
 ### Python API
 
 ```python
-from por_que import ParquetFile
-from por_que.util.async_http_file import AsyncHttpFile
+from por_que import AsyncHttpFile, ParquetFile
 
 # Read from local file
 with open("data.parquet", "rb") as f:
@@ -144,9 +143,6 @@ src/por_que/
 │   │   └── enums.py        # Thrift type definitions
 │   ├── logical_types.py    # Logical type converters
 │   └── physical_types.py   # Physical type parsers
-├── util/                   # Utilities
-│   ├── async_http_file.py  # HTTP range request support
-│   └── ...                 # Other utilities
 ├── physical.py             # Main ParquetFile class
 ├── file_metadata.py        # Metadata data structures
 ├── pages.py                # Page data structures

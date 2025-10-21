@@ -11,8 +11,7 @@ import pytest
 
 from deepdiff import DeepDiff
 
-from por_que import ParquetFile
-from por_que.util.async_http_file import AsyncHttpFile
+from por_que import AsyncHttpFile, ParquetFile
 
 FIXTURES = Path(__file__).parent / 'fixtures'
 METADATA_FIXTURES = FIXTURES / 'metadata'
