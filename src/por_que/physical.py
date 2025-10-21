@@ -385,7 +385,10 @@ class ParquetFile(
 
     source: str
     filesize: int
-    column_chunks: list[PhysicalColumnChunk]
+    column_chunks_: list[PhysicalColumnChunk] | None = Field(
+        None,
+        alias='column_chunks',
+    )
     metadata: PhysicalMetadata
     magic_header: str = PARQUET_MAGIC.decode()
     magic_footer: str = PARQUET_MAGIC.decode()
@@ -394,6 +397,17 @@ class ParquetFile(
         alias='_meta',
         description='Metadata about the por-que serialization format',
     )
+
+    @property
+    def column_chunks(self) -> list[PhysicalColumnChunk]:
+        if self.column_chunks_ is None:
+            raise ValueError(
+                'column_chunks is not initialized: '
+                'class was instantiated with `metadata_only=True`. '
+                'Re-instantiate the class with `metadata_only=False` '
+                'to be able to perform this operation.',
+            )
+        return self.column_chunks_
 
     @model_validator(mode='before')
     @classmethod
@@ -463,6 +477,7 @@ class ParquetFile(
         cls,
         reader: ReadableSeekable | AsyncReadableSeekable,
         source: Path | str,
+        metadata_only: bool = False,
     ) -> Self:
         reader = ensure_async_reader(reader)
 
@@ -473,12 +488,18 @@ class ParquetFile(
             raise ParquetFormatError('Parquet file is too small to be valid')
 
         phy_metadata = await PhysicalMetadata.from_reader(reader)
-        column_chunks = await cls._parse_column_chunks(reader, phy_metadata.metadata)
 
         return cls(
             source=str(source),
             filesize=filesize,
-            column_chunks=column_chunks,
+            column_chunks=(
+                await cls._parse_column_chunks(
+                    reader,
+                    phy_metadata.metadata,
+                )
+                if not metadata_only
+                else None
+            ),
             metadata=phy_metadata,
         )
 
