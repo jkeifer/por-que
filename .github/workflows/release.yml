@@ -21,9 +21,8 @@ jobs:
         run: uv build
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
-        if: startsWith(github.ref, 'refs/tags')
         with:
-          name: dist-{github.ref}
+          name: dist-${{ github.sha }}
           path: dist/
           overwrite: true
           if-no-files-found: error
@@ -41,7 +40,7 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v5
         with:
-          name: dist-{github.ref}
+          name: dist-${{ github.sha }}
           path: dist/
       - name: Upload release
         uses: pypa/gh-action-pypi-publish@release/v1
