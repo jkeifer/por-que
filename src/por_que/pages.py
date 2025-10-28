@@ -7,7 +7,7 @@ from __future__ import annotations
 from collections.abc import Iterator, Sequence
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Discriminator, model_validator
+from pydantic import BaseModel, Discriminator, Field, model_validator
 
 from .enums import Compression, Encoding, PageType, Type
 from .file_metadata import (
@@ -64,10 +64,10 @@ class Page(BaseModel, frozen=True):
         if not isinstance(data, dict):
             return data
 
-        schema_element = data.pop('schema_element', None)
+        schema_element = data.get('schema_element', None)
         stats = data.get('statistics', None)
 
-        if not (stats or isinstance(stats, dict)):
+        if not (stats and isinstance(stats, dict)):
             return data
 
         if not (schema_element or isinstance(schema_element, SchemaLeaf)):
@@ -91,7 +91,7 @@ class DictionaryPage(Page, frozen=True):
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
-        schema_element,
+        schema_element: SchemaLeaf,
     ) -> DictType:
         """Parse the dictionary page content into Python objects.
 
@@ -123,13 +123,13 @@ class DataPageV1(Page, frozen=True):
     definition_level_encoding: Encoding
     repetition_level_encoding: Encoding
     statistics: ColumnStatistics | None = None
+    schema_element: SchemaLeaf = Field(exclude=True)
 
     async def parse_content(
         self,
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
-        schema_element: SchemaLeaf,
         dictionary_values: list[Any] | None = None,
         excluded_logical_columns: Sequence[str] | None = None,
     ) -> Iterator[ValueTuple]:
@@ -150,7 +150,7 @@ class DataPageV1(Page, frozen=True):
             data_page=self,
             physical_type=physical_type,
             compression_codec=compression_codec,
-            schema_element=schema_element,
+            schema_element=self.schema_element,
             dictionary_values=dictionary_values,
         ).parse(
             excluded_logical_columns=excluded_logical_columns,
@@ -169,13 +169,13 @@ class DataPageV2(Page, frozen=True):
     repetition_levels_byte_length: int
     is_compressed: bool = True
     statistics: ColumnStatistics | None = None
+    schema_element: SchemaLeaf = Field(exclude=True)
 
     async def parse_content(
         self,
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
-        schema_element: SchemaLeaf,
         dictionary_values: list[Any] | None = None,
         excluded_logical_columns: Sequence[str] | None = None,
     ) -> Iterator[ValueTuple]:
@@ -196,7 +196,7 @@ class DataPageV2(Page, frozen=True):
             data_page=self,
             physical_type=physical_type,
             compression_codec=compression_codec,
-            schema_element=schema_element,
+            schema_element=self.schema_element,
             dictionary_values=dictionary_values,
         ).parse(
             excluded_logical_columns=excluded_logical_columns,

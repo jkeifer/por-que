@@ -114,9 +114,15 @@ class PageParser(BaseParser):
             case PageType.DICTIONARY_PAGE:
                 page = DictionaryPage(**kwargs)
             case PageType.DATA_PAGE:
-                page = DataPageV1(**kwargs)
+                page = DataPageV1(
+                    schema_element=self.schema_element,
+                    **kwargs,
+                )
             case PageType.DATA_PAGE_V2:
-                page = DataPageV2(**kwargs)
+                page = DataPageV2(
+                    schema_element=self.schema_element,
+                    **kwargs,
+                )
             case PageType.INDEX_PAGE:
                 page = IndexPage(**kwargs)
             case _ as unknown:
