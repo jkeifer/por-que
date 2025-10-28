@@ -15,7 +15,6 @@ from collections.abc import AsyncIterator
 from typing import Any
 
 from por_que.file_metadata import (
-    FileMetadata,
     RowGroups,
     SchemaRoot,
 )
@@ -42,7 +41,7 @@ class MetadataParser(BaseParser):
     - Component-based design makes complex parsing more manageable
     """
 
-    def __init__(self, reader: AsyncReadableSeekable, start_offset: int):
+    def __init__(self, reader: AsyncReadableSeekable, start_offset: int) -> None:
         """
         Initialize metadata parser to read directly from file.
 
@@ -53,7 +52,7 @@ class MetadataParser(BaseParser):
         parser = ThriftCompactParser(reader, start_offset)
         super().__init__(parser)
 
-    async def parse(self) -> FileMetadata:
+    async def parse(self) -> dict[str, Any]:
         """
         Parse the complete FileMetadata structure using the new generic parser.
 
@@ -67,7 +66,8 @@ class MetadataParser(BaseParser):
             Parsing progress can be monitored by enabling debug logging for this module.
 
         Returns:
-            Complete FileMetadata structure with all components parsed
+            Dict with arguments for FileMetadata constructure with all
+            components parsed
         """
         logger.debug('Starting FileMetadata parsing...')
 
@@ -115,7 +115,7 @@ class MetadataParser(BaseParser):
                     await self.maybe_skip_field(field_type)
 
         logger.debug('FileMetadata parsing complete!')
-        return FileMetadata(**props)
+        return props
 
     async def _parse_row_groups_field(
         self,

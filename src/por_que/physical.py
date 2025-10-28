@@ -1,20 +1,18 @@
 from __future__ import annotations
 
 import asyncio
-import inspect
 import json
-import struct
 
 from collections.abc import AsyncIterator, Iterator, Sequence
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
-from typing import Any, Literal, Self, TypeGuard, assert_never
+from typing import Any, Literal, Self, assert_never
 
 from pydantic import BaseModel, Field, model_validator
 
 from ._version import get_version
-from .constants import FOOTER_SIZE, PARQUET_MAGIC
+from .constants import PARQUET_MAGIC
 from .enums import Compression
 from .exceptions import ParquetFormatError
 from .file_metadata import (
@@ -33,32 +31,15 @@ from .pages import (
     Page,
 )
 from .parsers.page_content import DictType, ValueTuple
-from .parsers.parquet.metadata import MetadataParser
 from .protocols import (
     AsyncCursableReadableSeekable,
     AsyncReadableSeekable,
     ReadableSeekable,
 )
 from .structuring import reconstruct as reconstruction
-from .util.async_adapter import AsyncReadableSeekableAdapter
+from .util.async_adapter import ensure_async_reader
 from .util.iteration import AsyncChain
 from .util.models import get_item_or_attr
-
-
-def is_async_reader(
-    reader: ReadableSeekable | AsyncReadableSeekable,
-) -> TypeGuard[AsyncReadableSeekable]:
-    return hasattr(reader, 'read') and inspect.iscoroutinefunction(reader.read)
-
-
-def ensure_async_reader(
-    reader: ReadableSeekable | AsyncReadableSeekable,
-) -> AsyncReadableSeekable:
-    """Convert ReadableSeekable to AsyncReadableSeekable if needed."""
-    if is_async_reader(reader):
-        return reader
-    # erroneous type checking error ignored
-    return AsyncReadableSeekableAdapter(reader)  # type: ignore
 
 
 class AsdictTarget(StrEnum):
@@ -338,43 +319,6 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                 yield value_tuple
 
 
-class PhysicalMetadata(BaseModel, frozen=True):
-    """The physical layout of the file metadata within the file."""
-
-    start_offset: int
-    total_byte_size: int
-    metadata: FileMetadata
-
-    @classmethod
-    async def from_reader(
-        cls,
-        reader: AsyncReadableSeekable,
-    ) -> Self:
-        reader.seek(-FOOTER_SIZE, SEEK_END)
-        footer_start = reader.tell()
-        footer_bytes = await reader.read(FOOTER_SIZE)
-        magic_footer = footer_bytes[4:8]
-
-        if magic_footer != PARQUET_MAGIC:
-            raise ParquetFormatError(
-                'Invalid magic footer: expected '
-                f'{PARQUET_MAGIC!r}, got {magic_footer!r}',
-            )
-
-        metadata_size = struct.unpack('<I', footer_bytes[:4])[0]
-
-        # Parse metadata directly from file
-        metadata_start = footer_start - metadata_size
-        reader.seek(metadata_start)
-        metadata = await MetadataParser(reader, metadata_start).parse()
-
-        return cls(
-            start_offset=metadata_start,
-            total_byte_size=metadata_size,
-            metadata=metadata,
-        )
-
-
 class ParquetFile(
     BaseModel,
     frozen=True,
@@ -385,11 +329,8 @@ class ParquetFile(
 
     source: str
     filesize: int
-    column_chunks_: list[PhysicalColumnChunk] | None = Field(
-        None,
-        alias='column_chunks',
-    )
-    metadata: PhysicalMetadata
+    column_chunks: list[PhysicalColumnChunk]
+    metadata: FileMetadata
     magic_header: str = PARQUET_MAGIC.decode()
     magic_footer: str = PARQUET_MAGIC.decode()
     meta_info: PorQueMeta = Field(
@@ -397,17 +338,6 @@ class ParquetFile(
         alias='_meta',
         description='Metadata about the por-que serialization format',
     )
-
-    @property
-    def column_chunks(self) -> list[PhysicalColumnChunk]:
-        if self.column_chunks_ is None:
-            raise ValueError(
-                'column_chunks is not initialized: '
-                'class was instantiated with `metadata_only=True`. '
-                'Re-instantiate the class with `metadata_only=False` '
-                'to be able to perform this operation.',
-            )
-        return self.column_chunks_
 
     @model_validator(mode='before')
     @classmethod
@@ -417,7 +347,7 @@ class ParquetFile(
             return data
 
         try:
-            physical_metadata = data['metadata']
+            metadata = data['metadata']
             column_chunks = data['column_chunks']
         except KeyError:
             return data
@@ -425,17 +355,8 @@ class ParquetFile(
         if not column_chunks:
             return data
 
-        try:
-            metadata: FileMetadata | dict = get_item_or_attr(
-                physical_metadata,
-                'metadata',
-            )
-        except ValueError:
-            return data
-
         if not isinstance(metadata, FileMetadata):
             metadata = FileMetadata(**metadata)
-            physical_metadata['metadata'] = metadata
 
         # Process each column chunk to add metadata reference
         updated_chunks = []
@@ -477,7 +398,6 @@ class ParquetFile(
         cls,
         reader: ReadableSeekable | AsyncReadableSeekable,
         source: Path | str,
-        metadata_only: bool = False,
     ) -> Self:
         reader = ensure_async_reader(reader)
 
@@ -487,20 +407,16 @@ class ParquetFile(
         if filesize < 12:
             raise ParquetFormatError('Parquet file is too small to be valid')
 
-        phy_metadata = await PhysicalMetadata.from_reader(reader)
+        metadata = await FileMetadata.from_reader(reader)
 
         return cls(
             source=str(source),
             filesize=filesize,
-            column_chunks=(
-                await cls._parse_column_chunks(
-                    reader,
-                    phy_metadata.metadata,
-                )
-                if not metadata_only
-                else None
+            column_chunks=await cls._parse_column_chunks(
+                reader,
+                metadata,
             ),
-            metadata=phy_metadata,
+            metadata=metadata,
         )
 
     @classmethod
@@ -586,6 +502,6 @@ class ParquetFile(
             }
 
         return await reconstruction(
-            self.metadata.metadata.schema_root,
+            self.metadata.schema_root,
             {path: aiter(iterable) for path, iterable in column_iters.items()},
         )

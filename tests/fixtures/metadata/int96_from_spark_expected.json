@@ -54,142 +54,140 @@
     }
   ],
   "metadata": {
+    "version": 1,
+    "schema_root": {
+      "element_type": "root",
+      "name": "spark_schema",
+      "full_path": "",
+      "start_offset": 132,
+      "byte_length": 17,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 1,
+      "children": {
+        "a": {
+          "element_type": "column",
+          "name": "a",
+          "full_path": "a",
+          "start_offset": 149,
+          "byte_length": 8,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 3,
+          "repetition": 1,
+          "converted_type": null,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": null,
+          "list_semantics": null
+        }
+      },
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 161,
+        "byte_length": 72,
+        "column_chunks": {
+          "a": {
+            "file_offset": 81,
+            "metadata": {
+              "start_offset": 167,
+              "byte_length": 47,
+              "type": 3,
+              "encodings": [
+                2,
+                4,
+                3
+              ],
+              "path_in_schema": "a",
+              "codec": 1,
+              "num_values": 6,
+              "total_uncompressed_size": 113,
+              "total_compressed_size": 113,
+              "data_page_offset": 81,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": {
+                "min": null,
+                "max": null,
+                "null_count": 1,
+                "distinct_count": null,
+                "min_value": null,
+                "max_value": null,
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 2,
+                  "count": 1
+                },
+                {
+                  "page_type": 0,
+                  "encoding": 2,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": 117,
+            "offset_index_length": 11,
+            "column_index_offset": null,
+            "column_index_length": null
+          }
+        },
+        "total_byte_size": 113,
+        "row_count": 6,
+        "sorting_columns": null,
+        "file_offset": 4,
+        "total_compressed_size": 113,
+        "ordinal": 0,
+        "compression_stats": {
+          "total_compressed": 113,
+          "total_uncompressed": 113,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 0.00010776519775390625,
+          "uncompressed_mb": 0.00010776519775390625
+        }
+      }
+    ],
+    "created_by": "parquet-mr version 1.13.1 (build db4183109d5b734ec5930d870cdae161e408ddba)",
+    "key_value_metadata": [
+      {
+        "start_offset": 235,
+        "byte_length": 34,
+        "key": "org.apache.spark.version",
+        "value": "3.4.3"
+      },
+      {
+        "start_offset": 269,
+        "byte_length": 136,
+        "key": "org.apache.spark.sql.parquet.row.metadata",
+        "value": "{\"type\":\"struct\",\"fields\":[{\"name\":\"a\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}}]}"
+      }
+    ],
     "start_offset": 128,
     "total_byte_size": 359,
-    "metadata": {
-      "version": 1,
-      "schema_root": {
-        "element_type": "root",
-        "name": "spark_schema",
-        "full_path": "",
-        "start_offset": 132,
-        "byte_length": 17,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 1,
-        "children": {
-          "a": {
-            "element_type": "column",
-            "name": "a",
-            "full_path": "a",
-            "start_offset": 149,
-            "byte_length": 8,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 3,
-            "repetition": 1,
-            "converted_type": null,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": null,
-            "list_semantics": null
-          }
-        },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 161,
-          "byte_length": 72,
-          "column_chunks": {
-            "a": {
-              "file_offset": 81,
-              "metadata": {
-                "start_offset": 167,
-                "byte_length": 47,
-                "type": 3,
-                "encodings": [
-                  2,
-                  4,
-                  3
-                ],
-                "path_in_schema": "a",
-                "codec": 1,
-                "num_values": 6,
-                "total_uncompressed_size": 113,
-                "total_compressed_size": 113,
-                "data_page_offset": 81,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": {
-                  "min": null,
-                  "max": null,
-                  "null_count": 1,
-                  "distinct_count": null,
-                  "min_value": null,
-                  "max_value": null,
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
-                },
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 2,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 2,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": 117,
-              "offset_index_length": 11,
-              "column_index_offset": null,
-              "column_index_length": null
-            }
-          },
-          "total_byte_size": 113,
-          "row_count": 6,
-          "sorting_columns": null,
-          "file_offset": 4,
-          "total_compressed_size": 113,
-          "ordinal": 0,
-          "compression_stats": {
-            "total_compressed": 113,
-            "total_uncompressed": 113,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 0.00010776519775390625,
-            "uncompressed_mb": 0.00010776519775390625
-          }
-        }
-      ],
-      "created_by": "parquet-mr version 1.13.1 (build db4183109d5b734ec5930d870cdae161e408ddba)",
-      "key_value_metadata": [
-        {
-          "start_offset": 235,
-          "byte_length": 34,
-          "key": "org.apache.spark.version",
-          "value": "3.4.3"
-        },
-        {
-          "start_offset": 269,
-          "byte_length": 136,
-          "key": "org.apache.spark.sql.parquet.row.metadata",
-          "value": "{\"type\":\"struct\",\"fields\":[{\"name\":\"a\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}}]}"
-        }
-      ],
-      "compression_stats": {
-        "total_compressed": 113,
-        "total_uncompressed": 113,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 0.00010776519775390625,
-        "uncompressed_mb": 0.00010776519775390625
-      },
-      "column_count": 1,
-      "row_count": 6,
-      "row_group_count": 1
-    }
+    "compression_stats": {
+      "total_compressed": 113,
+      "total_uncompressed": 113,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 0.00010776519775390625,
+      "uncompressed_mb": 0.00010776519775390625
+    },
+    "column_count": 1,
+    "row_count": 6,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

@@ -40,143 +40,141 @@
     }
   ],
   "metadata": {
+    "version": 1,
+    "schema_root": {
+      "element_type": "root",
+      "name": "foo.Event",
+      "full_path": "",
+      "start_offset": 103,
+      "byte_length": 14,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 1,
+      "children": {
+        "foo": {
+          "element_type": "column",
+          "name": "foo",
+          "full_path": "foo",
+          "start_offset": 117,
+          "byte_length": 12,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 6,
+          "repetition": 1,
+          "converted_type": null,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": 1,
+          "logical_type": null,
+          "list_semantics": null
+        }
+      },
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 133,
+        "byte_length": 57,
+        "column_chunks": {
+          "foo": {
+            "file_offset": 4,
+            "metadata": {
+              "start_offset": 138,
+              "byte_length": 45,
+              "type": 6,
+              "encodings": [
+                3,
+                4,
+                0
+              ],
+              "path_in_schema": "foo",
+              "codec": 0,
+              "num_values": 12,
+              "total_uncompressed_size": 95,
+              "total_compressed_size": 95,
+              "data_page_offset": 4,
+              "index_page_offset": null,
+              "dictionary_page_offset": null,
+              "statistics": {
+                "min": null,
+                "max": null,
+                "null_count": 0,
+                "distinct_count": null,
+                "min_value": "AA==",
+                "max_value": "Cw==",
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 0,
+                  "encoding": 0,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
+          }
+        },
+        "total_byte_size": 95,
+        "row_count": 12,
+        "sorting_columns": null,
+        "file_offset": null,
+        "total_compressed_size": null,
+        "ordinal": null,
+        "compression_stats": {
+          "total_compressed": 95,
+          "total_uncompressed": 95,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 9.059906005859375e-05,
+          "uncompressed_mb": 9.059906005859375e-05
+        }
+      }
+    ],
+    "created_by": "parquet-mr version 1.10.0 (build 031a6654009e3b82020012a18434c582bd74c73a)",
+    "key_value_metadata": [
+      {
+        "start_offset": 192,
+        "byte_length": 122,
+        "key": "parquet.proto.descriptor",
+        "value": "name: \"Event\"\nfield {\n  name: \"foo\"\n  number: 1\n  label: LABEL_OPTIONAL\n  type: TYPE_BYTES\n}\n"
+      },
+      {
+        "start_offset": 314,
+        "byte_length": 30,
+        "key": "writer.model.name",
+        "value": "protobuf"
+      },
+      {
+        "start_offset": 344,
+        "byte_length": 44,
+        "key": "parquet.proto.class",
+        "value": "foo.baz.Foobaz$Event"
+      }
+    ],
     "start_offset": 99,
     "total_byte_size": 371,
-    "metadata": {
-      "version": 1,
-      "schema_root": {
-        "element_type": "root",
-        "name": "foo.Event",
-        "full_path": "",
-        "start_offset": 103,
-        "byte_length": 14,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 1,
-        "children": {
-          "foo": {
-            "element_type": "column",
-            "name": "foo",
-            "full_path": "foo",
-            "start_offset": 117,
-            "byte_length": 12,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 6,
-            "repetition": 1,
-            "converted_type": null,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": 1,
-            "logical_type": null,
-            "list_semantics": null
-          }
-        },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 133,
-          "byte_length": 57,
-          "column_chunks": {
-            "foo": {
-              "file_offset": 4,
-              "metadata": {
-                "start_offset": 138,
-                "byte_length": 45,
-                "type": 6,
-                "encodings": [
-                  3,
-                  4,
-                  0
-                ],
-                "path_in_schema": "foo",
-                "codec": 0,
-                "num_values": 12,
-                "total_uncompressed_size": 95,
-                "total_compressed_size": 95,
-                "data_page_offset": 4,
-                "index_page_offset": null,
-                "dictionary_page_offset": null,
-                "statistics": {
-                  "min": null,
-                  "max": null,
-                  "null_count": 0,
-                  "distinct_count": null,
-                  "min_value": "AA==",
-                  "max_value": "Cw==",
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
-                },
-                "encoding_stats": [
-                  {
-                    "page_type": 0,
-                    "encoding": 0,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            }
-          },
-          "total_byte_size": 95,
-          "row_count": 12,
-          "sorting_columns": null,
-          "file_offset": null,
-          "total_compressed_size": null,
-          "ordinal": null,
-          "compression_stats": {
-            "total_compressed": 95,
-            "total_uncompressed": 95,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 9.059906005859375e-05,
-            "uncompressed_mb": 9.059906005859375e-05
-          }
-        }
-      ],
-      "created_by": "parquet-mr version 1.10.0 (build 031a6654009e3b82020012a18434c582bd74c73a)",
-      "key_value_metadata": [
-        {
-          "start_offset": 192,
-          "byte_length": 122,
-          "key": "parquet.proto.descriptor",
-          "value": "name: \"Event\"\nfield {\n  name: \"foo\"\n  number: 1\n  label: LABEL_OPTIONAL\n  type: TYPE_BYTES\n}\n"
-        },
-        {
-          "start_offset": 314,
-          "byte_length": 30,
-          "key": "writer.model.name",
-          "value": "protobuf"
-        },
-        {
-          "start_offset": 344,
-          "byte_length": 44,
-          "key": "parquet.proto.class",
-          "value": "foo.baz.Foobaz$Event"
-        }
-      ],
-      "compression_stats": {
-        "total_compressed": 95,
-        "total_uncompressed": 95,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 9.059906005859375e-05,
-        "uncompressed_mb": 9.059906005859375e-05
-      },
-      "column_count": 1,
-      "row_count": 12,
-      "row_group_count": 1
-    }
+    "compression_stats": {
+      "total_compressed": 95,
+      "total_uncompressed": 95,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 9.059906005859375e-05,
+      "uncompressed_mb": 9.059906005859375e-05
+    },
+    "column_count": 1,
+    "row_count": 12,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

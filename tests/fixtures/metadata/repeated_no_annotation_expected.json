@@ -115,238 +115,236 @@
     }
   ],
   "metadata": {
-    "start_offset": 348,
-    "total_byte_size": 306,
-    "metadata": {
-      "version": 1,
-      "schema_root": {
-        "element_type": "root",
-        "name": "user",
-        "full_path": "",
-        "start_offset": 352,
-        "byte_length": 9,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 2,
-        "children": {
-          "id": {
-            "element_type": "column",
-            "name": "id",
-            "full_path": "id",
-            "start_offset": 361,
-            "byte_length": 9,
-            "definition_level": 0,
-            "repetition_level": 0,
-            "type": 1,
-            "repetition": 0,
-            "converted_type": null,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": null,
-            "list_semantics": null
-          },
-          "phoneNumbers": {
-            "element_type": "group",
-            "name": "phoneNumbers",
-            "full_path": "phoneNumbers",
-            "start_offset": 370,
-            "byte_length": 19,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "num_children": 1,
-            "children": {
-              "phone": {
-                "element_type": "group",
-                "name": "phone",
-                "full_path": "phoneNumbers.phone",
-                "start_offset": 389,
-                "byte_length": 12,
-                "definition_level": 2,
-                "repetition_level": 1,
-                "num_children": 2,
-                "children": {
-                  "number": {
-                    "element_type": "column",
-                    "name": "number",
-                    "full_path": "phoneNumbers.phone.number",
-                    "start_offset": 401,
-                    "byte_length": 13,
-                    "definition_level": 2,
-                    "repetition_level": 1,
-                    "type": 2,
-                    "repetition": 0,
-                    "converted_type": null,
-                    "type_length": null,
-                    "scale": null,
-                    "precision": null,
-                    "field_id": null,
-                    "logical_type": null,
-                    "list_semantics": "legacy_repeated"
-                  },
-                  "kind": {
-                    "element_type": "column",
-                    "name": "kind",
-                    "full_path": "phoneNumbers.phone.kind",
-                    "start_offset": 414,
-                    "byte_length": 13,
-                    "definition_level": 3,
-                    "repetition_level": 1,
-                    "type": 6,
-                    "repetition": 1,
-                    "converted_type": 0,
-                    "type_length": null,
-                    "scale": null,
-                    "precision": null,
-                    "field_id": null,
-                    "logical_type": null,
-                    "list_semantics": "legacy_repeated"
-                  }
-                },
-                "repetition": 2,
-                "converted_type": null,
-                "field_id": null,
-                "logical_type": null
-              }
-            },
-            "repetition": 1,
-            "converted_type": null,
-            "field_id": null,
-            "logical_type": null
-          }
+    "version": 1,
+    "schema_root": {
+      "element_type": "root",
+      "name": "user",
+      "full_path": "",
+      "start_offset": 352,
+      "byte_length": 9,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 2,
+      "children": {
+        "id": {
+          "element_type": "column",
+          "name": "id",
+          "full_path": "id",
+          "start_offset": 361,
+          "byte_length": 9,
+          "definition_level": 0,
+          "repetition_level": 0,
+          "type": 1,
+          "repetition": 0,
+          "converted_type": null,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": null,
+          "list_semantics": null
         },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 431,
-          "byte_length": 147,
-          "column_chunks": {
-            "id": {
-              "file_offset": 64,
-              "metadata": {
-                "start_offset": 437,
-                "byte_length": 24,
-                "type": 1,
-                "encodings": [
-                  0,
-                  8
-                ],
-                "path_in_schema": "id",
-                "codec": 0,
-                "num_values": 6,
-                "total_uncompressed_size": 60,
-                "total_compressed_size": 60,
-                "data_page_offset": 42,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
+        "phoneNumbers": {
+          "element_type": "group",
+          "name": "phoneNumbers",
+          "full_path": "phoneNumbers",
+          "start_offset": 370,
+          "byte_length": 19,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "num_children": 1,
+          "children": {
+            "phone": {
+              "element_type": "group",
+              "name": "phone",
+              "full_path": "phoneNumbers.phone",
+              "start_offset": 389,
+              "byte_length": 12,
+              "definition_level": 2,
+              "repetition_level": 1,
+              "num_children": 2,
+              "children": {
+                "number": {
+                  "element_type": "column",
+                  "name": "number",
+                  "full_path": "phoneNumbers.phone.number",
+                  "start_offset": 401,
+                  "byte_length": 13,
+                  "definition_level": 2,
+                  "repetition_level": 1,
+                  "type": 2,
+                  "repetition": 0,
+                  "converted_type": null,
+                  "type_length": null,
+                  "scale": null,
+                  "precision": null,
+                  "field_id": null,
+                  "logical_type": null,
+                  "list_semantics": "legacy_repeated"
+                },
+                "kind": {
+                  "element_type": "column",
+                  "name": "kind",
+                  "full_path": "phoneNumbers.phone.kind",
+                  "start_offset": 414,
+                  "byte_length": 13,
+                  "definition_level": 3,
+                  "repetition_level": 1,
+                  "type": 6,
+                  "repetition": 1,
+                  "converted_type": 0,
+                  "type_length": null,
+                  "scale": null,
+                  "precision": null,
+                  "field_id": null,
+                  "logical_type": null,
+                  "list_semantics": "legacy_repeated"
+                }
               },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "phoneNumbers.phone.number": {
-              "file_offset": 173,
-              "metadata": {
-                "start_offset": 466,
-                "byte_length": 51,
-                "type": 2,
-                "encodings": [
-                  0,
-                  8
-                ],
-                "path_in_schema": "phoneNumbers.phone.number",
-                "codec": 0,
-                "num_values": 8,
-                "total_uncompressed_size": 80,
-                "total_compressed_size": 80,
-                "data_page_offset": 139,
-                "index_page_offset": null,
-                "dictionary_page_offset": 93,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "phoneNumbers.phone.kind": {
-              "file_offset": 294,
-              "metadata": {
-                "start_offset": 522,
-                "byte_length": 49,
-                "type": 6,
-                "encodings": [
-                  0,
-                  8
-                ],
-                "path_in_schema": "phoneNumbers.phone.kind",
-                "codec": 0,
-                "num_values": 8,
-                "total_uncompressed_size": 65,
-                "total_compressed_size": 65,
-                "data_page_offset": 261,
-                "index_page_offset": null,
-                "dictionary_page_offset": 229,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
+              "repetition": 2,
+              "converted_type": null,
+              "field_id": null,
+              "logical_type": null
             }
           },
-          "total_byte_size": 205,
-          "row_count": 6,
-          "sorting_columns": null,
-          "file_offset": null,
-          "total_compressed_size": null,
-          "ordinal": null,
-          "compression_stats": {
-            "total_compressed": 205,
-            "total_uncompressed": 205,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 0.00019550323486328125,
-            "uncompressed_mb": 0.00019550323486328125
-          }
+          "repetition": 1,
+          "converted_type": null,
+          "field_id": null,
+          "logical_type": null
         }
-      ],
-      "created_by": "parquet-rs version 0.3.0 (build b45ce7cba2199f22d93269c150d8a83916c69b5e)",
-      "key_value_metadata": [],
-      "compression_stats": {
-        "total_compressed": 205,
-        "total_uncompressed": 205,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 0.00019550323486328125,
-        "uncompressed_mb": 0.00019550323486328125
       },
-      "column_count": 3,
-      "row_count": 6,
-      "row_group_count": 1
-    }
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 431,
+        "byte_length": 147,
+        "column_chunks": {
+          "id": {
+            "file_offset": 64,
+            "metadata": {
+              "start_offset": 437,
+              "byte_length": 24,
+              "type": 1,
+              "encodings": [
+                0,
+                8
+              ],
+              "path_in_schema": "id",
+              "codec": 0,
+              "num_values": 6,
+              "total_uncompressed_size": 60,
+              "total_compressed_size": 60,
+              "data_page_offset": 42,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
+          },
+          "phoneNumbers.phone.number": {
+            "file_offset": 173,
+            "metadata": {
+              "start_offset": 466,
+              "byte_length": 51,
+              "type": 2,
+              "encodings": [
+                0,
+                8
+              ],
+              "path_in_schema": "phoneNumbers.phone.number",
+              "codec": 0,
+              "num_values": 8,
+              "total_uncompressed_size": 80,
+              "total_compressed_size": 80,
+              "data_page_offset": 139,
+              "index_page_offset": null,
+              "dictionary_page_offset": 93,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
+          },
+          "phoneNumbers.phone.kind": {
+            "file_offset": 294,
+            "metadata": {
+              "start_offset": 522,
+              "byte_length": 49,
+              "type": 6,
+              "encodings": [
+                0,
+                8
+              ],
+              "path_in_schema": "phoneNumbers.phone.kind",
+              "codec": 0,
+              "num_values": 8,
+              "total_uncompressed_size": 65,
+              "total_compressed_size": 65,
+              "data_page_offset": 261,
+              "index_page_offset": null,
+              "dictionary_page_offset": 229,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
+          }
+        },
+        "total_byte_size": 205,
+        "row_count": 6,
+        "sorting_columns": null,
+        "file_offset": null,
+        "total_compressed_size": null,
+        "ordinal": null,
+        "compression_stats": {
+          "total_compressed": 205,
+          "total_uncompressed": 205,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 0.00019550323486328125,
+          "uncompressed_mb": 0.00019550323486328125
+        }
+      }
+    ],
+    "created_by": "parquet-rs version 0.3.0 (build b45ce7cba2199f22d93269c150d8a83916c69b5e)",
+    "key_value_metadata": [],
+    "start_offset": 348,
+    "total_byte_size": 306,
+    "compression_stats": {
+      "total_compressed": 205,
+      "total_uncompressed": 205,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 0.00019550323486328125,
+      "uncompressed_mb": 0.00019550323486328125
+    },
+    "column_count": 3,
+    "row_count": 6,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

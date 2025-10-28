@@ -204,361 +204,359 @@
     }
   ],
   "metadata": {
-    "start_offset": 362,
-    "total_byte_size": 455,
-    "metadata": {
-      "version": 1,
-      "schema_root": {
-        "element_type": "root",
-        "name": "schema",
-        "full_path": "",
-        "start_offset": 366,
-        "byte_length": 11,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 3,
-        "children": {
-          "my_map": {
-            "element_type": "group",
-            "name": "my_map",
-            "full_path": "my_map",
-            "start_offset": 377,
-            "byte_length": 19,
-            "definition_level": 0,
-            "repetition_level": 0,
-            "num_children": 1,
-            "children": {
-              "key_value": {
-                "element_type": "group",
-                "name": "key_value",
-                "full_path": "my_map.key_value",
-                "start_offset": 396,
-                "byte_length": 16,
-                "definition_level": 1,
-                "repetition_level": 1,
-                "num_children": 2,
-                "children": {
-                  "key": {
-                    "element_type": "column",
-                    "name": "key",
-                    "full_path": "my_map.key_value.key",
-                    "start_offset": 412,
-                    "byte_length": 10,
-                    "definition_level": 1,
-                    "repetition_level": 1,
-                    "type": 1,
-                    "repetition": 0,
-                    "converted_type": null,
-                    "type_length": null,
-                    "scale": null,
-                    "precision": null,
-                    "field_id": null,
-                    "logical_type": null,
-                    "list_semantics": "legacy_repeated"
-                  },
-                  "value": {
-                    "element_type": "column",
-                    "name": "value",
-                    "full_path": "my_map.key_value.value",
-                    "start_offset": 422,
-                    "byte_length": 12,
-                    "definition_level": 2,
-                    "repetition_level": 1,
-                    "type": 1,
-                    "repetition": 1,
-                    "converted_type": null,
-                    "type_length": null,
-                    "scale": null,
-                    "precision": null,
-                    "field_id": null,
-                    "logical_type": null,
-                    "list_semantics": "legacy_repeated"
-                  }
+    "version": 1,
+    "schema_root": {
+      "element_type": "root",
+      "name": "schema",
+      "full_path": "",
+      "start_offset": 366,
+      "byte_length": 11,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 3,
+      "children": {
+        "my_map": {
+          "element_type": "group",
+          "name": "my_map",
+          "full_path": "my_map",
+          "start_offset": 377,
+          "byte_length": 19,
+          "definition_level": 0,
+          "repetition_level": 0,
+          "num_children": 1,
+          "children": {
+            "key_value": {
+              "element_type": "group",
+              "name": "key_value",
+              "full_path": "my_map.key_value",
+              "start_offset": 396,
+              "byte_length": 16,
+              "definition_level": 1,
+              "repetition_level": 1,
+              "num_children": 2,
+              "children": {
+                "key": {
+                  "element_type": "column",
+                  "name": "key",
+                  "full_path": "my_map.key_value.key",
+                  "start_offset": 412,
+                  "byte_length": 10,
+                  "definition_level": 1,
+                  "repetition_level": 1,
+                  "type": 1,
+                  "repetition": 0,
+                  "converted_type": null,
+                  "type_length": null,
+                  "scale": null,
+                  "precision": null,
+                  "field_id": null,
+                  "logical_type": null,
+                  "list_semantics": "legacy_repeated"
                 },
-                "repetition": 2,
-                "converted_type": null,
-                "field_id": null,
-                "logical_type": null
-              }
-            },
-            "repetition": 0,
-            "converted_type": 1,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 2
+                "value": {
+                  "element_type": "column",
+                  "name": "value",
+                  "full_path": "my_map.key_value.value",
+                  "start_offset": 422,
+                  "byte_length": 12,
+                  "definition_level": 2,
+                  "repetition_level": 1,
+                  "type": 1,
+                  "repetition": 1,
+                  "converted_type": null,
+                  "type_length": null,
+                  "scale": null,
+                  "precision": null,
+                  "field_id": null,
+                  "logical_type": null,
+                  "list_semantics": "legacy_repeated"
+                }
+              },
+              "repetition": 2,
+              "converted_type": null,
+              "field_id": null,
+              "logical_type": null
             }
           },
-          "my_map_no_v": {
-            "element_type": "group",
-            "name": "my_map_no_v",
-            "full_path": "my_map_no_v",
-            "start_offset": 434,
-            "byte_length": 24,
-            "definition_level": 0,
-            "repetition_level": 0,
-            "num_children": 1,
-            "children": {
-              "key_value": {
-                "element_type": "group",
-                "name": "key_value",
-                "full_path": "my_map_no_v.key_value",
-                "start_offset": 458,
-                "byte_length": 16,
-                "definition_level": 1,
-                "repetition_level": 1,
-                "num_children": 1,
-                "children": {
-                  "key": {
-                    "element_type": "column",
-                    "name": "key",
-                    "full_path": "my_map_no_v.key_value.key",
-                    "start_offset": 474,
-                    "byte_length": 10,
-                    "definition_level": 1,
-                    "repetition_level": 1,
-                    "type": 1,
-                    "repetition": 0,
-                    "converted_type": null,
-                    "type_length": null,
-                    "scale": null,
-                    "precision": null,
-                    "field_id": null,
-                    "logical_type": null,
-                    "list_semantics": "legacy_repeated"
-                  }
-                },
-                "repetition": 2,
-                "converted_type": null,
-                "field_id": null,
-                "logical_type": null
-              }
-            },
-            "repetition": 0,
-            "converted_type": 1,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 2
-            }
-          },
-          "my_list": {
-            "element_type": "group",
-            "name": "my_list",
-            "full_path": "my_list",
-            "start_offset": 484,
-            "byte_length": 20,
-            "definition_level": 0,
-            "repetition_level": 0,
-            "num_children": 1,
-            "children": {
-              "list": {
-                "element_type": "group",
-                "name": "list",
-                "full_path": "my_list.list",
-                "start_offset": 504,
-                "byte_length": 11,
-                "definition_level": 1,
-                "repetition_level": 1,
-                "num_children": 1,
-                "children": {
-                  "element": {
-                    "element_type": "column",
-                    "name": "element",
-                    "full_path": "my_list.list.element",
-                    "start_offset": 515,
-                    "byte_length": 14,
-                    "definition_level": 1,
-                    "repetition_level": 1,
-                    "type": 1,
-                    "repetition": 0,
-                    "converted_type": null,
-                    "type_length": null,
-                    "scale": null,
-                    "precision": null,
-                    "field_id": null,
-                    "logical_type": null,
-                    "list_semantics": "modern_list"
-                  }
-                },
-                "repetition": 2,
-                "converted_type": null,
-                "field_id": null,
-                "logical_type": null
-              }
-            },
-            "repetition": 0,
-            "converted_type": 3,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 3
-            }
+          "repetition": 0,
+          "converted_type": 1,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 2
           }
         },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 533,
-          "byte_length": 242,
-          "column_chunks": {
-            "my_map.key_value.key": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 538,
-                "byte_length": 45,
-                "type": 1,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "my_map.key_value.key",
-                "codec": 0,
-                "num_values": 9,
-                "total_uncompressed_size": 90,
-                "total_compressed_size": 90,
-                "data_page_offset": 54,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
+        "my_map_no_v": {
+          "element_type": "group",
+          "name": "my_map_no_v",
+          "full_path": "my_map_no_v",
+          "start_offset": 434,
+          "byte_length": 24,
+          "definition_level": 0,
+          "repetition_level": 0,
+          "num_children": 1,
+          "children": {
+            "key_value": {
+              "element_type": "group",
+              "name": "key_value",
+              "full_path": "my_map_no_v.key_value",
+              "start_offset": 458,
+              "byte_length": 16,
+              "definition_level": 1,
+              "repetition_level": 1,
+              "num_children": 1,
+              "children": {
+                "key": {
+                  "element_type": "column",
+                  "name": "key",
+                  "full_path": "my_map_no_v.key_value.key",
+                  "start_offset": 474,
+                  "byte_length": 10,
+                  "definition_level": 1,
+                  "repetition_level": 1,
+                  "type": 1,
+                  "repetition": 0,
+                  "converted_type": null,
+                  "type_length": null,
+                  "scale": null,
+                  "precision": null,
+                  "field_id": null,
+                  "logical_type": null,
+                  "list_semantics": "legacy_repeated"
+                }
               },
-              "file_path": null,
-              "offset_index_offset": 319,
-              "offset_index_length": 10,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "my_map.key_value.value": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 592,
-                "byte_length": 47,
-                "type": 1,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "my_map.key_value.value",
-                "codec": 0,
-                "num_values": 9,
-                "total_uncompressed_size": 45,
-                "total_compressed_size": 45,
-                "data_page_offset": 108,
-                "index_page_offset": null,
-                "dictionary_page_offset": 94,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": 329,
-              "offset_index_length": 11,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "my_map_no_v.key_value.key": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 648,
-                "byte_length": 52,
-                "type": 1,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "my_map_no_v.key_value.key",
-                "codec": 0,
-                "num_values": 9,
-                "total_uncompressed_size": 90,
-                "total_compressed_size": 90,
-                "data_page_offset": 189,
-                "index_page_offset": null,
-                "dictionary_page_offset": 139,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": 340,
-              "offset_index_length": 11,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "my_list.list.element": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 709,
-                "byte_length": 47,
-                "type": 1,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "my_list.list.element",
-                "codec": 0,
-                "num_values": 9,
-                "total_uncompressed_size": 90,
-                "total_compressed_size": 90,
-                "data_page_offset": 279,
-                "index_page_offset": null,
-                "dictionary_page_offset": 229,
-                "statistics": null,
-                "encoding_stats": null,
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": 351,
-              "offset_index_length": 11,
-              "column_index_offset": null,
-              "column_index_length": null
+              "repetition": 2,
+              "converted_type": null,
+              "field_id": null,
+              "logical_type": null
             }
           },
-          "total_byte_size": 315,
-          "row_count": 3,
-          "sorting_columns": null,
-          "file_offset": 4,
-          "total_compressed_size": 315,
-          "ordinal": 0,
-          "compression_stats": {
-            "total_compressed": 315,
-            "total_uncompressed": 315,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 0.00030040740966796875,
-            "uncompressed_mb": 0.00030040740966796875
+          "repetition": 0,
+          "converted_type": 1,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 2
+          }
+        },
+        "my_list": {
+          "element_type": "group",
+          "name": "my_list",
+          "full_path": "my_list",
+          "start_offset": 484,
+          "byte_length": 20,
+          "definition_level": 0,
+          "repetition_level": 0,
+          "num_children": 1,
+          "children": {
+            "list": {
+              "element_type": "group",
+              "name": "list",
+              "full_path": "my_list.list",
+              "start_offset": 504,
+              "byte_length": 11,
+              "definition_level": 1,
+              "repetition_level": 1,
+              "num_children": 1,
+              "children": {
+                "element": {
+                  "element_type": "column",
+                  "name": "element",
+                  "full_path": "my_list.list.element",
+                  "start_offset": 515,
+                  "byte_length": 14,
+                  "definition_level": 1,
+                  "repetition_level": 1,
+                  "type": 1,
+                  "repetition": 0,
+                  "converted_type": null,
+                  "type_length": null,
+                  "scale": null,
+                  "precision": null,
+                  "field_id": null,
+                  "logical_type": null,
+                  "list_semantics": "modern_list"
+                }
+              },
+              "repetition": 2,
+              "converted_type": null,
+              "field_id": null,
+              "logical_type": null
+            }
+          },
+          "repetition": 0,
+          "converted_type": 3,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 3
           }
         }
-      ],
-      "created_by": "parquet-rs version 53.2.0",
-      "key_value_metadata": [],
-      "compression_stats": {
-        "total_compressed": 315,
-        "total_uncompressed": 315,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 0.00030040740966796875,
-        "uncompressed_mb": 0.00030040740966796875
       },
-      "column_count": 4,
-      "row_count": 3,
-      "row_group_count": 1
-    }
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 533,
+        "byte_length": 242,
+        "column_chunks": {
+          "my_map.key_value.key": {
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 538,
+              "byte_length": 45,
+              "type": 1,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "my_map.key_value.key",
+              "codec": 0,
+              "num_values": 9,
+              "total_uncompressed_size": 90,
+              "total_compressed_size": 90,
+              "data_page_offset": 54,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": 319,
+            "offset_index_length": 10,
+            "column_index_offset": null,
+            "column_index_length": null
+          },
+          "my_map.key_value.value": {
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 592,
+              "byte_length": 47,
+              "type": 1,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "my_map.key_value.value",
+              "codec": 0,
+              "num_values": 9,
+              "total_uncompressed_size": 45,
+              "total_compressed_size": 45,
+              "data_page_offset": 108,
+              "index_page_offset": null,
+              "dictionary_page_offset": 94,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": 329,
+            "offset_index_length": 11,
+            "column_index_offset": null,
+            "column_index_length": null
+          },
+          "my_map_no_v.key_value.key": {
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 648,
+              "byte_length": 52,
+              "type": 1,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "my_map_no_v.key_value.key",
+              "codec": 0,
+              "num_values": 9,
+              "total_uncompressed_size": 90,
+              "total_compressed_size": 90,
+              "data_page_offset": 189,
+              "index_page_offset": null,
+              "dictionary_page_offset": 139,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": 340,
+            "offset_index_length": 11,
+            "column_index_offset": null,
+            "column_index_length": null
+          },
+          "my_list.list.element": {
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 709,
+              "byte_length": 47,
+              "type": 1,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "my_list.list.element",
+              "codec": 0,
+              "num_values": 9,
+              "total_uncompressed_size": 90,
+              "total_compressed_size": 90,
+              "data_page_offset": 279,
+              "index_page_offset": null,
+              "dictionary_page_offset": 229,
+              "statistics": null,
+              "encoding_stats": null,
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": 351,
+            "offset_index_length": 11,
+            "column_index_offset": null,
+            "column_index_length": null
+          }
+        },
+        "total_byte_size": 315,
+        "row_count": 3,
+        "sorting_columns": null,
+        "file_offset": 4,
+        "total_compressed_size": 315,
+        "ordinal": 0,
+        "compression_stats": {
+          "total_compressed": 315,
+          "total_uncompressed": 315,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 0.00030040740966796875,
+          "uncompressed_mb": 0.00030040740966796875
+        }
+      }
+    ],
+    "created_by": "parquet-rs version 53.2.0",
+    "key_value_metadata": [],
+    "start_offset": 362,
+    "total_byte_size": 455,
+    "compression_stats": {
+      "total_compressed": 315,
+      "total_uncompressed": 315,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 0.00030040740966796875,
+      "uncompressed_mb": 0.00030040740966796875
+    },
+    "column_count": 4,
+    "row_count": 3,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

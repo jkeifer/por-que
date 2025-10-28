@@ -50,138 +50,136 @@
     }
   ],
   "metadata": {
-    "start_offset": 147,
-    "total_byte_size": 346,
-    "metadata": {
-      "version": 2,
-      "schema_root": {
-        "element_type": "root",
-        "name": "schema",
-        "full_path": "",
-        "start_offset": 151,
-        "byte_length": 13,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 1,
-        "children": {
+    "version": 2,
+    "schema_root": {
+      "element_type": "root",
+      "name": "schema",
+      "full_path": "",
+      "start_offset": 151,
+      "byte_length": 13,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 1,
+      "children": {
+        "x": {
+          "element_type": "column",
+          "name": "x",
+          "full_path": "x",
+          "start_offset": 164,
+          "byte_length": 14,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 7,
+          "repetition": 1,
+          "converted_type": null,
+          "type_length": 2,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 15
+          },
+          "list_semantics": null
+        }
+      },
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 182,
+        "byte_length": 82,
+        "column_chunks": {
           "x": {
-            "element_type": "column",
-            "name": "x",
-            "full_path": "x",
-            "start_offset": 164,
-            "byte_length": 14,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 7,
-            "repetition": 1,
-            "converted_type": null,
-            "type_length": 2,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 15
+            "file_offset": 80,
+            "metadata": {
+              "start_offset": 188,
+              "byte_length": 62,
+              "type": 7,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "x",
+              "codec": 0,
+              "num_values": 8,
+              "total_uncompressed_size": 76,
+              "total_compressed_size": 76,
+              "data_page_offset": 32,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": {
+                "min": "AMA=",
+                "max": "AEA=",
+                "null_count": 1,
+                "distinct_count": null,
+                "min_value": "AMA=",
+                "max_value": "AEA=",
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 0,
+                  "count": 1
+                },
+                {
+                  "page_type": 0,
+                  "encoding": 8,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
             },
-            "list_semantics": null
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
           }
         },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 182,
-          "byte_length": 82,
-          "column_chunks": {
-            "x": {
-              "file_offset": 80,
-              "metadata": {
-                "start_offset": 188,
-                "byte_length": 62,
-                "type": 7,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "x",
-                "codec": 0,
-                "num_values": 8,
-                "total_uncompressed_size": 76,
-                "total_compressed_size": 76,
-                "data_page_offset": 32,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": {
-                  "min": "AMA=",
-                  "max": "AEA=",
-                  "null_count": 1,
-                  "distinct_count": null,
-                  "min_value": "AMA=",
-                  "max_value": "AEA=",
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
-                },
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 0,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 8,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            }
-          },
-          "total_byte_size": 76,
-          "row_count": 8,
-          "sorting_columns": null,
-          "file_offset": 4,
-          "total_compressed_size": 76,
-          "ordinal": 0,
-          "compression_stats": {
-            "total_compressed": 76,
-            "total_uncompressed": 76,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 7.2479248046875e-05,
-            "uncompressed_mb": 7.2479248046875e-05
-          }
+        "total_byte_size": 76,
+        "row_count": 8,
+        "sorting_columns": null,
+        "file_offset": 4,
+        "total_compressed_size": 76,
+        "ordinal": 0,
+        "compression_stats": {
+          "total_compressed": 76,
+          "total_uncompressed": 76,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 7.2479248046875e-05,
+          "uncompressed_mb": 7.2479248046875e-05
         }
-      ],
-      "created_by": "parquet-cpp-arrow version 15.0.0-SNAPSHOT",
-      "key_value_metadata": [
-        {
-          "start_offset": 266,
-          "byte_length": 178,
-          "key": "ARROW:schema",
-          "value": "/////3AAAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUAAgABgAHAAwAAAAQABAAAAAAAAEDEAAAABgAAAAEAAAAAAAAAAEAAAB4AAAABAAEAAQAAAAAAAAA"
-        }
-      ],
-      "compression_stats": {
-        "total_compressed": 76,
-        "total_uncompressed": 76,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 7.2479248046875e-05,
-        "uncompressed_mb": 7.2479248046875e-05
-      },
-      "column_count": 1,
-      "row_count": 8,
-      "row_group_count": 1
-    }
+      }
+    ],
+    "created_by": "parquet-cpp-arrow version 15.0.0-SNAPSHOT",
+    "key_value_metadata": [
+      {
+        "start_offset": 266,
+        "byte_length": 178,
+        "key": "ARROW:schema",
+        "value": "/////3AAAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUAAgABgAHAAwAAAAQABAAAAAAAAEDEAAAABgAAAAEAAAAAAAAAAEAAAB4AAAABAAEAAQAAAAAAAAA"
+      }
+    ],
+    "start_offset": 147,
+    "total_byte_size": 346,
+    "compression_stats": {
+      "total_compressed": 76,
+      "total_uncompressed": 76,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 7.2479248046875e-05,
+      "uncompressed_mb": 7.2479248046875e-05
+    },
+    "column_count": 1,
+    "row_count": 8,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

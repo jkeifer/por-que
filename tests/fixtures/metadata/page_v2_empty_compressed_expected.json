@@ -53,136 +53,134 @@
     }
   ],
   "metadata": {
-    "start_offset": 127,
-    "total_byte_size": 369,
-    "metadata": {
-      "version": 2,
-      "schema_root": {
-        "element_type": "root",
-        "name": "schema",
-        "full_path": "",
-        "start_offset": 131,
-        "byte_length": 13,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 1,
-        "children": {
+    "version": 2,
+    "schema_root": {
+      "element_type": "root",
+      "name": "schema",
+      "full_path": "",
+      "start_offset": 131,
+      "byte_length": 13,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 1,
+      "children": {
+        "integer_column": {
+          "element_type": "column",
+          "name": "integer_column",
+          "full_path": "integer_column",
+          "start_offset": 144,
+          "byte_length": 21,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 1,
+          "repetition": 1,
+          "converted_type": null,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": null,
+          "list_semantics": null
+        }
+      },
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 169,
+        "byte_length": 75,
+        "column_chunks": {
           "integer_column": {
-            "element_type": "column",
-            "name": "integer_column",
-            "full_path": "integer_column",
-            "start_offset": 144,
-            "byte_length": 21,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 1,
-            "repetition": 1,
-            "converted_type": null,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": null,
-            "list_semantics": null
+            "file_offset": 65,
+            "metadata": {
+              "start_offset": 175,
+              "byte_length": 57,
+              "type": 1,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "integer_column",
+              "codec": 6,
+              "num_values": 10,
+              "total_uncompressed_size": 43,
+              "total_compressed_size": 61,
+              "data_page_offset": 27,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": {
+                "min": null,
+                "max": null,
+                "null_count": 10,
+                "distinct_count": null,
+                "min_value": null,
+                "max_value": null,
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 0,
+                  "count": 1
+                },
+                {
+                  "page_type": 0,
+                  "encoding": 8,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
           }
         },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 169,
-          "byte_length": 75,
-          "column_chunks": {
-            "integer_column": {
-              "file_offset": 65,
-              "metadata": {
-                "start_offset": 175,
-                "byte_length": 57,
-                "type": 1,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "integer_column",
-                "codec": 6,
-                "num_values": 10,
-                "total_uncompressed_size": 43,
-                "total_compressed_size": 61,
-                "data_page_offset": 27,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": {
-                  "min": null,
-                  "max": null,
-                  "null_count": 10,
-                  "distinct_count": null,
-                  "min_value": null,
-                  "max_value": null,
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
-                },
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 0,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 8,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            }
-          },
-          "total_byte_size": 43,
-          "row_count": 10,
-          "sorting_columns": null,
-          "file_offset": 4,
-          "total_compressed_size": 61,
-          "ordinal": 0,
-          "compression_stats": {
-            "total_compressed": 61,
-            "total_uncompressed": 43,
-            "ratio": 1.4186046511627908,
-            "space_saved_percent": -41.86046511627908,
-            "compressed_mb": 5.817413330078125e-05,
-            "uncompressed_mb": 4.100799560546875e-05
-          }
+        "total_byte_size": 43,
+        "row_count": 10,
+        "sorting_columns": null,
+        "file_offset": 4,
+        "total_compressed_size": 61,
+        "ordinal": 0,
+        "compression_stats": {
+          "total_compressed": 61,
+          "total_uncompressed": 43,
+          "ratio": 1.4186046511627908,
+          "space_saved_percent": -41.86046511627908,
+          "compressed_mb": 5.817413330078125e-05,
+          "uncompressed_mb": 4.100799560546875e-05
         }
-      ],
-      "created_by": "parquet-cpp-arrow version 14.0.2",
-      "key_value_metadata": [
-        {
-          "start_offset": 246,
-          "byte_length": 210,
-          "key": "ARROW:schema",
-          "value": "/////4gAAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUAAgABgAHAAwAAAAQABAAAAAAAAECEAAAACgAAAAEAAAAAAAAAA4AAABpbnRlZ2VyX2NvbHVtbgAACAAMAAgABwAIAAAAAAAAASAAAAAAAAAA"
-        }
-      ],
-      "compression_stats": {
-        "total_compressed": 61,
-        "total_uncompressed": 43,
-        "ratio": 1.4186046511627908,
-        "space_saved_percent": -41.86046511627908,
-        "compressed_mb": 5.817413330078125e-05,
-        "uncompressed_mb": 4.100799560546875e-05
-      },
-      "column_count": 1,
-      "row_count": 10,
-      "row_group_count": 1
-    }
+      }
+    ],
+    "created_by": "parquet-cpp-arrow version 14.0.2",
+    "key_value_metadata": [
+      {
+        "start_offset": 246,
+        "byte_length": 210,
+        "key": "ARROW:schema",
+        "value": "/////4gAAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAEAAAAUAAAAEAAUAAgABgAHAAwAAAAQABAAAAAAAAECEAAAACgAAAAEAAAAAAAAAA4AAABpbnRlZ2VyX2NvbHVtbgAACAAMAAgABwAIAAAAAAAAASAAAAAAAAAA"
+      }
+    ],
+    "start_offset": 127,
+    "total_byte_size": 369,
+    "compression_stats": {
+      "total_compressed": 61,
+      "total_uncompressed": 43,
+      "ratio": 1.4186046511627908,
+      "space_saved_percent": -41.86046511627908,
+      "compressed_mb": 5.817413330078125e-05,
+      "uncompressed_mb": 4.100799560546875e-05
+    },
+    "column_count": 1,
+    "row_count": 10,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",
