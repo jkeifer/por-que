@@ -11,7 +11,6 @@ import datetime
 import struct
 import uuid
 
-from collections.abc import Sequence
 from decimal import Decimal
 from typing import cast
 
@@ -20,7 +19,6 @@ from por_que.exceptions import ParquetDataError
 from por_que.file_metadata import (
     DecimalTypeInfo,
     LogicalTypeInfo,
-    SchemaLeaf,
     TimestampTypeInfo,
 )
 
@@ -40,64 +38,6 @@ def _scale_time_value_to_seconds(value: int, unit: TimeUnit) -> Decimal:
         case _:
             msg = f'Unknown time unit: {unit}'
             raise ParquetDataError(msg)
-
-
-def convert_values_to_logical_types(
-    values: list,
-    physical_type: Type,
-    schema_element: SchemaLeaf,
-    excluded_columns: Sequence[str] | None = None,
-) -> list:
-    """
-    Convert physical values to their logical representations.
-
-    Args:
-        values: List of physical values to convert
-        physical_type: Physical type of the values
-        schema_element: Schema element containing logical type information
-        excluded_columns: Sequence of column names to exclude from conversion
-
-    Returns:
-        List of converted values
-    """
-    # Skip conversion if column is in excluded set
-    if excluded_columns and schema_element.full_path in excluded_columns:
-        return values
-
-    # Get logical type information using the existing SchemaElement method
-    logical_type_info = schema_element.get_logical_type()
-
-    return convert_values_with_logical_type(
-        values,
-        physical_type,
-        logical_type_info,
-    )
-
-
-def convert_values_with_logical_type(
-    values: list,
-    physical_type: Type,
-    logical_type_info: LogicalTypeInfo | None,
-) -> list:
-    """
-    Convert physical values using explicit logical type information.
-
-    Args:
-        values: List of physical values to convert
-        physical_type: Physical type of the values
-        logical_type_info: Logical type information (can be None)
-
-    Returns:
-        List of converted values
-    """
-    return [
-        convert_single_value(
-            value,
-            physical_type,
-            logical_type_info,
-        )
-        for value in values
-    ]
 
 
 def convert_single_value(
