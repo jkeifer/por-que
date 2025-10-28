@@ -235,7 +235,6 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             reader=reader,
             physical_type=self.metadata.type,
             compression_codec=self.codec,
-            schema_element=self.metadata.schema_element,
             dictionary_values=dictionary_values if dictionary_values else None,
             excluded_logical_columns=excluded_logical_columns,
         )
