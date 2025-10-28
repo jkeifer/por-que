@@ -13,10 +13,6 @@ import warnings
 
 from typing import Any
 
-from por_que.file_metadata import (
-    ColumnStatistics,
-)
-
 from .base import BaseParser
 from .enums import StatisticsFieldId
 
@@ -34,7 +30,7 @@ class StatisticsParser(BaseParser):
 
     async def read_statistics(
         self,
-    ) -> ColumnStatistics:
+    ) -> dict[str, Any]:
         """
         Read Statistics struct for predicate pushdown.
 
@@ -78,4 +74,4 @@ class StatisticsParser(BaseParser):
                     )
                     await self.maybe_skip_field(field_type)
 
-        return ColumnStatistics(**props)
+        return props

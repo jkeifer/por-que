@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, Any
 
 from por_que.enums import Encoding, PageType
 from por_que.exceptions import ParquetFormatError
-from por_que.file_metadata import ColumnStatistics, SchemaRoot
+from por_que.file_metadata import ColumnStatistics, SchemaLeaf
 
 from .base import BaseParser
 from .enums import (
@@ -45,23 +45,17 @@ class PageParser(BaseParser):
     def __init__(
         self,
         parser,
-        schema_root: SchemaRoot,
-        column_type,
-        path_in_schema,
+        schema_element: SchemaLeaf,
     ) -> None:
         """
         Initialize page parser.
 
         Args:
             parser: ThriftCompactParser for parsing
-            schema: Root schema element for statistics parsing
-            column_type: Physical type of the column for statistics parsing
-            path_in_schema: Schema path for statistics parsing
+            schema_element: SchemaElement for statistics
         """
         super().__init__(parser)
-        self.schema_root = schema_root
-        self.column_type = column_type
-        self.path_in_schema = path_in_schema
+        self.schema_element = schema_element
 
     async def read_page(self) -> AnyPage:
         """
@@ -131,7 +125,10 @@ class PageParser(BaseParser):
         return page
 
     async def _handle_statistics(self) -> ColumnStatistics:
-        return await StatisticsParser(self.parser).read_statistics()
+        return ColumnStatistics(
+            schema_element=self.schema_element,
+            **(await StatisticsParser(self.parser).read_statistics()),
+        )
 
     async def read_data_page_header(self) -> dict[str, Any]:
         """Read DataPageHeader fields and return as dict."""

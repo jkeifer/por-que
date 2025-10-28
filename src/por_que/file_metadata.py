@@ -570,6 +570,45 @@ class ColumnStatistics(
     max_value: bytes | None = None
     is_min_value_exact: bool | None = None
     is_max_value_exact: bool | None = None
+    schema_element: SchemaLeaf = Field(exclude=True)
+
+    @property
+    def converted_min_value(self) -> Any:
+        from .parsers.logical_types import convert_single_value
+        from .parsers.physical_types import parse_bytes
+
+        value = self.min_value if self.min_value else self.min_
+
+        if value is None:
+            return None
+
+        return convert_single_value(
+            parse_bytes(
+                value,
+                self.schema_element.type,
+            ),
+            self.schema_element.type,
+            self.schema_element.get_logical_type(),
+        )
+
+    @property
+    def converted_max_value(self) -> Any:
+        from .parsers.logical_types import convert_single_value
+        from .parsers.physical_types import parse_bytes
+
+        value = self.max_value if self.max_value else self.max_
+
+        if value is None:
+            return None
+
+        return convert_single_value(
+            parse_bytes(
+                value,
+                self.schema_element.type,
+            ),
+            self.schema_element.type,
+            self.schema_element.get_logical_type(),
+        )
 
 
 class SizeStatistics(BaseModel, frozen=True):
@@ -638,6 +677,41 @@ class ColumnIndex(
     null_counts: list[int] | None = None  # Null count per page
     repetition_level_histograms: list[int] | None = None
     definition_level_histograms: list[int] | None = None
+    schema_element: SchemaLeaf = Field(exclude=True)
+
+    @property
+    def converted_min_values(self) -> Any:
+        from .parsers.logical_types import convert_single_value
+        from .parsers.physical_types import parse_bytes
+
+        return [
+            convert_single_value(
+                parse_bytes(
+                    value,
+                    self.schema_element.type,
+                ),
+                self.schema_element.type,
+                self.schema_element.get_logical_type(),
+            )
+            for value in self.min_values
+        ]
+
+    @property
+    def converted_max_values(self) -> Any:
+        from .parsers.logical_types import convert_single_value
+        from .parsers.physical_types import parse_bytes
+
+        return [
+            convert_single_value(
+                parse_bytes(
+                    value,
+                    self.schema_element.type,
+                ),
+                self.schema_element.type,
+                self.schema_element.get_logical_type(),
+            )
+            for value in self.max_values
+        ]
 
 
 class ColumnMetadata(BaseModel, frozen=True):
@@ -662,6 +736,27 @@ class ColumnMetadata(BaseModel, frozen=True):
     bloom_filter_length: int | None = None
     size_statistics: SizeStatistics | None = None
     geospatial_statistics: GeospatialStatistics | None = None
+
+    @model_validator(mode='before')
+    @classmethod
+    def inject_schema_element_from_context(cls, data: Any):
+        """Inject schema element from context if not provided."""
+        if not isinstance(data, dict):
+            return data
+
+        try:
+            schema_element = data['schema_element']
+        except KeyError:
+            return data
+
+        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
+            return data
+
+        stats = data.get('statistics', None)
+        if stats and isinstance(stats, dict):
+            stats['schema_element'] = schema_element
+
+        return data
 
 
 class ColumnChunk(BaseModel, frozen=True):
