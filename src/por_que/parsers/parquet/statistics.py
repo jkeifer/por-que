@@ -13,13 +13,9 @@ import warnings
 
 from typing import Any
 
-from por_que.enums import Type
 from por_que.file_metadata import (
     ColumnStatistics,
-    LogicalTypeInfo,
 )
-from por_que.parsers.logical_types import convert_single_value
-from por_que.parsers.physical_types import parse_bytes
 
 from .base import BaseParser
 from .enums import StatisticsFieldId
@@ -83,15 +79,3 @@ class StatisticsParser(BaseParser):
                     await self.maybe_skip_field(field_type)
 
         return ColumnStatistics(**props)
-
-    def _parse_value(
-        self,
-        value: bytes,
-        physical_type: Type,
-        logical_type_info: LogicalTypeInfo | None,
-    ) -> Any:
-        return convert_single_value(
-            parse_bytes(value, physical_type),
-            physical_type,
-            logical_type_info,
-        )
