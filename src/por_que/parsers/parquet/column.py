@@ -13,13 +13,15 @@ from __future__ import annotations
 import logging
 import warnings
 
-from typing import Any
+from typing import Any, cast
 
 from por_que.enums import Compression, Encoding, Type
 from por_que.file_metadata import (
     ColumnChunk,
     ColumnMetadata,
+    ColumnStatistics,
     PageEncodingStats,
+    SchemaLeaf,
     SchemaRoot,
     SizeStatistics,
 )
@@ -151,9 +153,10 @@ class ColumnParser(BaseParser):
                     props['path_in_schema'] = path_in_schema
                     props['schema_element'] = self.schema.find_element(path_in_schema)
                 case ColumnMetadataFieldId.STATISTICS:
-                    props['statistics'] = await StatisticsParser(
-                        self.parser,
-                    ).read_statistics()
+                    props['statistics'] = ColumnStatistics(
+                        schema_element=cast(SchemaLeaf, props['schema_element']),
+                        **(await StatisticsParser(self.parser).read_statistics()),
+                    )
                 case ColumnMetadataFieldId.ENCODING_STATS:
                     props['encoding_stats'] = [
                         await self._parse_page_encoding_stats() async for _ in value

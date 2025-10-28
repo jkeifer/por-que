@@ -7,14 +7,12 @@ from __future__ import annotations
 from collections.abc import Iterator, Sequence
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Discriminator
+from pydantic import BaseModel, Discriminator, model_validator
 
 from .enums import Compression, Encoding, PageType, Type
 from .file_metadata import (
-    ColumnChunk,
     ColumnStatistics,
     SchemaLeaf,
-    SchemaRoot,
 )
 from .parsers.page_content import (
     DataPageV1Parser,
@@ -46,29 +44,38 @@ class Page(BaseModel, frozen=True):
         cls,
         reader: AsyncReadableSeekable,
         offset: int,
-        schema_root: SchemaRoot,
-        chunk_metadata: ColumnChunk | None = None,
+        schema_element: SchemaLeaf,
     ) -> AnyPage:
         """Factory method to parse and return the correct Page subtype."""
         reader.seek(offset)
 
         parser = ThriftCompactParser(reader, offset)
-
-        column_type = None
-        path_in_schema = None
-
-        if chunk_metadata is not None:
-            column_type = chunk_metadata.type
-            path_in_schema = chunk_metadata.path_in_schema
-
         page_parser = PageParser(
             parser,
-            schema_root,
-            column_type,
-            path_in_schema,
+            schema_element,
         )
 
         return await page_parser.read_page()
+
+    @model_validator(mode='before')
+    @classmethod
+    def inject_schema_element_from_context(cls, data: Any):
+        """Inject schema element from context if not provided."""
+        if not isinstance(data, dict):
+            return data
+
+        schema_element = data.pop('schema_element', None)
+        stats = data.get('statistics', None)
+
+        if not (stats or isinstance(stats, dict)):
+            return data
+
+        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
+            return data
+
+        stats['schema_element'] = schema_element
+
+        return data
 
 
 class DictionaryPage(Page, frozen=True):

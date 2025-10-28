@@ -20,7 +20,7 @@ from .file_metadata import (
     ColumnIndex,
     FileMetadata,
     OffsetIndex,
-    SchemaRoot,
+    SchemaLeaf,
 )
 from .pages import (
     AnyDataPage,
@@ -64,6 +64,7 @@ class PhysicalColumnIndex(BaseModel, frozen=True):
         cls,
         reader: AsyncReadableSeekable,
         column_index_offset: int,
+        schema_element: SchemaLeaf,
     ) -> Self:
         """Parse Page Index data from file location."""
         from .parsers.parquet.page_index import PageIndexParser
@@ -74,7 +75,7 @@ class PhysicalColumnIndex(BaseModel, frozen=True):
 
         # Parse page index data directly from file
         parser = ThriftCompactParser(reader, column_index_offset)
-        column_index = await PageIndexParser(parser).read_column_index()
+        column_index = await PageIndexParser(parser).read_column_index(schema_element)
 
         end_pos = reader.tell()
         byte_length = end_pos - start_pos
@@ -84,6 +85,26 @@ class PhysicalColumnIndex(BaseModel, frozen=True):
             column_index_length=byte_length,
             column_index=column_index,
         )
+
+    @model_validator(mode='before')
+    @classmethod
+    def inject_schema_element_from_context(cls, data: Any):
+        """Inject schema element from context if not provided."""
+        if not isinstance(data, dict):
+            return data
+
+        schema_element = data.pop('schema_element', None)
+        column_index = data.get('column_index', None)
+
+        if not (column_index or isinstance(column_index, dict)):
+            return data
+
+        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
+            return data
+
+        column_index['schema_element'] = schema_element
+
+        return data
 
 
 class PhysicalOffsetIndex(BaseModel, frozen=True):
@@ -136,12 +157,37 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     offset_index: PhysicalOffsetIndex | None = None
     row_group: int
 
+    @model_validator(mode='before')
+    @classmethod
+    def inject_schema_element_from_context(cls, data: Any):
+        """Inject schema element from context if not provided."""
+        if not isinstance(data, dict):
+            return data
+
+        try:
+            schema_element = get_item_or_attr(data['metadata'], 'schema_element')
+        except (KeyError, ValueError):
+            return data
+
+        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
+            return data
+
+        column_index = data.get('column_index', None)
+        if column_index and isinstance(column_index, dict):
+            column_index['schema_element'] = schema_element
+
+        data_pages = data.get('data_pages', [])
+        for data_page in data_pages:
+            if isinstance(data_page, dict):
+                data_page['schema_element'] = schema_element
+
+        return data
+
     @classmethod
     async def from_reader(
         cls,
         reader: AsyncReadableSeekable,
         chunk_metadata: ColumnChunk,
-        schema_root: SchemaRoot,
         row_group: int,
     ) -> Self:
         """Parses all pages within a column chunk from a reader."""
@@ -164,8 +210,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             page = await Page.from_reader(
                 reader,
                 current_offset,
-                schema_root,
-                chunk_metadata,
+                chunk_metadata.metadata.schema_element,
             )
 
             # Sort pages by type
@@ -191,6 +236,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             column_index = await PhysicalColumnIndex.from_reader(
                 reader,
                 chunk_metadata.column_index_offset,
+                chunk_metadata.metadata.schema_element,
             )
 
         offset_index = None
@@ -436,7 +482,6 @@ class ParquetFile(
                     else reader
                 ),
                 chunk_metadata=chunk_metadata,
-                schema_root=metadata.schema_root,
                 row_group=row_group_index,
             )
             for row_group_index, row_group_metadata in enumerate(metadata.row_groups)

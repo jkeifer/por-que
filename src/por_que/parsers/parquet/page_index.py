@@ -13,7 +13,7 @@ import warnings
 from typing import Any
 
 from por_que.enums import BoundaryOrder
-from por_que.file_metadata import ColumnIndex, OffsetIndex, PageLocation
+from por_que.file_metadata import ColumnIndex, OffsetIndex, PageLocation, SchemaLeaf
 
 from .base import BaseParser
 from .enums import (
@@ -93,7 +93,7 @@ class PageIndexParser(BaseParser):
 
         return OffsetIndex(**props)
 
-    async def read_column_index(self) -> ColumnIndex:
+    async def read_column_index(self, schema_element: SchemaLeaf) -> ColumnIndex:
         """
         Read a ColumnIndex struct using the new generic parser.
 
@@ -129,4 +129,4 @@ class PageIndexParser(BaseParser):
                     )
                     await self.maybe_skip_field(field_type)
 
-        return ColumnIndex(**props)
+        return ColumnIndex(schema_element=schema_element, **props)
