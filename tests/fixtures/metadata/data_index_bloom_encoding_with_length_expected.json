@@ -45,39 +45,35 @@
         "is_sorted": false
       },
       "column_index": {
-        "column_index_offset": 2317,
-        "column_index_length": 25,
-        "column_index": {
-          "null_pages": [
-            false
-          ],
-          "min_values": [
-            "SGVsbG8="
-          ],
-          "max_values": [
-            "dG9kYXk="
-          ],
-          "boundary_order": 0,
-          "null_counts": [
-            0
-          ],
-          "repetition_level_histograms": null,
-          "definition_level_histograms": null
-        }
+        "start_offset": 2317,
+        "byte_length": 25,
+        "null_pages": [
+          false
+        ],
+        "min_values": [
+          "SGVsbG8="
+        ],
+        "max_values": [
+          "dG9kYXk="
+        ],
+        "boundary_order": 0,
+        "null_counts": [
+          0
+        ],
+        "repetition_level_histograms": null,
+        "definition_level_histograms": null
       },
       "offset_index": {
-        "offset_index_offset": 2342,
-        "offset_index_length": 11,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 152,
-              "compressed_page_size": 51,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 2342,
+        "byte_length": 11,
+        "page_locations": [
+          {
+            "offset": 152,
+            "compressed_page_size": 51,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     }

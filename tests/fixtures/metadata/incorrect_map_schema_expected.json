@@ -26,39 +26,35 @@
       "index_pages": [],
       "dictionary_page": null,
       "column_index": {
-        "column_index_offset": 145,
-        "column_index_length": 25,
-        "column_index": {
-          "null_pages": [
-            false
-          ],
-          "min_values": [
-            "bmFtZQ=="
-          ],
-          "max_values": [
-            "cGFyZW50"
-          ],
-          "boundary_order": 1,
-          "null_counts": [
-            0
-          ],
-          "repetition_level_histograms": null,
-          "definition_level_histograms": null
-        }
+        "start_offset": 145,
+        "byte_length": 25,
+        "null_pages": [
+          false
+        ],
+        "min_values": [
+          "bmFtZQ=="
+        ],
+        "max_values": [
+          "cGFyZW50"
+        ],
+        "boundary_order": 1,
+        "null_counts": [
+          0
+        ],
+        "repetition_level_histograms": null,
+        "definition_level_histograms": null
       },
       "offset_index": {
-        "offset_index_offset": 198,
-        "offset_index_length": 11,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 4,
-              "compressed_page_size": 69,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 198,
+        "byte_length": 11,
+        "page_locations": [
+          {
+            "offset": 4,
+            "compressed_page_size": 69,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     },
@@ -86,39 +82,35 @@
       "index_pages": [],
       "dictionary_page": null,
       "column_index": {
-        "column_index_offset": 170,
-        "column_index_length": 28,
-        "column_index": {
-          "null_pages": [
-            false
-          ],
-          "min_values": [
-            "YW5vdGhlcg=="
-          ],
-          "max_values": [
-            "cmVwb3J0"
-          ],
-          "boundary_order": 1,
-          "null_counts": [
-            0
-          ],
-          "repetition_level_histograms": null,
-          "definition_level_histograms": null
-        }
+        "start_offset": 170,
+        "byte_length": 28,
+        "null_pages": [
+          false
+        ],
+        "min_values": [
+          "YW5vdGhlcg=="
+        ],
+        "max_values": [
+          "cmVwb3J0"
+        ],
+        "boundary_order": 1,
+        "null_counts": [
+          0
+        ],
+        "repetition_level_histograms": null,
+        "definition_level_histograms": null
       },
       "offset_index": {
-        "offset_index_offset": 209,
-        "offset_index_length": 12,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 73,
-              "compressed_page_size": 72,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 209,
+        "byte_length": 12,
+        "page_locations": [
+          {
+            "offset": 73,
+            "compressed_page_size": 72,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     }

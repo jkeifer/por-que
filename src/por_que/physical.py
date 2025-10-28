@@ -52,93 +52,12 @@ class PorQueMeta(BaseModel, frozen=True):
     por_que_version: str = get_version()
 
 
-class PhysicalColumnIndex(BaseModel, frozen=True):
-    """Physical location and parsed content of Column Index data."""
-
-    column_index_offset: int
-    column_index_length: int
-    column_index: ColumnIndex
-
-    @classmethod
-    async def from_reader(
-        cls,
-        reader: AsyncReadableSeekable,
-        column_index_offset: int,
-        schema_element: SchemaLeaf,
-    ) -> Self:
-        """Parse Page Index data from file location."""
-        from .parsers.parquet.page_index import PageIndexParser
-        from .parsers.thrift.parser import ThriftCompactParser
-
-        reader.seek(column_index_offset)
-        start_pos = reader.tell()
-
-        # Parse page index data directly from file
-        parser = ThriftCompactParser(reader, column_index_offset)
-        column_index = await PageIndexParser(parser).read_column_index(schema_element)
-
-        end_pos = reader.tell()
-        byte_length = end_pos - start_pos
-
-        return cls(
-            column_index_offset=column_index_offset,
-            column_index_length=byte_length,
-            column_index=column_index,
-        )
-
-    @model_validator(mode='before')
-    @classmethod
-    def inject_schema_element_from_context(cls, data: Any):
-        """Inject schema element from context if not provided."""
-        if not isinstance(data, dict):
-            return data
-
-        schema_element = data.pop('schema_element', None)
-        column_index = data.get('column_index', None)
-
-        if not (column_index or isinstance(column_index, dict)):
-            return data
-
-        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
-            return data
-
-        column_index['schema_element'] = schema_element
-
-        return data
-
-
 class PhysicalOffsetIndex(BaseModel, frozen=True):
     """Physical location and parsed content of Offset Index data."""
 
     offset_index_offset: int
     offset_index_length: int
     offset_index: OffsetIndex
-
-    @classmethod
-    async def from_reader(
-        cls,
-        reader: AsyncReadableSeekable,
-        offset_index_offset: int,
-    ) -> Self:
-        """Parse Page Index data from file location."""
-        from .parsers.parquet.page_index import PageIndexParser
-        from .parsers.thrift.parser import ThriftCompactParser
-
-        reader.seek(offset_index_offset)
-        start_pos = reader.tell()
-
-        # Parse page index data directly from file
-        parser = ThriftCompactParser(reader, offset_index_offset)
-        offset_index = await PageIndexParser(parser).read_offset_index()
-
-        end_pos = reader.tell()
-        byte_length = end_pos - start_pos
-
-        return cls(
-            offset_index_offset=offset_index_offset,
-            offset_index_length=byte_length,
-            offset_index=offset_index,
-        )
 
 
 class PhysicalColumnChunk(BaseModel, frozen=True):
@@ -153,8 +72,8 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     index_pages: list[IndexPage]
     dictionary_page: DictionaryPage | None
     metadata: ColumnChunk = Field(exclude=True)
-    column_index: PhysicalColumnIndex | None = None
-    offset_index: PhysicalOffsetIndex | None = None
+    column_index: ColumnIndex | None = None
+    offset_index: OffsetIndex | None = None
     row_group: int
 
     @model_validator(mode='before')
@@ -233,7 +152,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
 
         column_index = None
         if chunk_metadata.column_index_offset is not None:
-            column_index = await PhysicalColumnIndex.from_reader(
+            column_index = await ColumnIndex.from_reader(
                 reader,
                 chunk_metadata.column_index_offset,
                 chunk_metadata.metadata.schema_element,
@@ -241,7 +160,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
 
         offset_index = None
         if chunk_metadata.offset_index_offset is not None:
-            offset_index = await PhysicalOffsetIndex.from_reader(
+            offset_index = await OffsetIndex.from_reader(
                 reader,
                 chunk_metadata.offset_index_offset,
             )

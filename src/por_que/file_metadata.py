@@ -658,8 +658,36 @@ class PageLocation(BaseModel, frozen=True):
 class OffsetIndex(BaseModel, frozen=True):
     """Index containing page locations and sizes for efficient seeking."""
 
+    start_offset: int
+    byte_length: int
     page_locations: list[PageLocation]
     unencoded_byte_array_data_bytes: list[int] | None = None
+
+    @classmethod
+    async def from_reader(
+        cls,
+        reader: AsyncReadableSeekable,
+        start_offset: int,
+    ) -> Self:
+        """Parse Page Index data from file location."""
+        from .parsers.parquet.page_index import PageIndexParser
+        from .parsers.thrift.parser import ThriftCompactParser
+
+        reader.seek(start_offset)
+        start_pos = reader.tell()
+
+        # Parse page index data directly from file
+        parser = ThriftCompactParser(reader, start_offset)
+        props = await PageIndexParser(parser).read_offset_index()
+
+        end_pos = reader.tell()
+        byte_length = end_pos - start_pos
+
+        return cls(
+            start_offset=start_offset,
+            byte_length=byte_length,
+            **props,
+        )
 
 
 class ColumnIndex(
@@ -670,6 +698,8 @@ class ColumnIndex(
 ):
     """Index containing min/max statistics and null information for pages."""
 
+    start_offset: int
+    byte_length: int
     null_pages: list[bool]  # Which pages are all null
     min_values: list[bytes]  # Raw min values for each page
     max_values: list[bytes]  # Raw max values for each page
@@ -678,6 +708,34 @@ class ColumnIndex(
     repetition_level_histograms: list[int] | None = None
     definition_level_histograms: list[int] | None = None
     schema_element: SchemaLeaf = Field(exclude=True)
+
+    @classmethod
+    async def from_reader(
+        cls,
+        reader: AsyncReadableSeekable,
+        start_offset: int,
+        schema_element: SchemaLeaf,
+    ) -> Self:
+        """Parse Page Index data from file location."""
+        from .parsers.parquet.page_index import PageIndexParser
+        from .parsers.thrift.parser import ThriftCompactParser
+
+        reader.seek(start_offset)
+        start_pos = reader.tell()
+
+        # Parse page index data directly from file
+        parser = ThriftCompactParser(reader, start_offset)
+        props = await PageIndexParser(parser).read_column_index()
+
+        end_pos = reader.tell()
+        byte_length = end_pos - start_pos
+
+        return cls(
+            start_offset=start_offset,
+            byte_length=byte_length,
+            schema_element=schema_element,
+            **props,
+        )
 
     @property
     def converted_min_values(self) -> Any:
