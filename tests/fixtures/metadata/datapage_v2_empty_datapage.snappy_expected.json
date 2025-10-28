@@ -29,39 +29,35 @@
       "index_pages": [],
       "dictionary_page": null,
       "column_index": {
-        "column_index_offset": 27,
-        "column_index_length": 15,
-        "column_index": {
-          "null_pages": [
-            false
-          ],
-          "min_values": [
-            ""
-          ],
-          "max_values": [
-            ""
-          ],
-          "boundary_order": 1,
-          "null_counts": [
-            1
-          ],
-          "repetition_level_histograms": null,
-          "definition_level_histograms": null
-        }
+        "start_offset": 27,
+        "byte_length": 15,
+        "null_pages": [
+          false
+        ],
+        "min_values": [
+          ""
+        ],
+        "max_values": [
+          ""
+        ],
+        "boundary_order": 1,
+        "null_counts": [
+          1
+        ],
+        "repetition_level_histograms": null,
+        "definition_level_histograms": null
       },
       "offset_index": {
-        "offset_index_offset": 42,
-        "offset_index_length": 10,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 4,
-              "compressed_page_size": 23,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 42,
+        "byte_length": 10,
+        "page_locations": [
+          {
+            "offset": 4,
+            "compressed_page_size": 23,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     }

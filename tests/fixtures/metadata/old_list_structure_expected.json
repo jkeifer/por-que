@@ -26,47 +26,43 @@
       "index_pages": [],
       "dictionary_page": null,
       "column_index": {
-        "column_index_offset": 57,
-        "column_index_length": 33,
-        "column_index": {
-          "null_pages": [
-            false
-          ],
-          "min_values": [
-            "AQAAAA=="
-          ],
-          "max_values": [
-            "BAAAAA=="
-          ],
-          "boundary_order": 1,
-          "null_counts": [
-            0
-          ],
-          "repetition_level_histograms": [
-            1,
-            1,
-            2
-          ],
-          "definition_level_histograms": [
-            0,
-            0,
-            4
-          ]
-        }
+        "start_offset": 57,
+        "byte_length": 33,
+        "null_pages": [
+          false
+        ],
+        "min_values": [
+          "AQAAAA=="
+        ],
+        "max_values": [
+          "BAAAAA=="
+        ],
+        "boundary_order": 1,
+        "null_counts": [
+          0
+        ],
+        "repetition_level_histograms": [
+          1,
+          1,
+          2
+        ],
+        "definition_level_histograms": [
+          0,
+          0,
+          4
+        ]
       },
       "offset_index": {
-        "offset_index_offset": 90,
-        "offset_index_length": 10,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 4,
-              "compressed_page_size": 53,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 90,
+        "byte_length": 10,
+        "page_locations": [
+          {
+            "offset": 4,
+            "compressed_page_size": 53,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     }

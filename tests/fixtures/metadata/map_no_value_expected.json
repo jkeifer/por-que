@@ -37,18 +37,16 @@
       },
       "column_index": null,
       "offset_index": {
-        "offset_index_offset": 319,
-        "offset_index_length": 10,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 54,
-              "compressed_page_size": 40,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 319,
+        "byte_length": 10,
+        "page_locations": [
+          {
+            "offset": 54,
+            "compressed_page_size": 40,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     },
@@ -87,18 +85,16 @@
       },
       "column_index": null,
       "offset_index": {
-        "offset_index_offset": 329,
-        "offset_index_length": 11,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 108,
-              "compressed_page_size": 31,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 329,
+        "byte_length": 11,
+        "page_locations": [
+          {
+            "offset": 108,
+            "compressed_page_size": 31,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     },
@@ -137,18 +133,16 @@
       },
       "column_index": null,
       "offset_index": {
-        "offset_index_offset": 340,
-        "offset_index_length": 11,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 189,
-              "compressed_page_size": 40,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 340,
+        "byte_length": 11,
+        "page_locations": [
+          {
+            "offset": 189,
+            "compressed_page_size": 40,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     },
@@ -187,18 +181,16 @@
       },
       "column_index": null,
       "offset_index": {
-        "offset_index_offset": 351,
-        "offset_index_length": 11,
-        "offset_index": {
-          "page_locations": [
-            {
-              "offset": 279,
-              "compressed_page_size": 40,
-              "first_row_index": 0
-            }
-          ],
-          "unencoded_byte_array_data_bytes": null
-        }
+        "start_offset": 351,
+        "byte_length": 11,
+        "page_locations": [
+          {
+            "offset": 279,
+            "compressed_page_size": 40,
+            "first_row_index": 0
+          }
+        ],
+        "unencoded_byte_array_data_bytes": null
       },
       "row_group": 0
     }
