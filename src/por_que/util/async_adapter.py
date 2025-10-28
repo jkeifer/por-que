@@ -1,9 +1,27 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+import inspect
+
+from typing import TYPE_CHECKING, TypeGuard
 
 if TYPE_CHECKING:
-    from por_que.protocols import ReadableSeekable
+    from por_que.protocols import AsyncReadableSeekable, ReadableSeekable
+
+
+def is_async_reader(
+    reader: ReadableSeekable | AsyncReadableSeekable,
+) -> TypeGuard[AsyncReadableSeekable]:
+    return hasattr(reader, 'read') and inspect.iscoroutinefunction(reader.read)
+
+
+def ensure_async_reader(
+    reader: ReadableSeekable | AsyncReadableSeekable,
+) -> AsyncReadableSeekable:
+    """Convert ReadableSeekable to AsyncReadableSeekable if needed."""
+    if is_async_reader(reader):
+        return reader
+    # erroneous type checking error ignored
+    return AsyncReadableSeekableAdapter(reader)  # type: ignore
 
 
 class AsyncReadableSeekableAdapter:

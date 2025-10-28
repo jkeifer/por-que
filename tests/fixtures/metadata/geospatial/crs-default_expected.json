@@ -96,222 +96,220 @@
     }
   ],
   "metadata": {
-    "start_offset": 10842,
-    "total_byte_size": 5094,
-    "metadata": {
-      "version": 2,
-      "schema_root": {
-        "element_type": "root",
-        "name": "schema",
-        "full_path": "",
-        "start_offset": 10846,
-        "byte_length": 13,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 2,
-        "children": {
+    "version": 2,
+    "schema_root": {
+      "element_type": "root",
+      "name": "schema",
+      "full_path": "",
+      "start_offset": 10846,
+      "byte_length": 13,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 2,
+      "children": {
+        "wkt": {
+          "element_type": "column",
+          "name": "wkt",
+          "full_path": "wkt",
+          "start_offset": 10859,
+          "byte_length": 16,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 6,
+          "repetition": 1,
+          "converted_type": 0,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 1
+          },
+          "list_semantics": null
+        },
+        "geometry": {
+          "element_type": "column",
+          "name": "geometry",
+          "full_path": "geometry",
+          "start_offset": 10875,
+          "byte_length": 20,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 6,
+          "repetition": 1,
+          "converted_type": null,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 17
+          },
+          "list_semantics": null
+        }
+      },
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 10899,
+        "byte_length": 4985,
+        "column_chunks": {
           "wkt": {
-            "element_type": "column",
-            "name": "wkt",
-            "full_path": "wkt",
-            "start_offset": 10859,
-            "byte_length": 16,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 6,
-            "repetition": 1,
-            "converted_type": 0,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 1
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 10904,
+              "byte_length": 4856,
+              "type": 6,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "wkt",
+              "codec": 0,
+              "num_values": 1,
+              "total_uncompressed_size": 7241,
+              "total_compressed_size": 7241,
+              "data_page_offset": 2419,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": {
+                "min": null,
+                "max": null,
+                "null_count": 0,
+                "distinct_count": null,
+                "min_value": "UE9MWUdPTiAoKC0xMTEgNDUsIC0xMTEgNDQuOSwgLTExMSA0NC44LCAtMTExIDQ0LjcsIC0xMTEgNDQuNiwgLTExMSA0NC41LCAtMTExIDQ0LjQsIC0xMTEgNDQuMywgLTExMSA0NC4yLCAtMTExIDQ0LjEsIC0xMTEgNDQsIC0xMTEgNDMuOSwgLTExMSA0My44LCAtMTExIDQzLjcsIC0xMTEgNDMuNiwgLTExMSA0My41LCAtMTExIDQzLjQsIC0xMTEgNDMuMywgLTExMSA0My4yLCAtMTExIDQzLjEsIC0xMTEgNDMsIC0xMTEgNDIuOSwgLTExMSA0Mi44LCAtMTExIDQyLjcsIC0xMTEgNDIuNiwgLTExMSA0Mi41LCAtMTExIDQyLjQsIC0xMTEgNDIuMywgLTExMSA0Mi4yLCAtMTExIDQyLjEsIC0xMTEgNDIsIC0xMTEgNDEuOSwgLTExMSA0MS44LCAtMTExIDQxLjcsIC0xMTEgNDEuNiwgLTExMSA0MS41LCAtMTExIDQxLjQsIC0xMTEgNDEuMywgLTExMSA0MS4yLCAtMTExIDQxLjEsIC0xMTEgNDEsIC0xMTAuOSA0MSwgLTExMC44IDQxLCAtMTEwLjcgNDEsIC0xMTAuNiA0MSwgLTExMC41IDQxLCAtMTEwLjQgNDEsIC0xMTAuMyA0MSwgLTExMC4yIDQxLCAtMTEwLjEgNDEsIC0xMTAgNDEsIC0xMDkuOSA0MSwgLTEwOS44IDQxLCAtMTA5LjcgNDEsIC0xMDkuNiA0MSwgLTEwOS41IDQxLCAtMTA5LjQgNDEsIC0xMDkuMyA0MSwgLTEwOS4yIDQxLCAtMTA5LjEgNDEsIC0xMDkgNDEsIC0xMDguOSA0MSwgLTEwOC44IDQxLCAtMTA4LjcgNDEsIC0xMDguNiA0MSwgLTEwOC41IDQxLCAtMTA4LjQgNDEsIC0xMDguMyA0MSwgLTEwOC4yIDQxLCAtMTA4LjEgNDEsIC0xMDggNDEsIC0xMDcuOSA0MSwgLTEwNy44IDQxLCAtMTA3LjcgNDEsIC0xMDcuNiA0MSwgLTEwNy41IDQxLCAtMTA3LjQgNDEsIC0xMDcuMyA0MSwgLTEwNy4yIDQxLCAtMTA3LjEgNDEsIC0xMDcgNDEsIC0xMDYuOSA0MSwgLTEwNi44IDQxLCAtMTA2LjcgNDEsIC0xMDYuNiA0MSwgLTEwNi41IDQxLCAtMTA2LjQgNDEsIC0xMDYuMyA0MSwgLTEwNi4yIDQxLCAtMTA2LjEgNDEsIC0xMDYgNDEsIC0xMDUuOSA0MSwgLTEwNS44IDQxLCAtMTA1LjcgNDEsIC0xMDUuNiA0MSwgLTEwNS41IDQxLCAtMTA1LjQgNDEsIC0xMDUuMyA0MSwgLTEwNS4yIDQxLCAtMTA1LjEgNDEsIC0xMDUgNDEsIC0xMDQuOSA0MSwgLTEwNC44IDQxLCAtMTA0LjcgNDEsIC0xMDQuNiA0MSwgLTEwNC41IDQxLCAtMTA0LjQgNDEsIC0xMDQuMyA0MSwgLTEwNC4yIDQxLCAtMTA0LjEgNDEsIC0xMDQgNDEsIC0xMDQgNDEuMSwgLTEwNCA0MS4yLCAtMTA0IDQxLjMsIC0xMDQgNDEuNCwgLTEwNCA0MS41LCAtMTA0IDQxLjYsIC0xMDQgNDEuNywgLTEwNCA0MS44LCAtMTA0IDQxLjksIC0xMDQgNDIsIC0xMDQgNDIuMSwgLTEwNCA0Mi4yLCAtMTA0IDQyLjMsIC0xMDQgNDIuNCwgLTEwNCA0Mi41LCAtMTA0IDQyLjYsIC0xMDQgNDIuNywgLTEwNCA0Mi44LCAtMTA0IDQyLjksIC0xMDQgNDMsIC0xMDQgNDMuMSwgLTEwNCA0My4yLCAtMTA0IDQzLjMsIC0xMDQgNDMuNCwgLTEwNCA0My41LCAtMTA0IDQzLjYsIC0xMDQgNDMuNywgLTEwNCA0My44LCAtMTA0IDQzLjksIC0xMDQgNDQsIC0xMDQgNDQuMSwgLTEwNCA0NC4yLCAtMTA0IDQ0LjMsIC0xMDQgNDQuNCwgLTEwNCA0NC41LCAtMTA0IDQ0LjYsIC0xMDQgNDQuNywgLTEwNCA0NC44LCAtMTA0IDQ0LjksIC0xMDQgNDUsIC0xMDQuMSA0NSwgLTEwNC4yIDQ1LCAtMTA0LjMgNDUsIC0xMDQuNCA0NSwgLTEwNC41IDQ1LCAtMTA0LjYgNDUsIC0xMDQuNyA0NSwgLTEwNC44IDQ1LCAtMTA0LjkgNDUsIC0xMDUgNDUsIC0xMDUuMSA0NSwgLTEwNS4yIDQ1LCAtMTA1LjMgNDUsIC0xMDUuNCA0NSwgLTEwNS41IDQ1LCAtMTA1LjYgNDUsIC0xMDUuNyA0NSwgLTEwNS44IDQ1LCAtMTA1LjkgNDUsIC0xMDYgNDUsIC0xMDYuMSA0NSwgLTEwNi4yIDQ1LCAtMTA2LjMgNDUsIC0xMDYuNCA0NSwgLTEwNi41IDQ1LCAtMTA2LjYgNDUsIC0xMDYuNyA0NSwgLTEwNi44IDQ1LCAtMTA2LjkgNDUsIC0xMDcgNDUsIC0xMDcuMSA0NSwgLTEwNy4yIDQ1LCAtMTA3LjMgNDUsIC0xMDcuNCA0NSwgLTEwNy41IDQ1LCAtMTA3LjYgNDUsIC0xMDcuNyA0NSwgLTEwNy44IDQ1LCAtMTA3LjkgNDUsIC0xMDggNDUsIC0xMDguMSA0NSwgLTEwOC4yIDQ1LCAtMTA4LjMgNDUsIC0xMDguNCA0NSwgLTEwOC41IDQ1LCAtMTA4LjYgNDUsIC0xMDguNyA0NSwgLTEwOC44IDQ1LCAtMTA4LjkgNDUsIC0xMDkgNDUsIC0xMDkuMSA0NSwgLTEwOS4yIDQ1LCAtMTA5LjMgNDUsIC0xMDkuNCA0NSwgLTEwOS41IDQ1LCAtMTA5LjYgNDUsIC0xMDkuNyA0NSwgLTEwOS44IDQ1LCAtMTA5LjkgNDUsIC0xMTAgNDUsIC0xMTAuMSA0NSwgLTExMC4yIDQ1LCAtMTEwLjMgNDUsIC0xMTAuNCA0NSwgLTExMC41IDQ1LCAtMTEwLjYgNDUsIC0xMTAuNyA0NSwgLTExMC44IDQ1LCAtMTEwLjkgNDUsIC0xMTEgNDUpKQ==",
+                "max_value": "UE9MWUdPTiAoKC0xMTEgNDUsIC0xMTEgNDQuOSwgLTExMSA0NC44LCAtMTExIDQ0LjcsIC0xMTEgNDQuNiwgLTExMSA0NC41LCAtMTExIDQ0LjQsIC0xMTEgNDQuMywgLTExMSA0NC4yLCAtMTExIDQ0LjEsIC0xMTEgNDQsIC0xMTEgNDMuOSwgLTExMSA0My44LCAtMTExIDQzLjcsIC0xMTEgNDMuNiwgLTExMSA0My41LCAtMTExIDQzLjQsIC0xMTEgNDMuMywgLTExMSA0My4yLCAtMTExIDQzLjEsIC0xMTEgNDMsIC0xMTEgNDIuOSwgLTExMSA0Mi44LCAtMTExIDQyLjcsIC0xMTEgNDIuNiwgLTExMSA0Mi41LCAtMTExIDQyLjQsIC0xMTEgNDIuMywgLTExMSA0Mi4yLCAtMTExIDQyLjEsIC0xMTEgNDIsIC0xMTEgNDEuOSwgLTExMSA0MS44LCAtMTExIDQxLjcsIC0xMTEgNDEuNiwgLTExMSA0MS41LCAtMTExIDQxLjQsIC0xMTEgNDEuMywgLTExMSA0MS4yLCAtMTExIDQxLjEsIC0xMTEgNDEsIC0xMTAuOSA0MSwgLTExMC44IDQxLCAtMTEwLjcgNDEsIC0xMTAuNiA0MSwgLTExMC41IDQxLCAtMTEwLjQgNDEsIC0xMTAuMyA0MSwgLTExMC4yIDQxLCAtMTEwLjEgNDEsIC0xMTAgNDEsIC0xMDkuOSA0MSwgLTEwOS44IDQxLCAtMTA5LjcgNDEsIC0xMDkuNiA0MSwgLTEwOS41IDQxLCAtMTA5LjQgNDEsIC0xMDkuMyA0MSwgLTEwOS4yIDQxLCAtMTA5LjEgNDEsIC0xMDkgNDEsIC0xMDguOSA0MSwgLTEwOC44IDQxLCAtMTA4LjcgNDEsIC0xMDguNiA0MSwgLTEwOC41IDQxLCAtMTA4LjQgNDEsIC0xMDguMyA0MSwgLTEwOC4yIDQxLCAtMTA4LjEgNDEsIC0xMDggNDEsIC0xMDcuOSA0MSwgLTEwNy44IDQxLCAtMTA3LjcgNDEsIC0xMDcuNiA0MSwgLTEwNy41IDQxLCAtMTA3LjQgNDEsIC0xMDcuMyA0MSwgLTEwNy4yIDQxLCAtMTA3LjEgNDEsIC0xMDcgNDEsIC0xMDYuOSA0MSwgLTEwNi44IDQxLCAtMTA2LjcgNDEsIC0xMDYuNiA0MSwgLTEwNi41IDQxLCAtMTA2LjQgNDEsIC0xMDYuMyA0MSwgLTEwNi4yIDQxLCAtMTA2LjEgNDEsIC0xMDYgNDEsIC0xMDUuOSA0MSwgLTEwNS44IDQxLCAtMTA1LjcgNDEsIC0xMDUuNiA0MSwgLTEwNS41IDQxLCAtMTA1LjQgNDEsIC0xMDUuMyA0MSwgLTEwNS4yIDQxLCAtMTA1LjEgNDEsIC0xMDUgNDEsIC0xMDQuOSA0MSwgLTEwNC44IDQxLCAtMTA0LjcgNDEsIC0xMDQuNiA0MSwgLTEwNC41IDQxLCAtMTA0LjQgNDEsIC0xMDQuMyA0MSwgLTEwNC4yIDQxLCAtMTA0LjEgNDEsIC0xMDQgNDEsIC0xMDQgNDEuMSwgLTEwNCA0MS4yLCAtMTA0IDQxLjMsIC0xMDQgNDEuNCwgLTEwNCA0MS41LCAtMTA0IDQxLjYsIC0xMDQgNDEuNywgLTEwNCA0MS44LCAtMTA0IDQxLjksIC0xMDQgNDIsIC0xMDQgNDIuMSwgLTEwNCA0Mi4yLCAtMTA0IDQyLjMsIC0xMDQgNDIuNCwgLTEwNCA0Mi41LCAtMTA0IDQyLjYsIC0xMDQgNDIuNywgLTEwNCA0Mi44LCAtMTA0IDQyLjksIC0xMDQgNDMsIC0xMDQgNDMuMSwgLTEwNCA0My4yLCAtMTA0IDQzLjMsIC0xMDQgNDMuNCwgLTEwNCA0My41LCAtMTA0IDQzLjYsIC0xMDQgNDMuNywgLTEwNCA0My44LCAtMTA0IDQzLjksIC0xMDQgNDQsIC0xMDQgNDQuMSwgLTEwNCA0NC4yLCAtMTA0IDQ0LjMsIC0xMDQgNDQuNCwgLTEwNCA0NC41LCAtMTA0IDQ0LjYsIC0xMDQgNDQuNywgLTEwNCA0NC44LCAtMTA0IDQ0LjksIC0xMDQgNDUsIC0xMDQuMSA0NSwgLTEwNC4yIDQ1LCAtMTA0LjMgNDUsIC0xMDQuNCA0NSwgLTEwNC41IDQ1LCAtMTA0LjYgNDUsIC0xMDQuNyA0NSwgLTEwNC44IDQ1LCAtMTA0LjkgNDUsIC0xMDUgNDUsIC0xMDUuMSA0NSwgLTEwNS4yIDQ1LCAtMTA1LjMgNDUsIC0xMDUuNCA0NSwgLTEwNS41IDQ1LCAtMTA1LjYgNDUsIC0xMDUuNyA0NSwgLTEwNS44IDQ1LCAtMTA1LjkgNDUsIC0xMDYgNDUsIC0xMDYuMSA0NSwgLTEwNi4yIDQ1LCAtMTA2LjMgNDUsIC0xMDYuNCA0NSwgLTEwNi41IDQ1LCAtMTA2LjYgNDUsIC0xMDYuNyA0NSwgLTEwNi44IDQ1LCAtMTA2LjkgNDUsIC0xMDcgNDUsIC0xMDcuMSA0NSwgLTEwNy4yIDQ1LCAtMTA3LjMgNDUsIC0xMDcuNCA0NSwgLTEwNy41IDQ1LCAtMTA3LjYgNDUsIC0xMDcuNyA0NSwgLTEwNy44IDQ1LCAtMTA3LjkgNDUsIC0xMDggNDUsIC0xMDguMSA0NSwgLTEwOC4yIDQ1LCAtMTA4LjMgNDUsIC0xMDguNCA0NSwgLTEwOC41IDQ1LCAtMTA4LjYgNDUsIC0xMDguNyA0NSwgLTEwOC44IDQ1LCAtMTA4LjkgNDUsIC0xMDkgNDUsIC0xMDkuMSA0NSwgLTEwOS4yIDQ1LCAtMTA5LjMgNDUsIC0xMDkuNCA0NSwgLTEwOS41IDQ1LCAtMTA5LjYgNDUsIC0xMDkuNyA0NSwgLTEwOS44IDQ1LCAtMTA5LjkgNDUsIC0xMTAgNDUsIC0xMTAuMSA0NSwgLTExMC4yIDQ1LCAtMTEwLjMgNDUsIC0xMTAuNCA0NSwgLTExMC41IDQ1LCAtMTEwLjYgNDUsIC0xMTAuNyA0NSwgLTExMC44IDQ1LCAtMTEwLjkgNDUsIC0xMTEgNDUpKQ==",
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 0,
+                  "count": 1
+                },
+                {
+                  "page_type": 0,
+                  "encoding": 8,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": {
+                "unencoded_byte_array_data_bytes": 2395,
+                "repetition_level_histogram": [],
+                "definition_level_histogram": [
+                  0,
+                  1
+                ]
+              },
+              "geospatial_statistics": null
             },
-            "list_semantics": null
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
           },
           "geometry": {
-            "element_type": "column",
-            "name": "geometry",
-            "full_path": "geometry",
-            "start_offset": 10875,
-            "byte_length": 20,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 6,
-            "repetition": 1,
-            "converted_type": null,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 17
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 15764,
+              "byte_length": 106,
+              "type": 6,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "geometry",
+              "codec": 0,
+              "num_values": 1,
+              "total_uncompressed_size": 3597,
+              "total_compressed_size": 3597,
+              "data_page_offset": 10814,
+              "index_page_offset": null,
+              "dictionary_page_offset": 7245,
+              "statistics": null,
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 0,
+                  "count": 1
+                },
+                {
+                  "page_type": 0,
+                  "encoding": 8,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": {
+                "unencoded_byte_array_data_bytes": 3549,
+                "repetition_level_histogram": [],
+                "definition_level_histogram": [
+                  0,
+                  1
+                ]
+              },
+              "geospatial_statistics": {
+                "bbox": {
+                  "xmin": -111.0,
+                  "xmax": -104.0,
+                  "ymin": 41.0,
+                  "ymax": 45.0,
+                  "zmin": null,
+                  "zmax": null,
+                  "mmin": null,
+                  "mmax": null
+                },
+                "geospatial_types": [
+                  3
+                ]
+              }
             },
-            "list_semantics": null
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
           }
         },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 10899,
-          "byte_length": 4985,
-          "column_chunks": {
-            "wkt": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 10904,
-                "byte_length": 4856,
-                "type": 6,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "wkt",
-                "codec": 0,
-                "num_values": 1,
-                "total_uncompressed_size": 7241,
-                "total_compressed_size": 7241,
-                "data_page_offset": 2419,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": {
-                  "min": null,
-                  "max": null,
-                  "null_count": 0,
-                  "distinct_count": null,
-                  "min_value": "UE9MWUdPTiAoKC0xMTEgNDUsIC0xMTEgNDQuOSwgLTExMSA0NC44LCAtMTExIDQ0LjcsIC0xMTEgNDQuNiwgLTExMSA0NC41LCAtMTExIDQ0LjQsIC0xMTEgNDQuMywgLTExMSA0NC4yLCAtMTExIDQ0LjEsIC0xMTEgNDQsIC0xMTEgNDMuOSwgLTExMSA0My44LCAtMTExIDQzLjcsIC0xMTEgNDMuNiwgLTExMSA0My41LCAtMTExIDQzLjQsIC0xMTEgNDMuMywgLTExMSA0My4yLCAtMTExIDQzLjEsIC0xMTEgNDMsIC0xMTEgNDIuOSwgLTExMSA0Mi44LCAtMTExIDQyLjcsIC0xMTEgNDIuNiwgLTExMSA0Mi41LCAtMTExIDQyLjQsIC0xMTEgNDIuMywgLTExMSA0Mi4yLCAtMTExIDQyLjEsIC0xMTEgNDIsIC0xMTEgNDEuOSwgLTExMSA0MS44LCAtMTExIDQxLjcsIC0xMTEgNDEuNiwgLTExMSA0MS41LCAtMTExIDQxLjQsIC0xMTEgNDEuMywgLTExMSA0MS4yLCAtMTExIDQxLjEsIC0xMTEgNDEsIC0xMTAuOSA0MSwgLTExMC44IDQxLCAtMTEwLjcgNDEsIC0xMTAuNiA0MSwgLTExMC41IDQxLCAtMTEwLjQgNDEsIC0xMTAuMyA0MSwgLTExMC4yIDQxLCAtMTEwLjEgNDEsIC0xMTAgNDEsIC0xMDkuOSA0MSwgLTEwOS44IDQxLCAtMTA5LjcgNDEsIC0xMDkuNiA0MSwgLTEwOS41IDQxLCAtMTA5LjQgNDEsIC0xMDkuMyA0MSwgLTEwOS4yIDQxLCAtMTA5LjEgNDEsIC0xMDkgNDEsIC0xMDguOSA0MSwgLTEwOC44IDQxLCAtMTA4LjcgNDEsIC0xMDguNiA0MSwgLTEwOC41IDQxLCAtMTA4LjQgNDEsIC0xMDguMyA0MSwgLTEwOC4yIDQxLCAtMTA4LjEgNDEsIC0xMDggNDEsIC0xMDcuOSA0MSwgLTEwNy44IDQxLCAtMTA3LjcgNDEsIC0xMDcuNiA0MSwgLTEwNy41IDQxLCAtMTA3LjQgNDEsIC0xMDcuMyA0MSwgLTEwNy4yIDQxLCAtMTA3LjEgNDEsIC0xMDcgNDEsIC0xMDYuOSA0MSwgLTEwNi44IDQxLCAtMTA2LjcgNDEsIC0xMDYuNiA0MSwgLTEwNi41IDQxLCAtMTA2LjQgNDEsIC0xMDYuMyA0MSwgLTEwNi4yIDQxLCAtMTA2LjEgNDEsIC0xMDYgNDEsIC0xMDUuOSA0MSwgLTEwNS44IDQxLCAtMTA1LjcgNDEsIC0xMDUuNiA0MSwgLTEwNS41IDQxLCAtMTA1LjQgNDEsIC0xMDUuMyA0MSwgLTEwNS4yIDQxLCAtMTA1LjEgNDEsIC0xMDUgNDEsIC0xMDQuOSA0MSwgLTEwNC44IDQxLCAtMTA0LjcgNDEsIC0xMDQuNiA0MSwgLTEwNC41IDQxLCAtMTA0LjQgNDEsIC0xMDQuMyA0MSwgLTEwNC4yIDQxLCAtMTA0LjEgNDEsIC0xMDQgNDEsIC0xMDQgNDEuMSwgLTEwNCA0MS4yLCAtMTA0IDQxLjMsIC0xMDQgNDEuNCwgLTEwNCA0MS41LCAtMTA0IDQxLjYsIC0xMDQgNDEuNywgLTEwNCA0MS44LCAtMTA0IDQxLjksIC0xMDQgNDIsIC0xMDQgNDIuMSwgLTEwNCA0Mi4yLCAtMTA0IDQyLjMsIC0xMDQgNDIuNCwgLTEwNCA0Mi41LCAtMTA0IDQyLjYsIC0xMDQgNDIuNywgLTEwNCA0Mi44LCAtMTA0IDQyLjksIC0xMDQgNDMsIC0xMDQgNDMuMSwgLTEwNCA0My4yLCAtMTA0IDQzLjMsIC0xMDQgNDMuNCwgLTEwNCA0My41LCAtMTA0IDQzLjYsIC0xMDQgNDMuNywgLTEwNCA0My44LCAtMTA0IDQzLjksIC0xMDQgNDQsIC0xMDQgNDQuMSwgLTEwNCA0NC4yLCAtMTA0IDQ0LjMsIC0xMDQgNDQuNCwgLTEwNCA0NC41LCAtMTA0IDQ0LjYsIC0xMDQgNDQuNywgLTEwNCA0NC44LCAtMTA0IDQ0LjksIC0xMDQgNDUsIC0xMDQuMSA0NSwgLTEwNC4yIDQ1LCAtMTA0LjMgNDUsIC0xMDQuNCA0NSwgLTEwNC41IDQ1LCAtMTA0LjYgNDUsIC0xMDQuNyA0NSwgLTEwNC44IDQ1LCAtMTA0LjkgNDUsIC0xMDUgNDUsIC0xMDUuMSA0NSwgLTEwNS4yIDQ1LCAtMTA1LjMgNDUsIC0xMDUuNCA0NSwgLTEwNS41IDQ1LCAtMTA1LjYgNDUsIC0xMDUuNyA0NSwgLTEwNS44IDQ1LCAtMTA1LjkgNDUsIC0xMDYgNDUsIC0xMDYuMSA0NSwgLTEwNi4yIDQ1LCAtMTA2LjMgNDUsIC0xMDYuNCA0NSwgLTEwNi41IDQ1LCAtMTA2LjYgNDUsIC0xMDYuNyA0NSwgLTEwNi44IDQ1LCAtMTA2LjkgNDUsIC0xMDcgNDUsIC0xMDcuMSA0NSwgLTEwNy4yIDQ1LCAtMTA3LjMgNDUsIC0xMDcuNCA0NSwgLTEwNy41IDQ1LCAtMTA3LjYgNDUsIC0xMDcuNyA0NSwgLTEwNy44IDQ1LCAtMTA3LjkgNDUsIC0xMDggNDUsIC0xMDguMSA0NSwgLTEwOC4yIDQ1LCAtMTA4LjMgNDUsIC0xMDguNCA0NSwgLTEwOC41IDQ1LCAtMTA4LjYgNDUsIC0xMDguNyA0NSwgLTEwOC44IDQ1LCAtMTA4LjkgNDUsIC0xMDkgNDUsIC0xMDkuMSA0NSwgLTEwOS4yIDQ1LCAtMTA5LjMgNDUsIC0xMDkuNCA0NSwgLTEwOS41IDQ1LCAtMTA5LjYgNDUsIC0xMDkuNyA0NSwgLTEwOS44IDQ1LCAtMTA5LjkgNDUsIC0xMTAgNDUsIC0xMTAuMSA0NSwgLTExMC4yIDQ1LCAtMTEwLjMgNDUsIC0xMTAuNCA0NSwgLTExMC41IDQ1LCAtMTEwLjYgNDUsIC0xMTAuNyA0NSwgLTExMC44IDQ1LCAtMTEwLjkgNDUsIC0xMTEgNDUpKQ==",
-                  "max_value": "UE9MWUdPTiAoKC0xMTEgNDUsIC0xMTEgNDQuOSwgLTExMSA0NC44LCAtMTExIDQ0LjcsIC0xMTEgNDQuNiwgLTExMSA0NC41LCAtMTExIDQ0LjQsIC0xMTEgNDQuMywgLTExMSA0NC4yLCAtMTExIDQ0LjEsIC0xMTEgNDQsIC0xMTEgNDMuOSwgLTExMSA0My44LCAtMTExIDQzLjcsIC0xMTEgNDMuNiwgLTExMSA0My41LCAtMTExIDQzLjQsIC0xMTEgNDMuMywgLTExMSA0My4yLCAtMTExIDQzLjEsIC0xMTEgNDMsIC0xMTEgNDIuOSwgLTExMSA0Mi44LCAtMTExIDQyLjcsIC0xMTEgNDIuNiwgLTExMSA0Mi41LCAtMTExIDQyLjQsIC0xMTEgNDIuMywgLTExMSA0Mi4yLCAtMTExIDQyLjEsIC0xMTEgNDIsIC0xMTEgNDEuOSwgLTExMSA0MS44LCAtMTExIDQxLjcsIC0xMTEgNDEuNiwgLTExMSA0MS41LCAtMTExIDQxLjQsIC0xMTEgNDEuMywgLTExMSA0MS4yLCAtMTExIDQxLjEsIC0xMTEgNDEsIC0xMTAuOSA0MSwgLTExMC44IDQxLCAtMTEwLjcgNDEsIC0xMTAuNiA0MSwgLTExMC41IDQxLCAtMTEwLjQgNDEsIC0xMTAuMyA0MSwgLTExMC4yIDQxLCAtMTEwLjEgNDEsIC0xMTAgNDEsIC0xMDkuOSA0MSwgLTEwOS44IDQxLCAtMTA5LjcgNDEsIC0xMDkuNiA0MSwgLTEwOS41IDQxLCAtMTA5LjQgNDEsIC0xMDkuMyA0MSwgLTEwOS4yIDQxLCAtMTA5LjEgNDEsIC0xMDkgNDEsIC0xMDguOSA0MSwgLTEwOC44IDQxLCAtMTA4LjcgNDEsIC0xMDguNiA0MSwgLTEwOC41IDQxLCAtMTA4LjQgNDEsIC0xMDguMyA0MSwgLTEwOC4yIDQxLCAtMTA4LjEgNDEsIC0xMDggNDEsIC0xMDcuOSA0MSwgLTEwNy44IDQxLCAtMTA3LjcgNDEsIC0xMDcuNiA0MSwgLTEwNy41IDQxLCAtMTA3LjQgNDEsIC0xMDcuMyA0MSwgLTEwNy4yIDQxLCAtMTA3LjEgNDEsIC0xMDcgNDEsIC0xMDYuOSA0MSwgLTEwNi44IDQxLCAtMTA2LjcgNDEsIC0xMDYuNiA0MSwgLTEwNi41IDQxLCAtMTA2LjQgNDEsIC0xMDYuMyA0MSwgLTEwNi4yIDQxLCAtMTA2LjEgNDEsIC0xMDYgNDEsIC0xMDUuOSA0MSwgLTEwNS44IDQxLCAtMTA1LjcgNDEsIC0xMDUuNiA0MSwgLTEwNS41IDQxLCAtMTA1LjQgNDEsIC0xMDUuMyA0MSwgLTEwNS4yIDQxLCAtMTA1LjEgNDEsIC0xMDUgNDEsIC0xMDQuOSA0MSwgLTEwNC44IDQxLCAtMTA0LjcgNDEsIC0xMDQuNiA0MSwgLTEwNC41IDQxLCAtMTA0LjQgNDEsIC0xMDQuMyA0MSwgLTEwNC4yIDQxLCAtMTA0LjEgNDEsIC0xMDQgNDEsIC0xMDQgNDEuMSwgLTEwNCA0MS4yLCAtMTA0IDQxLjMsIC0xMDQgNDEuNCwgLTEwNCA0MS41LCAtMTA0IDQxLjYsIC0xMDQgNDEuNywgLTEwNCA0MS44LCAtMTA0IDQxLjksIC0xMDQgNDIsIC0xMDQgNDIuMSwgLTEwNCA0Mi4yLCAtMTA0IDQyLjMsIC0xMDQgNDIuNCwgLTEwNCA0Mi41LCAtMTA0IDQyLjYsIC0xMDQgNDIuNywgLTEwNCA0Mi44LCAtMTA0IDQyLjksIC0xMDQgNDMsIC0xMDQgNDMuMSwgLTEwNCA0My4yLCAtMTA0IDQzLjMsIC0xMDQgNDMuNCwgLTEwNCA0My41LCAtMTA0IDQzLjYsIC0xMDQgNDMuNywgLTEwNCA0My44LCAtMTA0IDQzLjksIC0xMDQgNDQsIC0xMDQgNDQuMSwgLTEwNCA0NC4yLCAtMTA0IDQ0LjMsIC0xMDQgNDQuNCwgLTEwNCA0NC41LCAtMTA0IDQ0LjYsIC0xMDQgNDQuNywgLTEwNCA0NC44LCAtMTA0IDQ0LjksIC0xMDQgNDUsIC0xMDQuMSA0NSwgLTEwNC4yIDQ1LCAtMTA0LjMgNDUsIC0xMDQuNCA0NSwgLTEwNC41IDQ1LCAtMTA0LjYgNDUsIC0xMDQuNyA0NSwgLTEwNC44IDQ1LCAtMTA0LjkgNDUsIC0xMDUgNDUsIC0xMDUuMSA0NSwgLTEwNS4yIDQ1LCAtMTA1LjMgNDUsIC0xMDUuNCA0NSwgLTEwNS41IDQ1LCAtMTA1LjYgNDUsIC0xMDUuNyA0NSwgLTEwNS44IDQ1LCAtMTA1LjkgNDUsIC0xMDYgNDUsIC0xMDYuMSA0NSwgLTEwNi4yIDQ1LCAtMTA2LjMgNDUsIC0xMDYuNCA0NSwgLTEwNi41IDQ1LCAtMTA2LjYgNDUsIC0xMDYuNyA0NSwgLTEwNi44IDQ1LCAtMTA2LjkgNDUsIC0xMDcgNDUsIC0xMDcuMSA0NSwgLTEwNy4yIDQ1LCAtMTA3LjMgNDUsIC0xMDcuNCA0NSwgLTEwNy41IDQ1LCAtMTA3LjYgNDUsIC0xMDcuNyA0NSwgLTEwNy44IDQ1LCAtMTA3LjkgNDUsIC0xMDggNDUsIC0xMDguMSA0NSwgLTEwOC4yIDQ1LCAtMTA4LjMgNDUsIC0xMDguNCA0NSwgLTEwOC41IDQ1LCAtMTA4LjYgNDUsIC0xMDguNyA0NSwgLTEwOC44IDQ1LCAtMTA4LjkgNDUsIC0xMDkgNDUsIC0xMDkuMSA0NSwgLTEwOS4yIDQ1LCAtMTA5LjMgNDUsIC0xMDkuNCA0NSwgLTEwOS41IDQ1LCAtMTA5LjYgNDUsIC0xMDkuNyA0NSwgLTEwOS44IDQ1LCAtMTA5LjkgNDUsIC0xMTAgNDUsIC0xMTAuMSA0NSwgLTExMC4yIDQ1LCAtMTEwLjMgNDUsIC0xMTAuNCA0NSwgLTExMC41IDQ1LCAtMTEwLjYgNDUsIC0xMTAuNyA0NSwgLTExMC44IDQ1LCAtMTEwLjkgNDUsIC0xMTEgNDUpKQ==",
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
-                },
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 0,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 8,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": {
-                  "unencoded_byte_array_data_bytes": 2395,
-                  "repetition_level_histogram": [],
-                  "definition_level_histogram": [
-                    0,
-                    1
-                  ]
-                },
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "geometry": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 15764,
-                "byte_length": 106,
-                "type": 6,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "geometry",
-                "codec": 0,
-                "num_values": 1,
-                "total_uncompressed_size": 3597,
-                "total_compressed_size": 3597,
-                "data_page_offset": 10814,
-                "index_page_offset": null,
-                "dictionary_page_offset": 7245,
-                "statistics": null,
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 0,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 8,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": {
-                  "unencoded_byte_array_data_bytes": 3549,
-                  "repetition_level_histogram": [],
-                  "definition_level_histogram": [
-                    0,
-                    1
-                  ]
-                },
-                "geospatial_statistics": {
-                  "bbox": {
-                    "xmin": -111.0,
-                    "xmax": -104.0,
-                    "ymin": 41.0,
-                    "ymax": 45.0,
-                    "zmin": null,
-                    "zmax": null,
-                    "mmin": null,
-                    "mmax": null
-                  },
-                  "geospatial_types": [
-                    3
-                  ]
-                }
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            }
-          },
-          "total_byte_size": 10838,
-          "row_count": 1,
-          "sorting_columns": null,
-          "file_offset": 4,
-          "total_compressed_size": 10838,
-          "ordinal": null,
-          "compression_stats": {
-            "total_compressed": 10838,
-            "total_uncompressed": 10838,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 0.010335922241210938,
-            "uncompressed_mb": 0.010335922241210938
-          }
+        "total_byte_size": 10838,
+        "row_count": 1,
+        "sorting_columns": null,
+        "file_offset": 4,
+        "total_compressed_size": 10838,
+        "ordinal": null,
+        "compression_stats": {
+          "total_compressed": 10838,
+          "total_uncompressed": 10838,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 0.010335922241210938,
+          "uncompressed_mb": 0.010335922241210938
         }
-      ],
-      "created_by": "parquet-cpp-arrow version 20.0.0-SNAPSHOT",
-      "key_value_metadata": [],
-      "compression_stats": {
-        "total_compressed": 10838,
-        "total_uncompressed": 10838,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 0.010335922241210938,
-        "uncompressed_mb": 0.010335922241210938
-      },
-      "column_count": 2,
-      "row_count": 1,
-      "row_group_count": 1
-    }
+      }
+    ],
+    "created_by": "parquet-cpp-arrow version 20.0.0-SNAPSHOT",
+    "key_value_metadata": [],
+    "start_offset": 10842,
+    "total_byte_size": 5094,
+    "compression_stats": {
+      "total_compressed": 10838,
+      "total_uncompressed": 10838,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 0.010335922241210938,
+      "uncompressed_mb": 0.010335922241210938
+    },
+    "column_count": 2,
+    "row_count": 1,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

@@ -96,235 +96,233 @@
     }
   ],
   "metadata": {
-    "start_offset": 12237,
-    "total_byte_size": 3172,
-    "metadata": {
-      "version": 2,
-      "schema_root": {
-        "element_type": "root",
-        "name": "schema",
-        "full_path": "",
-        "start_offset": 12241,
-        "byte_length": 13,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 2,
-        "children": {
+    "version": 2,
+    "schema_root": {
+      "element_type": "root",
+      "name": "schema",
+      "full_path": "",
+      "start_offset": 12241,
+      "byte_length": 13,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 2,
+      "children": {
+        "wkt": {
+          "element_type": "column",
+          "name": "wkt",
+          "full_path": "wkt",
+          "start_offset": 12254,
+          "byte_length": 16,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 6,
+          "repetition": 1,
+          "converted_type": 0,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 1
+          },
+          "list_semantics": null
+        },
+        "geometry": {
+          "element_type": "column",
+          "name": "geometry",
+          "full_path": "geometry",
+          "start_offset": 12270,
+          "byte_length": 49,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "type": 6,
+          "repetition": 1,
+          "converted_type": null,
+          "type_length": null,
+          "scale": null,
+          "precision": null,
+          "field_id": null,
+          "logical_type": {
+            "logical_type": 17
+          },
+          "list_semantics": null
+        }
+      },
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 12323,
+        "byte_length": 194,
+        "column_chunks": {
           "wkt": {
-            "element_type": "column",
-            "name": "wkt",
-            "full_path": "wkt",
-            "start_offset": 12254,
-            "byte_length": 16,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 6,
-            "repetition": 1,
-            "converted_type": 0,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 1
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 12328,
+              "byte_length": 64,
+              "type": 6,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "wkt",
+              "codec": 0,
+              "num_values": 1,
+              "total_uncompressed_size": 8636,
+              "total_compressed_size": 8636,
+              "data_page_offset": 8610,
+              "index_page_offset": null,
+              "dictionary_page_offset": 4,
+              "statistics": {
+                "min": null,
+                "max": null,
+                "null_count": 0,
+                "distinct_count": null,
+                "min_value": null,
+                "max_value": null,
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 0,
+                  "count": 1
+                },
+                {
+                  "page_type": 0,
+                  "encoding": 8,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": {
+                "unencoded_byte_array_data_bytes": 8584,
+                "repetition_level_histogram": [],
+                "definition_level_histogram": [
+                  0,
+                  1
+                ]
+              },
+              "geospatial_statistics": null
             },
-            "list_semantics": null
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
           },
           "geometry": {
-            "element_type": "column",
-            "name": "geometry",
-            "full_path": "geometry",
-            "start_offset": 12270,
-            "byte_length": 49,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "type": 6,
-            "repetition": 1,
-            "converted_type": null,
-            "type_length": null,
-            "scale": null,
-            "precision": null,
-            "field_id": null,
-            "logical_type": {
-              "logical_type": 17
-            },
-            "list_semantics": null
-          }
-        },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 12323,
-          "byte_length": 194,
-          "column_chunks": {
-            "wkt": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 12328,
-                "byte_length": 64,
-                "type": 6,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "wkt",
-                "codec": 0,
-                "num_values": 1,
-                "total_uncompressed_size": 8636,
-                "total_compressed_size": 8636,
-                "data_page_offset": 8610,
-                "index_page_offset": null,
-                "dictionary_page_offset": 4,
-                "statistics": {
-                  "min": null,
-                  "max": null,
-                  "null_count": 0,
-                  "distinct_count": null,
-                  "min_value": null,
-                  "max_value": null,
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
+            "file_offset": 0,
+            "metadata": {
+              "start_offset": 12396,
+              "byte_length": 107,
+              "type": 6,
+              "encodings": [
+                0,
+                3,
+                8
+              ],
+              "path_in_schema": "geometry",
+              "codec": 0,
+              "num_values": 1,
+              "total_uncompressed_size": 3597,
+              "total_compressed_size": 3597,
+              "data_page_offset": 12209,
+              "index_page_offset": null,
+              "dictionary_page_offset": 8640,
+              "statistics": null,
+              "encoding_stats": [
+                {
+                  "page_type": 2,
+                  "encoding": 0,
+                  "count": 1
                 },
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 0,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 8,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": {
-                  "unencoded_byte_array_data_bytes": 8584,
-                  "repetition_level_histogram": [],
-                  "definition_level_histogram": [
-                    0,
-                    1
-                  ]
-                },
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            },
-            "geometry": {
-              "file_offset": 0,
-              "metadata": {
-                "start_offset": 12396,
-                "byte_length": 107,
-                "type": 6,
-                "encodings": [
-                  0,
-                  3,
-                  8
-                ],
-                "path_in_schema": "geometry",
-                "codec": 0,
-                "num_values": 1,
-                "total_uncompressed_size": 3597,
-                "total_compressed_size": 3597,
-                "data_page_offset": 12209,
-                "index_page_offset": null,
-                "dictionary_page_offset": 8640,
-                "statistics": null,
-                "encoding_stats": [
-                  {
-                    "page_type": 2,
-                    "encoding": 0,
-                    "count": 1
-                  },
-                  {
-                    "page_type": 0,
-                    "encoding": 8,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": {
-                  "unencoded_byte_array_data_bytes": 3549,
-                  "repetition_level_histogram": [],
-                  "definition_level_histogram": [
-                    0,
-                    1
-                  ]
-                },
-                "geospatial_statistics": {
-                  "bbox": {
-                    "xmin": -1246468.6282243181,
-                    "xmax": -629201.6831309096,
-                    "ymin": 2027071.9552939134,
-                    "ymax": 2538743.2590920925,
-                    "zmin": null,
-                    "zmax": null,
-                    "mmin": null,
-                    "mmax": null
-                  },
-                  "geospatial_types": [
-                    3
-                  ]
+                {
+                  "page_type": 0,
+                  "encoding": 8,
+                  "count": 1
                 }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": {
+                "unencoded_byte_array_data_bytes": 3549,
+                "repetition_level_histogram": [],
+                "definition_level_histogram": [
+                  0,
+                  1
+                ]
               },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
-            }
-          },
-          "total_byte_size": 12233,
-          "row_count": 1,
-          "sorting_columns": null,
-          "file_offset": 4,
-          "total_compressed_size": 12233,
-          "ordinal": null,
-          "compression_stats": {
-            "total_compressed": 12233,
-            "total_uncompressed": 12233,
-            "ratio": 1.0,
-            "space_saved_percent": 0.0,
-            "compressed_mb": 0.011666297912597656,
-            "uncompressed_mb": 0.011666297912597656
+              "geospatial_statistics": {
+                "bbox": {
+                  "xmin": -1246468.6282243181,
+                  "xmax": -629201.6831309096,
+                  "ymin": 2027071.9552939134,
+                  "ymax": 2538743.2590920925,
+                  "zmin": null,
+                  "zmax": null,
+                  "mmin": null,
+                  "mmax": null
+                },
+                "geospatial_types": [
+                  3
+                ]
+              }
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
           }
-        }
-      ],
-      "created_by": "parquet-cpp-arrow version 20.0.0-SNAPSHOT",
-      "key_value_metadata": [
-        {
-          "start_offset": 12519,
-          "byte_length": 2340,
-          "key": "projjson_epsg_5070",
-          "value": "{\"$schema\":\"https://proj.org/schemas/v0.7/projjson.schema.json\",\"type\":\"ProjectedCRS\",\"name\":\"NAD83 / Conus Albers\",\"base_crs\":{\"name\":\"NAD83\",\"datum\":{\"type\":\"GeodeticReferenceFrame\",\"name\":\"North American Datum 1983\",\"ellipsoid\":{\"name\":\"GRS 1980\",\"semi_major_axis\":6378137,\"inverse_flattening\":298.257222101}},\"coordinate_system\":{\"subtype\":\"ellipsoidal\",\"axis\":[{\"name\":\"Geodetic latitude\",\"abbreviation\":\"Lat\",\"direction\":\"north\",\"unit\":\"degree\"},{\"name\":\"Geodetic longitude\",\"abbreviation\":\"Lon\",\"direction\":\"east\",\"unit\":\"degree\"}]},\"id\":{\"authority\":\"EPSG\",\"code\":4269}},\"conversion\":{\"name\":\"Conus Albers\",\"method\":{\"name\":\"Albers Equal Area\",\"id\":{\"authority\":\"EPSG\",\"code\":9822}},\"parameters\":[{\"name\":\"Latitude of false origin\",\"value\":23,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8821}},{\"name\":\"Longitude of false origin\",\"value\":-96,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8822}},{\"name\":\"Latitude of 1st standard parallel\",\"value\":29.5,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8823}},{\"name\":\"Latitude of 2nd standard parallel\",\"value\":45.5,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8824}},{\"name\":\"Easting at false origin\",\"value\":0,\"unit\":\"metre\",\"id\":{\"authority\":\"EPSG\",\"code\":8826}},{\"name\":\"Northing at false origin\",\"value\":0,\"unit\":\"metre\",\"id\":{\"authority\":\"EPSG\",\"code\":8827}}]},\"coordinate_system\":{\"subtype\":\"Cartesian\",\"axis\":[{\"name\":\"Easting\",\"abbreviation\":\"X\",\"direction\":\"east\",\"unit\":\"metre\"},{\"name\":\"Northing\",\"abbreviation\":\"Y\",\"direction\":\"north\",\"unit\":\"metre\"}]},\"scope\":\"Data analysis and small scale data presentation for contiguous lower 48 states.\",\"area\":\"United States (USA) - CONUS onshore - Alabama; Arizona; Arkansas; California; Colorado; Connecticut; Delaware; Florida; Georgia; Idaho; Illinois; Indiana; Iowa; Kansas; Kentucky; Louisiana; Maine; Maryland; Massachusetts; Michigan; Minnesota; Mississippi; Missouri; Montana; Nebraska; Nevada; New Hampshire; New Jersey; New Mexico; New York; North Carolina; North Dakota; Ohio; Oklahoma; Oregon; Pennsylvania; Rhode Island; South Carolina; South Dakota; Tennessee; Texas; Utah; Vermont; Virginia; Washington; West Virginia; Wisconsin; Wyoming.\",\"bbox\":{\"south_latitude\":24.41,\"west_longitude\":-124.79,\"north_latitude\":49.38,\"east_longitude\":-66.91},\"id\":{\"authority\":\"EPSG\",\"code\":5070}}"
         },
-        {
-          "start_offset": 14859,
-          "byte_length": 498,
-          "key": "ARROW:schema",
-          "value": "/////2ABAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAIAAAAEAQAAGAAAAAAAEgAYAAgABgAHAAwAAAAQABQAEgAAAAAAAQQUAAAAyAAAAAgAAAAYAAAAAAAAAAgAAABnZW9tZXRyeQAAAAACAAAATAAAAAQAAADE////HAAAAAQAAAAMAAAAZ2VvYXJyb3cud2tiAAAAABQAAABBUlJPVzpleHRlbnNpb246bmFtZQAAAAAIAAwABAAIAAgAAAA0AAAABAAAACYAAAB7ImNycyI6ICJwcm9qanNvbjpwcm9qanNvbl9lcHNnXzUwNzAifQAAGAAAAEFSUk9XOmV4dGVuc2lvbjptZXRhZGF0YQAAAADM////EAAUAAgABgAHAAwAAAAQABAAAAAAAAEFEAAAABgAAAAEAAAAAAAAAAMAAAB3a3QABAAEAAQAAAAAAAAA"
+        "total_byte_size": 12233,
+        "row_count": 1,
+        "sorting_columns": null,
+        "file_offset": 4,
+        "total_compressed_size": 12233,
+        "ordinal": null,
+        "compression_stats": {
+          "total_compressed": 12233,
+          "total_uncompressed": 12233,
+          "ratio": 1.0,
+          "space_saved_percent": 0.0,
+          "compressed_mb": 0.011666297912597656,
+          "uncompressed_mb": 0.011666297912597656
         }
-      ],
-      "compression_stats": {
-        "total_compressed": 12233,
-        "total_uncompressed": 12233,
-        "ratio": 1.0,
-        "space_saved_percent": 0.0,
-        "compressed_mb": 0.011666297912597656,
-        "uncompressed_mb": 0.011666297912597656
+      }
+    ],
+    "created_by": "parquet-cpp-arrow version 20.0.0-SNAPSHOT",
+    "key_value_metadata": [
+      {
+        "start_offset": 12519,
+        "byte_length": 2340,
+        "key": "projjson_epsg_5070",
+        "value": "{\"$schema\":\"https://proj.org/schemas/v0.7/projjson.schema.json\",\"type\":\"ProjectedCRS\",\"name\":\"NAD83 / Conus Albers\",\"base_crs\":{\"name\":\"NAD83\",\"datum\":{\"type\":\"GeodeticReferenceFrame\",\"name\":\"North American Datum 1983\",\"ellipsoid\":{\"name\":\"GRS 1980\",\"semi_major_axis\":6378137,\"inverse_flattening\":298.257222101}},\"coordinate_system\":{\"subtype\":\"ellipsoidal\",\"axis\":[{\"name\":\"Geodetic latitude\",\"abbreviation\":\"Lat\",\"direction\":\"north\",\"unit\":\"degree\"},{\"name\":\"Geodetic longitude\",\"abbreviation\":\"Lon\",\"direction\":\"east\",\"unit\":\"degree\"}]},\"id\":{\"authority\":\"EPSG\",\"code\":4269}},\"conversion\":{\"name\":\"Conus Albers\",\"method\":{\"name\":\"Albers Equal Area\",\"id\":{\"authority\":\"EPSG\",\"code\":9822}},\"parameters\":[{\"name\":\"Latitude of false origin\",\"value\":23,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8821}},{\"name\":\"Longitude of false origin\",\"value\":-96,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8822}},{\"name\":\"Latitude of 1st standard parallel\",\"value\":29.5,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8823}},{\"name\":\"Latitude of 2nd standard parallel\",\"value\":45.5,\"unit\":\"degree\",\"id\":{\"authority\":\"EPSG\",\"code\":8824}},{\"name\":\"Easting at false origin\",\"value\":0,\"unit\":\"metre\",\"id\":{\"authority\":\"EPSG\",\"code\":8826}},{\"name\":\"Northing at false origin\",\"value\":0,\"unit\":\"metre\",\"id\":{\"authority\":\"EPSG\",\"code\":8827}}]},\"coordinate_system\":{\"subtype\":\"Cartesian\",\"axis\":[{\"name\":\"Easting\",\"abbreviation\":\"X\",\"direction\":\"east\",\"unit\":\"metre\"},{\"name\":\"Northing\",\"abbreviation\":\"Y\",\"direction\":\"north\",\"unit\":\"metre\"}]},\"scope\":\"Data analysis and small scale data presentation for contiguous lower 48 states.\",\"area\":\"United States (USA) - CONUS onshore - Alabama; Arizona; Arkansas; California; Colorado; Connecticut; Delaware; Florida; Georgia; Idaho; Illinois; Indiana; Iowa; Kansas; Kentucky; Louisiana; Maine; Maryland; Massachusetts; Michigan; Minnesota; Mississippi; Missouri; Montana; Nebraska; Nevada; New Hampshire; New Jersey; New Mexico; New York; North Carolina; North Dakota; Ohio; Oklahoma; Oregon; Pennsylvania; Rhode Island; South Carolina; South Dakota; Tennessee; Texas; Utah; Vermont; Virginia; Washington; West Virginia; Wisconsin; Wyoming.\",\"bbox\":{\"south_latitude\":24.41,\"west_longitude\":-124.79,\"north_latitude\":49.38,\"east_longitude\":-66.91},\"id\":{\"authority\":\"EPSG\",\"code\":5070}}"
       },
-      "column_count": 2,
-      "row_count": 1,
-      "row_group_count": 1
-    }
+      {
+        "start_offset": 14859,
+        "byte_length": 498,
+        "key": "ARROW:schema",
+        "value": "/////2ABAAAQAAAAAAAKAAwABgAFAAgACgAAAAABBAAMAAAACAAIAAAABAAIAAAABAAAAAIAAAAEAQAAGAAAAAAAEgAYAAgABgAHAAwAAAAQABQAEgAAAAAAAQQUAAAAyAAAAAgAAAAYAAAAAAAAAAgAAABnZW9tZXRyeQAAAAACAAAATAAAAAQAAADE////HAAAAAQAAAAMAAAAZ2VvYXJyb3cud2tiAAAAABQAAABBUlJPVzpleHRlbnNpb246bmFtZQAAAAAIAAwABAAIAAgAAAA0AAAABAAAACYAAAB7ImNycyI6ICJwcm9qanNvbjpwcm9qanNvbl9lcHNnXzUwNzAifQAAGAAAAEFSUk9XOmV4dGVuc2lvbjptZXRhZGF0YQAAAADM////EAAUAAgABgAHAAwAAAAQABAAAAAAAAEFEAAAABgAAAAEAAAAAAAAAAMAAAB3a3QABAAEAAQAAAAAAAAA"
+      }
+    ],
+    "start_offset": 12237,
+    "total_byte_size": 3172,
+    "compression_stats": {
+      "total_compressed": 12233,
+      "total_uncompressed": 12233,
+      "ratio": 1.0,
+      "space_saved_percent": 0.0,
+      "compressed_mb": 0.011666297912597656,
+      "uncompressed_mb": 0.011666297912597656
+    },
+    "column_count": 2,
+    "row_count": 1,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",

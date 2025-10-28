@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import struct
 import warnings
 
 from collections.abc import Callable
 from functools import cached_property
-from typing import Annotated, Any, Literal
+from io import SEEK_END
+from typing import Annotated, Any, Literal, Self
 
 from pydantic import (
     BaseModel,
@@ -15,6 +17,7 @@ from pydantic import (
     model_validator,
 )
 
+from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import (
     BoundaryOrder,
     ColumnConvertedType,
@@ -33,6 +36,9 @@ from .enums import (
     TimeUnit,
     Type,
 )
+from .exceptions import ParquetFormatError
+from .protocols import AsyncReadableSeekable, ReadableSeekable
+from .util.async_adapter import ensure_async_reader
 from .util.models import get_item_or_attr
 
 
@@ -814,6 +820,41 @@ class FileMetadata(BaseModel, frozen=True):
     row_groups: RowGroups
     created_by: str | None = None
     key_value_metadata: list[KeyValueMetadata] = Field(default_factory=list)
+    start_offset: int
+    total_byte_size: int
+
+    @classmethod
+    async def from_reader(
+        cls,
+        reader: ReadableSeekable | AsyncReadableSeekable,
+    ) -> Self:
+        from .parsers.parquet.metadata import MetadataParser
+
+        reader = ensure_async_reader(reader)
+        reader.seek(-FOOTER_SIZE, SEEK_END)
+        footer_start = reader.tell()
+        footer_bytes = await reader.read(FOOTER_SIZE)
+        magic_footer = footer_bytes[4:8]
+
+        if magic_footer != PARQUET_MAGIC:
+            raise ParquetFormatError(
+                'Invalid magic footer: expected '
+                f'{PARQUET_MAGIC!r}, got {magic_footer!r}',
+            )
+
+        metadata_size = struct.unpack('<I', footer_bytes[:4])[0]
+        metadata_start = footer_start - metadata_size
+
+        return cls(
+            start_offset=metadata_start,
+            total_byte_size=metadata_size,
+            **(
+                await MetadataParser(
+                    reader,
+                    metadata_start,
+                ).parse()
+            ),
+        )
 
     @model_validator(mode='before')
     @classmethod

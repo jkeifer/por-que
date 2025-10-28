@@ -40,147 +40,145 @@
     }
   ],
   "metadata": {
-    "start_offset": 33,
-    "total_byte_size": 420,
-    "metadata": {
-      "version": 1,
-      "schema_root": {
-        "element_type": "root",
-        "name": "spark_schema",
-        "full_path": "",
-        "start_offset": 37,
-        "byte_length": 17,
-        "definition_level": 0,
-        "repetition_level": 0,
-        "num_children": 1,
-        "children": {
-          "b_struct": {
-            "element_type": "group",
-            "name": "b_struct",
-            "full_path": "b_struct",
-            "start_offset": 54,
-            "byte_length": 15,
-            "definition_level": 1,
-            "repetition_level": 0,
-            "num_children": 1,
-            "children": {
-              "b_c_int": {
-                "element_type": "column",
-                "name": "b_c_int",
-                "full_path": "b_struct.b_c_int",
-                "start_offset": 69,
-                "byte_length": 14,
-                "definition_level": 2,
-                "repetition_level": 0,
-                "type": 1,
-                "repetition": 1,
-                "converted_type": null,
-                "type_length": null,
-                "scale": null,
-                "precision": null,
-                "field_id": null,
-                "logical_type": null,
-                "list_semantics": null
-              }
-            },
-            "repetition": 1,
-            "converted_type": null,
-            "field_id": null,
-            "logical_type": null
-          }
-        },
-        "repetition": 0
-      },
-      "row_groups": [
-        {
-          "start_offset": 87,
-          "byte_length": 61,
-          "column_chunks": {
-            "b_struct.b_c_int": {
-              "file_offset": 4,
-              "metadata": {
-                "start_offset": 92,
-                "byte_length": 50,
-                "type": 1,
-                "encodings": [
-                  0,
-                  4,
-                  3
-                ],
-                "path_in_schema": "b_struct.b_c_int",
-                "codec": 1,
-                "num_values": 8,
-                "total_uncompressed_size": 27,
-                "total_compressed_size": 29,
-                "data_page_offset": 4,
-                "index_page_offset": null,
-                "dictionary_page_offset": null,
-                "statistics": {
-                  "min": null,
-                  "max": null,
-                  "null_count": 8,
-                  "distinct_count": null,
-                  "min_value": null,
-                  "max_value": null,
-                  "is_min_value_exact": null,
-                  "is_max_value_exact": null
-                },
-                "encoding_stats": [
-                  {
-                    "page_type": 0,
-                    "encoding": 0,
-                    "count": 1
-                  }
-                ],
-                "bloom_filter_offset": null,
-                "bloom_filter_length": null,
-                "size_statistics": null,
-                "geospatial_statistics": null
-              },
-              "file_path": null,
-              "offset_index_offset": null,
-              "offset_index_length": null,
-              "column_index_offset": null,
-              "column_index_length": null
+    "version": 1,
+    "schema_root": {
+      "element_type": "root",
+      "name": "spark_schema",
+      "full_path": "",
+      "start_offset": 37,
+      "byte_length": 17,
+      "definition_level": 0,
+      "repetition_level": 0,
+      "num_children": 1,
+      "children": {
+        "b_struct": {
+          "element_type": "group",
+          "name": "b_struct",
+          "full_path": "b_struct",
+          "start_offset": 54,
+          "byte_length": 15,
+          "definition_level": 1,
+          "repetition_level": 0,
+          "num_children": 1,
+          "children": {
+            "b_c_int": {
+              "element_type": "column",
+              "name": "b_c_int",
+              "full_path": "b_struct.b_c_int",
+              "start_offset": 69,
+              "byte_length": 14,
+              "definition_level": 2,
+              "repetition_level": 0,
+              "type": 1,
+              "repetition": 1,
+              "converted_type": null,
+              "type_length": null,
+              "scale": null,
+              "precision": null,
+              "field_id": null,
+              "logical_type": null,
+              "list_semantics": null
             }
           },
-          "total_byte_size": 27,
-          "row_count": 8,
-          "sorting_columns": null,
-          "file_offset": null,
-          "total_compressed_size": null,
-          "ordinal": null,
-          "compression_stats": {
-            "total_compressed": 29,
-            "total_uncompressed": 27,
-            "ratio": 1.0740740740740742,
-            "space_saved_percent": -7.407407407407418,
-            "compressed_mb": 2.765655517578125e-05,
-            "uncompressed_mb": 2.574920654296875e-05
-          }
+          "repetition": 1,
+          "converted_type": null,
+          "field_id": null,
+          "logical_type": null
         }
-      ],
-      "created_by": "parquet-mr version 1.8.2 (build c6522788629e590a53eb79874b95f6c3ff11f16c)",
-      "key_value_metadata": [
-        {
-          "start_offset": 150,
-          "byte_length": 227,
-          "key": "org.apache.spark.sql.parquet.row.metadata",
-          "value": "{\"type\":\"struct\",\"fields\":[{\"name\":\"b_struct\",\"type\":{\"type\":\"struct\",\"fields\":[{\"name\":\"b_c_int\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}}]},\"nullable\":true,\"metadata\":{}}]}"
-        }
-      ],
-      "compression_stats": {
-        "total_compressed": 29,
-        "total_uncompressed": 27,
-        "ratio": 1.0740740740740742,
-        "space_saved_percent": -7.407407407407418,
-        "compressed_mb": 2.765655517578125e-05,
-        "uncompressed_mb": 2.574920654296875e-05
       },
-      "column_count": 1,
-      "row_count": 8,
-      "row_group_count": 1
-    }
+      "repetition": 0
+    },
+    "row_groups": [
+      {
+        "start_offset": 87,
+        "byte_length": 61,
+        "column_chunks": {
+          "b_struct.b_c_int": {
+            "file_offset": 4,
+            "metadata": {
+              "start_offset": 92,
+              "byte_length": 50,
+              "type": 1,
+              "encodings": [
+                0,
+                4,
+                3
+              ],
+              "path_in_schema": "b_struct.b_c_int",
+              "codec": 1,
+              "num_values": 8,
+              "total_uncompressed_size": 27,
+              "total_compressed_size": 29,
+              "data_page_offset": 4,
+              "index_page_offset": null,
+              "dictionary_page_offset": null,
+              "statistics": {
+                "min": null,
+                "max": null,
+                "null_count": 8,
+                "distinct_count": null,
+                "min_value": null,
+                "max_value": null,
+                "is_min_value_exact": null,
+                "is_max_value_exact": null
+              },
+              "encoding_stats": [
+                {
+                  "page_type": 0,
+                  "encoding": 0,
+                  "count": 1
+                }
+              ],
+              "bloom_filter_offset": null,
+              "bloom_filter_length": null,
+              "size_statistics": null,
+              "geospatial_statistics": null
+            },
+            "file_path": null,
+            "offset_index_offset": null,
+            "offset_index_length": null,
+            "column_index_offset": null,
+            "column_index_length": null
+          }
+        },
+        "total_byte_size": 27,
+        "row_count": 8,
+        "sorting_columns": null,
+        "file_offset": null,
+        "total_compressed_size": null,
+        "ordinal": null,
+        "compression_stats": {
+          "total_compressed": 29,
+          "total_uncompressed": 27,
+          "ratio": 1.0740740740740742,
+          "space_saved_percent": -7.407407407407418,
+          "compressed_mb": 2.765655517578125e-05,
+          "uncompressed_mb": 2.574920654296875e-05
+        }
+      }
+    ],
+    "created_by": "parquet-mr version 1.8.2 (build c6522788629e590a53eb79874b95f6c3ff11f16c)",
+    "key_value_metadata": [
+      {
+        "start_offset": 150,
+        "byte_length": 227,
+        "key": "org.apache.spark.sql.parquet.row.metadata",
+        "value": "{\"type\":\"struct\",\"fields\":[{\"name\":\"b_struct\",\"type\":{\"type\":\"struct\",\"fields\":[{\"name\":\"b_c_int\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}}]},\"nullable\":true,\"metadata\":{}}]}"
+      }
+    ],
+    "start_offset": 33,
+    "total_byte_size": 420,
+    "compression_stats": {
+      "total_compressed": 29,
+      "total_uncompressed": 27,
+      "ratio": 1.0740740740740742,
+      "space_saved_percent": -7.407407407407418,
+      "compressed_mb": 2.765655517578125e-05,
+      "uncompressed_mb": 2.574920654296875e-05
+    },
+    "column_count": 1,
+    "row_count": 8,
+    "row_group_count": 1
   },
   "magic_header": "PAR1",
   "magic_footer": "PAR1",
