@@ -555,6 +555,26 @@ class SchemaLeaf(SchemaElement, frozen=True):
             self.type.name,
         ]
 
+    def bytes_to_physical_type(self, value: bytes) -> Any:
+        from .parsers.physical_types import parse_bytes
+
+        return parse_bytes(
+            value,
+            self.type,
+        )
+
+    def physical_to_logical_type(self, value: Any) -> Any:
+        from .parsers.logical_types import convert_single_value
+
+        if value is None:
+            return None
+
+        return convert_single_value(
+            value,
+            self.type,
+            self.get_logical_type(),
+        )
+
 
 class ColumnStatistics(
     BaseModel,
@@ -574,40 +594,24 @@ class ColumnStatistics(
 
     @property
     def converted_min_value(self) -> Any:
-        from .parsers.logical_types import convert_single_value
-        from .parsers.physical_types import parse_bytes
-
         value = self.min_value if self.min_value else self.min_
 
         if value is None:
             return None
 
-        return convert_single_value(
-            parse_bytes(
-                value,
-                self.schema_element.type,
-            ),
-            self.schema_element.type,
-            self.schema_element.get_logical_type(),
+        return self.schema_element.physical_to_logical_type(
+            self.schema_element.bytes_to_physical_type(value),
         )
 
     @property
     def converted_max_value(self) -> Any:
-        from .parsers.logical_types import convert_single_value
-        from .parsers.physical_types import parse_bytes
-
         value = self.max_value if self.max_value else self.max_
 
         if value is None:
             return None
 
-        return convert_single_value(
-            parse_bytes(
-                value,
-                self.schema_element.type,
-            ),
-            self.schema_element.type,
-            self.schema_element.get_logical_type(),
+        return self.schema_element.physical_to_logical_type(
+            self.schema_element.bytes_to_physical_type(value),
         )
 
 
@@ -739,34 +743,18 @@ class ColumnIndex(
 
     @property
     def converted_min_values(self) -> Any:
-        from .parsers.logical_types import convert_single_value
-        from .parsers.physical_types import parse_bytes
-
         return [
-            convert_single_value(
-                parse_bytes(
-                    value,
-                    self.schema_element.type,
-                ),
-                self.schema_element.type,
-                self.schema_element.get_logical_type(),
+            self.schema_element.physical_to_logical_type(
+                self.schema_element.bytes_to_physical_type(value),
             )
             for value in self.min_values
         ]
 
     @property
     def converted_max_values(self) -> Any:
-        from .parsers.logical_types import convert_single_value
-        from .parsers.physical_types import parse_bytes
-
         return [
-            convert_single_value(
-                parse_bytes(
-                    value,
-                    self.schema_element.type,
-                ),
-                self.schema_element.type,
-                self.schema_element.get_logical_type(),
+            self.schema_element.physical_to_logical_type(
+                self.schema_element.bytes_to_physical_type(value),
             )
             for value in self.max_values
         ]

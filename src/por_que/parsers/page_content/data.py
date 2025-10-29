@@ -14,9 +14,6 @@ from por_que.enums import Compression, Encoding, Type
 from por_que.exceptions import ParquetDataError
 from por_que.file_metadata import SchemaLeaf
 from por_que.parsers import physical_types
-from por_que.parsers.logical_types import (
-    convert_single_value,
-)
 from por_que.protocols import AsyncReadableSeekable, ReadableSeekable
 
 if TYPE_CHECKING:
@@ -146,16 +143,11 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
             excluded_logical_columns
             and self.schema_element.full_path in excluded_logical_columns
         )
-        logical_type_info = self.schema_element.get_logical_type()
 
         # Helper to convert value if needed
         def convert_value(value):
             if apply_logical_types and value is not None:
-                return convert_single_value(
-                    value,
-                    self.physical_type,
-                    logical_type_info,
-                )
+                return self.schema_element.physical_to_logical_type(value)
             return value
 
         # If we have no definition levels, all values are non-null
