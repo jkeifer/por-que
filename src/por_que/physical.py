@@ -244,13 +244,13 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         reader: ReadableSeekable | AsyncReadableSeekable,
         excluded_logical_columns: Sequence[str] | None = None,
     ) -> AsyncIterator[ValueTuple]:
-        """Parse all data from all pages in this column chunk into a single list.
+        """Parse all data from all pages in this column chunk.
 
         Args:
             reader: File-like object to read from
 
-        Returns:
-            Flattened list of all data values from all pages in this column
+        Yields:
+            Value tuples from all pages in this column
         """
         reader = ensure_async_reader(reader)
 
@@ -276,10 +276,11 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             for task in tasks:
                 for value_tuple in await task:
                     yield value_tuple
+            return
 
         # run tasks in serial, awaiting each before starting next
         for coroutine in coroutines:
-            for value_tuple in await asyncio.create_task(coroutine):
+            for value_tuple in await coroutine:
                 yield value_tuple
 
 
