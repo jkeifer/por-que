@@ -20,7 +20,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "emptylist.list.item"
         }
       ],
       "index_pages": [],
@@ -130,7 +131,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "emptylist.list.item"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,

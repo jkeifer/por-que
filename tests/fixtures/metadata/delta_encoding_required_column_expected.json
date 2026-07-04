@@ -23,7 +23,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_customer_sk:"
         }
       ],
       "index_pages": [],
@@ -45,7 +46,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_customer_sk:"
       },
       "offset_index": {
         "start_offset": 9714,
@@ -82,7 +84,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_current_cdemo_sk:"
         }
       ],
       "index_pages": [],
@@ -104,7 +107,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_current_cdemo_sk:"
       },
       "offset_index": {
         "start_offset": 9724,
@@ -141,7 +145,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_current_hdemo_sk:"
         }
       ],
       "index_pages": [],
@@ -163,7 +168,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_current_hdemo_sk:"
       },
       "offset_index": {
         "start_offset": 9735,
@@ -200,7 +206,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_current_addr_sk:"
         }
       ],
       "index_pages": [],
@@ -222,7 +229,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_current_addr_sk:"
       },
       "offset_index": {
         "start_offset": 9747,
@@ -259,7 +267,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_first_shipto_date_sk:"
         }
       ],
       "index_pages": [],
@@ -281,7 +290,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_first_shipto_date_sk:"
       },
       "offset_index": {
         "start_offset": 9759,
@@ -318,7 +328,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_first_sales_date_sk:"
         }
       ],
       "index_pages": [],
@@ -340,7 +351,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_first_sales_date_sk:"
       },
       "offset_index": {
         "start_offset": 9771,
@@ -377,7 +389,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_birth_day:"
         }
       ],
       "index_pages": [],
@@ -399,7 +412,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_birth_day:"
       },
       "offset_index": {
         "start_offset": 9783,
@@ -436,7 +450,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_birth_month:"
         }
       ],
       "index_pages": [],
@@ -458,7 +473,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_birth_month:"
       },
       "offset_index": {
         "start_offset": 9795,
@@ -495,7 +511,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_birth_year:"
         }
       ],
       "index_pages": [],
@@ -517,7 +534,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_birth_year:"
       },
       "offset_index": {
         "start_offset": 9807,
@@ -554,7 +572,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_customer_id:"
         }
       ],
       "index_pages": [],
@@ -576,7 +595,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_customer_id:"
       },
       "offset_index": {
         "start_offset": 9819,
@@ -613,7 +633,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_salutation:"
         }
       ],
       "index_pages": [],
@@ -635,7 +656,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_salutation:"
       },
       "offset_index": {
         "start_offset": 9831,
@@ -672,7 +694,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_first_name:"
         }
       ],
       "index_pages": [],
@@ -694,7 +717,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_first_name:"
       },
       "offset_index": {
         "start_offset": 9843,
@@ -731,7 +755,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_last_name:"
         }
       ],
       "index_pages": [],
@@ -753,7 +778,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_last_name:"
       },
       "offset_index": {
         "start_offset": 9855,
@@ -790,7 +816,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_preferred_cust_flag:"
         }
       ],
       "index_pages": [],
@@ -812,7 +839,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_preferred_cust_flag:"
       },
       "offset_index": {
         "start_offset": 9867,
@@ -849,7 +877,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_birth_country:"
         }
       ],
       "index_pages": [],
@@ -871,7 +900,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_birth_country:"
       },
       "offset_index": {
         "start_offset": 9879,
@@ -908,7 +938,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_email_address:"
         }
       ],
       "index_pages": [],
@@ -930,7 +961,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_email_address:"
       },
       "offset_index": {
         "start_offset": 9891,
@@ -967,7 +999,8 @@
           "definition_levels_byte_length": 0,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "c_last_review_date:"
         }
       ],
       "index_pages": [],
@@ -989,7 +1022,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "c_last_review_date:"
       },
       "offset_index": {
         "start_offset": 9903,
@@ -1373,7 +1407,8 @@
                 "min_value": "AQAAAA==",
                 "max_value": "aQAAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_customer_sk:"
               },
               "encoding_stats": [
                 {
@@ -1418,7 +1453,8 @@
                 "min_value": "cSIAAA==",
                 "max_value": "FOwcAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_current_cdemo_sk:"
               },
               "encoding_stats": [
                 {
@@ -1463,7 +1499,8 @@
                 "min_value": "JQAAAA==",
                 "max_value": "3xsAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_current_hdemo_sk:"
               },
               "encoding_stats": [
                 {
@@ -1508,7 +1545,8 @@
                 "min_value": "0AEAAA==",
                 "max_value": "7MAAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_current_addr_sk:"
               },
               "encoding_stats": [
                 {
@@ -1553,7 +1591,8 @@
                 "min_value": "6l4lAA==",
                 "max_value": "oWwlAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_first_shipto_date_sk:"
               },
               "encoding_stats": [
                 {
@@ -1598,7 +1637,8 @@
                 "min_value": "zF4lAA==",
                 "max_value": "g2wlAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_first_sales_date_sk:"
               },
               "encoding_stats": [
                 {
@@ -1643,7 +1683,8 @@
                 "min_value": "AQAAAA==",
                 "max_value": "HgAAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_birth_day:"
               },
               "encoding_stats": [
                 {
@@ -1688,7 +1729,8 @@
                 "min_value": "AQAAAA==",
                 "max_value": "DAAAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_birth_month:"
               },
               "encoding_stats": [
                 {
@@ -1733,7 +1775,8 @@
                 "min_value": "hQcAAA==",
                 "max_value": "xwcAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_birth_year:"
               },
               "encoding_stats": [
                 {
@@ -1778,7 +1821,8 @@
                 "min_value": "QUFBQUFBQUFBQkFBQUFBQQ==",
                 "max_value": "QUFBQUFBQUFQRkFBQUFBQQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_customer_id:"
               },
               "encoding_stats": [
                 {
@@ -1823,7 +1867,8 @@
                 "min_value": "RHIu",
                 "max_value": "U2ly",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_salutation:"
               },
               "encoding_stats": [
                 {
@@ -1868,7 +1913,8 @@
                 "min_value": "QWxiZXJ0",
                 "max_value": "V2lsbGlhbQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_first_name:"
               },
               "encoding_stats": [
                 {
@@ -1913,7 +1959,8 @@
                 "min_value": "QmFrZXI=",
                 "max_value": "WW91bmc=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_last_name:"
               },
               "encoding_stats": [
                 {
@@ -1958,7 +2005,8 @@
                 "min_value": "Tg==",
                 "max_value": "WQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_preferred_cust_flag:"
               },
               "encoding_stats": [
                 {
@@ -2003,7 +2051,8 @@
                 "min_value": "QUZHSEFOSVNUQU4=",
                 "max_value": "V0FMTElTIEFORCBGVVRVTkE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_birth_country:"
               },
               "encoding_stats": [
                 {
@@ -2048,7 +2097,8 @@
                 "min_value": "QWxiZXJ0LkJydW5zb25ANjIuY29t",
                 "max_value": "V2lsbGlhbS5XYXJuZXJAemVnbnJ6dXJVLm9yZw==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_email_address:"
               },
               "encoding_stats": [
                 {
@@ -2093,7 +2143,8 @@
                 "min_value": "MjQ1MjI5Mw==",
                 "max_value": "MjQ1MjY0NA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_last_review_date:"
               },
               "encoding_stats": [
                 {

@@ -28,8 +28,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "value"
+          },
+          "schema_path": "value"
         }
       ],
       "index_pages": [],
@@ -104,7 +106,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "value"
               },
               "encoding_stats": [
                 {

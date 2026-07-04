@@ -20,7 +20,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "a.array.array"
         }
       ],
       "index_pages": [],
@@ -50,7 +51,8 @@
           0,
           0,
           4
-        ]
+        ],
+        "schema_path": "a.array.array"
       },
       "offset_index": {
         "start_offset": 90,
@@ -167,7 +169,8 @@
                 "min_value": "AQAAAA==",
                 "max_value": "BAAAAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "a.array.array"
               },
               "encoding_stats": [
                 {

@@ -28,8 +28,10 @@
             "min_value": "3kc=",
             "max_value": "dUo=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "float16_plain"
+          },
+          "schema_path": "float16_plain"
         }
       ],
       "index_pages": [],
@@ -64,8 +66,10 @@
             "min_value": "3kc=",
             "max_value": "dUo=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "float16_byte_stream_split"
+          },
+          "schema_path": "float16_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -100,8 +104,10 @@
             "min_value": "793tQA==",
             "max_value": "KHtOQQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "float_plain"
+          },
+          "schema_path": "float_plain"
         }
       ],
       "index_pages": [],
@@ -136,8 +142,10 @@
             "min_value": "793tQA==",
             "max_value": "KHtOQQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "float_byte_stream_split"
+          },
+          "schema_path": "float_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -172,8 +180,10 @@
             "min_value": "VK9ljVIkHEA=",
             "max_value": "qtBqSgIyKUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "double_plain"
+          },
+          "schema_path": "double_plain"
         }
       ],
       "index_pages": [],
@@ -208,8 +218,10 @@
             "min_value": "VK9ljVIkHEA=",
             "max_value": "qtBqSgIyKUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "double_byte_stream_split"
+          },
+          "schema_path": "double_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -244,8 +256,10 @@
             "min_value": "mQAAAA==",
             "max_value": "IoYBAA==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int32_plain"
+          },
+          "schema_path": "int32_plain"
         }
       ],
       "index_pages": [],
@@ -280,8 +294,10 @@
             "min_value": "mQAAAA==",
             "max_value": "IoYBAA==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int32_byte_stream_split"
+          },
+          "schema_path": "int32_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -316,8 +332,10 @@
             "min_value": "QBZ-SQAAAAA=",
             "max_value": "wHmHtecAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int64_plain"
+          },
+          "schema_path": "int64_plain"
         }
       ],
       "index_pages": [],
@@ -352,8 +370,10 @@
             "min_value": "QBZ-SQAAAAA=",
             "max_value": "wHmHtecAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int64_byte_stream_split"
+          },
+          "schema_path": "int64_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -388,8 +408,10 @@
             "min_value": "MDAwNjQ=",
             "max_value": "MTk3NjA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "flba5_plain"
+          },
+          "schema_path": "flba5_plain"
         }
       ],
       "index_pages": [],
@@ -424,8 +446,10 @@
             "min_value": "MDAwNjQ=",
             "max_value": "MTk3NjA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "flba5_byte_stream_split"
+          },
+          "schema_path": "flba5_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -460,8 +484,10 @@
             "min_value": "AAmxFw==",
             "max_value": "ABOLmQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "decimal_plain"
+          },
+          "schema_path": "decimal_plain"
         }
       ],
       "index_pages": [],
@@ -496,8 +522,10 @@
             "min_value": "AAmxFw==",
             "max_value": "ABOLmQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "decimal_byte_stream_split"
+          },
+          "schema_path": "decimal_byte_stream_split"
         }
       ],
       "index_pages": [],
@@ -817,7 +845,8 @@
                 "min_value": "3kc=",
                 "max_value": "dUo=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "float16_plain"
               },
               "encoding_stats": [
                 {
@@ -863,7 +892,8 @@
                 "min_value": "3kc=",
                 "max_value": "dUo=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "float16_byte_stream_split"
               },
               "encoding_stats": [
                 {
@@ -909,7 +939,8 @@
                 "min_value": "793tQA==",
                 "max_value": "KHtOQQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "float_plain"
               },
               "encoding_stats": [
                 {
@@ -955,7 +986,8 @@
                 "min_value": "793tQA==",
                 "max_value": "KHtOQQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "float_byte_stream_split"
               },
               "encoding_stats": [
                 {
@@ -1001,7 +1033,8 @@
                 "min_value": "VK9ljVIkHEA=",
                 "max_value": "qtBqSgIyKUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "double_plain"
               },
               "encoding_stats": [
                 {
@@ -1047,7 +1080,8 @@
                 "min_value": "VK9ljVIkHEA=",
                 "max_value": "qtBqSgIyKUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "double_byte_stream_split"
               },
               "encoding_stats": [
                 {
@@ -1093,7 +1127,8 @@
                 "min_value": "mQAAAA==",
                 "max_value": "IoYBAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int32_plain"
               },
               "encoding_stats": [
                 {
@@ -1139,7 +1174,8 @@
                 "min_value": "mQAAAA==",
                 "max_value": "IoYBAA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int32_byte_stream_split"
               },
               "encoding_stats": [
                 {
@@ -1185,7 +1221,8 @@
                 "min_value": "QBZ-SQAAAAA=",
                 "max_value": "wHmHtecAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int64_plain"
               },
               "encoding_stats": [
                 {
@@ -1231,7 +1268,8 @@
                 "min_value": "QBZ-SQAAAAA=",
                 "max_value": "wHmHtecAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int64_byte_stream_split"
               },
               "encoding_stats": [
                 {
@@ -1277,7 +1315,8 @@
                 "min_value": "MDAwNjQ=",
                 "max_value": "MTk3NjA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "flba5_plain"
               },
               "encoding_stats": [
                 {
@@ -1323,7 +1362,8 @@
                 "min_value": "MDAwNjQ=",
                 "max_value": "MTk3NjA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "flba5_byte_stream_split"
               },
               "encoding_stats": [
                 {
@@ -1369,7 +1409,8 @@
                 "min_value": "AAmxFw==",
                 "max_value": "ABOLmQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "decimal_plain"
               },
               "encoding_stats": [
                 {
@@ -1415,7 +1456,8 @@
                 "min_value": "AAmxFw==",
                 "max_value": "ABOLmQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "decimal_byte_stream_split"
               },
               "encoding_stats": [
                 {

@@ -20,7 +20,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "a"
         },
         {
           "page_type": 0,
@@ -33,7 +34,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "a"
         }
       ],
       "index_pages": [],
@@ -59,7 +61,8 @@
           -1
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "a"
       },
       "offset_index": {
         "start_offset": 3089,
@@ -98,7 +101,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "b"
         },
         {
           "page_type": 0,
@@ -111,7 +115,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "b"
         }
       ],
       "index_pages": [],
@@ -137,7 +142,8 @@
           -1
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "b"
       },
       "offset_index": {
         "start_offset": 3110,

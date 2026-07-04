@@ -23,7 +23,8 @@
           "definition_levels_byte_length": 11,
           "repetition_levels_byte_length": 2,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "datatype_boolean"
         }
       ],
       "index_pages": [],
@@ -96,7 +97,8 @@
                 "min_value": "AA==",
                 "max_value": "AQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "datatype_boolean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,

@@ -28,8 +28,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "a.list.element.list.element.list.element"
+          },
+          "schema_path": "a.list.element.list.element.list.element"
         }
       ],
       "index_pages": [],
@@ -74,8 +76,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "b"
+          },
+          "schema_path": "b"
         }
       ],
       "index_pages": [],
@@ -273,7 +277,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "a.list.element.list.element.list.element"
               },
               "encoding_stats": [
                 {
@@ -324,7 +329,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "b"
               },
               "encoding_stats": [
                 {

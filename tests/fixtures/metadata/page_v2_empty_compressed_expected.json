@@ -31,8 +31,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "integer_column"
+          },
+          "schema_path": "integer_column"
         }
       ],
       "index_pages": [],
@@ -117,7 +119,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "integer_column"
               },
               "encoding_stats": [
                 {

@@ -28,8 +28,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -74,8 +76,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -182,7 +186,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {

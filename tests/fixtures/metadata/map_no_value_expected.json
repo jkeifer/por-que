@@ -20,7 +20,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "my_map.key_value.key"
         }
       ],
       "index_pages": [],
@@ -68,7 +69,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "my_map.key_value.value"
         }
       ],
       "index_pages": [],
@@ -116,7 +118,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "my_map_no_v.key_value.key"
         }
       ],
       "index_pages": [],
@@ -164,7 +167,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "my_list.list.element"
         }
       ],
       "index_pages": [],

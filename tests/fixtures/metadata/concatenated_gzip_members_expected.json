@@ -31,8 +31,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQIAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "long_col"
+          },
+          "schema_path": "long_col"
         }
       ],
       "index_pages": [],
@@ -110,7 +112,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQIAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "long_col"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,

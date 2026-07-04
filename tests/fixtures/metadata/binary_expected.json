@@ -28,8 +28,10 @@
             "min_value": "AA==",
             "max_value": "Cw==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "foo"
+          },
+          "schema_path": "foo"
         }
       ],
       "index_pages": [],
@@ -104,7 +106,8 @@
                 "min_value": "AA==",
                 "max_value": "Cw==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "foo"
               },
               "encoding_stats": [
                 {

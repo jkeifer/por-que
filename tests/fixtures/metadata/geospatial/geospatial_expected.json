@@ -28,8 +28,10 @@
             "min_value": "YWxs",
             "max_value": "YWxs",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -74,8 +76,10 @@
             "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIChQT0lOVCAoMzAgMTApLCBMSU5FU1RSSU5HICgzMCAxMCwgMTAgMzAsIDQwIDQwKSwgUE9MWUdPTiAoKDMwIDEwLCA0MCA0MCwgMjAgNDAsIDEwIDIwLCAzMCAxMCkpLCBNVUxUSVBPSU5UICgoMzAgMTApKSwgTVVMVElMSU5FU1RSSU5HICgoMzAgMTAsIDEwIDMwLCA0MCA0MCkpLCBNVUxUSVBPTFlHT04gKCgoMzAgMTAsIDQwIDQwLCAyMCA0MCwgMTAgMjAsIDMwIDEwKSkpKQ==",
             "max_value": "UE9MWUdPTiBaTSAoKDMwIDEwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCwgMjAgNDAgNjAgODAwLCAxMCAyMCAzMCAyMDAsIDMwIDEwIDQwIDMwMCkp",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -120,8 +124,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -166,8 +172,10 @@
             "min_value": "ZW1wdHktZ2VvbWV0cmllcw==",
             "max_value": "ZW1wdHktZ2VvbWV0cmllcw==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -212,8 +220,10 @@
             "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIEVNUFRZ",
             "max_value": "UE9MWUdPTiBaTSBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -258,8 +268,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -304,8 +316,10 @@
             "min_value": "bnVsbC1nZW9tZXRyaWVz",
             "max_value": "bnVsbC1nZW9tZXRyaWVz",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -350,8 +364,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -396,8 +412,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -442,8 +460,10 @@
             "min_value": "cG9pbnQ=",
             "max_value": "cG9pbnQ=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -488,8 +508,10 @@
             "min_value": "UE9JTlQgKDMwIDEwKQ==",
             "max_value": "UE9JTlQgRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -534,8 +556,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -580,8 +604,10 @@
             "min_value": "bGluZXN0cmluZw==",
             "max_value": "bGluZXN0cmluZw==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -626,8 +652,10 @@
             "min_value": "TElORVNUUklORyAoMzAgMTAsIDEwIDMwLCA0MCA0MCk=",
             "max_value": "TElORVNUUklORyBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -672,8 +700,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -718,8 +748,10 @@
             "min_value": "cG9seWdvbg==",
             "max_value": "cG9seWdvbg==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -764,8 +796,10 @@
             "min_value": "UE9MWUdPTiAoKDMwIDEwLCA0MCA0MCwgMjAgNDAsIDEwIDIwLCAzMCAxMCkp",
             "max_value": "UE9MWUdPTiBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -810,8 +844,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -856,8 +892,10 @@
             "min_value": "bXVsdGlwb2ludA==",
             "max_value": "bXVsdGlwb2ludA==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -902,8 +940,10 @@
             "min_value": "TVVMVElQT0lOVCAoKDEwIDQwKSwgKDQwIDMwKSwgKDIwIDIwKSwgKDMwIDEwKSk=",
             "max_value": "TVVMVElQT0lOVCBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -948,8 +988,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -994,8 +1036,10 @@
             "min_value": "bXVsdGlsaW5lc3RyaW5n",
             "max_value": "bXVsdGlsaW5lc3RyaW5n",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1040,8 +1084,10 @@
             "min_value": "TVVMVElMSU5FU1RSSU5HICgoMTAgMTAsIDIwIDIwLCAxMCA0MCksICg0MCA0MCwgMzAgMzAsIDQwIDIwLCAzMCAxMCkp",
             "max_value": "TVVMVElMSU5FU1RSSU5HIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1086,8 +1132,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1132,8 +1180,10 @@
             "min_value": "bXVsdGlwb2x5Z29u",
             "max_value": "bXVsdGlwb2x5Z29u",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1178,8 +1228,10 @@
             "min_value": "TVVMVElQT0xZR09OICgoKDMwIDEwLCA0MCA0MCwgMjAgNDAsIDEwIDIwLCAzMCAxMCkpKQ==",
             "max_value": "TVVMVElQT0xZR09OIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1224,8 +1276,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1270,8 +1324,10 @@
             "min_value": "Z2VvbWV0cnljb2xsZWN0aW9u",
             "max_value": "Z2VvbWV0cnljb2xsZWN0aW9u",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1316,8 +1372,10 @@
             "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIChMSU5FU1RSSU5HICgzMCAxMCwgMTAgMzAsIDQwIDQwKSk=",
             "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1362,8 +1420,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1408,8 +1468,10 @@
             "min_value": "cG9pbnQteg==",
             "max_value": "cG9pbnQteg==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1454,8 +1516,10 @@
             "min_value": "UE9JTlQgWiAoMzAgMTAgNDAp",
             "max_value": "UE9JTlQgWiBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1500,8 +1564,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1546,8 +1612,10 @@
             "min_value": "bGluZXN0cmluZy16",
             "max_value": "bGluZXN0cmluZy16",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1592,8 +1660,10 @@
             "min_value": "TElORVNUUklORyBaICgzMCAxMCA0MCwgMTAgMzAgNDAsIDQwIDQwIDgwKQ==",
             "max_value": "TElORVNUUklORyBaIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1638,8 +1708,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1684,8 +1756,10 @@
             "min_value": "cG9seWdvbi16",
             "max_value": "cG9seWdvbi16",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1730,8 +1804,10 @@
             "min_value": "UE9MWUdPTiBaICgoMzAgMTAgNDAsIDQwIDQwIDgwLCAyMCA0MCA2MCwgMTAgMjAgMzAsIDMwIDEwIDQwKSk=",
             "max_value": "UE9MWUdPTiBaIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1776,8 +1852,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1822,8 +1900,10 @@
             "min_value": "bXVsdGlwb2ludC16",
             "max_value": "bXVsdGlwb2ludC16",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -1868,8 +1948,10 @@
             "min_value": "TVVMVElQT0lOVCBaICgoMTAgNDAgNTApLCAoNDAgMzAgNzApLCAoMjAgMjAgNDApLCAoMzAgMTAgNDApKQ==",
             "max_value": "TVVMVElQT0lOVCBaIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -1914,8 +1996,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -1960,8 +2044,10 @@
             "min_value": "bXVsdGlsaW5lc3RyaW5nLXo=",
             "max_value": "bXVsdGlsaW5lc3RyaW5nLXo=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2006,8 +2092,10 @@
             "min_value": "TVVMVElMSU5FU1RSSU5HIFogKCgxMCAxMCAyMCwgMjAgMjAgNDAsIDEwIDQwIDUwKSwgKDQwIDQwIDgwLCAzMCAzMCA2MCwgNDAgMjAgNjAsIDMwIDEwIDQwKSk=",
             "max_value": "TVVMVElMSU5FU1RSSU5HIFogRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2052,8 +2140,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2098,8 +2188,10 @@
             "min_value": "bXVsdGlwb2x5Z29uLXo=",
             "max_value": "bXVsdGlwb2x5Z29uLXo=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2144,8 +2236,10 @@
             "min_value": "TVVMVElQT0xZR09OIFogKCgoMzAgMTAgNDAsIDQwIDQwIDgwLCAyMCA0MCA2MCwgMTAgMjAgMzAsIDMwIDEwIDQwKSkp",
             "max_value": "TVVMVElQT0xZR09OIFogRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2190,8 +2284,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2236,8 +2332,10 @@
             "min_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXo=",
             "max_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXo=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2282,8 +2380,10 @@
             "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIFogKExJTkVTVFJJTkcgWiAoMzAgMTAgNDAsIDEwIDMwIDQwLCA0MCA0MCA4MCkp",
             "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIFogRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2328,8 +2428,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2374,8 +2476,10 @@
             "min_value": "cG9pbnQtbQ==",
             "max_value": "cG9pbnQtbQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2420,8 +2524,10 @@
             "min_value": "UE9JTlQgTSAoMzAgMTAgMzAwKQ==",
             "max_value": "UE9JTlQgTSBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2466,8 +2572,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2512,8 +2620,10 @@
             "min_value": "bGluZXN0cmluZy1t",
             "max_value": "bGluZXN0cmluZy1t",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2558,8 +2668,10 @@
             "min_value": "TElORVNUUklORyBNICgzMCAxMCAzMDAsIDEwIDMwIDMwMCwgNDAgNDAgMTYwMCk=",
             "max_value": "TElORVNUUklORyBNIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2604,8 +2716,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2650,8 +2764,10 @@
             "min_value": "cG9seWdvbi1t",
             "max_value": "cG9seWdvbi1t",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2696,8 +2812,10 @@
             "min_value": "UE9MWUdPTiBNICgoMzAgMTAgMzAwLCA0MCA0MCAxNjAwLCAyMCA0MCA4MDAsIDEwIDIwIDIwMCwgMzAgMTAgMzAwKSk=",
             "max_value": "UE9MWUdPTiBNIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2742,8 +2860,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2788,8 +2908,10 @@
             "min_value": "bXVsdGlwb2ludC1t",
             "max_value": "bXVsdGlwb2ludC1t",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2834,8 +2956,10 @@
             "min_value": "TVVMVElQT0lOVCBNICgoMTAgNDAgNDAwKSwgKDQwIDMwIDEyMDApLCAoMjAgMjAgNDAwKSwgKDMwIDEwIDMwMCkp",
             "max_value": "TVVMVElQT0lOVCBNIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -2880,8 +3004,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -2926,8 +3052,10 @@
             "min_value": "bXVsdGlsaW5lc3RyaW5nLW0=",
             "max_value": "bXVsdGlsaW5lc3RyaW5nLW0=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -2972,8 +3100,10 @@
             "min_value": "TVVMVElMSU5FU1RSSU5HIE0gKCgxMCAxMCAxMDAsIDIwIDIwIDQwMCwgMTAgNDAgNDAwKSwgKDQwIDQwIDE2MDAsIDMwIDMwIDkwMCwgNDAgMjAgODAwLCAzMCAxMCAzMDApKQ==",
             "max_value": "TVVMVElMSU5FU1RSSU5HIE0gRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3018,8 +3148,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3064,8 +3196,10 @@
             "min_value": "bXVsdGlwb2x5Z29uLW0=",
             "max_value": "bXVsdGlwb2x5Z29uLW0=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3110,8 +3244,10 @@
             "min_value": "TVVMVElQT0xZR09OIE0gKCgoMzAgMTAgMzAwLCA0MCA0MCAxNjAwLCAyMCA0MCA4MDAsIDEwIDIwIDIwMCwgMzAgMTAgMzAwKSkp",
             "max_value": "TVVMVElQT0xZR09OIE0gRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3156,8 +3292,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3202,8 +3340,10 @@
             "min_value": "Z2VvbWV0cnljb2xsZWN0aW9uLW0=",
             "max_value": "Z2VvbWV0cnljb2xsZWN0aW9uLW0=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3248,8 +3388,10 @@
             "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIE0gKExJTkVTVFJJTkcgTSAoMzAgMTAgMzAwLCAxMCAzMCAzMDAsIDQwIDQwIDE2MDApKQ==",
             "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIE0gRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3294,8 +3436,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3340,8 +3484,10 @@
             "min_value": "cG9pbnQtem0=",
             "max_value": "cG9pbnQtem0=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3386,8 +3532,10 @@
             "min_value": "UE9JTlQgWk0gKDMwIDEwIDQwIDMwMCk=",
             "max_value": "UE9JTlQgWk0gRU1QVFk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3432,8 +3580,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3478,8 +3628,10 @@
             "min_value": "bGluZXN0cmluZy16bQ==",
             "max_value": "bGluZXN0cmluZy16bQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3524,8 +3676,10 @@
             "min_value": "TElORVNUUklORyBaTSAoMzAgMTAgNDAgMzAwLCAxMCAzMCA0MCAzMDAsIDQwIDQwIDgwIDE2MDAp",
             "max_value": "TElORVNUUklORyBaTSBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3570,8 +3724,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3616,8 +3772,10 @@
             "min_value": "cG9seWdvbi16bQ==",
             "max_value": "cG9seWdvbi16bQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3662,8 +3820,10 @@
             "min_value": "UE9MWUdPTiBaTSAoKDMwIDEwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCwgMjAgNDAgNjAgODAwLCAxMCAyMCAzMCAyMDAsIDMwIDEwIDQwIDMwMCkp",
             "max_value": "UE9MWUdPTiBaTSBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3708,8 +3868,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3754,8 +3916,10 @@
             "min_value": "bXVsdGlwb2ludC16bQ==",
             "max_value": "bXVsdGlwb2ludC16bQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3800,8 +3964,10 @@
             "min_value": "TVVMVElQT0lOVCBaTSAoKDEwIDQwIDUwIDQwMCksICg0MCAzMCA3MCAxMjAwKSwgKDIwIDIwIDQwIDQwMCksICgzMCAxMCA0MCAzMDApKQ==",
             "max_value": "TVVMVElQT0lOVCBaTSBFTVBUWQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3846,8 +4012,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -3892,8 +4060,10 @@
             "min_value": "bXVsdGlsaW5lc3RyaW5nLXpt",
             "max_value": "bXVsdGlsaW5lc3RyaW5nLXpt",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -3938,8 +4108,10 @@
             "min_value": "TVVMVElMSU5FU1RSSU5HIFpNICgoMTAgMTAgMjAgMTAwLCAyMCAyMCA0MCA0MDAsIDEwIDQwIDUwIDQwMCksICg0MCA0MCA4MCAxNjAwLCAzMCAzMCA2MCA5MDAsIDQwIDIwIDYwIDgwMCwgMzAgMTAgNDAgMzAwKSk=",
             "max_value": "TVVMVElMSU5FU1RSSU5HIFpNIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -3984,8 +4156,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -4030,8 +4204,10 @@
             "min_value": "bXVsdGlwb2x5Z29uLXpt",
             "max_value": "bXVsdGlwb2x5Z29uLXpt",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -4076,8 +4252,10 @@
             "min_value": "TVVMVElQT0xZR09OIFpNICgoKDMwIDEwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCwgMjAgNDAgNjAgODAwLCAxMCAyMCAzMCAyMDAsIDMwIDEwIDQwIDMwMCkpKQ==",
             "max_value": "TVVMVElQT0xZR09OIFpNIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -4122,8 +4300,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -4168,8 +4348,10 @@
             "min_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXpt",
             "max_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXpt",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "group"
+          },
+          "schema_path": "group"
         }
       ],
       "index_pages": [],
@@ -4214,8 +4396,10 @@
             "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIFpNIChMSU5FU1RSSU5HIFpNICgzMCAxMCA0MCAzMDAsIDEwIDMwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCkp",
             "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIFpNIEVNUFRZ",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "wkt"
+          },
+          "schema_path": "wkt"
         }
       ],
       "index_pages": [],
@@ -4260,8 +4444,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "geometry"
+          },
+          "schema_path": "geometry"
         }
       ],
       "index_pages": [],
@@ -4388,7 +4574,8 @@
                 "min_value": "YWxs",
                 "max_value": "YWxs",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -4447,7 +4634,8 @@
                 "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIChQT0lOVCAoMzAgMTApLCBMSU5FU1RSSU5HICgzMCAxMCwgMTAgMzAsIDQwIDQwKSwgUE9MWUdPTiAoKDMwIDEwLCA0MCA0MCwgMjAgNDAsIDEwIDIwLCAzMCAxMCkpLCBNVUxUSVBPSU5UICgoMzAgMTApKSwgTVVMVElMSU5FU1RSSU5HICgoMzAgMTAsIDEwIDMwLCA0MCA0MCkpLCBNVUxUSVBPTFlHT04gKCgoMzAgMTAsIDQwIDQwLCAyMCA0MCwgMTAgMjAsIDMwIDEwKSkpKQ==",
                 "max_value": "UE9MWUdPTiBaTSAoKDMwIDEwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCwgMjAgNDAgNjAgODAwLCAxMCAyMCAzMCAyMDAsIDMwIDEwIDQwIDMwMCkp",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -4617,7 +4805,8 @@
                 "min_value": "ZW1wdHktZ2VvbWV0cmllcw==",
                 "max_value": "ZW1wdHktZ2VvbWV0cmllcw==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -4676,7 +4865,8 @@
                 "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIEVNUFRZ",
                 "max_value": "UE9MWUdPTiBaTSBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -4837,7 +5027,8 @@
                 "min_value": "bnVsbC1nZW9tZXRyaWVz",
                 "max_value": "bnVsbC1nZW9tZXRyaWVz",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -4896,7 +5087,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -5028,7 +5220,8 @@
                 "min_value": "cG9pbnQ=",
                 "max_value": "cG9pbnQ=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -5087,7 +5280,8 @@
                 "min_value": "UE9JTlQgKDMwIDEwKQ==",
                 "max_value": "UE9JTlQgRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -5230,7 +5424,8 @@
                 "min_value": "bGluZXN0cmluZw==",
                 "max_value": "bGluZXN0cmluZw==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -5289,7 +5484,8 @@
                 "min_value": "TElORVNUUklORyAoMzAgMTAsIDEwIDMwLCA0MCA0MCk=",
                 "max_value": "TElORVNUUklORyBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -5432,7 +5628,8 @@
                 "min_value": "cG9seWdvbg==",
                 "max_value": "cG9seWdvbg==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -5491,7 +5688,8 @@
                 "min_value": "UE9MWUdPTiAoKDMwIDEwLCA0MCA0MCwgMjAgNDAsIDEwIDIwLCAzMCAxMCkp",
                 "max_value": "UE9MWUdPTiBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -5634,7 +5832,8 @@
                 "min_value": "bXVsdGlwb2ludA==",
                 "max_value": "bXVsdGlwb2ludA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -5693,7 +5892,8 @@
                 "min_value": "TVVMVElQT0lOVCAoKDEwIDQwKSwgKDQwIDMwKSwgKDIwIDIwKSwgKDMwIDEwKSk=",
                 "max_value": "TVVMVElQT0lOVCBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -5836,7 +6036,8 @@
                 "min_value": "bXVsdGlsaW5lc3RyaW5n",
                 "max_value": "bXVsdGlsaW5lc3RyaW5n",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -5895,7 +6096,8 @@
                 "min_value": "TVVMVElMSU5FU1RSSU5HICgoMTAgMTAsIDIwIDIwLCAxMCA0MCksICg0MCA0MCwgMzAgMzAsIDQwIDIwLCAzMCAxMCkp",
                 "max_value": "TVVMVElMSU5FU1RSSU5HIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -6038,7 +6240,8 @@
                 "min_value": "bXVsdGlwb2x5Z29u",
                 "max_value": "bXVsdGlwb2x5Z29u",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -6097,7 +6300,8 @@
                 "min_value": "TVVMVElQT0xZR09OICgoKDMwIDEwLCA0MCA0MCwgMjAgNDAsIDEwIDIwLCAzMCAxMCkpKQ==",
                 "max_value": "TVVMVElQT0xZR09OIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -6240,7 +6444,8 @@
                 "min_value": "Z2VvbWV0cnljb2xsZWN0aW9u",
                 "max_value": "Z2VvbWV0cnljb2xsZWN0aW9u",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -6299,7 +6504,8 @@
                 "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIChMSU5FU1RSSU5HICgzMCAxMCwgMTAgMzAsIDQwIDQwKSk=",
                 "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -6442,7 +6648,8 @@
                 "min_value": "cG9pbnQteg==",
                 "max_value": "cG9pbnQteg==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -6501,7 +6708,8 @@
                 "min_value": "UE9JTlQgWiAoMzAgMTAgNDAp",
                 "max_value": "UE9JTlQgWiBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -6644,7 +6852,8 @@
                 "min_value": "bGluZXN0cmluZy16",
                 "max_value": "bGluZXN0cmluZy16",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -6703,7 +6912,8 @@
                 "min_value": "TElORVNUUklORyBaICgzMCAxMCA0MCwgMTAgMzAgNDAsIDQwIDQwIDgwKQ==",
                 "max_value": "TElORVNUUklORyBaIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -6846,7 +7056,8 @@
                 "min_value": "cG9seWdvbi16",
                 "max_value": "cG9seWdvbi16",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -6905,7 +7116,8 @@
                 "min_value": "UE9MWUdPTiBaICgoMzAgMTAgNDAsIDQwIDQwIDgwLCAyMCA0MCA2MCwgMTAgMjAgMzAsIDMwIDEwIDQwKSk=",
                 "max_value": "UE9MWUdPTiBaIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -7048,7 +7260,8 @@
                 "min_value": "bXVsdGlwb2ludC16",
                 "max_value": "bXVsdGlwb2ludC16",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -7107,7 +7320,8 @@
                 "min_value": "TVVMVElQT0lOVCBaICgoMTAgNDAgNTApLCAoNDAgMzAgNzApLCAoMjAgMjAgNDApLCAoMzAgMTAgNDApKQ==",
                 "max_value": "TVVMVElQT0lOVCBaIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -7250,7 +7464,8 @@
                 "min_value": "bXVsdGlsaW5lc3RyaW5nLXo=",
                 "max_value": "bXVsdGlsaW5lc3RyaW5nLXo=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -7309,7 +7524,8 @@
                 "min_value": "TVVMVElMSU5FU1RSSU5HIFogKCgxMCAxMCAyMCwgMjAgMjAgNDAsIDEwIDQwIDUwKSwgKDQwIDQwIDgwLCAzMCAzMCA2MCwgNDAgMjAgNjAsIDMwIDEwIDQwKSk=",
                 "max_value": "TVVMVElMSU5FU1RSSU5HIFogRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -7452,7 +7668,8 @@
                 "min_value": "bXVsdGlwb2x5Z29uLXo=",
                 "max_value": "bXVsdGlwb2x5Z29uLXo=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -7511,7 +7728,8 @@
                 "min_value": "TVVMVElQT0xZR09OIFogKCgoMzAgMTAgNDAsIDQwIDQwIDgwLCAyMCA0MCA2MCwgMTAgMjAgMzAsIDMwIDEwIDQwKSkp",
                 "max_value": "TVVMVElQT0xZR09OIFogRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -7654,7 +7872,8 @@
                 "min_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXo=",
                 "max_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXo=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -7713,7 +7932,8 @@
                 "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIFogKExJTkVTVFJJTkcgWiAoMzAgMTAgNDAsIDEwIDMwIDQwLCA0MCA0MCA4MCkp",
                 "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIFogRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -7856,7 +8076,8 @@
                 "min_value": "cG9pbnQtbQ==",
                 "max_value": "cG9pbnQtbQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -7915,7 +8136,8 @@
                 "min_value": "UE9JTlQgTSAoMzAgMTAgMzAwKQ==",
                 "max_value": "UE9JTlQgTSBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -8058,7 +8280,8 @@
                 "min_value": "bGluZXN0cmluZy1t",
                 "max_value": "bGluZXN0cmluZy1t",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -8117,7 +8340,8 @@
                 "min_value": "TElORVNUUklORyBNICgzMCAxMCAzMDAsIDEwIDMwIDMwMCwgNDAgNDAgMTYwMCk=",
                 "max_value": "TElORVNUUklORyBNIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -8260,7 +8484,8 @@
                 "min_value": "cG9seWdvbi1t",
                 "max_value": "cG9seWdvbi1t",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -8319,7 +8544,8 @@
                 "min_value": "UE9MWUdPTiBNICgoMzAgMTAgMzAwLCA0MCA0MCAxNjAwLCAyMCA0MCA4MDAsIDEwIDIwIDIwMCwgMzAgMTAgMzAwKSk=",
                 "max_value": "UE9MWUdPTiBNIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -8462,7 +8688,8 @@
                 "min_value": "bXVsdGlwb2ludC1t",
                 "max_value": "bXVsdGlwb2ludC1t",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -8521,7 +8748,8 @@
                 "min_value": "TVVMVElQT0lOVCBNICgoMTAgNDAgNDAwKSwgKDQwIDMwIDEyMDApLCAoMjAgMjAgNDAwKSwgKDMwIDEwIDMwMCkp",
                 "max_value": "TVVMVElQT0lOVCBNIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -8664,7 +8892,8 @@
                 "min_value": "bXVsdGlsaW5lc3RyaW5nLW0=",
                 "max_value": "bXVsdGlsaW5lc3RyaW5nLW0=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -8723,7 +8952,8 @@
                 "min_value": "TVVMVElMSU5FU1RSSU5HIE0gKCgxMCAxMCAxMDAsIDIwIDIwIDQwMCwgMTAgNDAgNDAwKSwgKDQwIDQwIDE2MDAsIDMwIDMwIDkwMCwgNDAgMjAgODAwLCAzMCAxMCAzMDApKQ==",
                 "max_value": "TVVMVElMSU5FU1RSSU5HIE0gRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -8866,7 +9096,8 @@
                 "min_value": "bXVsdGlwb2x5Z29uLW0=",
                 "max_value": "bXVsdGlwb2x5Z29uLW0=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -8925,7 +9156,8 @@
                 "min_value": "TVVMVElQT0xZR09OIE0gKCgoMzAgMTAgMzAwLCA0MCA0MCAxNjAwLCAyMCA0MCA4MDAsIDEwIDIwIDIwMCwgMzAgMTAgMzAwKSkp",
                 "max_value": "TVVMVElQT0xZR09OIE0gRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -9068,7 +9300,8 @@
                 "min_value": "Z2VvbWV0cnljb2xsZWN0aW9uLW0=",
                 "max_value": "Z2VvbWV0cnljb2xsZWN0aW9uLW0=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -9127,7 +9360,8 @@
                 "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIE0gKExJTkVTVFJJTkcgTSAoMzAgMTAgMzAwLCAxMCAzMCAzMDAsIDQwIDQwIDE2MDApKQ==",
                 "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIE0gRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -9270,7 +9504,8 @@
                 "min_value": "cG9pbnQtem0=",
                 "max_value": "cG9pbnQtem0=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -9329,7 +9564,8 @@
                 "min_value": "UE9JTlQgWk0gKDMwIDEwIDQwIDMwMCk=",
                 "max_value": "UE9JTlQgWk0gRU1QVFk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -9472,7 +9708,8 @@
                 "min_value": "bGluZXN0cmluZy16bQ==",
                 "max_value": "bGluZXN0cmluZy16bQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -9531,7 +9768,8 @@
                 "min_value": "TElORVNUUklORyBaTSAoMzAgMTAgNDAgMzAwLCAxMCAzMCA0MCAzMDAsIDQwIDQwIDgwIDE2MDAp",
                 "max_value": "TElORVNUUklORyBaTSBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -9674,7 +9912,8 @@
                 "min_value": "cG9seWdvbi16bQ==",
                 "max_value": "cG9seWdvbi16bQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -9733,7 +9972,8 @@
                 "min_value": "UE9MWUdPTiBaTSAoKDMwIDEwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCwgMjAgNDAgNjAgODAwLCAxMCAyMCAzMCAyMDAsIDMwIDEwIDQwIDMwMCkp",
                 "max_value": "UE9MWUdPTiBaTSBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -9876,7 +10116,8 @@
                 "min_value": "bXVsdGlwb2ludC16bQ==",
                 "max_value": "bXVsdGlwb2ludC16bQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -9935,7 +10176,8 @@
                 "min_value": "TVVMVElQT0lOVCBaTSAoKDEwIDQwIDUwIDQwMCksICg0MCAzMCA3MCAxMjAwKSwgKDIwIDIwIDQwIDQwMCksICgzMCAxMCA0MCAzMDApKQ==",
                 "max_value": "TVVMVElQT0lOVCBaTSBFTVBUWQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -10078,7 +10320,8 @@
                 "min_value": "bXVsdGlsaW5lc3RyaW5nLXpt",
                 "max_value": "bXVsdGlsaW5lc3RyaW5nLXpt",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -10137,7 +10380,8 @@
                 "min_value": "TVVMVElMSU5FU1RSSU5HIFpNICgoMTAgMTAgMjAgMTAwLCAyMCAyMCA0MCA0MDAsIDEwIDQwIDUwIDQwMCksICg0MCA0MCA4MCAxNjAwLCAzMCAzMCA2MCA5MDAsIDQwIDIwIDYwIDgwMCwgMzAgMTAgNDAgMzAwKSk=",
                 "max_value": "TVVMVElMSU5FU1RSSU5HIFpNIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -10280,7 +10524,8 @@
                 "min_value": "bXVsdGlwb2x5Z29uLXpt",
                 "max_value": "bXVsdGlwb2x5Z29uLXpt",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -10339,7 +10584,8 @@
                 "min_value": "TVVMVElQT0xZR09OIFpNICgoKDMwIDEwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCwgMjAgNDAgNjAgODAwLCAxMCAyMCAzMCAyMDAsIDMwIDEwIDQwIDMwMCkpKQ==",
                 "max_value": "TVVMVElQT0xZR09OIFpNIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {
@@ -10482,7 +10728,8 @@
                 "min_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXpt",
                 "max_value": "Z2VvbWV0cnljb2xsZWN0aW9uLXpt",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "group"
               },
               "encoding_stats": [
                 {
@@ -10541,7 +10788,8 @@
                 "min_value": "R0VPTUVUUllDT0xMRUNUSU9OIFpNIChMSU5FU1RSSU5HIFpNICgzMCAxMCA0MCAzMDAsIDEwIDMwIDQwIDMwMCwgNDAgNDAgODAgMTYwMCkp",
                 "max_value": "R0VPTUVUUllDT0xMRUNUSU9OIFpNIEVNUFRZ",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "wkt"
               },
               "encoding_stats": [
                 {

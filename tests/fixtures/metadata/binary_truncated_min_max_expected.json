@@ -28,8 +28,10 @@
             "min_value": "QWxpY2UgSm9obnNvbg==",
             "max_value": "S2V2aW4gQmFjb24=",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "utf8_full_truncation"
+          },
+          "schema_path": "utf8_full_truncation"
         }
       ],
       "index_pages": [],
@@ -51,7 +53,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "utf8_full_truncation"
       },
       "offset_index": {
         "start_offset": 1609,
@@ -95,8 +98,10 @@
             "min_value": "QWxpY2UgSm9obnNvbg==",
             "max_value": "S2V2aW4gQmFjb24=",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "binary_full_truncation"
+          },
+          "schema_path": "binary_full_truncation"
         }
       ],
       "index_pages": [],
@@ -118,7 +123,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "binary_full_truncation"
       },
       "offset_index": {
         "start_offset": 1624,
@@ -162,8 +168,10 @@
             "min_value": "QWxpY2UgSm9obnNvbg==",
             "max_value": "8J-agEtldmluIEJhY29u",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "utf8_partial_truncation"
+          },
+          "schema_path": "utf8_partial_truncation"
         }
       ],
       "index_pages": [],
@@ -185,7 +193,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "utf8_partial_truncation"
       },
       "offset_index": {
         "start_offset": 1640,
@@ -229,8 +238,10 @@
             "min_value": "QWxpY2UgSm9obnNvbg==",
             "max_value": "__8BAg==",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "binary_partial_truncation"
+          },
+          "schema_path": "binary_partial_truncation"
         }
       ],
       "index_pages": [],
@@ -252,7 +263,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "binary_partial_truncation"
       },
       "offset_index": {
         "start_offset": 1656,
@@ -296,8 +308,10 @@
             "min_value": "QWw=",
             "max_value": "S2U=",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "utf8_no_truncation"
+          },
+          "schema_path": "utf8_no_truncation"
         }
       ],
       "index_pages": [],
@@ -319,7 +333,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "utf8_no_truncation"
       },
       "offset_index": {
         "start_offset": 1672,
@@ -363,8 +378,10 @@
             "min_value": "QWw=",
             "max_value": "S2U=",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "binary_no_truncation"
+          },
+          "schema_path": "binary_no_truncation"
         }
       ],
       "index_pages": [],
@@ -386,7 +403,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "binary_no_truncation"
       },
       "offset_index": {
         "start_offset": 1688,
@@ -565,7 +583,8 @@
                 "min_value": "QWw=",
                 "max_value": "S2Y=",
                 "is_min_value_exact": false,
-                "is_max_value_exact": false
+                "is_max_value_exact": false,
+                "schema_path": "utf8_full_truncation"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -609,7 +628,8 @@
                 "min_value": "QWw=",
                 "max_value": "S2Y=",
                 "is_min_value_exact": false,
-                "is_max_value_exact": false
+                "is_max_value_exact": false,
+                "schema_path": "binary_full_truncation"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -653,7 +673,8 @@
                 "min_value": "QWw=",
                 "max_value": "8J-agEtldmluIEJhY29u",
                 "is_min_value_exact": false,
-                "is_max_value_exact": true
+                "is_max_value_exact": true,
+                "schema_path": "utf8_partial_truncation"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -697,7 +718,8 @@
                 "min_value": "QWw=",
                 "max_value": "__8BAg==",
                 "is_min_value_exact": false,
-                "is_max_value_exact": true
+                "is_max_value_exact": true,
+                "schema_path": "binary_partial_truncation"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -741,7 +763,8 @@
                 "min_value": "QWw=",
                 "max_value": "S2U=",
                 "is_min_value_exact": true,
-                "is_max_value_exact": true
+                "is_max_value_exact": true,
+                "schema_path": "utf8_no_truncation"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -785,7 +808,8 @@
                 "min_value": "QWw=",
                 "max_value": "S2U=",
                 "is_min_value_exact": true,
-                "is_max_value_exact": true
+                "is_max_value_exact": true,
+                "schema_path": "binary_no_truncation"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
