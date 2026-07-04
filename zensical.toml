@@ -1,0 +1,114 @@
+# Zensical configuration for the por-que documentation site.
+#
+# Zensical is pre-1.0 and evolving quickly; the mkdocstrings integration is
+# preliminary. See arch/DOCS_SITE_SPEC.md for the design and revisit triggers.
+# Build with `uv run zensical build`; author with `uv run zensical serve`.
+
+[project]
+site_name = "Por Qué"
+site_description = "A pure-Python Parquet parser built to teach how Parquet works."
+site_author = "Jarrett Keifer"
+site_url = "https://jkeifer.github.io/por-que/"
+copyright = "Copyright &copy; 2026 The por-que authors"
+repo_url = "https://github.com/jkeifer/por-que"
+repo_name = "jkeifer/por-que"
+
+# Explicit navigation mirroring the information architecture in the spec.
+# Phase 1 ships real content for the home, workshop index, project, and
+# reference sections; the learn/ and guides/ pages are placeholder stubs
+# filled in during phase 2.
+nav = [
+  { "Home" = "index.md" },
+  { "Learn" = [
+    { "File anatomy" = "learn/anatomy.md" },
+    { "Metadata & Thrift" = "learn/metadata-and-thrift.md" },
+    { "The schema tree" = "learn/schema-tree.md" },
+    { "Row groups & chunks" = "learn/row-groups-and-chunks.md" },
+    { "Pages & encodings" = "learn/pages-and-encodings.md" },
+    { "Statistics & pruning" = "learn/statistics-and-pruning.md" },
+    { "Record reconstruction" = "learn/reconstruction.md" },
+    { "Going deeper" = "learn/going-deeper.md" },
+  ] },
+  { "Workshop" = [
+    { "Overview" = "workshop/index.md" },
+    { "Notebook" = "workshop/notebook.md" },
+  ] },
+  { "Guides" = [
+    { "Reading remote files" = "guides/reading-remote-files.md" },
+    { "Fast metadata" = "guides/fast-metadata.md" },
+    { "Staged access" = "guides/staged-access.md" },
+    { "Serialization contract" = "guides/serialization.md" },
+  ] },
+  { "Reference" = [
+    { "Overview" = "reference/index.md" },
+    { "por_que" = "reference/por_que.md" },
+    { "file_metadata" = "reference/file_metadata.md" },
+    { "pages" = "reference/pages.md" },
+    { "physical" = "reference/physical.md" },
+    { "exceptions" = "reference/exceptions.md" },
+    { "protocols" = "reference/protocols.md" },
+    { "parsers" = "reference/parsers.md" },
+  ] },
+  { "Project" = [
+    { "Architecture" = "project/architecture.md" },
+    { "Updating fixtures" = "project/updating-fixtures.md" },
+    { "Notebook authoring" = "project/notebook-authoring.md" },
+    { "CLI" = "project/cli.md" },
+    { "Roadmap" = "project/roadmap.md" },
+  ] },
+]
+
+[project.theme]
+features = [
+  "content.code.copy",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.sections",
+  "navigation.top",
+  "toc.follow",
+  "search.highlight",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+# API reference via mkdocstrings' preliminary Zensical integration.
+# The source IS the teaching material, so we render it with sources shown.
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["src"]
+inventories = ["https://docs.python.org/3/objects.inv"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+show_source = true
+show_root_heading = true
+show_if_no_docstring = true
+members_order = "source"
+separate_signature = true
+
+# Markdown extensions. mkdocstrings needs attr_list/md_in_html/superfences to
+# render its output; the rest match Zensical's defaults for authored prose.
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.superfences]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true

@@ -52,6 +52,14 @@ dev = [
     "typer>=0.12",
     "rich>=13.0",
 ]
+docs = [
+    # Zensical is pre-1.0 and moving fast; pin exactly and bump deliberately.
+    "zensical==0.0.46",
+    "mkdocstrings-python==2.0.5",
+    # Used by scripts/render-notebook.py to convert the workshop notebook.
+    "nbconvert==7.17.1",
+    "jupyter-core==5.9.1",
+]
 pyarrow = [
     "pyarrow>=21.0.0",
 ]
