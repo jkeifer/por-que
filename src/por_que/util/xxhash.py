@@ -118,10 +118,7 @@ def xxh64(data: bytes, seed: int = 0) -> int:
             index += _STRIPE
 
         acc = (
-            _rotl64(acc1, 1)
-            + _rotl64(acc2, 7)
-            + _rotl64(acc3, 12)
-            + _rotl64(acc4, 18)
+            _rotl64(acc1, 1) + _rotl64(acc2, 7) + _rotl64(acc3, 12) + _rotl64(acc4, 18)
         ) & MASK64
         acc = _merge_round(acc, acc1)
         acc = _merge_round(acc, acc2)
