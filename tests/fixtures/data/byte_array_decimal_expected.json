@@ -1,5 +1,5 @@
 {
-  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/byte_array_decimal.parquet",
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/1a2a75127be06fc0123f03ebd36c966f7beda27d/data/byte_array_decimal.parquet",
   "data": {
     "value": [
       "*-*-*-||por-que_base64_encoded||-*-*-*>ZA==",

@@ -1,5 +1,5 @@
 {
-  "source": "https://raw.githubusercontent.com/apache/parquet-testing/master/data/single_nan.parquet",
+  "source": "https://raw.githubusercontent.com/apache/parquet-testing/1a2a75127be06fc0123f03ebd36c966f7beda27d/data/single_nan.parquet",
   "filesize": 660,
   "column_chunks": [
     {
