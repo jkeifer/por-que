@@ -20,6 +20,7 @@ from .file_metadata import (
     ColumnIndex,
     FileMetadata,
     OffsetIndex,
+    SchemaLeaf,
 )
 from .pages import (
     AnyDataPage,
@@ -322,6 +323,41 @@ class ParquetFile(
 
         # Update the data with injected metadata
         return {**data, 'column_chunks': updated_chunks}
+
+    @model_validator(mode='after')
+    def _relink_schema_references(self) -> Self:
+        """Re-link physical page/index models to their schema leaves.
+
+        Mirrors ``FileMetadata._relink_schema_references``, but walks the
+        physical side of the file: each column chunk's column index, data
+        pages, and per-page statistics, all keyed by their own
+        ``schema_path``. Re-linking an already-linked model (the parse
+        path) is harmless, so we don't special-case it.
+        """
+        schema_root = self.metadata.schema_root
+
+        for chunk in self.column_chunks:
+            if chunk.column_index is not None:
+                leaf = schema_root.find_element(chunk.column_index.schema_path)
+                if not isinstance(leaf, SchemaLeaf):
+                    raise ValueError(
+                        f'Column index path {chunk.column_index.schema_path!r} '
+                        'does not resolve to a schema leaf',
+                    )
+                chunk.column_index.link(leaf)
+
+            for page in chunk.data_pages:
+                leaf = schema_root.find_element(page.schema_path)
+                if not isinstance(leaf, SchemaLeaf):
+                    raise ValueError(
+                        f'Data page path {page.schema_path!r} does not '
+                        'resolve to a schema leaf',
+                    )
+                page.link(leaf)
+                if page.statistics is not None:
+                    page.statistics.link(leaf)
+
+        return self
 
     @classmethod
     async def from_reader(

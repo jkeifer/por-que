@@ -14,6 +14,7 @@ from pydantic import (
     Field,
     PrivateAttr,
     computed_field,
+    model_validator,
 )
 
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
@@ -612,7 +613,7 @@ class SchemaLinked(BaseModel, frozen=True):
             )
         return self._schema_element
 
-    def _link(self, leaf: SchemaLeaf) -> Self:
+    def link(self, leaf: SchemaLeaf) -> Self:
         """Link this model to its schema leaf, validating the path matches."""
         if leaf.full_path != self.schema_path:
             raise ValueError(
@@ -624,6 +625,10 @@ class SchemaLinked(BaseModel, frozen=True):
         # populate the private reference.
         object.__setattr__(self, '_schema_element', leaf)
         return self
+
+    # Parsers link at construction time via this alias; kept private since
+    # it's an implementation detail of the parse path rather than public API.
+    _link = link
 
 
 class ColumnStatistics(
@@ -955,6 +960,32 @@ class FileMetadata(BaseModel, frozen=True):
     key_value_metadata: list[KeyValueMetadata] = Field(default_factory=list)
     start_offset: int
     total_byte_size: int
+
+    @model_validator(mode='after')
+    def _relink_schema_references(self) -> Self:
+        """Re-link column metadata/statistics to their schema leaves.
+
+        Parsers link these references at construction time, but a
+        ``FileMetadata`` built from a dict or JSON (e.g. via
+        ``model_validate``) starts out with unlinked models. This walks
+        the physical structure - row groups, then each row group's
+        column chunks - and resolves every chunk's schema leaf by path,
+        showing how physical structures correspond to schema leaves
+        keyed by path. Re-linking an already-linked model (the parse
+        path) is harmless, so we don't special-case it.
+        """
+        for row_group in self.row_groups:
+            for chunk in row_group.column_chunks.values():
+                path = chunk.metadata.path_in_schema
+                leaf = self.schema_root.find_element(path)
+                if not isinstance(leaf, SchemaLeaf):
+                    raise ValueError(
+                        f'Column chunk path {path!r} does not resolve to a schema leaf',
+                    )
+                chunk.metadata.link(leaf)
+                if chunk.metadata.statistics is not None:
+                    chunk.metadata.statistics.link(leaf)
+        return self
 
     @classmethod
     async def from_reader(
