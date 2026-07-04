@@ -126,7 +126,6 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
             reader: File-like object to read from
             physical_type: Physical type of the data values
             compression_codec: Compression codec used
-            schema_element: Schema element for repetition/definition info
             dictionary_values: Dictionary values if dictionary-encoded
 
         Returns:
@@ -172,7 +171,6 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
             reader: File-like object to read from
             physical_type: Physical type of the data values
             compression_codec: Compression codec used
-            schema_element: Schema element for repetition/definition info
             dictionary_values: Dictionary values if dictionary-encoded
 
         Returns:
