@@ -5,6 +5,9 @@ concurrency:
   cancel-in-progress: false
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     paths:
       - "docs/**"
@@ -32,3 +35,24 @@ jobs:
         run: uv run python scripts/render-notebook.py
       - name: Build site
         run: uv run zensical build --strict
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
