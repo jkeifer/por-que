@@ -38,7 +38,6 @@ from .protocols import (
 )
 from .structuring import reconstruct as reconstruction
 from .util.async_adapter import ensure_async_reader
-from .util.buffered import BufferedRangeReader
 from .util.iteration import AsyncChain
 from .util.models import get_item_or_attr
 
@@ -118,30 +117,24 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             )
 
         # The page indexes live in known byte spans, so when both the offset
-        # and length are present we fetch each span in one read and parse it
-        # from memory (see _span_reader / BufferedRangeReader). When the length
-        # is unknown we fall back to reading directly through the raw reader.
+        # and length are present the exact span is fetched in one read and
+        # parsed from memory. When the length is unknown, from_reader falls
+        # back to a speculative span that grows as needed.
         column_index = None
         if chunk_metadata.column_index_offset is not None:
             column_index = await ColumnIndex.from_reader(
-                await cls._span_reader(
-                    reader,
-                    chunk_metadata.column_index_offset,
-                    chunk_metadata.column_index_length,
-                ),
+                reader,
                 chunk_metadata.column_index_offset,
                 chunk_metadata.metadata.schema_element,
+                chunk_metadata.column_index_length,
             )
 
         offset_index = None
         if chunk_metadata.offset_index_offset is not None:
             offset_index = await OffsetIndex.from_reader(
-                await cls._span_reader(
-                    reader,
-                    chunk_metadata.offset_index_offset,
-                    chunk_metadata.offset_index_length,
-                ),
+                reader,
                 chunk_metadata.offset_index_offset,
+                chunk_metadata.offset_index_length,
             )
 
         return cls(
@@ -157,28 +150,6 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             column_index=column_index,
             offset_index=offset_index,
             row_group=row_group,
-        )
-
-    @staticmethod
-    async def _span_reader(
-        reader: AsyncReadableSeekable,
-        offset: int,
-        length: int | None,
-    ) -> AsyncReadableSeekable:
-        """Return a reader for a known byte span, buffered when possible.
-
-        When the span length is known, read the whole span in one call and
-        hand back a BufferedRangeReader over it so the downstream parser works
-        from memory. When the length is unknown, return the raw reader so the
-        parser reads through it directly, exactly as before.
-        """
-        if length is None:
-            return reader
-
-        reader.seek(offset)
-        data = await reader.read(length)
-        return ensure_async_reader(
-            BufferedRangeReader(data, offset, offset + length),
         )
 
     async def _parse_dictionary(self, reader: AsyncReadableSeekable) -> DictType:

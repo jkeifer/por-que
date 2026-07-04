@@ -39,7 +39,7 @@ from .enums import (
 from .exceptions import ParquetFormatError
 from .protocols import AsyncReadableSeekable, ReadableSeekable
 from .util.async_adapter import ensure_async_reader
-from .util.buffered import BufferedRangeReader
+from .util.spans import read_thrift_span
 
 
 class CompressionStats(BaseModel, frozen=True):
@@ -727,17 +727,31 @@ class OffsetIndex(BaseModel, frozen=True):
         cls,
         reader: AsyncReadableSeekable,
         start_offset: int,
+        length: int | None = None,
     ) -> Self:
-        """Parse Page Index data from file location."""
+        """Parse Page Index data from file location.
+
+        When ``length`` is known the exact span is fetched in one read;
+        otherwise a speculative span is fetched and grown as needed.
+        """
         from .parsers.parquet.page_index import PageIndexParser
         from .parsers.thrift.parser import ThriftCompactParser
 
-        parser = ThriftCompactParser(reader, start_offset)
-        props = await PageIndexParser(parser).read_offset_index()
+        def parse(data: memoryview, offset: int) -> tuple[dict[str, Any], int]:
+            parser = ThriftCompactParser(data, offset)
+            props = PageIndexParser(parser).read_offset_index()
+            return props, parser.pos - offset
+
+        if length is not None:
+            reader.seek(start_offset)
+            data = await reader.read(length)
+            props, byte_length = parse(memoryview(data), start_offset)
+        else:
+            props, byte_length = await read_thrift_span(reader, start_offset, parse)
 
         return cls(
             start_offset=start_offset,
-            byte_length=reader.tell() - start_offset,
+            byte_length=byte_length,
             **props,
         )
 
@@ -767,17 +781,31 @@ class ColumnIndex(
         reader: AsyncReadableSeekable,
         start_offset: int,
         schema_element: SchemaLeaf,
+        length: int | None = None,
     ) -> Self:
-        """Parse Page Index data from file location."""
+        """Parse Page Index data from file location.
+
+        When ``length`` is known the exact span is fetched in one read;
+        otherwise a speculative span is fetched and grown as needed.
+        """
         from .parsers.parquet.page_index import PageIndexParser
         from .parsers.thrift.parser import ThriftCompactParser
 
-        parser = ThriftCompactParser(reader, start_offset)
-        props = await PageIndexParser(parser).read_column_index()
+        def parse(data: memoryview, offset: int) -> tuple[dict[str, Any], int]:
+            parser = ThriftCompactParser(data, offset)
+            props = PageIndexParser(parser).read_column_index()
+            return props, parser.pos - offset
+
+        if length is not None:
+            reader.seek(start_offset)
+            data = await reader.read(length)
+            props, byte_length = parse(memoryview(data), start_offset)
+        else:
+            props, byte_length = await read_thrift_span(reader, start_offset, parse)
 
         return cls(
             start_offset=start_offset,
-            byte_length=reader.tell() - start_offset,
+            byte_length=byte_length,
             schema_path=schema_element.full_path,
             **props,
         )._link(schema_element)
@@ -1028,25 +1056,16 @@ class FileMetadata(BaseModel, frozen=True):
 
         # Parquet tells us the exact metadata span, so fetch it in a single
         # read and parse from memory. This avoids thousands of tiny reads back
-        # through the (possibly remote, cached) file. BufferedRangeReader keeps
-        # absolute file offsets intact so the recorded teaching fields are
-        # identical to a direct parse.
+        # through the (possibly remote, cached) file. The parser is told the
+        # absolute offset where the span begins, so the recorded teaching
+        # fields are identical to a direct parse.
         reader.seek(metadata_start)
         metadata_bytes = await reader.read(metadata_size)
-        filesize = footer_start + FOOTER_SIZE
-        buffered = ensure_async_reader(
-            BufferedRangeReader(metadata_bytes, metadata_start, filesize),
-        )
 
         return cls(
             start_offset=metadata_start,
             total_byte_size=metadata_size,
-            **(
-                await MetadataParser(
-                    buffered,
-                    metadata_start,
-                ).parse(columns=columns)
-            ),
+            **MetadataParser(metadata_bytes, metadata_start).parse(columns=columns),
         )
 
     @computed_field

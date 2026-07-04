@@ -25,6 +25,7 @@ from .parsers.page_content import (
 from .parsers.parquet.page import PageParser
 from .parsers.thrift.parser import ThriftCompactParser
 from .protocols import AsyncReadableSeekable
+from .util.spans import read_thrift_span
 
 
 class Page(BaseModel, frozen=True):
@@ -48,15 +49,16 @@ class Page(BaseModel, frozen=True):
         schema_element: SchemaLeaf,
     ) -> AnyPage:
         """Factory method to parse and return the correct Page subtype."""
-        reader.seek(offset)
 
-        parser = ThriftCompactParser(reader, offset)
-        page_parser = PageParser(
-            parser,
-            schema_element,
-        )
+        def parse(data: memoryview, base_offset: int) -> AnyPage:
+            parser = ThriftCompactParser(data, base_offset)
+            return PageParser(parser, schema_element).read_page()
 
-        return await page_parser.read_page()
+        # Page headers are small (tens of bytes) but their size isn't known
+        # until parsed, so fetch a small speculative span and let the helper
+        # grow it in the unlikely case a header outruns it. Over cached block
+        # readers the speculative bytes are essentially free.
+        return await read_thrift_span(reader, offset, parse, initial_size=8 * 1024)
 
 
 class DictionaryPage(Page, frozen=True):
