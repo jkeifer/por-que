@@ -514,7 +514,27 @@ class ParquetFile(
         cls,
         reader: ReadableSeekable | AsyncReadableSeekable,
         source: Path | str,
+        columns: Sequence[str] | None = None,
+        row_groups: Sequence[int] | None = None,
     ) -> Self:
+        """Parse a file's structure, optionally materializing a subset.
+
+        Args:
+            reader: File-like object to read from.
+            source: Identifier for the file (path or URL), stored on the model.
+            columns: Full dotted ``path_in_schema`` names to materialize. When
+                ``None`` (the default) every column is materialized. Unselected
+                columns are simply absent from ``column_chunks`` -- calling
+                ``reconstruct``/``parse_all_data_pages`` on an absent column is
+                the caller's responsibility to avoid. Names matching nothing
+                are ignored.
+            row_groups: Row group ordinals to materialize. When ``None`` (the
+                default) every row group is materialized. Chunks in unselected
+                row groups are absent from ``column_chunks``.
+
+        Selection filters only which page structures are read from the file;
+        ``metadata`` is always a full parse.
+        """
         reader = ensure_async_reader(reader)
 
         reader.seek(0, SEEK_END)
@@ -531,6 +551,8 @@ class ParquetFile(
             column_chunks=await cls._parse_column_chunks(
                 reader,
                 metadata,
+                columns=columns,
+                row_groups=row_groups,
             ),
             metadata=metadata,
         )
@@ -540,10 +562,16 @@ class ParquetFile(
         cls,
         reader: AsyncReadableSeekable,
         metadata: FileMetadata,
+        columns: Sequence[str] | None = None,
+        row_groups: Sequence[int] | None = None,
     ) -> list[PhysicalColumnChunk]:
-        # build list of coroutines to read each column chunk of every row group
-        # not wrapping in tasks here to ensure we can control scheduling order
-        # concurrently vs serialially based on support for parallel cursors
+        column_filter = None if columns is None else set(columns)
+        row_group_filter = None if row_groups is None else set(row_groups)
+
+        # build list of coroutines to read each selected column chunk of every
+        # selected row group; not wrapping in tasks here to ensure we can
+        # control scheduling order concurrently vs serially based on support
+        # for parallel cursors
         coroutines = [
             PhysicalColumnChunk.from_reader(
                 reader=(
@@ -555,7 +583,9 @@ class ParquetFile(
                 row_group=row_group_index,
             )
             for row_group_index, row_group_metadata in enumerate(metadata.row_groups)
-            for chunk_metadata in row_group_metadata.column_chunks.values()
+            if row_group_filter is None or row_group_index in row_group_filter
+            for path, chunk_metadata in row_group_metadata.column_chunks.items()
+            if column_filter is None or path in column_filter
         ]
 
         if isinstance(reader, AsyncCursableReadableSeekable):
