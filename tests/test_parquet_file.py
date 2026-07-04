@@ -400,3 +400,30 @@ def test_pyarrow_comparison(
     finally:
         # Clean up the temporary file
         Path(tmp_path).unlink(missing_ok=True)
+
+
+@pytest.mark.parametrize(
+    'parquet_file_name',
+    [
+        'geospatial/geospatial',
+        'geospatial/geospatial-with-nan',
+    ],
+)
+@pytest.mark.filterwarnings(
+    'error:Schema element appears to be root:UserWarning',
+)
+@pytest.mark.asyncio
+async def test_healthy_root_schema_does_not_warn(
+    parquet_url: str,
+) -> None:
+    """Healthy files whose root sets repetition=REQUIRED must parse cleanly.
+
+    These fixtures (and real Overture Maps files) carry a root named
+    ``schema`` with ``repetition=REQUIRED`` and no physical type. The root
+    heuristic must accept that shape without emitting a spurious
+    "appears to be root, but has invalid attrs" ``UserWarning``. The
+    ``filterwarnings`` mark promotes only that specific warning to an error,
+    leaving other legitimate warnings (e.g. unknown logical types) untouched.
+    """
+    async with AsyncHttpFile(parquet_url) as hf:
+        await ParquetFile.from_reader(hf, parquet_url)

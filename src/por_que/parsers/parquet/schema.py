@@ -66,7 +66,10 @@ class SchemaParser(BaseParser):
     - Repetition types (REQUIRED, OPTIONAL, REPEATED) control nullability and arrays
     """
 
-    def read_schema_element(self) -> SchemaRoot | SchemaGroup | SchemaLeaf:  # noqa: C901
+    def read_schema_element(  # noqa: C901
+        self,
+        first: bool = False,
+    ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
         """
         Read a single SchemaElement struct from the Thrift stream.
 
@@ -117,7 +120,7 @@ class SchemaParser(BaseParser):
         end_offset = self.parser.pos
         props['byte_length'] = end_offset - start_offset
 
-        return SchemaElement.new(**props)
+        return SchemaElement.new(first=first, **props)
 
     def read_schema_tree(
         self,
@@ -301,8 +304,11 @@ class SchemaParser(BaseParser):
         Returns:
             Root SchemaElement with complete tree structure
         """
-        # Read flat list of schema elements
-        schema_elements = [self.read_schema_element() for _ in list_iter]
+        # Read flat list of schema elements. The first element is the root
+        # record; flag it so root detection doesn't have to guess from attrs.
+        schema_elements = [
+            self.read_schema_element(first=(i == 0)) for i, _ in enumerate(list_iter)
+        ]
 
         logger.debug('Read %d schema elements, building tree', len(schema_elements))
 
