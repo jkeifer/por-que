@@ -76,15 +76,83 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         row_group: int,
     ) -> Self:
         """Parses all pages within a column chunk from a reader."""
-        data_pages = []
-        index_pages = []
-        dictionary_page = None
-
         # The file_offset on the ColumnChunk struct can be misleading.
         # The actual start of the page data is the minimum of the page offsets.
         start_offset = chunk_metadata.data_page_offset
         if chunk_metadata.dictionary_page_offset is not None:
             start_offset = min(start_offset, chunk_metadata.dictionary_page_offset)
+
+        # The page indexes live in known byte spans, so when both the offset
+        # and length are present the exact span is fetched in one read and
+        # parsed from memory. When the length is unknown, from_reader falls
+        # back to a speculative span that grows as needed.
+        column_index = None
+        if chunk_metadata.column_index_offset is not None:
+            column_index = await ColumnIndex.from_reader(
+                reader,
+                chunk_metadata.column_index_offset,
+                chunk_metadata.metadata.schema_element,
+                chunk_metadata.column_index_length,
+            )
+
+        offset_index = None
+        if chunk_metadata.offset_index_offset is not None:
+            offset_index = await OffsetIndex.from_reader(
+                reader,
+                chunk_metadata.offset_index_offset,
+                chunk_metadata.offset_index_length,
+            )
+
+        # When an offset index is present the file tells us where every data
+        # page lives, so we can discover structure with independent reads at
+        # known locations instead of a dependent sequential walk. If the byte
+        # accounting doesn't add up (e.g. index pages not covered by the offset
+        # index), we fall back to the sequential walk for correctness.
+        pages = None
+        if offset_index is not None:
+            pages = await cls._discover_pages_via_offset_index(
+                reader,
+                chunk_metadata,
+                offset_index,
+                start_offset,
+            )
+
+        if pages is None:
+            pages = await cls._walk_pages(reader, chunk_metadata, start_offset)
+
+        dictionary_page, data_pages, index_pages = pages
+
+        return cls(
+            path_in_schema=chunk_metadata.path_in_schema,
+            start_offset=start_offset,
+            total_byte_size=chunk_metadata.total_compressed_size,
+            codec=chunk_metadata.codec,
+            num_values=chunk_metadata.num_values,
+            data_pages=data_pages,
+            index_pages=index_pages,
+            dictionary_page=dictionary_page,
+            metadata=chunk_metadata,
+            column_index=column_index,
+            offset_index=offset_index,
+            row_group=row_group,
+        )
+
+    @staticmethod
+    async def _walk_pages(
+        reader: AsyncReadableSeekable,
+        chunk_metadata: ColumnChunk,
+        start_offset: int,
+    ) -> tuple[DictionaryPage | None, list[AnyDataPage], list[IndexPage]]:
+        """Discover a chunk's pages by walking headers sequentially.
+
+        Each read depends on the previous parse (parse a header, compute the
+        next offset from its size, repeat), so over HTTP this serializes round
+        trips. This is the general fallback: it works for any chunk, whether or
+        not it has an offset index.
+        """
+        data_pages: list[AnyDataPage] = []
+        index_pages: list[IndexPage] = []
+        dictionary_page: DictionaryPage | None = None
 
         current_offset = start_offset
         # The total_compressed_size is for all pages in the chunk.
@@ -116,41 +184,117 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                 page.start_offset + page.header_size + page.compressed_page_size
             )
 
-        # The page indexes live in known byte spans, so when both the offset
-        # and length are present the exact span is fetched in one read and
-        # parsed from memory. When the length is unknown, from_reader falls
-        # back to a speculative span that grows as needed.
-        column_index = None
-        if chunk_metadata.column_index_offset is not None:
-            column_index = await ColumnIndex.from_reader(
-                reader,
-                chunk_metadata.column_index_offset,
-                chunk_metadata.metadata.schema_element,
-                chunk_metadata.column_index_length,
-            )
+        return dictionary_page, data_pages, index_pages
 
-        offset_index = None
-        if chunk_metadata.offset_index_offset is not None:
-            offset_index = await OffsetIndex.from_reader(
-                reader,
-                chunk_metadata.offset_index_offset,
-                chunk_metadata.offset_index_length,
-            )
+    @classmethod
+    async def _discover_pages_via_offset_index(
+        cls,
+        reader: AsyncReadableSeekable,
+        chunk_metadata: ColumnChunk,
+        offset_index: OffsetIndex,
+        start_offset: int,
+    ) -> tuple[DictionaryPage | None, list[AnyDataPage], list[IndexPage]] | None:
+        """Discover pages using the offset index: the file tells you where
+        everything is.
 
-        return cls(
-            path_in_schema=chunk_metadata.path_in_schema,
-            start_offset=start_offset,
-            total_byte_size=chunk_metadata.total_compressed_size,
-            codec=chunk_metadata.codec,
-            num_values=chunk_metadata.num_values,
-            data_pages=data_pages,
-            index_pages=index_pages,
-            dictionary_page=dictionary_page,
-            metadata=chunk_metadata,
-            column_index=column_index,
-            offset_index=offset_index,
-            row_group=row_group,
+        The offset index already lists every data page's ``offset`` and size,
+        so instead of a dependent sequential walk we can parse each page header
+        at its known location. Because those reads no longer depend on each
+        other, they can run concurrently (when the reader can ``clone()`` into
+        independent cursors) rather than serializing round trips.
+
+        The offset index only covers *data* pages. The dictionary page (if any)
+        is discovered separately via ``dictionary_page_offset``. Index pages are
+        not covered at all: if the parsed pages plus the dictionary page don't
+        tile the chunk's byte range exactly, some bytes are unaccounted for and
+        we return ``None`` so the caller falls back to the sequential walk.
+        """
+        schema_element = chunk_metadata.metadata.schema_element
+
+        # Header offsets at known locations: the dictionary page (if present)
+        # followed by every data page the offset index points at.
+        page_locations = sorted(
+            offset_index.page_locations,
+            key=lambda location: location.offset,
         )
+        header_offsets = [location.offset for location in page_locations]
+        dictionary_page_offset = chunk_metadata.dictionary_page_offset
+        if dictionary_page_offset is not None:
+            header_offsets.insert(0, dictionary_page_offset)
+
+        def cursor() -> AsyncReadableSeekable:
+            return (
+                reader.clone()
+                if isinstance(reader, AsyncCursableReadableSeekable)
+                else reader
+            )
+
+        coroutines = [
+            Page.from_reader(cursor(), offset, schema_element)
+            for offset in header_offsets
+        ]
+
+        if isinstance(reader, AsyncCursableReadableSeekable):
+            # Independent reads at known offsets: run them concurrently.
+            tasks = [asyncio.create_task(coro) for coro in coroutines]
+            parsed = [await task for task in tasks]
+        else:
+            # Still known offsets, but serialized without independent cursors.
+            parsed = [await coro for coro in coroutines]
+
+        dictionary_page: DictionaryPage | None = None
+        pages = parsed
+        if dictionary_page_offset is not None:
+            first, *pages = parsed
+            if not isinstance(first, DictionaryPage):
+                return None
+            dictionary_page = first
+
+        data_pages: list[AnyDataPage] = []
+        for page in pages:
+            if not isinstance(page, DataPageV1 | DataPageV2):
+                return None
+            data_pages.append(page)
+
+        # Gap detection: the parsed pages must tile the chunk's byte range
+        # exactly. Any gap means uncovered bytes (e.g. an index page the offset
+        # index doesn't describe), so we bail to the sequential walk.
+        spans: list[tuple[int, int]] = []
+        if dictionary_page is not None:
+            spans.append(
+                (
+                    dictionary_page.start_offset,
+                    dictionary_page.start_offset
+                    + dictionary_page.header_size
+                    + dictionary_page.compressed_page_size,
+                ),
+            )
+        # PageLocation.compressed_page_size includes the page header, so it is
+        # the full on-disk span of the page.
+        spans.extend(
+            (location.offset, location.offset + location.compressed_page_size)
+            for location in page_locations
+        )
+
+        chunk_end_offset = start_offset + chunk_metadata.total_compressed_size
+        if not cls._spans_tile_range(spans, start_offset, chunk_end_offset):
+            return None
+
+        return dictionary_page, data_pages, []
+
+    @staticmethod
+    def _spans_tile_range(
+        spans: list[tuple[int, int]],
+        start: int,
+        end: int,
+    ) -> bool:
+        """Whether ``spans`` cover ``[start, end)`` contiguously with no gaps."""
+        cursor = start
+        for span_start, span_end in sorted(spans):
+            if span_start != cursor:
+                return False
+            cursor = span_end
+        return cursor == end
 
     async def _parse_dictionary(self, reader: AsyncReadableSeekable) -> DictType:
         """Parse dictionary content if dictionary page exists.
