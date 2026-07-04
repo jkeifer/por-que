@@ -39,6 +39,7 @@ from .enums import (
 from .exceptions import ParquetFormatError
 from .protocols import AsyncReadableSeekable, ReadableSeekable
 from .util.async_adapter import ensure_async_reader
+from .util.buffered import BufferedRangeReader
 
 
 class CompressionStats(BaseModel, frozen=True):
@@ -1009,12 +1010,24 @@ class FileMetadata(BaseModel, frozen=True):
         metadata_size = struct.unpack('<I', footer_bytes[:4])[0]
         metadata_start = footer_start - metadata_size
 
+        # Parquet tells us the exact metadata span, so fetch it in a single
+        # read and parse from memory. This avoids thousands of tiny reads back
+        # through the (possibly remote, cached) file. BufferedRangeReader keeps
+        # absolute file offsets intact so the recorded teaching fields are
+        # identical to a direct parse.
+        reader.seek(metadata_start)
+        metadata_bytes = await reader.read(metadata_size)
+        filesize = footer_start + FOOTER_SIZE
+        buffered = ensure_async_reader(
+            BufferedRangeReader(metadata_bytes, metadata_start, filesize),
+        )
+
         return cls(
             start_offset=metadata_start,
             total_byte_size=metadata_size,
             **(
                 await MetadataParser(
-                    reader,
+                    buffered,
                     metadata_start,
                 ).parse()
             ),
