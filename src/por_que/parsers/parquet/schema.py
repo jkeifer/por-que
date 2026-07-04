@@ -12,7 +12,7 @@ import logging
 import struct
 import warnings
 
-from collections.abc import AsyncIterator
+from collections.abc import Iterator
 from typing import Any, assert_never, cast
 
 from por_que.enums import (
@@ -66,7 +66,7 @@ class SchemaParser(BaseParser):
     - Repetition types (REQUIRED, OPTIONAL, REPEATED) control nullability and arrays
     """
 
-    async def read_schema_element(self) -> SchemaRoot | SchemaGroup | SchemaLeaf:  # noqa: C901
+    def read_schema_element(self) -> SchemaRoot | SchemaGroup | SchemaLeaf:  # noqa: C901
         """
         Read a single SchemaElement struct from the Thrift stream.
 
@@ -84,7 +84,7 @@ class SchemaParser(BaseParser):
             'start_offset': start_offset,
         }
 
-        async for _field_id, field_type, value in self.parse_struct_fields():
+        for _field_id, field_type, value in self.parse_struct_fields():
             match _field_id:
                 case SchemaElementFieldId.TYPE:
                     props['type'] = Type(value)
@@ -106,13 +106,13 @@ class SchemaParser(BaseParser):
                 case SchemaElementFieldId.FIELD_ID:
                     props['field_id'] = value
                 case SchemaElementFieldId.LOGICAL_TYPE:
-                    props['logical_type'] = await self._parse_logical_type()
+                    props['logical_type'] = self._parse_logical_type()
                 case _:
                     warnings.warn(
                         f'Skipping unknown schema field ID {_field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         end_offset = self.parser.pos
         props['byte_length'] = end_offset - start_offset
@@ -285,9 +285,9 @@ class SchemaParser(BaseParser):
 
         return element
 
-    async def parse_schema_field(
+    def parse_schema_field(
         self,
-        list_iter: AsyncIterator[SchemaElement],
+        list_iter: Iterator[SchemaElement],
     ) -> SchemaRoot:
         """
         Parse the schema field from file metadata.
@@ -302,7 +302,7 @@ class SchemaParser(BaseParser):
             Root SchemaElement with complete tree structure
         """
         # Read flat list of schema elements
-        schema_elements = [await self.read_schema_element() async for _ in list_iter]
+        schema_elements = [self.read_schema_element() for _ in list_iter]
 
         logger.debug('Read %d schema elements, building tree', len(schema_elements))
 
@@ -316,7 +316,7 @@ class SchemaParser(BaseParser):
         elements_iter = iter(schema_elements)
         return cast(SchemaRoot, self.read_schema_tree(elements_iter))
 
-    async def _parse_logical_type(self) -> LogicalTypeInfoUnion | None:  # noqa: C901
+    def _parse_logical_type(self) -> LogicalTypeInfoUnion | None:  # noqa: C901
         """
         Parse a LogicalType union from the Thrift stream.
 
@@ -325,24 +325,24 @@ class SchemaParser(BaseParser):
         """
         logical_type: LogicalTypeInfoUnion | None = None
 
-        async for field_id, field_type, _ in self.parse_struct_fields():
+        for field_id, field_type, _ in self.parse_struct_fields():
             # types with struct values
             match field_id:
                 case LogicalType.INTEGER:
-                    logical_type = await self._parse_int_type()
+                    logical_type = self._parse_int_type()
                 case LogicalType.DECIMAL:
-                    logical_type = await self._parse_decimal_type()
+                    logical_type = self._parse_decimal_type()
                 case LogicalType.TIME:
-                    logical_type = await self._parse_time_type()
+                    logical_type = self._parse_time_type()
                 case LogicalType.TIMESTAMP:
-                    logical_type = await self._parse_timestamp_type()
+                    logical_type = self._parse_timestamp_type()
 
             if logical_type:
                 continue
 
             # types with empty structs
             # need to skip to the STOP
-            await self.maybe_skip_field(field_type)
+            self.maybe_skip_field(field_type)
 
             match field_id:
                 case LogicalType.STRING:
@@ -379,11 +379,11 @@ class SchemaParser(BaseParser):
 
         return logical_type
 
-    async def _parse_int_type(self) -> IntTypeInfo:
+    def _parse_int_type(self) -> IntTypeInfo:
         """Parse an IntType struct."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case 1:
                     props['bit_width'] = struct.unpack('<B', value)[0]
@@ -394,15 +394,15 @@ class SchemaParser(BaseParser):
                         f'Skipping unknown int type field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return IntTypeInfo(**props)
 
-    async def _parse_decimal_type(self) -> DecimalTypeInfo:
+    def _parse_decimal_type(self) -> DecimalTypeInfo:
         """Parse a DecimalType struct."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case 1:
                     props['scale'] = value
@@ -413,15 +413,15 @@ class SchemaParser(BaseParser):
                         f'Skipping unknown decimal type field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return DecimalTypeInfo(**props)
 
-    async def _parse_time_type(self) -> TimeTypeInfo:
+    def _parse_time_type(self) -> TimeTypeInfo:
         """Parse a TimeType struct."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case 1:
                     props['is_adjusted_to_utc'] = value
@@ -432,15 +432,15 @@ class SchemaParser(BaseParser):
                         f'Skipping unknown time type field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return TimeTypeInfo(**props)
 
-    async def _parse_timestamp_type(self) -> TimestampTypeInfo:
+    def _parse_timestamp_type(self) -> TimestampTypeInfo:
         """Parse a TimestampType struct."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case 1:
                     props['is_adjusted_to_utc'] = value
@@ -451,6 +451,6 @@ class SchemaParser(BaseParser):
                         f'Skipping unknown timestamp type field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return TimestampTypeInfo(**props)
