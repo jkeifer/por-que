@@ -1,11 +1,5 @@
 # Updating fixtures
 
-!!! info "Lands with the `jak/fixtures-pin` branch"
-
-    The `scripts/update-fixtures.py` command described here is added on the
-    `jak/fixtures-pin` branch. If it is not present in your checkout yet, this
-    page documents the intended flow it provides.
-
 por-que's tests download Parquet test files from the
 [apache/parquet-testing](https://github.com/apache/parquet-testing) repository
 at test time (see `tests/conftest.py`). Downloads are **pinned to a single
