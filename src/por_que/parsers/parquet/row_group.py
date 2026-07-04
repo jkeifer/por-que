@@ -13,7 +13,8 @@ import warnings
 from collections.abc import Sequence
 from typing import Any
 
-from por_que.file_metadata import RowGroup, SchemaRoot, SortingColumn
+from por_que.file_metadata import RowGroup, SortingColumn
+from por_que.schema import SchemaRoot
 
 from .base import BaseParser
 from .column import ColumnParser

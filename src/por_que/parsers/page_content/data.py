@@ -12,9 +12,9 @@ from typing import TYPE_CHECKING, Any
 
 from por_que.enums import Compression, Encoding, Type
 from por_que.exceptions import ParquetDataError
-from por_que.file_metadata import SchemaLeaf
 from por_que.parsers import physical_types
 from por_que.protocols import AsyncReadableSeekable, ReadableSeekable
+from por_que.schema import SchemaLeaf
 
 if TYPE_CHECKING:
     from por_que.pages import DataPageV1, DataPageV2

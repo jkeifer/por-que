@@ -24,7 +24,7 @@ from por_que.enums import (
     Type,
 )
 from por_que.exceptions import ThriftParsingError
-from por_que.file_metadata import (
+from por_que.schema import (
     BsonTypeInfo,
     DateTypeInfo,
     DecimalTypeInfo,

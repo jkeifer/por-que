@@ -16,7 +16,7 @@ import warnings
 from typing import Any
 
 from por_que.enums import GeospatialType
-from por_que.file_metadata import (
+from por_que.statistics import (
     BoundingBox,
     GeospatialStatistics,
 )

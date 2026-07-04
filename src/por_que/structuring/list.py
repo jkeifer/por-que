@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 from por_que.exceptions import ParquetDataError
-from por_que.file_metadata import SchemaGroup, SchemaLeaf
+from por_que.schema import SchemaGroup, SchemaLeaf
 from por_que.util.iteration import PeekableAsyncIterator
 
 from .factory import make_assembler

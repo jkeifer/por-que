@@ -16,7 +16,7 @@ from typing import cast
 
 from por_que.enums import LogicalType, TimeUnit, Type
 from por_que.exceptions import ParquetDataError
-from por_que.file_metadata import (
+from por_que.schema import (
     DecimalTypeInfo,
     LogicalTypeInfo,
     TimestampTypeInfo,

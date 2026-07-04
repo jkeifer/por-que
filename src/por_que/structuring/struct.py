@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from ..exceptions import ParquetDataError
-from ..file_metadata import SchemaGroup, SchemaRoot
+from ..schema import SchemaGroup, SchemaRoot
 from ..util.iteration import PeekableAsyncIterator
 from .factory import get_all_leaf_paths, get_direct_leaf_paths, make_assembler
 from .protocols import Assembler

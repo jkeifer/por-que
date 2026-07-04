@@ -16,7 +16,8 @@ from typing import TYPE_CHECKING, Any
 
 from por_que.enums import Encoding, PageType
 from por_que.exceptions import ParquetFormatError
-from por_que.file_metadata import ColumnStatistics, SchemaLeaf
+from por_que.schema import SchemaLeaf
+from por_que.statistics import ColumnStatistics
 
 from .base import BaseParser
 from .enums import (
