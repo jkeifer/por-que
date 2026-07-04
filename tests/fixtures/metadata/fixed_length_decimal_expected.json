@@ -170,6 +170,6 @@
   "magic_header": "PAR1",
   "magic_footer": "PAR1",
   "_meta": {
-    "format_version": 0
+    "format_version": 1
   }
 }
