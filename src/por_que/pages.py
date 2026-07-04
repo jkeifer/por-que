@@ -10,6 +10,7 @@ from typing import Annotated, Any, Literal
 from pydantic import BaseModel, Discriminator
 
 from .enums import Compression, Encoding, PageType, Type
+from .exceptions import parse_context
 from .parsers.page_content import (
     DataPageV1Parser,
     DataPageV2Parser,
@@ -55,7 +56,13 @@ class Page(BaseModel, frozen=True):
         # until parsed, so fetch a small speculative span and let the helper
         # grow it in the unlikely case a header outruns it. Over cached block
         # readers the speculative bytes are essentially free.
-        return await read_thrift_span(reader, offset, parse, initial_size=8 * 1024)
+        with parse_context(f'page header at offset {offset}'):
+            return await read_thrift_span(
+                reader,
+                offset,
+                parse,
+                initial_size=8 * 1024,
+            )
 
 
 class DictionaryPage(Page, frozen=True):

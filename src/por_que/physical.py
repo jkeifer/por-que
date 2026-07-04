@@ -12,9 +12,13 @@ from typing import Any, Literal, Self, assert_never
 from pydantic import BaseModel, Field, model_validator
 
 from ._version import get_version
-from .constants import PARQUET_MAGIC
+from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import Compression
-from .exceptions import ParquetFormatError
+from .exceptions import (
+    ParquetCorruptedError,
+    ParquetMagicError,
+    parse_context,
+)
 from .file_metadata import (
     ColumnChunk,
     FileMetadata,
@@ -556,20 +560,38 @@ class ParquetFile(
         reader.seek(0, SEEK_END)
         filesize = reader.tell()
 
-        if filesize < 12:
-            raise ParquetFormatError('Parquet file is too small to be valid')
+        # Smallest possible file: header magic + metadata length + footer magic.
+        min_size = 2 * len(PARQUET_MAGIC) + FOOTER_SIZE
+        if filesize < min_size:
+            raise ParquetCorruptedError(
+                f'File is too small to be a Parquet file: {filesize} bytes '
+                f'(need at least {min_size})',
+            )
+
+        # A truncated download or a non-parquet file often still has a plausible
+        # footer, so validate the leading magic too before trusting anything.
+        reader.seek(0)
+        header_magic = await reader.read(len(PARQUET_MAGIC))
+        if header_magic != PARQUET_MAGIC:
+            raise ParquetMagicError(
+                f'Invalid magic header: expected {PARQUET_MAGIC!r}, '
+                f'got {header_magic!r}',
+            )
 
         metadata = await FileMetadata.from_reader(reader)
 
-        return cls(
-            source=str(source),
-            filesize=filesize,
-            column_chunks=await cls._parse_column_chunks(
+        with parse_context(f'column chunks of {source}'):
+            column_chunks = await cls._parse_column_chunks(
                 reader,
                 metadata,
                 columns=columns,
                 row_groups=row_groups,
-            ),
+            )
+
+        return cls(
+            source=str(source),
+            filesize=filesize,
+            column_chunks=column_chunks,
             metadata=metadata,
         )
 
