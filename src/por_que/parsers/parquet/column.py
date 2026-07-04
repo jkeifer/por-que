@@ -13,6 +13,7 @@ from __future__ import annotations
 import logging
 import warnings
 
+from collections.abc import Sequence
 from typing import Any
 
 from por_que.enums import Compression, Encoding, Type
@@ -52,18 +53,27 @@ class ColumnParser(BaseParser):
     - Statistics provide query optimization without reading actual data
     """
 
-    def __init__(self, parser, schema: SchemaRoot) -> None:
+    def __init__(
+        self,
+        parser,
+        schema: SchemaRoot,
+        columns: Sequence[str] | None = None,
+    ) -> None:
         """
         Initialize column parser with schema context for statistics.
 
         Args:
             parser: ThriftCompactParser for parsing
             schema: Root schema element for logical type resolution
+            columns: Optional projection of dotted ``path_in_schema`` strings.
+                When given, chunks whose path is not selected are consumed but
+                not built, and ``read_column_chunk`` returns ``None`` for them.
         """
         super().__init__(parser)
         self.schema = schema
+        self.columns = columns
 
-    async def read_column_chunk(self) -> ColumnChunk:
+    async def read_column_chunk(self) -> ColumnChunk | None:  # noqa: C901
         """
         Read a ColumnChunk struct using the new generic parser.
 
@@ -74,11 +84,14 @@ class ColumnParser(BaseParser):
         - metadata contains the detailed column information
 
         Returns:
-            ColumnChunk with metadata and file location info
+            ColumnChunk with metadata and file location info, or ``None`` when
+            a column projection is active and this chunk is not selected. The
+            struct is always consumed cleanly regardless.
         """
         logger.debug('Reading column chunk')
 
         props: dict[str, Any] = {}
+        selected = True
 
         async for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
@@ -95,7 +108,11 @@ class ColumnParser(BaseParser):
                 case ColumnChunkFieldId.COLUMN_INDEX_LENGTH:
                     props['column_index_length'] = value
                 case ColumnChunkFieldId.META_DATA:
-                    props['metadata'] = await self.read_column_metadata()
+                    metadata = await self.read_column_metadata()
+                    if metadata is None:
+                        selected = False
+                    else:
+                        props['metadata'] = metadata
                 case _:
                     warnings.warn(
                         f'Skipping unknown column chunk field ID {field_id}',
@@ -103,9 +120,12 @@ class ColumnParser(BaseParser):
                     )
                     await self.maybe_skip_field(field_type)
 
+        if not selected:
+            return None
+
         return ColumnChunk(**props)
 
-    async def read_column_metadata(self) -> ColumnMetadata:  # noqa: C901
+    async def read_column_metadata(self) -> ColumnMetadata | None:  # noqa: C901
         """
         Read ColumnMetaData struct using the new generic parser.
 
@@ -116,16 +136,29 @@ class ColumnParser(BaseParser):
         - Page offsets enable direct seeking to data within the chunk
         - Statistics provide min/max values for query optimization
 
+        When a column projection is active and this column's path is not
+        selected, the remaining fields are consumed with the generic
+        field-skipping machinery (no models built, no values decoded) and
+        ``None`` is returned to signal the caller to omit the chunk.
+
         Returns:
-            ColumnMetadata with complete column information
+            ColumnMetadata with complete column information, or ``None`` when
+            not selected by an active column projection.
         """
         start_offset = self.parser.pos
         props: dict[str, Any] = {
             'start_offset': start_offset,
         }
         schema_element: SchemaLeaf | None = None
+        skipping = False
 
         async for field_id, field_type, value in self.parse_struct_fields():
+            # Once we know this column is not selected, drain the rest of the
+            # struct cleanly without building anything.
+            if skipping:
+                await self.maybe_skip_field(field_type)
+                continue
+
             match field_id:
                 case ColumnMetadataFieldId.TYPE:
                     props['type'] = Type(value)
@@ -153,6 +186,11 @@ class ColumnParser(BaseParser):
                         [await self.read_string() async for _ in value],
                     )
                     props['path_in_schema'] = path_in_schema
+                    if self.columns is not None and path_in_schema not in self.columns:
+                        # Not selected: skip the rest of the struct without
+                        # resolving the schema element or building models.
+                        skipping = True
+                        continue
                     element = self.schema.find_element(path_in_schema)
                     if not isinstance(element, SchemaLeaf):
                         raise ParquetFormatError(
@@ -190,6 +228,11 @@ class ColumnParser(BaseParser):
                         stacklevel=1,
                     )
                     await self.maybe_skip_field(field_type)
+
+        if skipping:
+            # Column was not selected by the projection; the struct has been
+            # consumed, so signal the caller to omit this chunk.
+            return None
 
         end_offset = self.parser.pos
         props['byte_length'] = end_offset - start_offset

@@ -162,3 +162,94 @@ def test_unlinked_statistics_raises() -> None:
 
     with pytest.raises(ValueError, match='not linked'):
         _ = stats.schema_element
+
+
+PROJECTION_FILE = 'binary_truncated_min_max'
+SELECTED_COLUMNS = ['utf8_no_truncation', 'binary_no_truncation']
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])
+@pytest.mark.asyncio
+async def test_projected_parse_contains_only_selected_columns(
+    parquet_url: str,
+) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        projected = await FileMetadata.from_reader(hf, columns=SELECTED_COLUMNS)
+
+    for row_group in projected.row_groups:
+        assert set(row_group.column_chunks.keys()) == set(SELECTED_COLUMNS)
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])
+@pytest.mark.asyncio
+async def test_projected_chunks_are_byte_identical_to_full_parse(
+    parquet_url: str,
+) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        full = await FileMetadata.from_reader(hf)
+    async with AsyncHttpFile(parquet_url) as hf:
+        projected = await FileMetadata.from_reader(hf, columns=SELECTED_COLUMNS)
+
+    assert len(projected.row_groups) == len(full.row_groups)
+    for full_rg, proj_rg in zip(full.row_groups, projected.row_groups, strict=True):
+        for path in SELECTED_COLUMNS:
+            assert (
+                proj_rg.column_chunks[path].model_dump()
+                == full_rg.column_chunks[path].model_dump()
+            )
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])
+@pytest.mark.asyncio
+async def test_empty_projection_selects_no_chunks(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        projected = await FileMetadata.from_reader(hf, columns=[])
+
+    for row_group in projected.row_groups:
+        assert row_group.column_chunks == {}
+    # An empty projection still parses the schema in full.
+    assert projected.column_count > 0
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])
+@pytest.mark.asyncio
+async def test_none_projection_selects_all_chunks(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        full = await FileMetadata.from_reader(hf)
+    async with AsyncHttpFile(parquet_url) as hf:
+        default = await FileMetadata.from_reader(hf, columns=None)
+
+    assert default.model_dump() == full.model_dump()
+    for row_group in default.row_groups:
+        assert len(row_group.column_chunks) == full.column_count
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])
+@pytest.mark.asyncio
+async def test_unknown_column_names_match_nothing(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        projected = await FileMetadata.from_reader(
+            hf,
+            columns=['does_not_exist', 'utf8_no_truncation'],
+        )
+
+    for row_group in projected.row_groups:
+        assert set(row_group.column_chunks.keys()) == {'utf8_no_truncation'}
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])
+@pytest.mark.asyncio
+async def test_projected_statistics_are_linked(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        projected = await FileMetadata.from_reader(
+            hf,
+            columns=['utf8_no_truncation'],
+        )
+
+    chunk = projected.row_groups[0].column_chunks['utf8_no_truncation']
+    stats = chunk.statistics
+    assert stats is not None
+    assert isinstance(stats.schema_element, SchemaLeaf)
+    # Linked statistics must resolve converted values without raising.
+    _ = stats.converted_min_value
+    _ = stats.converted_max_value

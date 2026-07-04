@@ -3,7 +3,7 @@ from __future__ import annotations
 import struct
 import warnings
 
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from functools import cached_property
 from io import SEEK_END
 from typing import TYPE_CHECKING, Annotated, Any, Literal, Self
@@ -992,7 +992,23 @@ class FileMetadata(BaseModel, frozen=True):
     async def from_reader(
         cls,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        columns: Sequence[str] | None = None,
     ) -> Self:
+        """Parse file metadata from a reader.
+
+        Args:
+            reader: The file to read metadata from.
+            columns: Optional projection of full dotted ``path_in_schema``
+                strings. When provided, each row group's ``column_chunks``
+                dict contains only the selected columns; everything else about
+                the parse (schema tree, key-value metadata, row-group scalar
+                fields) is unchanged. Unselected chunks are simply absent, so
+                computed aggregates like ``compression_stats`` reflect only the
+                selected columns. Unknown column names match nothing (no
+                error); ``columns=[]`` selects no chunks while ``columns=None``
+                selects all. This gives a large memory and CPU reduction when
+                only a few columns of a wide file are needed.
+        """
         from .parsers.parquet.metadata import MetadataParser
 
         reader = ensure_async_reader(reader)
@@ -1029,7 +1045,7 @@ class FileMetadata(BaseModel, frozen=True):
                 await MetadataParser(
                     buffered,
                     metadata_start,
-                ).parse()
+                ).parse(columns=columns)
             ),
         )
 
