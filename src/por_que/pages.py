@@ -10,11 +10,6 @@ from typing import Annotated, Any, Literal
 from pydantic import BaseModel, Discriminator
 
 from .enums import Compression, Encoding, PageType, Type
-from .file_metadata import (
-    ColumnStatistics,
-    SchemaLeaf,
-    SchemaLinked,
-)
 from .parsers.page_content import (
     DataPageV1Parser,
     DataPageV2Parser,
@@ -25,6 +20,8 @@ from .parsers.page_content import (
 from .parsers.parquet.page import PageParser
 from .parsers.thrift.parser import ThriftCompactParser
 from .protocols import AsyncReadableSeekable
+from .schema import SchemaLeaf, SchemaLinked
+from .statistics import ColumnStatistics
 from .util.spans import read_thrift_span
 
 

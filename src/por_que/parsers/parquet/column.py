@@ -21,13 +21,14 @@ from por_que.exceptions import ParquetFormatError
 from por_que.file_metadata import (
     ColumnChunk,
     ColumnMetadata,
-    ColumnStatistics,
-    PageEncodingStats,
-    SchemaLeaf,
-    SchemaRoot,
-    SizeStatistics,
 )
 from por_que.pages import PageType
+from por_que.schema import SchemaLeaf, SchemaRoot
+from por_que.statistics import (
+    ColumnStatistics,
+    PageEncodingStats,
+    SizeStatistics,
+)
 
 from .base import BaseParser
 from .enums import (

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from ..file_metadata import SchemaRoot
+from ..schema import SchemaRoot
 from ..util.iteration import PeekableAsyncIterator
 from .factory import make_assembler
 

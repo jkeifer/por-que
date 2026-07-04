@@ -13,7 +13,7 @@ import warnings
 from typing import Any
 
 from por_que.enums import BoundaryOrder
-from por_que.file_metadata import PageLocation
+from por_que.statistics import PageLocation
 
 from .base import BaseParser
 from .enums import (

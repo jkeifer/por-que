@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Protocol
 
-from por_que.file_metadata import (
+from por_que.schema import (
     SchemaGroup,
     SchemaLeaf,
     SchemaRoot,

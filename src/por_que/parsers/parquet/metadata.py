@@ -14,11 +14,9 @@ import warnings
 from collections.abc import Iterator, Sequence
 from typing import Any
 
-from por_que.file_metadata import (
-    RowGroups,
-    SchemaRoot,
-)
+from por_que.file_metadata import RowGroups
 from por_que.parsers.thrift.parser import ThriftCompactParser
+from por_que.schema import SchemaRoot
 
 from .base import BaseParser
 from .enums import FileMetadataFieldId

@@ -17,10 +17,7 @@ from .enums import Compression
 from .exceptions import ParquetFormatError
 from .file_metadata import (
     ColumnChunk,
-    ColumnIndex,
     FileMetadata,
-    OffsetIndex,
-    SchemaLeaf,
 )
 from .pages import (
     AnyDataPage,
@@ -36,6 +33,8 @@ from .protocols import (
     AsyncReadableSeekable,
     ReadableSeekable,
 )
+from .schema import SchemaLeaf
+from .statistics import ColumnIndex, OffsetIndex
 from .structuring import reconstruct as reconstruction
 from .util.async_adapter import ensure_async_reader
 from .util.iteration import AsyncChain

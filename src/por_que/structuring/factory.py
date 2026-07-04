@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from por_que.enums import ConvertedType, Repetition
 from por_que.exceptions import ParquetDataError
-from por_que.file_metadata import (
+from por_que.schema import (
     SchemaGroup,
     SchemaLeaf,
     SchemaRoot,
