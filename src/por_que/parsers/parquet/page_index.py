@@ -34,7 +34,7 @@ class PageIndexParser(BaseParser):
     - Min/max values are stored in raw binary format, need column type to decode
     """
 
-    async def read_page_location(self) -> PageLocation:
+    def read_page_location(self) -> PageLocation:
         """
         Read a PageLocation struct using the new generic parser.
 
@@ -48,7 +48,7 @@ class PageIndexParser(BaseParser):
         """
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case PageLocationFieldId.OFFSET:
                     props['offset'] = value
@@ -61,11 +61,11 @@ class PageIndexParser(BaseParser):
                         f'Skipping unknown page location field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return PageLocation(**props)
 
-    async def read_offset_index(self) -> dict[str, Any]:
+    def read_offset_index(self) -> dict[str, Any]:
         """
         Read an OffsetIndex struct using the new generic parser.
 
@@ -74,26 +74,24 @@ class PageIndexParser(BaseParser):
         """
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case OffsetIndexFieldId.PAGE_LOCATIONS:
-                    props['page_locations'] = [
-                        await self.read_page_location() async for _ in value
-                    ]
+                    props['page_locations'] = [self.read_page_location() for _ in value]
                 case OffsetIndexFieldId.UNENCODED_BYTE_ARRAY_DATA_BYTES:
                     props['unencoded_byte_array_data_bytes'] = [
-                        await self.read_i64() async for _ in value
+                        self.read_i64() for _ in value
                     ]
                 case _:
                     warnings.warn(
                         f'Skipping unknown offset index field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return props
 
-    async def read_column_index(self) -> dict[str, Any]:
+    def read_column_index(self) -> dict[str, Any]:
         """
         Read a ColumnIndex struct using the new generic parser.
 
@@ -102,31 +100,31 @@ class PageIndexParser(BaseParser):
         """
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case ColumnIndexFieldId.BOUNDARY_ORDER:
                     props['boundary_order'] = BoundaryOrder(value)
                 case ColumnIndexFieldId.NULL_PAGES:
-                    props['null_pages'] = [await self.read_bool() async for _ in value]
+                    props['null_pages'] = [self.read_bool() for _ in value]
                 case ColumnIndexFieldId.MIN_VALUES:
-                    props['min_values'] = [await self.read_bytes() async for _ in value]
+                    props['min_values'] = [self.read_bytes() for _ in value]
                 case ColumnIndexFieldId.MAX_VALUES:
-                    props['max_values'] = [await self.read_bytes() async for _ in value]
+                    props['max_values'] = [self.read_bytes() for _ in value]
                 case ColumnIndexFieldId.NULL_COUNTS:
-                    props['null_counts'] = [await self.read_i64() async for _ in value]
+                    props['null_counts'] = [self.read_i64() for _ in value]
                 case ColumnIndexFieldId.REPETITION_LEVEL_HISTOGRAMS:
                     props['repetition_level_histograms'] = [
-                        await self.read_i64() async for _ in value
+                        self.read_i64() for _ in value
                     ]
                 case ColumnIndexFieldId.DEFINITION_LEVEL_HISTOGRAMS:
                     props['definition_level_histograms'] = [
-                        await self.read_i64() async for _ in value
+                        self.read_i64() for _ in value
                     ]
                 case _:
                     warnings.warn(
                         f'Skipping unknown column index field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return props

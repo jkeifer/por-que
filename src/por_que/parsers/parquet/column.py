@@ -73,7 +73,7 @@ class ColumnParser(BaseParser):
         self.schema = schema
         self.columns = columns
 
-    async def read_column_chunk(self) -> ColumnChunk | None:  # noqa: C901
+    def read_column_chunk(self) -> ColumnChunk | None:  # noqa: C901
         """
         Read a ColumnChunk struct using the new generic parser.
 
@@ -93,7 +93,7 @@ class ColumnParser(BaseParser):
         props: dict[str, Any] = {}
         selected = True
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case ColumnChunkFieldId.FILE_PATH:
                     props['file_path'] = value.decode('utf-8')
@@ -108,7 +108,7 @@ class ColumnParser(BaseParser):
                 case ColumnChunkFieldId.COLUMN_INDEX_LENGTH:
                     props['column_index_length'] = value
                 case ColumnChunkFieldId.META_DATA:
-                    metadata = await self.read_column_metadata()
+                    metadata = self.read_column_metadata()
                     if metadata is None:
                         selected = False
                     else:
@@ -118,14 +118,14 @@ class ColumnParser(BaseParser):
                         f'Skipping unknown column chunk field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         if not selected:
             return None
 
         return ColumnChunk(**props)
 
-    async def read_column_metadata(self) -> ColumnMetadata | None:  # noqa: C901
+    def read_column_metadata(self) -> ColumnMetadata | None:  # noqa: C901
         """
         Read ColumnMetaData struct using the new generic parser.
 
@@ -152,11 +152,11 @@ class ColumnParser(BaseParser):
         schema_element: SchemaLeaf | None = None
         skipping = False
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             # Once we know this column is not selected, drain the rest of the
             # struct cleanly without building anything.
             if skipping:
-                await self.maybe_skip_field(field_type)
+                self.maybe_skip_field(field_type)
                 continue
 
             match field_id:
@@ -178,12 +178,10 @@ class ColumnParser(BaseParser):
                     # Offset 0 means "no dictionary page" (0 is the file header)
                     props['dictionary_page_offset'] = value if value > 0 else None
                 case ColumnMetadataFieldId.ENCODINGS:
-                    props['encodings'] = [
-                        Encoding(await self.read_i32()) async for _ in value
-                    ]
+                    props['encodings'] = [Encoding(self.read_i32()) for _ in value]
                 case ColumnMetadataFieldId.PATH_IN_SCHEMA:
                     path_in_schema = '.'.join(
-                        [await self.read_string() async for _ in value],
+                        [self.read_string() for _ in value],
                     )
                     props['path_in_schema'] = path_in_schema
                     if self.columns is not None and path_in_schema not in self.columns:
@@ -206,20 +204,20 @@ class ColumnParser(BaseParser):
                         )
                     props['statistics'] = ColumnStatistics(
                         schema_path=schema_element.full_path,
-                        **(await StatisticsParser(self.parser).read_statistics()),
+                        **(StatisticsParser(self.parser).read_statistics()),
                     )._link(schema_element)
                 case ColumnMetadataFieldId.ENCODING_STATS:
                     props['encoding_stats'] = [
-                        await self._parse_page_encoding_stats() async for _ in value
+                        self._parse_page_encoding_stats() for _ in value
                     ]
                 case ColumnMetadataFieldId.BLOOM_FILTER_OFFSET:
                     props['bloom_filter_offset'] = value
                 case ColumnMetadataFieldId.BLOOM_FILTER_LENGTH:
                     props['bloom_filter_length'] = value
                 case ColumnMetadataFieldId.SIZE_STATISTICS:
-                    props['size_statistics'] = await self._parse_size_statistics()
+                    props['size_statistics'] = self._parse_size_statistics()
                 case ColumnMetadataFieldId.GEOSPATIAL_STATISTICS:
-                    props['geospatial_statistics'] = await GeoStatsParser(
+                    props['geospatial_statistics'] = GeoStatsParser(
                         self.parser,
                     ).read_geo_stats()
                 case _:
@@ -227,7 +225,7 @@ class ColumnParser(BaseParser):
                         f'Skipping unknown column metadata field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         if skipping:
             # Column was not selected by the projection; the struct has been
@@ -244,12 +242,12 @@ class ColumnParser(BaseParser):
 
         return ColumnMetadata(**props)._link(schema_element)
 
-    async def _parse_page_encoding_stats(self) -> PageEncodingStats:
+    def _parse_page_encoding_stats(self) -> PageEncodingStats:
         """Parse PageEncodingStats structs."""
 
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case PageEncodingStatsFieldId.PAGE_TYPE:
                     props['page_type'] = PageType(value)
@@ -262,32 +260,32 @@ class ColumnParser(BaseParser):
                         f'Skipping unknown page encodings stats field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return PageEncodingStats(**props)
 
-    async def _parse_size_statistics(self) -> SizeStatistics:
+    def _parse_size_statistics(self) -> SizeStatistics:
         """Parse a SizeStatistics struct."""
 
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case SizeStatisticsFieldId.UNENCODED_BYTE_ARRAY_DATA_BYTES:
                     props['unencoded_byte_array_data_bytes'] = value
                 case SizeStatisticsFieldId.REPETITION_LEVEL_HISTOGRAM:
                     props['repetition_level_histogram'] = [
-                        await self.read_i64() async for _ in value
+                        self.read_i64() for _ in value
                     ]
                 case SizeStatisticsFieldId.DEFINITION_LEVEL_HISTOGRAM:
                     props['definition_level_histogram'] = [
-                        await self.read_i64() async for _ in value
+                        self.read_i64() for _ in value
                     ]
                 case _:
                     warnings.warn(
                         f'Skipping unknown size stats field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return SizeStatistics(**props)

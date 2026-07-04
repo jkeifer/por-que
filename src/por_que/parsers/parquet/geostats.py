@@ -31,30 +31,30 @@ logger = logging.getLogger(__name__)
 
 
 class GeoStatsParser(BaseParser):
-    async def read_geo_stats(self) -> GeospatialStatistics:
+    def read_geo_stats(self) -> GeospatialStatistics:
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case GeospatialStatisticsFieldId.BBOX:
-                    props['bbox'] = await self._parse_bounding_box()
+                    props['bbox'] = self._parse_bounding_box()
                 case GeospatialStatisticsFieldId.GEOSPATIAL_TYPES:
                     props['geospatial_types'] = [
-                        GeospatialType(await self.read_i32()) async for _ in value
+                        GeospatialType(self.read_i32()) for _ in value
                     ]
                 case _:
                     warnings.warn(
                         f'Skipping unknown geo stats field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return GeospatialStatistics(**props)
 
-    async def _parse_bounding_box(self) -> BoundingBox:
+    def _parse_bounding_box(self) -> BoundingBox:
         props: dict[str, float] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case BoundingBoxFieldId.XMIN:
                     props['xmin'] = value
@@ -77,6 +77,6 @@ class GeoStatsParser(BaseParser):
                         f'Skipping unknown bounding box field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return BoundingBox(**props)

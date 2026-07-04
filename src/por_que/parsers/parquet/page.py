@@ -57,7 +57,7 @@ class PageParser(BaseParser):
         super().__init__(parser)
         self.schema_element = schema_element
 
-    async def read_page(self) -> AnyPage:
+    def read_page(self) -> AnyPage:
         """
         Read a complete Page directly from the stream.
 
@@ -76,7 +76,7 @@ class PageParser(BaseParser):
             'start_offset': start_offset,
         }
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case PageHeaderFieldId.TYPE:
                     props['page_type'] = PageType(value)
@@ -87,19 +87,19 @@ class PageParser(BaseParser):
                 case PageHeaderFieldId.CRC:
                     props['crc'] = value
                 case PageHeaderFieldId.DATA_PAGE_HEADER:
-                    props.update(await self.read_data_page_header())
+                    props.update(self.read_data_page_header())
                 case PageHeaderFieldId.DICTIONARY_PAGE_HEADER:
-                    props.update(await self.read_dictionary_page_header())
+                    props.update(self.read_dictionary_page_header())
                 case PageHeaderFieldId.DATA_PAGE_HEADER_V2:
-                    props.update(await self.read_data_page_header_v2())
+                    props.update(self.read_data_page_header_v2())
                 case PageHeaderFieldId.INDEX_PAGE_HEADER:
-                    props.update(await self.read_index_page_header())
+                    props.update(self.read_index_page_header())
                 case _:
                     warnings.warn(
                         f'Skipping unknown page field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         header_end_offset = self.parser.pos
         props['header_size'] = header_end_offset - start_offset
@@ -130,17 +130,17 @@ class PageParser(BaseParser):
 
         return page
 
-    async def _handle_statistics(self) -> ColumnStatistics:
+    def _handle_statistics(self) -> ColumnStatistics:
         return ColumnStatistics(
             schema_path=self.schema_element.full_path,
-            **(await StatisticsParser(self.parser).read_statistics()),
+            **(StatisticsParser(self.parser).read_statistics()),
         )._link(self.schema_element)
 
-    async def read_data_page_header(self) -> dict[str, Any]:
+    def read_data_page_header(self) -> dict[str, Any]:
         """Read DataPageHeader fields and return as dict."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case DataPageHeaderFieldId.NUM_VALUES:
                     props['num_values'] = value
@@ -151,21 +151,21 @@ class PageParser(BaseParser):
                 case DataPageHeaderFieldId.REPETITION_LEVEL_ENCODING:
                     props['repetition_level_encoding'] = Encoding(value)
                 case DataPageHeaderFieldId.STATISTICS:
-                    props['statistics'] = await self._handle_statistics()
+                    props['statistics'] = self._handle_statistics()
                 case _:
                     warnings.warn(
                         f'Skipping unknown data page v1 header field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return props
 
-    async def read_data_page_header_v2(self) -> dict[str, Any]:
+    def read_data_page_header_v2(self) -> dict[str, Any]:
         """Read DataPageHeaderV2 fields using the new generic parser."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case DataPageHeaderV2FieldId.NUM_VALUES:
                     props['num_values'] = value
@@ -182,21 +182,21 @@ class PageParser(BaseParser):
                 case DataPageHeaderV2FieldId.IS_COMPRESSED:
                     props['is_compressed'] = bool(value)
                 case DataPageHeaderV2FieldId.STATISTICS:
-                    props['statistics'] = await self._handle_statistics()
+                    props['statistics'] = self._handle_statistics()
                 case _:
                     warnings.warn(
                         f'Skipping unknown data page header v2 field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return props
 
-    async def read_dictionary_page_header(self) -> dict[str, Any]:
+    def read_dictionary_page_header(self) -> dict[str, Any]:
         """Read DictionaryPageHeader fields using the new generic parser."""
         props: dict[str, Any] = {}
 
-        async for field_id, field_type, value in self.parse_struct_fields():
+        for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
                 case DictionaryPageHeaderFieldId.NUM_VALUES:
                     props['num_values'] = value
@@ -209,11 +209,11 @@ class PageParser(BaseParser):
                         f'Skipping unknown dictionary page header field ID {field_id}',
                         stacklevel=1,
                     )
-                    await self.maybe_skip_field(field_type)
+                    self.maybe_skip_field(field_type)
 
         return props
 
-    async def read_index_page_header(self) -> dict[str, Any]:
+    def read_index_page_header(self) -> dict[str, Any]:
         """
         Read IndexPageHeader fields using the new generic parser.
 
@@ -221,7 +221,7 @@ class PageParser(BaseParser):
         (contains only a TODO comment), so this method doesn't expect any fields.
         """
         # IndexPageHeader is empty, but we still parse to consume the struct
-        async for field_id, _, _ in self.parse_struct_fields():
+        for field_id, _, _ in self.parse_struct_fields():
             warnings.warn(
                 f'Skipping unknown dictionary page header field ID {field_id}',
                 stacklevel=1,

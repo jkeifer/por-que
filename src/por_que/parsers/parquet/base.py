@@ -1,4 +1,4 @@
-from collections.abc import AsyncIterator
+from collections.abc import Iterator
 from typing import Any
 
 from por_que.parsers.thrift.enums import ThriftFieldType
@@ -26,40 +26,40 @@ class BaseParser:
         """
         self.parser = parser
 
-    async def read(self, length: int = 1) -> bytes:
-        return await self.parser.read(length)
+    def read(self, length: int = 1) -> bytes:
+        return self.parser.read(length)
 
-    async def read_varint(self) -> int:
-        return await self.parser.read_varint()
+    def read_varint(self) -> int:
+        return self.parser.read_varint()
 
-    async def read_zigzag(self) -> int:
-        return await self.parser.read_zigzag()
+    def read_zigzag(self) -> int:
+        return self.parser.read_zigzag()
 
-    async def read_bool(self) -> bool:
-        return await self.parser.read_bool()
+    def read_bool(self) -> bool:
+        return self.parser.read_bool()
 
-    async def read_i32(self) -> int:
-        return await self.parser.read_i32()
+    def read_i32(self) -> int:
+        return self.parser.read_i32()
 
-    async def read_i64(self) -> int:
-        return await self.parser.read_i64()
+    def read_i64(self) -> int:
+        return self.parser.read_i64()
 
-    async def read_string(self) -> str:
-        return await self.parser.read_string()
+    def read_string(self) -> str:
+        return self.parser.read_string()
 
-    async def read_bytes(self) -> bytes:
-        return await self.parser.read_bytes()
+    def read_bytes(self) -> bytes:
+        return self.parser.read_bytes()
 
-    async def maybe_skip_field(self, field_type: ThriftFieldType | int) -> None:
+    def maybe_skip_field(self, field_type: ThriftFieldType | int) -> None:
         if not isinstance(field_type, ThriftFieldType):
             field_type = ThriftFieldType(field_type)
 
         if field_type.is_complex:
-            await self.parser.skip_field(field_type)
+            self.parser.skip_field(field_type)
 
-    async def parse_struct_fields(
+    def parse_struct_fields(
         self,
-    ) -> AsyncIterator[tuple[int, int, Any]]:
+    ) -> Iterator[tuple[int, int, Any]]:
         """
         Yield-based struct field parsing that preserves context and parsing state.
 
@@ -77,7 +77,7 @@ class BaseParser:
         struct_parser = ThriftStructParser(self.parser)
 
         while True:
-            field_type, field_id = await struct_parser.read_field_header()
+            field_type, field_id = struct_parser.read_field_header()
 
             match field_type:
                 case ThriftFieldType.STOP:
@@ -90,5 +90,5 @@ class BaseParser:
                     yield field_id, field_type, None
                 case _:
                     # Handle simple field types (primitives)
-                    value = await struct_parser.read_value(field_type)
+                    value = struct_parser.read_value(field_type)
                     yield field_id, field_type, value
