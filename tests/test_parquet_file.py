@@ -215,6 +215,81 @@ async def test_offset_index_path_matches_sequential_walk(
     assert pf_index.model_dump() == pf_walk.model_dump()
 
 
+@pytest.mark.parametrize('parquet_file_name', ['alltypes_plain'])
+@pytest.mark.asyncio
+async def test_column_selection_materializes_subset(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        full = await ParquetFile.from_reader(hf, parquet_url)
+
+    selected = ['id', 'bool_col']
+    async with AsyncHttpFile(parquet_url) as hf:
+        projected = await ParquetFile.from_reader(
+            hf,
+            parquet_url,
+            columns=selected,
+        )
+
+    # Only the selected chunks are materialized.
+    assert {cc.path_in_schema for cc in projected.column_chunks} == set(selected)
+
+    # Each selected chunk is byte-for-byte identical to the full parse, and
+    # metadata (a full parse) is unaffected by the projection.
+    full_by_path = {cc.path_in_schema: cc for cc in full.column_chunks}
+    for cc in projected.column_chunks:
+        assert cc.model_dump() == full_by_path[cc.path_in_schema].model_dump()
+    assert projected.metadata.model_dump() == full.metadata.model_dump()
+
+
+@pytest.mark.parametrize('parquet_file_name', ['alltypes_plain'])
+@pytest.mark.asyncio
+async def test_column_selection_edge_cases(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        # Empty selection materializes no chunks...
+        empty = await ParquetFile.from_reader(hf, parquet_url, columns=[])
+        assert empty.column_chunks == []
+
+        # ...unknown names match nothing and raise nothing...
+        unknown = await ParquetFile.from_reader(
+            hf,
+            parquet_url,
+            columns=['not_a_real_column'],
+        )
+        assert unknown.column_chunks == []
+
+        # ...and an unselected row group yields no chunks either.
+        no_rg = await ParquetFile.from_reader(hf, parquet_url, row_groups=[])
+        assert no_rg.column_chunks == []
+
+
+@pytest.mark.parametrize('parquet_file_name', ['binary_truncated_min_max'])
+@pytest.mark.asyncio
+async def test_projected_file_roundtrips_and_links(parquet_url: str) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        full = await ParquetFile.from_reader(hf, parquet_url)
+        selected = [cc.path_in_schema for cc in full.column_chunks if cc.data_pages][:1]
+        projected = await ParquetFile.from_reader(
+            hf,
+            parquet_url,
+            columns=selected,
+            row_groups=[0],
+        )
+
+    assert projected.column_chunks
+
+    # A projected file must survive a full model_dump/model_validate round trip
+    # even though its chunk list is partial.
+    restored = ParquetFile.from_dict(projected.to_dict())
+    assert restored.to_dict() == projected.to_dict()
+
+    chunk = next(cc for cc in restored.column_chunks if cc.data_pages)
+    page = chunk.data_pages[0]
+    assert page.schema_element is not None
+    if page.statistics is not None:
+        assert page.statistics.schema_element is not None
+    if chunk.column_index is not None:
+        assert chunk.column_index.schema_element is not None
+
+
 @pytest.mark.parametrize(
     'parquet_file_name',
     TEST_FILES + DATA_ONLY_FILES,
