@@ -23,10 +23,19 @@ dynamic = ["version"]
 [project.urls]
 Repository = 'https://github.com/jkeifer/por-que'
 
+[project.scripts]
+por-que = "por_que.cli.entry:main"
+
 [project.optional-dependencies]
 # lzo optional per c lib requirement
 lzo = [
     "python-lzo>=1.15",
+]
+# CLI is an optional extra: `pip install 'por-que[cli]'`. The base library
+# stays dependency-free of these.
+cli = [
+    "typer>=0.12",
+    "rich>=13.0",
 ]
 
 [dependency-groups]
@@ -39,6 +48,9 @@ dev = [
     "pytest-asyncio>=1.2.0",
     "pytest-cov>=6.1.1",
     "ruff>=0.11.6",
+    # exercise the optional CLI extra in the test suite
+    "typer>=0.12",
+    "rich>=13.0",
 ]
 pyarrow = [
     "pyarrow>=21.0.0",
