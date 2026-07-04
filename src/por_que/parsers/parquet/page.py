@@ -30,6 +30,7 @@ from .statistics import StatisticsParser
 
 if TYPE_CHECKING:
     from por_que.pages import AnyPage
+    from por_que.parsers.thrift.parser import ThriftCompactParser
 
 
 class PageParser(BaseParser):
@@ -45,7 +46,7 @@ class PageParser(BaseParser):
 
     def __init__(
         self,
-        parser,
+        parser: ThriftCompactParser,
         schema_element: SchemaLeaf,
     ) -> None:
         """
@@ -64,9 +65,6 @@ class PageParser(BaseParser):
 
         This method combines the previous PageHeader parsing logic with direct
         Page object creation, eliminating the intermediate logical.PageHeader step.
-
-        Args:
-            start_offset: The file offset where this page begins
 
         Returns:
             The appropriate Page subtype (DataPageV1, DataPageV2, DictionaryPage,
