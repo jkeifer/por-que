@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from typing import Any, Self
+import struct
+
+from typing import TYPE_CHECKING, Any, Self
 
 from pydantic import BaseModel, Field
 
@@ -9,10 +11,15 @@ from .enums import (
     Encoding,
     GeospatialType,
     PageType,
+    Type,
 )
+from .exceptions import ParquetFormatError
 from .protocols import AsyncReadableSeekable
 from .schema import SchemaLeaf, SchemaLinked
 from .util.spans import read_thrift_span
+
+if TYPE_CHECKING:
+    from .file_metadata import ColumnChunk, ColumnMetadata
 
 
 class ColumnStatistics(
@@ -207,3 +214,189 @@ class ColumnIndex(
     @property
     def converted_max_values(self) -> list[Any]:
         return self._converted_values(self.max_values)
+
+
+# The eight salt constants that define the split-block bloom filter's mask.
+# Each block has eight 32-bit words; word ``i`` is probed at the bit chosen by
+# multiplying the lower 32 bits of the hash by ``SBBF_SALT[i]``. These exact
+# values are mandated by the Parquet spec so that every reader and writer
+# agrees on which bits a value touches.
+SBBF_SALT = (
+    0x47B6137B,
+    0x44974D91,
+    0x8824AD5B,
+    0xA2B7289D,
+    0x705495C7,
+    0x2DF1424B,
+    0x9EFC4947,
+    0x5C6BFB31,
+)
+
+# A block is 256 bits: eight contiguous 32-bit words = 32 bytes. That is also a
+# typical CPU cache line, which is the whole point of the design (see the
+# BloomFilter docstring).
+_SBBF_BLOCK_BYTES = 32
+_SBBF_WORDS_PER_BLOCK = 8
+_U32_MASK = 0xFFFFFFFF
+
+
+class BloomFilter(BaseModel, frozen=True):
+    """A split-block bloom filter (SBBF) for one column chunk.
+
+    A bloom filter answers "might this value be present?" cheaply and without
+    reading the column's data pages. Its answer has a deliberate asymmetry:
+
+    * A ``False`` is exact -- the value is *definitely absent*. There are no
+      false negatives, which is what makes a bloom filter safe for skipping
+      row groups: if it says no, you can skip without risking wrong results.
+    * A ``True`` is a *maybe* -- the value is probably present, but could be a
+      false positive. The false-positive rate is tunable at write time by
+      sizing the bitset relative to the number of distinct values.
+
+    Parquet uses the *split-block* variant. Instead of setting bits spread
+    across the whole bitset (which would touch many cache lines per lookup),
+    every value is confined to a single 256-bit *block* sized to a CPU cache
+    line. A lookup reads one block and probes eight bits within it, so a query
+    is one cache-line access rather than eight scattered ones.
+
+    This model is standalone: it is not part of the ``ParquetFile`` tree and is
+    loaded on demand via :meth:`from_reader`, so serialized files are
+    unaffected by its existence.
+    """
+
+    start_offset: int
+    byte_length: int
+    num_bytes: int
+    header_length: int
+    bitset: bytes = Field(repr=False)
+    physical_type: Type
+
+    @classmethod
+    async def from_reader(
+        cls,
+        reader: AsyncReadableSeekable,
+        chunk_metadata: ColumnMetadata | ColumnChunk,
+    ) -> Self:
+        """Load and parse a column chunk's bloom filter from the file.
+
+        The filter lives at ``bloom_filter_offset``: a thrift-compact
+        ``BloomFilterHeader`` followed immediately by the raw bitset. When
+        ``bloom_filter_length`` is recorded we fetch that exact span in one
+        read; otherwise (older writers) we parse the header from a speculative
+        span, learn the bitset size from it, then read the bitset.
+
+        Raises:
+            ParquetFormatError: If the chunk has no bloom filter, or the filter
+                uses an unsupported algorithm/hash/compression.
+        """
+        from .parsers.parquet.bloom_filter import BloomFilterHeaderParser
+        from .parsers.thrift.parser import ThriftCompactParser
+
+        offset = chunk_metadata.bloom_filter_offset
+        if offset is None:
+            raise ParquetFormatError(
+                f'Column chunk {chunk_metadata.path_in_schema!r} has no bloom filter',
+            )
+        length = chunk_metadata.bloom_filter_length
+        physical_type = chunk_metadata.type
+
+        def parse_header(data: memoryview, off: int) -> tuple[dict[str, Any], int]:
+            parser = ThriftCompactParser(data, off)
+            props = BloomFilterHeaderParser(parser).read_header()
+            return props, parser.pos - off
+
+        if length is not None:
+            reader.seek(offset)
+            data = await reader.read(length)
+            header_props, header_length = parse_header(memoryview(data), offset)
+            num_bytes = header_props['num_bytes']
+            bitset = bytes(data[header_length : header_length + num_bytes])
+            byte_length = length
+        else:
+            header_props, header_length = await read_thrift_span(
+                reader,
+                offset,
+                parse_header,
+            )
+            num_bytes = header_props['num_bytes']
+            reader.seek(offset + header_length)
+            bitset = await reader.read(num_bytes)
+            byte_length = header_length + num_bytes
+
+        if len(bitset) != num_bytes:
+            raise ParquetFormatError(
+                f'Bloom filter bitset is truncated: expected {num_bytes} '
+                f'bytes, got {len(bitset)}',
+            )
+
+        return cls(
+            start_offset=offset,
+            byte_length=byte_length,
+            num_bytes=num_bytes,
+            header_length=header_length,
+            bitset=bitset,
+            physical_type=physical_type,
+        )
+
+    @property
+    def num_blocks(self) -> int:
+        """Number of 256-bit blocks in the bitset."""
+        return self.num_bytes // _SBBF_BLOCK_BYTES
+
+    def _plain_encode(self, value: Any) -> bytes:
+        """PLAIN-encode a python value into the bytes the hash is fed.
+
+        Parquet hashes the PLAIN encoding of the *physical* value: fixed-width
+        little-endian bytes for the numeric types, and the raw value bytes
+        (no length prefix) for byte arrays. This mirrors the reverse decoding
+        in ``parsers/physical_types.py``.
+        """
+        match self.physical_type:
+            case Type.INT32:
+                return struct.pack('<i', value)
+            case Type.INT64:
+                return struct.pack('<q', value)
+            case Type.FLOAT:
+                return struct.pack('<f', value)
+            case Type.DOUBLE:
+                return struct.pack('<d', value)
+            case Type.BYTE_ARRAY | Type.FIXED_LEN_BYTE_ARRAY:
+                if isinstance(value, str):
+                    return value.encode('utf-8')
+                return bytes(value)
+            case _:
+                raise ParquetFormatError(
+                    f'Cannot query a bloom filter for physical type '
+                    f'{self.physical_type.name}',
+                )
+
+    def might_contain(self, value: Any) -> bool:
+        """Whether ``value`` might be present in the column chunk.
+
+        ``False`` is exact (the value is definitely absent). ``True`` means the
+        value is probably present but may be a false positive. See the class
+        docstring for why this asymmetry is the useful part.
+        """
+        from .util.xxhash import xxh64
+
+        hash_ = xxh64(self._plain_encode(value))
+        return self._block_check(hash_)
+
+    def _block_check(self, hash_: int) -> bool:
+        """Check the eight mask bits for ``hash_`` in its selected block.
+
+        The top 32 bits of the hash pick the block (scaled into range so the
+        distribution stays uniform without a modulo); the low 32 bits pick,
+        via each salt, one bit per word. The value might be present only if
+        every one of those eight bits is already set.
+        """
+        block_index = ((hash_ >> 32) * self.num_blocks) >> 32
+        low = hash_ & _U32_MASK
+        base = block_index * _SBBF_BLOCK_BYTES
+        for i in range(_SBBF_WORDS_PER_BLOCK):
+            start = base + i * 4
+            word = int.from_bytes(self.bitset[start : start + 4], 'little')
+            bit = ((low * SBBF_SALT[i]) & _U32_MASK) >> 27
+            if not (word >> bit) & 1:
+                return False
+        return True

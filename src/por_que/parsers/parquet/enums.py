@@ -214,3 +214,37 @@ class SortingColumnFieldId(IntEnum):
     COLUMN_IDX = 1
     DESCENDING = 2
     NULLS_FIRST = 3
+
+
+class BloomFilterHeaderFieldId(IntEnum):
+    """Field IDs for the BloomFilterHeader struct."""
+
+    NUM_BYTES = 1
+    ALGORITHM = 2
+    HASH = 3
+    COMPRESSION = 4
+
+
+class BloomFilterAlgorithmFieldId(IntEnum):
+    """Variant IDs for the BloomFilterAlgorithm union.
+
+    A thrift union sets exactly one field; the field ID that is present names
+    the variant. Only the split-block algorithm is defined.
+    """
+
+    BLOCK = 1
+
+
+class BloomFilterHashFieldId(IntEnum):
+    """Variant IDs for the BloomFilterHash union. Only xxHash is defined."""
+
+    XXHASH = 1
+
+
+class BloomFilterCompressionFieldId(IntEnum):
+    """Variant IDs for the BloomFilterCompression union.
+
+    Only the uncompressed variant is defined.
+    """
+
+    UNCOMPRESSED = 1

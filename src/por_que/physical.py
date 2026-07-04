@@ -34,7 +34,7 @@ from .protocols import (
     ReadableSeekable,
 )
 from .schema import SchemaLeaf
-from .statistics import ColumnIndex, OffsetIndex
+from .statistics import BloomFilter, ColumnIndex, OffsetIndex
 from .structuring import reconstruct as reconstruction
 from .util.async_adapter import ensure_async_reader
 from .util.iteration import AsyncChain
@@ -294,6 +294,23 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                 return False
             cursor = span_end
         return cursor == end
+
+    async def load_bloom_filter(
+        self,
+        reader: ReadableSeekable | AsyncReadableSeekable,
+    ) -> BloomFilter:
+        """Load this column chunk's bloom filter on demand.
+
+        Bloom filters are a "go deeper" capability: they are never read during
+        the eager structure parse, only when a caller explicitly wants to probe
+        for a value. This is the one obvious entry point, delegating to
+        :meth:`BloomFilter.from_reader`.
+
+        Raises:
+            ParquetFormatError: If this chunk has no bloom filter.
+        """
+        reader = ensure_async_reader(reader)
+        return await BloomFilter.from_reader(reader, self.metadata)
 
     async def _parse_dictionary(self, reader: AsyncReadableSeekable) -> DictType:
         """Parse dictionary content if dictionary page exists.
