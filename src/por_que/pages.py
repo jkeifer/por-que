@@ -7,12 +7,13 @@ from __future__ import annotations
 from collections.abc import Iterator, Sequence
 from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Discriminator, Field, model_validator
+from pydantic import BaseModel, Discriminator
 
 from .enums import Compression, Encoding, PageType, Type
 from .file_metadata import (
     ColumnStatistics,
     SchemaLeaf,
+    SchemaLinked,
 )
 from .parsers.page_content import (
     DataPageV1Parser,
@@ -57,26 +58,6 @@ class Page(BaseModel, frozen=True):
 
         return await page_parser.read_page()
 
-    @model_validator(mode='before')
-    @classmethod
-    def inject_schema_element_from_context(cls, data: Any):
-        """Inject schema element from context if not provided."""
-        if not isinstance(data, dict):
-            return data
-
-        schema_element = data.get('schema_element', None)
-        stats = data.get('statistics', None)
-
-        if not (stats and isinstance(stats, dict)):
-            return data
-
-        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
-            return data
-
-        stats['schema_element'] = schema_element
-
-        return data
-
 
 class DictionaryPage(Page, frozen=True):
     """A page containing dictionary-encoded values."""
@@ -114,7 +95,7 @@ class DictionaryPage(Page, frozen=True):
         )
 
 
-class DataPageV1(Page, frozen=True):
+class DataPageV1(Page, SchemaLinked, frozen=True):
     """A version 1 data page."""
 
     page_type: Literal[PageType.DATA_PAGE] = PageType.DATA_PAGE
@@ -123,7 +104,7 @@ class DataPageV1(Page, frozen=True):
     definition_level_encoding: Encoding
     repetition_level_encoding: Encoding
     statistics: ColumnStatistics | None = None
-    schema_element: SchemaLeaf = Field(exclude=True)
+    schema_path: str
 
     async def parse_content(
         self,
@@ -157,7 +138,7 @@ class DataPageV1(Page, frozen=True):
         )
 
 
-class DataPageV2(Page, frozen=True):
+class DataPageV2(Page, SchemaLinked, frozen=True):
     """A version 2 data page."""
 
     page_type: Literal[PageType.DATA_PAGE_V2] = PageType.DATA_PAGE_V2
@@ -169,7 +150,7 @@ class DataPageV2(Page, frozen=True):
     repetition_levels_byte_length: int
     is_compressed: bool = True
     statistics: ColumnStatistics | None = None
-    schema_element: SchemaLeaf = Field(exclude=True)
+    schema_path: str
 
     async def parse_content(
         self,

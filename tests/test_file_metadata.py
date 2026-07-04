@@ -8,6 +8,7 @@ from por_que.enums import (
     SchemaElementType,
     Type,
 )
+from por_que.file_metadata import ColumnStatistics, SchemaLeaf
 
 TEST_FILE = [
     'byte_array_decimal',
@@ -126,3 +127,38 @@ async def test_file_metadata_from_reader(
         metadata = await FileMetadata.from_reader(hf)
 
         assert metadata.model_dump() == EXPECTED
+
+
+@pytest.mark.parametrize(
+    'parquet_file_name',
+    ['binary'],
+)
+@pytest.mark.asyncio
+async def test_statistics_linked_at_parse_time(
+    parquet_url: str,
+) -> None:
+    async with AsyncHttpFile(parquet_url) as hf:
+        metadata = await FileMetadata.from_reader(hf)
+
+    stats = None
+    for row_group in metadata.row_groups:
+        for chunk in row_group.column_chunks.values():
+            if chunk.statistics is not None:
+                stats = chunk.statistics
+                break
+        if stats is not None:
+            break
+
+    assert stats is not None, 'expected a column chunk with statistics'
+    assert isinstance(stats.schema_element, SchemaLeaf)
+    assert stats.schema_path == stats.schema_element.full_path
+    # Accessing converted values must not raise now that we are linked.
+    _ = stats.converted_min_value
+    _ = stats.converted_max_value
+
+
+def test_unlinked_statistics_raises() -> None:
+    stats = ColumnStatistics(schema_path='some.column')
+
+    with pytest.raises(ValueError, match='not linked'):
+        _ = stats.schema_element

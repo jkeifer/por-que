@@ -123,6 +123,7 @@ class ColumnParser(BaseParser):
         props: dict[str, Any] = {
             'start_offset': start_offset,
         }
+        schema_element: SchemaLeaf | None = None
 
         async for field_id, field_type, value in self.parse_struct_fields():
             match field_id:
@@ -152,18 +153,23 @@ class ColumnParser(BaseParser):
                         [await self.read_string() async for _ in value],
                     )
                     props['path_in_schema'] = path_in_schema
-                    props['schema_element'] = self.schema.find_element(path_in_schema)
+                    element = self.schema.find_element(path_in_schema)
+                    if not isinstance(element, SchemaLeaf):
+                        raise ParquetFormatError(
+                            f'Schema element for column {path_in_schema!r} '
+                            'is not a leaf',
+                        )
+                    schema_element = element
                 case ColumnMetadataFieldId.STATISTICS:
-                    schema_element = props.get('schema_element')
-                    if not isinstance(schema_element, SchemaLeaf):
+                    if schema_element is None:
                         raise ParquetFormatError(
                             'STATISTICS field encountered before '
                             'PATH_IN_SCHEMA in column metadata',
                         )
                     props['statistics'] = ColumnStatistics(
-                        schema_element=schema_element,
+                        schema_path=schema_element.full_path,
                         **(await StatisticsParser(self.parser).read_statistics()),
-                    )
+                    )._link(schema_element)
                 case ColumnMetadataFieldId.ENCODING_STATS:
                     props['encoding_stats'] = [
                         await self._parse_page_encoding_stats() async for _ in value
@@ -188,7 +194,12 @@ class ColumnParser(BaseParser):
         end_offset = self.parser.pos
         props['byte_length'] = end_offset - start_offset
 
-        return ColumnMetadata(**props)
+        if schema_element is None:
+            raise ParquetFormatError(
+                'Column metadata missing PATH_IN_SCHEMA field',
+            )
+
+        return ColumnMetadata(**props)._link(schema_element)
 
     async def _parse_page_encoding_stats(self) -> PageEncodingStats:
         """Parse PageEncodingStats structs."""

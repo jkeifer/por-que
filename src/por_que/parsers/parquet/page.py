@@ -115,14 +115,14 @@ class PageParser(BaseParser):
                 page = DictionaryPage(**kwargs)
             case PageType.DATA_PAGE:
                 page = DataPageV1(
-                    schema_element=self.schema_element,
+                    schema_path=self.schema_element.full_path,
                     **kwargs,
-                )
+                )._link(self.schema_element)
             case PageType.DATA_PAGE_V2:
                 page = DataPageV2(
-                    schema_element=self.schema_element,
+                    schema_path=self.schema_element.full_path,
                     **kwargs,
-                )
+                )._link(self.schema_element)
             case PageType.INDEX_PAGE:
                 page = IndexPage(**kwargs)
             case _ as unknown:
@@ -132,9 +132,9 @@ class PageParser(BaseParser):
 
     async def _handle_statistics(self) -> ColumnStatistics:
         return ColumnStatistics(
-            schema_element=self.schema_element,
+            schema_path=self.schema_element.full_path,
             **(await StatisticsParser(self.parser).read_statistics()),
-        )
+        )._link(self.schema_element)
 
     async def read_data_page_header(self) -> dict[str, Any]:
         """Read DataPageHeader fields and return as dict."""

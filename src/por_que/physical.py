@@ -20,7 +20,6 @@ from .file_metadata import (
     ColumnIndex,
     FileMetadata,
     OffsetIndex,
-    SchemaLeaf,
 )
 from .pages import (
     AnyDataPage,
@@ -67,32 +66,6 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     column_index: ColumnIndex | None = None
     offset_index: OffsetIndex | None = None
     row_group: int
-
-    @model_validator(mode='before')
-    @classmethod
-    def inject_schema_element_from_context(cls, data: Any):
-        """Inject schema element from context if not provided."""
-        if not isinstance(data, dict):
-            return data
-
-        try:
-            schema_element = get_item_or_attr(data['metadata'], 'schema_element')
-        except (KeyError, ValueError):
-            return data
-
-        if not (schema_element or isinstance(schema_element, SchemaLeaf)):
-            return data
-
-        column_index = data.get('column_index', None)
-        if column_index and isinstance(column_index, dict):
-            column_index['schema_element'] = schema_element
-
-        data_pages = data.get('data_pages', [])
-        for data_page in data_pages:
-            if isinstance(data_page, dict):
-                data_page['schema_element'] = schema_element
-
-        return data
 
     @classmethod
     async def from_reader(
