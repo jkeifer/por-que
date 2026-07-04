@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import warnings
-
 from collections.abc import Callable
 from functools import cached_property
 from typing import TYPE_CHECKING, Annotated, Any, Literal, Self
@@ -274,8 +272,31 @@ class SchemaElement(BaseModel, frozen=True):
         precision: int | None = None,
         field_id: int | None = None,
         logical_type: LogicalTypeInfoUnion | None = None,
+        first: bool = False,
         **kwargs,
     ) -> SchemaRoot | SchemaGroup | SchemaLeaf:
+        # The first (depth-0) schema element is always the root record. The
+        # parquet spec does not constrain the root's repetition, and real
+        # writers vary: some omit it while others (Spark, and every Overture
+        # Maps file) set it to REQUIRED. The root never carries a physical,
+        # converted, or logical type, so accept it on that shape regardless of
+        # repetition rather than second-guessing a healthy file.
+        if (
+            first
+            and name
+            and num_children is not None
+            and type is None
+            and converted_type is None
+            and logical_type is None
+        ):
+            return SchemaRoot(
+                name=name,
+                num_children=num_children,
+                start_offset=start_offset,
+                byte_length=byte_length,
+                **kwargs,
+            )
+
         # Check type compatibility for column/leaf element
         is_column_converted_type = (
             converted_type is None or converted_type in ColumnConvertedType
@@ -307,51 +328,6 @@ class SchemaElement(BaseModel, frozen=True):
                 # Levels will be calculated later during schema tree building
                 definition_level=0,
                 repetition_level=0,
-                **kwargs,
-            )
-
-        # Root element could look essentially like any other group,
-        # but with no repetition, which is required for other types
-        if (
-            name
-            and converted_type is None
-            and num_children is not None
-            and type is None
-            and logical_type is None
-            and repetition is None
-        ):
-            return SchemaRoot(
-                name=name,
-                num_children=num_children,
-                start_offset=start_offset,
-                byte_length=byte_length,
-                **kwargs,
-            )
-
-        # Root element check: should have no repetition, but some writers
-        # incorrectly set repetition=REQUIRED on root elements, so we also
-        # check the name
-        if (
-            name == 'schema'
-            and num_children is not None
-            and converted_type is None
-            and logical_type is None
-            and type is None
-            and repetition == Repetition.REQUIRED
-        ):
-            warnings.warn(
-                'Schema element appears to be root, but has invalid '
-                'attrs. Warily assuming it is root... Schema element: '
-                f"name='{name}', type='{type}', type_length='{type_length}', "
-                f"repetition='{repetition}', num_children='{num_children}', "
-                f"converted_type='{converted_type}",
-                stacklevel=1,
-            )
-            return SchemaRoot(
-                name=name,
-                num_children=num_children,
-                start_offset=start_offset,
-                byte_length=byte_length,
                 **kwargs,
             )
 
