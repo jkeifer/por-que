@@ -13,7 +13,7 @@ from .enums import (
     PageType,
     Type,
 )
-from .exceptions import ParquetFormatError
+from .exceptions import ParquetFormatError, parse_context
 from .protocols import AsyncReadableSeekable
 from .schema import SchemaLeaf, SchemaLinked
 from .util.spans import read_thrift_span
@@ -132,18 +132,23 @@ class OffsetIndex(BaseModel, frozen=True):
             props = PageIndexParser(parser).read_offset_index()
             return props, parser.pos - offset
 
-        if length is not None:
-            reader.seek(start_offset)
-            data = await reader.read(length)
-            props, byte_length = parse(memoryview(data), start_offset)
-        else:
-            props, byte_length = await read_thrift_span(reader, start_offset, parse)
+        with parse_context(f'offset index at offset {start_offset}'):
+            if length is not None:
+                reader.seek(start_offset)
+                data = await reader.read(length)
+                props, byte_length = parse(memoryview(data), start_offset)
+            else:
+                props, byte_length = await read_thrift_span(
+                    reader,
+                    start_offset,
+                    parse,
+                )
 
-        return cls(
-            start_offset=start_offset,
-            byte_length=byte_length,
-            **props,
-        )
+            return cls(
+                start_offset=start_offset,
+                byte_length=byte_length,
+                **props,
+            )
 
 
 class ColumnIndex(
@@ -186,19 +191,24 @@ class ColumnIndex(
             props = PageIndexParser(parser).read_column_index()
             return props, parser.pos - offset
 
-        if length is not None:
-            reader.seek(start_offset)
-            data = await reader.read(length)
-            props, byte_length = parse(memoryview(data), start_offset)
-        else:
-            props, byte_length = await read_thrift_span(reader, start_offset, parse)
+        with parse_context(f'column index at offset {start_offset}'):
+            if length is not None:
+                reader.seek(start_offset)
+                data = await reader.read(length)
+                props, byte_length = parse(memoryview(data), start_offset)
+            else:
+                props, byte_length = await read_thrift_span(
+                    reader,
+                    start_offset,
+                    parse,
+                )
 
-        return cls(
-            start_offset=start_offset,
-            byte_length=byte_length,
-            schema_path=schema_element.full_path,
-            **props,
-        )._link(schema_element)
+            return cls(
+                start_offset=start_offset,
+                byte_length=byte_length,
+                schema_path=schema_element.full_path,
+                **props,
+            )._link(schema_element)
 
     def _converted_values(self, values: list[bytes]) -> list[Any]:
         # min/max bytes for all-null pages are meaningless placeholders
@@ -305,23 +315,24 @@ class BloomFilter(BaseModel, frozen=True):
             props = BloomFilterHeaderParser(parser).read_header()
             return props, parser.pos - off
 
-        if length is not None:
-            reader.seek(offset)
-            data = await reader.read(length)
-            header_props, header_length = parse_header(memoryview(data), offset)
-            num_bytes = header_props['num_bytes']
-            bitset = bytes(data[header_length : header_length + num_bytes])
-            byte_length = length
-        else:
-            header_props, header_length = await read_thrift_span(
-                reader,
-                offset,
-                parse_header,
-            )
-            num_bytes = header_props['num_bytes']
-            reader.seek(offset + header_length)
-            bitset = await reader.read(num_bytes)
-            byte_length = header_length + num_bytes
+        with parse_context(f'bloom filter at offset {offset}'):
+            if length is not None:
+                reader.seek(offset)
+                data = await reader.read(length)
+                header_props, header_length = parse_header(memoryview(data), offset)
+                num_bytes = header_props['num_bytes']
+                bitset = bytes(data[header_length : header_length + num_bytes])
+                byte_length = length
+            else:
+                header_props, header_length = await read_thrift_span(
+                    reader,
+                    offset,
+                    parse_header,
+                )
+                num_bytes = header_props['num_bytes']
+                reader.seek(offset + header_length)
+                bitset = await reader.read(num_bytes)
+                byte_length = header_length + num_bytes
 
         if len(bitset) != num_bytes:
             raise ParquetFormatError(

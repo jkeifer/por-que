@@ -20,7 +20,7 @@ from .enums import (
     Encoding,
     Type,
 )
-from .exceptions import ParquetFormatError
+from .exceptions import ParquetCorruptedError, ParquetMagicError, parse_context
 from .protocols import AsyncReadableSeekable, ReadableSeekable
 
 # ---------------------------------------------------------------------------
@@ -331,19 +331,43 @@ class FileMetadata(BaseModel, frozen=True):
         from .parsers.parquet.metadata import MetadataParser
 
         reader = ensure_async_reader(reader)
+
+        # A valid file is at least the 4-byte header magic plus the 8-byte
+        # footer (metadata length + trailing magic). Anything smaller cannot
+        # carry the footer we are about to read, so bail with a clear message
+        # rather than letting a short read masquerade as a magic mismatch.
+        reader.seek(0, SEEK_END)
+        filesize = reader.tell()
+        min_size = FOOTER_SIZE + len(PARQUET_MAGIC)
+        if filesize < min_size:
+            raise ParquetCorruptedError(
+                f'File is too small to be a Parquet file: {filesize} bytes '
+                f'(need at least {min_size})',
+            )
+
         reader.seek(-FOOTER_SIZE, SEEK_END)
         footer_start = reader.tell()
         footer_bytes = await reader.read(FOOTER_SIZE)
         magic_footer = footer_bytes[4:8]
 
         if magic_footer != PARQUET_MAGIC:
-            raise ParquetFormatError(
+            raise ParquetMagicError(
                 'Invalid magic footer: expected '
                 f'{PARQUET_MAGIC!r}, got {magic_footer!r}',
             )
 
         metadata_size = struct.unpack('<I', footer_bytes[:4])[0]
         metadata_start = footer_start - metadata_size
+
+        # The declared metadata span must sit between the header magic and the
+        # footer. A zero, absurdly large, or otherwise out-of-bounds size means
+        # the footer is corrupt; catch it here so we never seek to a negative
+        # offset or hand the parser a bogus span.
+        if metadata_size == 0 or metadata_start < len(PARQUET_MAGIC):
+            raise ParquetCorruptedError(
+                f'Declared metadata size {metadata_size} is out of bounds for a '
+                f'{filesize}-byte file',
+            )
 
         # Parquet tells us the exact metadata span, so fetch it in a single
         # read and parse from memory. This avoids thousands of tiny reads back
@@ -353,11 +377,15 @@ class FileMetadata(BaseModel, frozen=True):
         reader.seek(metadata_start)
         metadata_bytes = await reader.read(metadata_size)
 
-        return cls(
-            start_offset=metadata_start,
-            total_byte_size=metadata_size,
-            **MetadataParser(metadata_bytes, metadata_start).parse(columns=columns),
-        )
+        with parse_context(f'file metadata at offset {metadata_start}'):
+            props = MetadataParser(metadata_bytes, metadata_start).parse(
+                columns=columns,
+            )
+            return cls(
+                start_offset=metadata_start,
+                total_byte_size=metadata_size,
+                **props,
+            )
 
     @computed_field
     @cached_property
