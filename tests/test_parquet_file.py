@@ -10,6 +10,7 @@ import pytest
 from deepdiff import DeepDiff
 
 from por_que import AsyncHttpFile, ParquetFile
+from por_que.physical import PhysicalColumnChunk
 
 from .shared import FixtureDecoder, FixtureEncoder
 
@@ -166,6 +167,52 @@ async def test_parquet_file_from_dict(
             json.loads(fixture.read_text()),
         ).to_dict()
         assert actual == expected
+
+
+# Files known to carry offset indexes, exercising the offset-index-driven
+# page discovery path (and, with the fallback forced, the sequential walk).
+OFFSET_INDEX_FILES = [
+    'data_index_bloom_encoding_stats',
+    'data_index_bloom_encoding_with_length',
+    'int32_with_null_pages',
+]
+
+
+@pytest.mark.parametrize('parquet_file_name', OFFSET_INDEX_FILES)
+@pytest.mark.asyncio
+async def test_offset_index_path_matches_sequential_walk(
+    parquet_file_name: str,
+    parquet_url: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The offset-index path must produce output identical to the walk.
+
+    We parse the same file twice: once normally (offset index tells us where
+    every page is) and once with the offset-index discovery forced to bail,
+    which drives the sequential fallback walk. The two ParquetFiles must be
+    byte-for-byte identical.
+    """
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf_index = await ParquetFile.from_reader(hf, parquet_url)
+
+    # Sanity: this fixture really does exercise the offset-index path.
+    assert any(
+        cc.offset_index is not None and cc.data_pages for cc in pf_index.column_chunks
+    )
+
+    async def _bail(cls, reader, chunk_metadata, offset_index, start_offset):
+        return None
+
+    monkeypatch.setattr(
+        PhysicalColumnChunk,
+        '_discover_pages_via_offset_index',
+        classmethod(_bail),
+    )
+
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf_walk = await ParquetFile.from_reader(hf, parquet_url)
+
+    assert pf_index.model_dump() == pf_walk.model_dump()
 
 
 @pytest.mark.parametrize(
