@@ -1,5 +1,9 @@
 # CLI Design: Interactive Parquet Explorer
 
+> **Status: live design doc for not-yet-built work.** Describes the planned
+> CLI (ships as the `por-que[cli]` extra), not current behavior. Kept in
+> `arch/`; not published. Summarized in `docs/project/cli.md`.
+
 ## 1. Vision and Core Concepts
 
 The vision is to create an interactive CLI tool that serves as a "Parquet file microscope"—allowing users to visualize the file structure and progressively dive deeper into any component, making the format's design tangible and understandable.

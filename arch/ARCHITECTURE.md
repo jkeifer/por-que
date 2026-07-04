@@ -1,5 +1,10 @@
 # Architecture and Refactoring Plan
 
+> **Status: historical design note (superseded).** The refactoring described
+> here has since landed differently (e.g. parsing lives under `parsers/`, not
+> `readers/`). Kept as a record; not published. For current architecture see
+> `docs/project/architecture.md`.
+
 ## 1. Architectural Vision and Educational Goals
 
 The primary goal of this project is to create a pure-Python library that serves as a clear educational tool for understanding the **Parquet format itself**. This includes its physical layout, its performance characteristics, and its compositional structure.

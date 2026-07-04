@@ -1,5 +1,9 @@
 # Implementation Guide: Step-by-Step Breakdown
 
+> **Status: historical implementation checklist.** The reorganization it tracks
+> is complete. Kept as a record; not published. For current architecture see
+> `docs/project/architecture.md`.
+
 > **📋 REORGANIZATION COMPLETE**: Phase 1 has been completed with a comprehensive package reorganization.
 > All parsing infrastructure moved from `readers/` to `parsers/` with proper naming (`ThriftCompactParser` not `ThriftCompactReader`).
 

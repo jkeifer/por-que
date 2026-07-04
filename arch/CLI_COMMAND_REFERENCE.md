@@ -1,5 +1,9 @@
 # Complete CLI Command Reference
 
+> **Status: live design doc for not-yet-built work.** The commands below are
+> planned, not implemented. Kept in `arch/`; not published. Summarized in
+> `docs/project/cli.md`.
+
 ## Global Options
 ```bash
 por-que [--verbose|-v] [--quiet|-q] <command>

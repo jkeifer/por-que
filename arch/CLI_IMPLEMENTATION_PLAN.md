@@ -1,5 +1,9 @@
 # CLI Implementation Plan
 
+> **Status: live design doc for not-yet-built work.** The phased plan below is
+> not yet executed. Kept in `arch/`; not published. Summarized in
+> `docs/project/cli.md`.
+
 ## Overview
 This document provides a step-by-step implementation plan for the por-que CLI tool, organized into phases that align with the milestones defined in the CLI_DESIGN.md document.
 
