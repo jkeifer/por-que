@@ -11,7 +11,7 @@ Teaching Points:
 import logging
 import warnings
 
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Sequence
 from typing import Any
 
 from por_que.file_metadata import (
@@ -52,7 +52,10 @@ class MetadataParser(BaseParser):
         parser = ThriftCompactParser(reader, start_offset)
         super().__init__(parser)
 
-    async def parse(self) -> dict[str, Any]:
+    async def parse(
+        self,
+        columns: Sequence[str] | None = None,
+    ) -> dict[str, Any]:
         """
         Parse the complete FileMetadata structure using the new generic parser.
 
@@ -61,6 +64,12 @@ class MetadataParser(BaseParser):
         - Schema must be parsed first to provide context for statistics
         - Row groups contain the actual data organization information
         - Key-value metadata provides extensibility for custom attributes
+
+        Args:
+            columns: Optional projection of dotted ``path_in_schema`` strings.
+                When given, each row group's ``column_chunks`` retains only the
+                selected columns; the schema and key-value metadata are still
+                parsed in full.
 
         Note:
             Parsing progress can be monitored by enabling debug logging for this module.
@@ -92,6 +101,7 @@ class MetadataParser(BaseParser):
                     props['row_groups'] = await self._parse_row_groups_field(
                         value,
                         props['schema_root'],
+                        columns,
                     )
                 case FileMetadataFieldId.KEY_VALUE_METADATA:
                     props['key_value_metadata'] = [
@@ -121,6 +131,7 @@ class MetadataParser(BaseParser):
         self,
         list_iter: AsyncIterator,
         schema_root: SchemaRoot | None,
+        columns: Sequence[str] | None = None,
     ) -> RowGroups:
         """
         Parse the row_groups field using RowGroupParser.
@@ -136,7 +147,7 @@ class MetadataParser(BaseParser):
             raise ValueError('Schema must be parsed before row groups')
 
         row_groups: RowGroups = []
-        row_group_parser = RowGroupParser(self.parser, schema_root)
+        row_group_parser = RowGroupParser(self.parser, schema_root, columns)
         async for _ in list_iter:
             row_groups.append(await row_group_parser.read_row_group())
 

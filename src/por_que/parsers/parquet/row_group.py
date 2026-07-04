@@ -10,6 +10,7 @@ Teaching Points:
 
 import warnings
 
+from collections.abc import Sequence
 from typing import Any
 
 from por_que.file_metadata import RowGroup, SchemaRoot, SortingColumn
@@ -30,16 +31,24 @@ class RowGroupParser(BaseParser):
     - Optimal size typically 128MB-1GB depending on use case
     """
 
-    def __init__(self, parser, schema: SchemaRoot) -> None:
+    def __init__(
+        self,
+        parser,
+        schema: SchemaRoot,
+        columns: Sequence[str] | None = None,
+    ) -> None:
         """
         Initialize row group parser with schema context.
 
         Args:
             parser: ThriftCompactParser for parsing
             schema: Root schema element for column metadata parsing
+            columns: Optional projection of dotted ``path_in_schema`` strings;
+                only selected column chunks are retained.
         """
         super().__init__(parser)
         self.schema = schema
+        self.columns = columns
 
     async def read_row_group(self) -> RowGroup:
         """
@@ -67,13 +76,19 @@ class RowGroupParser(BaseParser):
                 case RowGroupFieldId.NUM_ROWS:
                     props['row_count'] = value
                 case RowGroupFieldId.COLUMNS:
-                    column_parser = ColumnParser(self.parser, self.schema)
-                    column_chunks_list = [
-                        await column_parser.read_column_chunk() async for _ in value
-                    ]
+                    column_parser = ColumnParser(
+                        self.parser,
+                        self.schema,
+                        self.columns,
+                    )
+                    # Every list element is parsed (consuming its bytes), but
+                    # chunks not selected by a projection come back as None and
+                    # are omitted from the dict.
                     props['column_chunks'] = {
                         chunk.metadata.path_in_schema: chunk
-                        for chunk in column_chunks_list
+                        async for _ in value
+                        if (chunk := await column_parser.read_column_chunk())
+                        is not None
                     }
                 case RowGroupFieldId.SORTING_COLUMNS:
                     props['sorting_columns'] = [
