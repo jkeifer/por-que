@@ -52,14 +52,6 @@ class PorQueMeta(BaseModel, frozen=True):
     por_que_version: str = get_version()
 
 
-class PhysicalOffsetIndex(BaseModel, frozen=True):
-    """Physical location and parsed content of Offset Index data."""
-
-    offset_index_offset: int
-    offset_index_length: int
-    offset_index: OffsetIndex
-
-
 class PhysicalColumnChunk(BaseModel, frozen=True):
     """A container for all the data for a single column within a row group."""
 

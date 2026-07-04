@@ -13,9 +13,10 @@ from __future__ import annotations
 import logging
 import warnings
 
-from typing import Any, cast
+from typing import Any
 
 from por_que.enums import Compression, Encoding, Type
+from por_que.exceptions import ParquetFormatError
 from por_que.file_metadata import (
     ColumnChunk,
     ColumnMetadata,
@@ -153,8 +154,14 @@ class ColumnParser(BaseParser):
                     props['path_in_schema'] = path_in_schema
                     props['schema_element'] = self.schema.find_element(path_in_schema)
                 case ColumnMetadataFieldId.STATISTICS:
+                    schema_element = props.get('schema_element')
+                    if not isinstance(schema_element, SchemaLeaf):
+                        raise ParquetFormatError(
+                            'STATISTICS field encountered before '
+                            'PATH_IN_SCHEMA in column metadata',
+                        )
                     props['statistics'] = ColumnStatistics(
-                        schema_element=cast(SchemaLeaf, props['schema_element']),
+                        schema_element=schema_element,
                         **(await StatisticsParser(self.parser).read_statistics()),
                     )
                 case ColumnMetadataFieldId.ENCODING_STATS:

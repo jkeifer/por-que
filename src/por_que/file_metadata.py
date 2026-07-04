@@ -287,6 +287,10 @@ class SchemaElement(BaseModel, frozen=True):
 
     def get_logical_type(self) -> LogicalTypeInfo | None:
         """Get the logical type, prioritizing logical_type field over converted_type."""
+        return self._logical_type_info
+
+    @cached_property
+    def _logical_type_info(self) -> LogicalTypeInfo | None:
         logical_type = getattr(self, 'logical_type', None)
 
         if logical_type is not None:
@@ -575,6 +579,10 @@ class SchemaLeaf(SchemaElement, frozen=True):
             self.get_logical_type(),
         )
 
+    def bytes_to_logical_type(self, value: bytes) -> Any:
+        """Convert raw bytes (e.g. statistics values) to the logical value."""
+        return self.physical_to_logical_type(self.bytes_to_physical_type(value))
+
 
 class ColumnStatistics(
     BaseModel,
@@ -592,27 +600,26 @@ class ColumnStatistics(
     is_max_value_exact: bool | None = None
     schema_element: SchemaLeaf = Field(exclude=True)
 
-    @property
-    def converted_min_value(self) -> Any:
-        value = self.min_value if self.min_value else self.min_
+    def _converted_value(
+        self,
+        value: bytes | None,
+        deprecated_value: bytes | None,
+    ) -> Any:
+        if value is None:
+            value = deprecated_value
 
         if value is None:
             return None
 
-        return self.schema_element.physical_to_logical_type(
-            self.schema_element.bytes_to_physical_type(value),
-        )
+        return self.schema_element.bytes_to_logical_type(value)
+
+    @property
+    def converted_min_value(self) -> Any:
+        return self._converted_value(self.min_value, self.min_)
 
     @property
     def converted_max_value(self) -> Any:
-        value = self.max_value if self.max_value else self.max_
-
-        if value is None:
-            return None
-
-        return self.schema_element.physical_to_logical_type(
-            self.schema_element.bytes_to_physical_type(value),
-        )
+        return self._converted_value(self.max_value, self.max_)
 
 
 class SizeStatistics(BaseModel, frozen=True):
@@ -677,19 +684,12 @@ class OffsetIndex(BaseModel, frozen=True):
         from .parsers.parquet.page_index import PageIndexParser
         from .parsers.thrift.parser import ThriftCompactParser
 
-        reader.seek(start_offset)
-        start_pos = reader.tell()
-
-        # Parse page index data directly from file
         parser = ThriftCompactParser(reader, start_offset)
         props = await PageIndexParser(parser).read_offset_index()
 
-        end_pos = reader.tell()
-        byte_length = end_pos - start_pos
-
         return cls(
             start_offset=start_offset,
-            byte_length=byte_length,
+            byte_length=reader.tell() - start_offset,
             **props,
         )
 
@@ -724,40 +724,32 @@ class ColumnIndex(
         from .parsers.parquet.page_index import PageIndexParser
         from .parsers.thrift.parser import ThriftCompactParser
 
-        reader.seek(start_offset)
-        start_pos = reader.tell()
-
-        # Parse page index data directly from file
         parser = ThriftCompactParser(reader, start_offset)
         props = await PageIndexParser(parser).read_column_index()
 
-        end_pos = reader.tell()
-        byte_length = end_pos - start_pos
-
         return cls(
             start_offset=start_offset,
-            byte_length=byte_length,
+            byte_length=reader.tell() - start_offset,
             schema_element=schema_element,
             **props,
         )
 
-    @property
-    def converted_min_values(self) -> Any:
+    def _converted_values(self, values: list[bytes]) -> list[Any]:
+        # min/max bytes for all-null pages are meaningless placeholders
         return [
-            self.schema_element.physical_to_logical_type(
-                self.schema_element.bytes_to_physical_type(value),
-            )
-            for value in self.min_values
+            None
+            if null_page
+            else self.schema_element.bytes_to_logical_type(value)
+            for value, null_page in zip(values, self.null_pages, strict=True)
         ]
 
     @property
-    def converted_max_values(self) -> Any:
-        return [
-            self.schema_element.physical_to_logical_type(
-                self.schema_element.bytes_to_physical_type(value),
-            )
-            for value in self.max_values
-        ]
+    def converted_min_values(self) -> list[Any]:
+        return self._converted_values(self.min_values)
+
+    @property
+    def converted_max_values(self) -> list[Any]:
+        return self._converted_values(self.max_values)
 
 
 class ColumnMetadata(BaseModel, frozen=True):
