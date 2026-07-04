@@ -20,7 +20,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -33,7 +34,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -46,7 +48,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -59,7 +62,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -72,7 +76,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -85,7 +90,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -98,7 +104,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -111,7 +118,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -124,7 +132,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         },
         {
           "page_type": 0,
@@ -137,7 +146,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "int32_field"
         }
       ],
       "index_pages": [],
@@ -195,7 +205,8 @@
           12
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "int32_field"
       },
       "offset_index": {
         "start_offset": 3456,
@@ -322,7 +333,8 @@
                 "min_value": "xmShgA==",
                 "max_value": "ByDlfw==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int32_field"
               },
               "encoding_stats": [
                 {

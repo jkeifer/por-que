@@ -28,8 +28,10 @@
             "min_value": "AMA=",
             "max_value": "AEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "x"
+          },
+          "schema_path": "x"
         }
       ],
       "index_pages": [],
@@ -116,7 +118,8 @@
                 "min_value": "AMA=",
                 "max_value": "AEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "x"
               },
               "encoding_stats": [
                 {

@@ -31,8 +31,10 @@
             "min_value": "QUFBQUFBQUFBQUJBQUFBQQ==",
             "max_value": "QUFBQUFBQUFQUENBQUFBQQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_customer_id"
+          },
+          "schema_path": "c_customer_id"
         }
       ],
       "index_pages": [],
@@ -70,8 +72,10 @@
             "min_value": "RHIu",
             "max_value": "U2ly",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_salutation"
+          },
+          "schema_path": "c_salutation"
         }
       ],
       "index_pages": [],
@@ -109,8 +113,10 @@
             "min_value": "QWFyb24=",
             "max_value": "WmFjaGFyeQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_first_name"
+          },
+          "schema_path": "c_first_name"
         }
       ],
       "index_pages": [],
@@ -148,8 +154,10 @@
             "min_value": "QWRhbXM=",
             "max_value": "WmFtb3Jh",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_last_name"
+          },
+          "schema_path": "c_last_name"
         }
       ],
       "index_pages": [],
@@ -187,8 +195,10 @@
             "min_value": "Tg==",
             "max_value": "WQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_preferred_cust_flag"
+          },
+          "schema_path": "c_preferred_cust_flag"
         }
       ],
       "index_pages": [],
@@ -226,8 +236,10 @@
             "min_value": "QUZHSEFOSVNUQU4=",
             "max_value": "WklNQkFCV0U=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_birth_country"
+          },
+          "schema_path": "c_birth_country"
         }
       ],
       "index_pages": [],
@@ -265,8 +277,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_login"
+          },
+          "schema_path": "c_login"
         }
       ],
       "index_pages": [],
@@ -304,8 +318,10 @@
             "min_value": "QWFyb24uQnJvd2RlckBpVXBkZGtISTl6OC5vcmc=",
             "max_value": "WmFjaGFyeS5QYXJzb25zQGhIbW5McmJLc2ZZLmNvbQ==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_email_address"
+          },
+          "schema_path": "c_email_address"
         }
       ],
       "index_pages": [],
@@ -343,8 +359,10 @@
             "min_value": "MjQ1MjI4Mw==",
             "max_value": "MjQ1MjY0OA==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "c_last_review_date"
+          },
+          "schema_path": "c_last_review_date"
         }
       ],
       "index_pages": [],
@@ -561,7 +579,8 @@
                 "min_value": "QUFBQUFBQUFBQUJBQUFBQQ==",
                 "max_value": "QUFBQUFBQUFQUENBQUFBQQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_customer_id"
               },
               "encoding_stats": [
                 {
@@ -606,7 +625,8 @@
                 "min_value": "RHIu",
                 "max_value": "U2ly",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_salutation"
               },
               "encoding_stats": [
                 {
@@ -651,7 +671,8 @@
                 "min_value": "QWFyb24=",
                 "max_value": "WmFjaGFyeQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_first_name"
               },
               "encoding_stats": [
                 {
@@ -696,7 +717,8 @@
                 "min_value": "QWRhbXM=",
                 "max_value": "WmFtb3Jh",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_last_name"
               },
               "encoding_stats": [
                 {
@@ -741,7 +763,8 @@
                 "min_value": "Tg==",
                 "max_value": "WQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_preferred_cust_flag"
               },
               "encoding_stats": [
                 {
@@ -786,7 +809,8 @@
                 "min_value": "QUZHSEFOSVNUQU4=",
                 "max_value": "WklNQkFCV0U=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_birth_country"
               },
               "encoding_stats": [
                 {
@@ -831,7 +855,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_login"
               },
               "encoding_stats": [
                 {
@@ -876,7 +901,8 @@
                 "min_value": "QWFyb24uQnJvd2RlckBpVXBkZGtISTl6OC5vcmc=",
                 "max_value": "WmFjaGFyeS5QYXJzb25zQGhIbW5McmJLc2ZZLmNvbQ==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_email_address"
               },
               "encoding_stats": [
                 {
@@ -921,7 +947,8 @@
                 "min_value": "MjQ1MjI4Mw==",
                 "max_value": "MjQ1MjY0OA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "c_last_review_date"
               },
               "encoding_stats": [
                 {

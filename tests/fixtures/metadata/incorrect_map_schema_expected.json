@@ -20,7 +20,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "my_map.key_value.key"
         }
       ],
       "index_pages": [],
@@ -42,7 +43,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "my_map.key_value.key"
       },
       "offset_index": {
         "start_offset": 198,
@@ -76,7 +78,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "my_map.key_value.value"
         }
       ],
       "index_pages": [],
@@ -98,7 +101,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "my_map.key_value.value"
       },
       "offset_index": {
         "start_offset": 209,
@@ -235,7 +239,8 @@
                 "min_value": "bmFtZQ==",
                 "max_value": "cGFyZW50",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "my_map.key_value.key"
               },
               "encoding_stats": [
                 {
@@ -281,7 +286,8 @@
                 "min_value": "YW5vdGhlcg==",
                 "max_value": "cmVwb3J0",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "my_map.key_value.value"
               },
               "encoding_stats": [
                 {

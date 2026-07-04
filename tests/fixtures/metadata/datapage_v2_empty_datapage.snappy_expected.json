@@ -23,7 +23,8 @@
           "definition_levels_byte_length": 2,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "value"
         }
       ],
       "index_pages": [],
@@ -45,7 +46,8 @@
           1
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "value"
       },
       "offset_index": {
         "start_offset": 42,
@@ -125,7 +127,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "value"
               },
               "encoding_stats": [
                 {

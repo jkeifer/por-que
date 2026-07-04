@@ -28,8 +28,10 @@
             "min_value": "a25vd24gc3RyaW5nIDE=",
             "max_value": "a25vd24gc3RyaW5nIDM=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "column with known type"
+          },
+          "schema_path": "column with known type"
         }
       ],
       "index_pages": [],
@@ -74,8 +76,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "column with unknown type"
+          },
+          "schema_path": "column with unknown type"
         }
       ],
       "index_pages": [],
@@ -180,7 +184,8 @@
                 "min_value": "a25vd24gc3RyaW5nIDE=",
                 "max_value": "a25vd24gc3RyaW5nIDM=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "column with known type"
               },
               "encoding_stats": [
                 {

@@ -28,8 +28,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ID"
+          },
+          "schema_path": "ID"
         }
       ],
       "index_pages": [],
@@ -64,8 +66,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "Int_Array.list.element"
+          },
+          "schema_path": "Int_Array.list.element"
         }
       ],
       "index_pages": [],
@@ -100,8 +104,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int_array_array.list.element.list.element"
+          },
+          "schema_path": "int_array_array.list.element.list.element"
         }
       ],
       "index_pages": [],
@@ -136,8 +142,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "Int_Map.map.key"
+          },
+          "schema_path": "Int_Map.map.key"
         }
       ],
       "index_pages": [],
@@ -172,8 +180,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "Int_Map.map.value"
+          },
+          "schema_path": "Int_Map.map.value"
         }
       ],
       "index_pages": [],
@@ -208,8 +218,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int_map_array.list.element.map.key"
+          },
+          "schema_path": "int_map_array.list.element.map.key"
         }
       ],
       "index_pages": [],
@@ -244,8 +256,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int_map_array.list.element.map.value"
+          },
+          "schema_path": "int_map_array.list.element.map.value"
         }
       ],
       "index_pages": [],
@@ -280,8 +294,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nested_Struct.a"
+          },
+          "schema_path": "nested_Struct.a"
         }
       ],
       "index_pages": [],
@@ -316,8 +332,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nested_Struct.B.list.element"
+          },
+          "schema_path": "nested_Struct.B.list.element"
         }
       ],
       "index_pages": [],
@@ -352,8 +370,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nested_Struct.c.D.list.element.list.element.e"
+          },
+          "schema_path": "nested_Struct.c.D.list.element.list.element.e"
         }
       ],
       "index_pages": [],
@@ -388,8 +408,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nested_Struct.c.D.list.element.list.element.f"
+          },
+          "schema_path": "nested_Struct.c.D.list.element.list.element.f"
         }
       ],
       "index_pages": [],
@@ -424,8 +446,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nested_Struct.G.map.key"
+          },
+          "schema_path": "nested_Struct.G.map.key"
         }
       ],
       "index_pages": [],
@@ -460,8 +484,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nested_Struct.G.map.value.h.i.list.element"
+          },
+          "schema_path": "nested_Struct.G.map.value.h.i.list.element"
         }
       ],
       "index_pages": [],
@@ -1183,7 +1209,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ID"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1223,7 +1250,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "Int_Array.list.element"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1263,7 +1291,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int_array_array.list.element.list.element"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1303,7 +1332,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "Int_Map.map.key"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1343,7 +1373,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "Int_Map.map.value"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1383,7 +1414,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int_map_array.list.element.map.key"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1423,7 +1455,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int_map_array.list.element.map.value"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1463,7 +1496,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nested_Struct.a"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1503,7 +1537,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nested_Struct.B.list.element"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1543,7 +1578,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nested_Struct.c.D.list.element.list.element.e"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1583,7 +1619,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nested_Struct.c.D.list.element.list.element.f"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1623,7 +1660,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nested_Struct.G.map.key"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -1663,7 +1701,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nested_Struct.G.map.value.h.i.list.element"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,

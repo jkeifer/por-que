@@ -28,8 +28,10 @@
             "min_value": null,
             "max_value": null,
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "b_struct.b_c_int"
+          },
+          "schema_path": "b_struct.b_c_int"
         }
       ],
       "index_pages": [],
@@ -120,7 +122,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "b_struct.b_c_int"
               },
               "encoding_stats": [
                 {

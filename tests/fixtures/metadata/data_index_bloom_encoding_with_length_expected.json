@@ -28,8 +28,10 @@
             "min_value": "SGVsbG8=",
             "max_value": "dG9kYXk=",
             "is_min_value_exact": true,
-            "is_max_value_exact": true
-          }
+            "is_max_value_exact": true,
+            "schema_path": "String"
+          },
+          "schema_path": "String"
         }
       ],
       "index_pages": [],
@@ -61,7 +63,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "String"
       },
       "offset_index": {
         "start_offset": 2342,
@@ -145,7 +148,8 @@
                 "min_value": "SGVsbG8=",
                 "max_value": "dG9kYXk=",
                 "is_min_value_exact": true,
-                "is_max_value_exact": true
+                "is_max_value_exact": true,
+                "schema_path": "String"
               },
               "encoding_stats": null,
               "bloom_filter_offset": 253,

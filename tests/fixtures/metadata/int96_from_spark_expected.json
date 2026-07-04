@@ -20,7 +20,8 @@
           "encoding": 2,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "a"
         }
       ],
       "index_pages": [],
@@ -116,7 +117,8 @@
                 "min_value": null,
                 "max_value": null,
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "a"
               },
               "encoding_stats": [
                 {

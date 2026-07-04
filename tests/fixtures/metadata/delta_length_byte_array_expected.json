@@ -23,7 +23,8 @@
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "FRUIT"
         }
       ],
       "index_pages": [],

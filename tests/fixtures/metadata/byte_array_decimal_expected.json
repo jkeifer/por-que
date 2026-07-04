@@ -20,7 +20,8 @@
           "encoding": 0,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "value"
         }
       ],
       "index_pages": [],

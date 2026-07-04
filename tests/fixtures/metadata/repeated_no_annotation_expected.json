@@ -20,7 +20,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "id"
         }
       ],
       "index_pages": [],
@@ -57,7 +58,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "phoneNumbers.phone.number"
         }
       ],
       "index_pages": [],
@@ -94,7 +96,8 @@
           "encoding": 8,
           "definition_level_encoding": 3,
           "repetition_level_encoding": 3,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "phoneNumbers.phone.kind"
         }
       ],
       "index_pages": [],

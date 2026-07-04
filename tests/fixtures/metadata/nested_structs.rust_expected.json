@@ -28,8 +28,10 @@
             "min_value": "mhZfciytAAA=",
             "max_value": "mhZfciytAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "roll_num.min"
+          },
+          "schema_path": "roll_num.min"
         }
       ],
       "index_pages": [],
@@ -74,8 +76,10 @@
             "min_value": "YF8HoCytAAA=",
             "max_value": "YF8HoCytAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "roll_num.max"
+          },
+          "schema_path": "roll_num.max"
         }
       ],
       "index_pages": [],
@@ -120,8 +124,10 @@
             "min_value": "L2QAgiytAAA=",
             "max_value": "L2QAgiytAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "roll_num.mean"
+          },
+          "schema_path": "roll_num.mean"
         }
       ],
       "index_pages": [],
@@ -166,8 +172,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "roll_num.count"
+          },
+          "schema_path": "roll_num.count"
         }
       ],
       "index_pages": [],
@@ -212,8 +220,10 @@
             "min_value": "ILfBXg_ZTgE=",
             "max_value": "ILfBXg_ZTgE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "roll_num.sum"
+          },
+          "schema_path": "roll_num.sum"
         }
       ],
       "index_pages": [],
@@ -258,8 +268,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "roll_num.variance"
+          },
+          "schema_path": "roll_num.variance"
         }
       ],
       "index_pages": [],
@@ -304,8 +316,10 @@
             "min_value": "cwAAAAAAAAA=",
             "max_value": "cwAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "PC_CUR.min"
+          },
+          "schema_path": "PC_CUR.min"
         }
       ],
       "index_pages": [],
@@ -350,8 +364,10 @@
             "min_value": "5gIAAAAAAAA=",
             "max_value": "5gIAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "PC_CUR.max"
+          },
+          "schema_path": "PC_CUR.max"
         }
       ],
       "index_pages": [],
@@ -396,8 +412,10 @@
             "min_value": "oAEAAAAAAAA=",
             "max_value": "oAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "PC_CUR.mean"
+          },
+          "schema_path": "PC_CUR.mean"
         }
       ],
       "index_pages": [],
@@ -442,8 +460,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "PC_CUR.count"
+          },
+          "schema_path": "PC_CUR.count"
         }
       ],
       "index_pages": [],
@@ -488,8 +508,10 @@
             "min_value": "cyUDAAAAAAA=",
             "max_value": "cyUDAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "PC_CUR.sum"
+          },
+          "schema_path": "PC_CUR.sum"
         }
       ],
       "index_pages": [],
@@ -534,8 +556,10 @@
             "min_value": "higAAAAAAAA=",
             "max_value": "higAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "PC_CUR.variance"
+          },
+          "schema_path": "PC_CUR.variance"
         }
       ],
       "index_pages": [],
@@ -580,8 +604,10 @@
             "min_value": "4QIAAAAAAAA=",
             "max_value": "4QIAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2012.min"
+          },
+          "schema_path": "CVA_2012.min"
         }
       ],
       "index_pages": [],
@@ -626,8 +652,10 @@
             "min_value": "7ZPqAQAAAAA=",
             "max_value": "7ZPqAQAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2012.max"
+          },
+          "schema_path": "CVA_2012.max"
         }
       ],
       "index_pages": [],
@@ -672,8 +700,10 @@
             "min_value": "16MkAAAAAAA=",
             "max_value": "16MkAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2012.mean"
+          },
+          "schema_path": "CVA_2012.mean"
         }
       ],
       "index_pages": [],
@@ -718,8 +748,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2012.count"
+          },
+          "schema_path": "CVA_2012.count"
         }
       ],
       "index_pages": [],
@@ -764,8 +796,10 @@
             "min_value": "eM3YRgAAAAA=",
             "max_value": "eM3YRgAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2012.sum"
+          },
+          "schema_path": "CVA_2012.sum"
         }
       ],
       "index_pages": [],
@@ -810,8 +844,10 @@
             "min_value": "Rf9Ckc0LAAA=",
             "max_value": "Rf9Ckc0LAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2012.variance"
+          },
+          "schema_path": "CVA_2012.variance"
         }
       ],
       "index_pages": [],
@@ -856,8 +892,10 @@
             "min_value": "6AMAAAAAAAA=",
             "max_value": "6AMAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2016.min"
+          },
+          "schema_path": "CVA_2016.min"
         }
       ],
       "index_pages": [],
@@ -902,8 +940,10 @@
             "min_value": "eAgZAgAAAAA=",
             "max_value": "eAgZAgAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2016.max"
+          },
+          "schema_path": "CVA_2016.max"
         }
       ],
       "index_pages": [],
@@ -948,8 +988,10 @@
             "min_value": "XrU1AAAAAAA=",
             "max_value": "XrU1AAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2016.mean"
+          },
+          "schema_path": "CVA_2016.mean"
         }
       ],
       "index_pages": [],
@@ -994,8 +1036,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2016.count"
+          },
+          "schema_path": "CVA_2016.count"
         }
       ],
       "index_pages": [],
@@ -1040,8 +1084,10 @@
             "min_value": "qbLZZwAAAAA=",
             "max_value": "qbLZZwAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2016.sum"
+          },
+          "schema_path": "CVA_2016.sum"
         }
       ],
       "index_pages": [],
@@ -1086,8 +1132,10 @@
             "min_value": "VEPEO1sWAAA=",
             "max_value": "VEPEO1sWAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "CVA_2016.variance"
+          },
+          "schema_path": "CVA_2016.variance"
         }
       ],
       "index_pages": [],
@@ -1132,8 +1180,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_3.min"
+          },
+          "schema_path": "BIA_3.min"
         }
       ],
       "index_pages": [],
@@ -1178,8 +1228,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_3.max"
+          },
+          "schema_path": "BIA_3.max"
         }
       ],
       "index_pages": [],
@@ -1224,8 +1276,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_3.mean"
+          },
+          "schema_path": "BIA_3.mean"
         }
       ],
       "index_pages": [],
@@ -1270,8 +1324,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_3.count"
+          },
+          "schema_path": "BIA_3.count"
         }
       ],
       "index_pages": [],
@@ -1316,8 +1372,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_3.sum"
+          },
+          "schema_path": "BIA_3.sum"
         }
       ],
       "index_pages": [],
@@ -1362,8 +1420,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_3.variance"
+          },
+          "schema_path": "BIA_3.variance"
         }
       ],
       "index_pages": [],
@@ -1408,8 +1468,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_4.min"
+          },
+          "schema_path": "BIA_4.min"
         }
       ],
       "index_pages": [],
@@ -1454,8 +1516,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_4.max"
+          },
+          "schema_path": "BIA_4.max"
         }
       ],
       "index_pages": [],
@@ -1500,8 +1564,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_4.mean"
+          },
+          "schema_path": "BIA_4.mean"
         }
       ],
       "index_pages": [],
@@ -1546,8 +1612,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_4.count"
+          },
+          "schema_path": "BIA_4.count"
         }
       ],
       "index_pages": [],
@@ -1592,8 +1660,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_4.sum"
+          },
+          "schema_path": "BIA_4.sum"
         }
       ],
       "index_pages": [],
@@ -1638,8 +1708,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "BIA_4.variance"
+          },
+          "schema_path": "BIA_4.variance"
         }
       ],
       "index_pages": [],
@@ -1684,8 +1756,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_FRONTAGE.min"
+          },
+          "schema_path": "ACTUAL_FRONTAGE.min"
         }
       ],
       "index_pages": [],
@@ -1730,8 +1804,10 @@
             "min_value": "16NwPQqVhEA=",
             "max_value": "16NwPQqVhEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_FRONTAGE.max"
+          },
+          "schema_path": "ACTUAL_FRONTAGE.max"
         }
       ],
       "index_pages": [],
@@ -1776,8 +1852,10 @@
             "min_value": "INzBHdzhTEA=",
             "max_value": "INzBHdzhTEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_FRONTAGE.mean"
+          },
+          "schema_path": "ACTUAL_FRONTAGE.mean"
         }
       ],
       "index_pages": [],
@@ -1822,8 +1900,10 @@
             "min_value": "XwEAAAAAAAA=",
             "max_value": "XwEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_FRONTAGE.count"
+          },
+          "schema_path": "ACTUAL_FRONTAGE.count"
         }
       ],
       "index_pages": [],
@@ -1868,8 +1948,10 @@
             "min_value": "aGZmZtbM00A=",
             "max_value": "aGZmZtbM00A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_FRONTAGE.sum"
+          },
+          "schema_path": "ACTUAL_FRONTAGE.sum"
         }
       ],
       "index_pages": [],
@@ -1914,8 +1996,10 @@
             "min_value": "wxq2IICmuEA=",
             "max_value": "wxq2IICmuEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_FRONTAGE.variance"
+          },
+          "schema_path": "ACTUAL_FRONTAGE.variance"
         }
       ],
       "index_pages": [],
@@ -1960,8 +2044,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_DEPTH.min"
+          },
+          "schema_path": "ACTUAL_DEPTH.min"
         }
       ],
       "index_pages": [],
@@ -2006,8 +2092,10 @@
             "min_value": "w_UoXI-Cc0A=",
             "max_value": "w_UoXI-Cc0A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_DEPTH.max"
+          },
+          "schema_path": "ACTUAL_DEPTH.max"
         }
       ],
       "index_pages": [],
@@ -2052,8 +2140,10 @@
             "min_value": "TPR3slq0SEA=",
             "max_value": "TPR3slq0SEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_DEPTH.mean"
+          },
+          "schema_path": "ACTUAL_DEPTH.mean"
         }
       ],
       "index_pages": [],
@@ -2098,8 +2188,10 @@
             "min_value": "UAEAAAAAAAA=",
             "max_value": "UAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_DEPTH.count"
+          },
+          "schema_path": "ACTUAL_DEPTH.count"
         }
       ],
       "index_pages": [],
@@ -2144,8 +2236,10 @@
             "min_value": "UrgehVs20EA=",
             "max_value": "UrgehVs20EA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_DEPTH.sum"
+          },
+          "schema_path": "ACTUAL_DEPTH.sum"
         }
       ],
       "index_pages": [],
@@ -2190,8 +2284,10 @@
             "min_value": "LjDHda8dqUA=",
             "max_value": "LjDHda8dqUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_DEPTH.variance"
+          },
+          "schema_path": "ACTUAL_DEPTH.variance"
         }
       ],
       "index_pages": [],
@@ -2236,8 +2332,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_LOT_SIZE.min"
+          },
+          "schema_path": "ACTUAL_LOT_SIZE.min"
         }
       ],
       "index_pages": [],
@@ -2282,8 +2380,10 @@
             "min_value": "AAAAAIAZ8kA=",
             "max_value": "AAAAAIAZ8kA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_LOT_SIZE.max"
+          },
+          "schema_path": "ACTUAL_LOT_SIZE.max"
         }
       ],
       "index_pages": [],
@@ -2328,8 +2428,10 @@
             "min_value": "_ykuGSISuEA=",
             "max_value": "_ykuGSISuEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_LOT_SIZE.mean"
+          },
+          "schema_path": "ACTUAL_LOT_SIZE.mean"
         }
       ],
       "index_pages": [],
@@ -2374,8 +2476,10 @@
             "min_value": "bgEAAAAAAAA=",
             "max_value": "bgEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_LOT_SIZE.count"
+          },
+          "schema_path": "ACTUAL_LOT_SIZE.count"
         }
       ],
       "index_pages": [],
@@ -2420,8 +2524,10 @@
             "min_value": "BQAAYPY0QUE=",
             "max_value": "BQAAYPY0QUE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_LOT_SIZE.sum"
+          },
+          "schema_path": "ACTUAL_LOT_SIZE.sum"
         }
       ],
       "index_pages": [],
@@ -2466,8 +2572,10 @@
             "min_value": "4Z9kRjzbmEE=",
             "max_value": "4Z9kRjzbmEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ACTUAL_LOT_SIZE.variance"
+          },
+          "schema_path": "ACTUAL_LOT_SIZE.variance"
         }
       ],
       "index_pages": [],
@@ -2512,8 +2620,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA.min"
+          },
+          "schema_path": "GLA.min"
         }
       ],
       "index_pages": [],
@@ -2558,8 +2668,10 @@
             "min_value": "AAAAAGD4H0E=",
             "max_value": "AAAAAGD4H0E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA.max"
+          },
+          "schema_path": "GLA.max"
         }
       ],
       "index_pages": [],
@@ -2604,8 +2716,10 @@
             "min_value": "IgakYwkH00A=",
             "max_value": "IgakYwkH00A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA.mean"
+          },
+          "schema_path": "GLA.mean"
         }
       ],
       "index_pages": [],
@@ -2650,8 +2764,10 @@
             "min_value": "TgEAAAAAAAA=",
             "max_value": "TgEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA.count"
+          },
+          "schema_path": "GLA.count"
         }
       ],
       "index_pages": [],
@@ -2696,8 +2812,10 @@
             "min_value": "AAAAQC7TWEE=",
             "max_value": "AAAAQC7TWEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA.sum"
+          },
+          "schema_path": "GLA.sum"
         }
       ],
       "index_pages": [],
@@ -2742,8 +2860,10 @@
             "min_value": "sgBdF0OM6kE=",
             "max_value": "sgBdF0OM6kE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA.variance"
+          },
+          "schema_path": "GLA.variance"
         }
       ],
       "index_pages": [],
@@ -2788,8 +2908,10 @@
             "min_value": "AAAAAACIpEA=",
             "max_value": "AAAAAACIpEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "SOURCE_GLA.min"
+          },
+          "schema_path": "SOURCE_GLA.min"
         }
       ],
       "index_pages": [],
@@ -2834,8 +2956,10 @@
             "min_value": "AAAAAIBqz0A=",
             "max_value": "AAAAAIBqz0A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "SOURCE_GLA.max"
+          },
+          "schema_path": "SOURCE_GLA.max"
         }
       ],
       "index_pages": [],
@@ -2880,8 +3004,10 @@
             "min_value": "zczMzMwqukA=",
             "max_value": "zczMzMwqukA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "SOURCE_GLA.mean"
+          },
+          "schema_path": "SOURCE_GLA.mean"
         }
       ],
       "index_pages": [],
@@ -2926,8 +3052,10 @@
             "min_value": "CgAAAAAAAAA=",
             "max_value": "CgAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "SOURCE_GLA.count"
+          },
+          "schema_path": "SOURCE_GLA.count"
         }
       ],
       "index_pages": [],
@@ -2972,8 +3100,10 @@
             "min_value": "AAAAAMBa8EA=",
             "max_value": "AAAAAMBa8EA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "SOURCE_GLA.sum"
+          },
+          "schema_path": "SOURCE_GLA.sum"
         }
       ],
       "index_pages": [],
@@ -3018,8 +3148,10 @@
             "min_value": "Z2ZmxtU3e0E=",
             "max_value": "Z2ZmxtU3e0E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "SOURCE_GLA.variance"
+          },
+          "schema_path": "SOURCE_GLA.variance"
         }
       ],
       "index_pages": [],
@@ -3064,8 +3196,10 @@
             "min_value": "AAAAAAAAckA=",
             "max_value": "AAAAAAAAckA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "IPS_GLA.min"
+          },
+          "schema_path": "IPS_GLA.min"
         }
       ],
       "index_pages": [],
@@ -3110,8 +3244,10 @@
             "min_value": "AAAAAAAEn0A=",
             "max_value": "AAAAAAAEn0A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "IPS_GLA.max"
+          },
+          "schema_path": "IPS_GLA.max"
         }
       ],
       "index_pages": [],
@@ -3156,8 +3292,10 @@
             "min_value": "AAAAAAAUlEA=",
             "max_value": "AAAAAAAUlEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "IPS_GLA.mean"
+          },
+          "schema_path": "IPS_GLA.mean"
         }
       ],
       "index_pages": [],
@@ -3202,8 +3340,10 @@
             "min_value": "BAAAAAAAAAA=",
             "max_value": "BAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "IPS_GLA.count"
+          },
+          "schema_path": "IPS_GLA.count"
         }
       ],
       "index_pages": [],
@@ -3248,8 +3388,10 @@
             "min_value": "AAAAAAAUtEA=",
             "max_value": "AAAAAAAUtEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "IPS_GLA.sum"
+          },
+          "schema_path": "IPS_GLA.sum"
         }
       ],
       "index_pages": [],
@@ -3294,8 +3436,10 @@
             "min_value": "VVVVVc0eH0E=",
             "max_value": "VVVVVc0eH0E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "IPS_GLA.variance"
+          },
+          "schema_path": "IPS_GLA.variance"
         }
       ],
       "index_pages": [],
@@ -3340,8 +3484,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA_ALL.min"
+          },
+          "schema_path": "GLA_ALL.min"
         }
       ],
       "index_pages": [],
@@ -3386,8 +3532,10 @@
             "min_value": "AAAAAGD4H0E=",
             "max_value": "AAAAAGD4H0E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA_ALL.max"
+          },
+          "schema_path": "GLA_ALL.max"
         }
       ],
       "index_pages": [],
@@ -3432,8 +3580,10 @@
             "min_value": "RL_ZOuR20kA=",
             "max_value": "RL_ZOuR20kA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA_ALL.mean"
+          },
+          "schema_path": "GLA_ALL.mean"
         }
       ],
       "index_pages": [],
@@ -3478,8 +3628,10 @@
             "min_value": "XAEAAAAAAAA=",
             "max_value": "XAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA_ALL.count"
+          },
+          "schema_path": "GLA_ALL.count"
         }
       ],
       "index_pages": [],
@@ -3524,8 +3676,10 @@
             "min_value": "AAAAQJ4ZWUE=",
             "max_value": "AAAAQJ4ZWUE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA_ALL.sum"
+          },
+          "schema_path": "GLA_ALL.sum"
         }
       ],
       "index_pages": [],
@@ -3570,8 +3724,10 @@
             "min_value": "ZDgZ8ByL6UE=",
             "max_value": "ZDgZ8ByL6UE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "GLA_ALL.variance"
+          },
+          "schema_path": "GLA_ALL.variance"
         }
       ],
       "index_pages": [],
@@ -3616,8 +3772,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bia.min"
+          },
+          "schema_path": "bia.min"
         }
       ],
       "index_pages": [],
@@ -3662,8 +3820,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bia.max"
+          },
+          "schema_path": "bia.max"
         }
       ],
       "index_pages": [],
@@ -3708,8 +3868,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bia.mean"
+          },
+          "schema_path": "bia.mean"
         }
       ],
       "index_pages": [],
@@ -3754,8 +3916,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bia.count"
+          },
+          "schema_path": "bia.count"
         }
       ],
       "index_pages": [],
@@ -3800,8 +3964,10 @@
             "min_value": "xAEAAAAAAAA=",
             "max_value": "xAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bia.sum"
+          },
+          "schema_path": "bia.sum"
         }
       ],
       "index_pages": [],
@@ -3846,8 +4012,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bia.variance"
+          },
+          "schema_path": "bia.variance"
         }
       ],
       "index_pages": [],
@@ -3892,8 +4060,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_LOT_SIZE.min"
+          },
+          "schema_path": "EFFECTIVE_LOT_SIZE.min"
         }
       ],
       "index_pages": [],
@@ -3938,8 +4108,10 @@
             "min_value": "kcL1KLSd70A=",
             "max_value": "kcL1KLSd70A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_LOT_SIZE.max"
+          },
+          "schema_path": "EFFECTIVE_LOT_SIZE.max"
         }
       ],
       "index_pages": [],
@@ -3984,8 +4156,10 @@
             "min_value": "EUMVXwZXs0A=",
             "max_value": "EUMVXwZXs0A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_LOT_SIZE.mean"
+          },
+          "schema_path": "EFFECTIVE_LOT_SIZE.mean"
         }
       ],
       "index_pages": [],
@@ -4030,8 +4204,10 @@
             "min_value": "YAEAAAAAAAA=",
             "max_value": "YAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_LOT_SIZE.count"
+          },
+          "schema_path": "EFFECTIVE_LOT_SIZE.count"
         }
       ],
       "index_pages": [],
@@ -4076,8 +4252,10 @@
             "min_value": "ODy9wqiXOkE=",
             "max_value": "ODy9wqiXOkE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_LOT_SIZE.sum"
+          },
+          "schema_path": "EFFECTIVE_LOT_SIZE.sum"
         }
       ],
       "index_pages": [],
@@ -4122,8 +4300,10 @@
             "min_value": "4_Tz38Vbk0E=",
             "max_value": "4_Tz38Vbk0E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_LOT_SIZE.variance"
+          },
+          "schema_path": "EFFECTIVE_LOT_SIZE.variance"
         }
       ],
       "index_pages": [],
@@ -4168,8 +4348,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_area.min"
+          },
+          "schema_path": "effective_lot_area.min"
         }
       ],
       "index_pages": [],
@@ -4214,8 +4396,10 @@
             "min_value": "Z2ZmZmZmBkA=",
             "max_value": "Z2ZmZmZmBkA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_area.max"
+          },
+          "schema_path": "effective_lot_area.max"
         }
       ],
       "index_pages": [],
@@ -4260,8 +4444,10 @@
             "min_value": "yd9rT1w5wj8=",
             "max_value": "yd9rT1w5wj8=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_area.mean"
+          },
+          "schema_path": "effective_lot_area.mean"
         }
       ],
       "index_pages": [],
@@ -4306,8 +4492,10 @@
             "min_value": "YAEAAAAAAAA=",
             "max_value": "YAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_area.count"
+          },
+          "schema_path": "effective_lot_area.count"
         }
       ],
       "index_pages": [],
@@ -4352,8 +4540,10 @@
             "min_value": "tVM07d4OSUA=",
             "max_value": "tVM07d4OSUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_area.sum"
+          },
+          "schema_path": "effective_lot_area.sum"
         }
       ],
       "index_pages": [],
@@ -4398,8 +4588,10 @@
             "min_value": "xLB2Qko-sz8=",
             "max_value": "xLB2Qko-sz8=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_area.variance"
+          },
+          "schema_path": "effective_lot_area.variance"
         }
       ],
       "index_pages": [],
@@ -4444,8 +4636,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_FRONTAGE.min"
+          },
+          "schema_path": "EFFECTIVE_FRONTAGE.min"
         }
       ],
       "index_pages": [],
@@ -4490,8 +4684,10 @@
             "min_value": "AAAAAB4VJEE=",
             "max_value": "AAAAAB4VJEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_FRONTAGE.max"
+          },
+          "schema_path": "EFFECTIVE_FRONTAGE.max"
         }
       ],
       "index_pages": [],
@@ -4536,8 +4732,10 @@
             "min_value": "nBPCJTodn0A=",
             "max_value": "nBPCJTodn0A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_FRONTAGE.mean"
+          },
+          "schema_path": "EFFECTIVE_FRONTAGE.mean"
         }
       ],
       "index_pages": [],
@@ -4582,8 +4780,10 @@
             "min_value": "UwEAAAAAAAA=",
             "max_value": "UwEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_FRONTAGE.count"
+          },
+          "schema_path": "EFFECTIVE_FRONTAGE.count"
         }
       ],
       "index_pages": [],
@@ -4628,8 +4828,10 @@
             "min_value": "_P___9mZJEE=",
             "max_value": "_P___9mZJEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_FRONTAGE.sum"
+          },
+          "schema_path": "EFFECTIVE_FRONTAGE.sum"
         }
       ],
       "index_pages": [],
@@ -4674,8 +4876,10 @@
             "min_value": "7c8A30II00E=",
             "max_value": "7c8A30II00E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_FRONTAGE.variance"
+          },
+          "schema_path": "EFFECTIVE_FRONTAGE.variance"
         }
       ],
       "index_pages": [],
@@ -4720,8 +4924,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_DEPTH.min"
+          },
+          "schema_path": "EFFECTIVE_DEPTH.min"
         }
       ],
       "index_pages": [],
@@ -4766,8 +4972,10 @@
             "min_value": "MzMzMzPLckA=",
             "max_value": "MzMzMzPLckA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_DEPTH.max"
+          },
+          "schema_path": "EFFECTIVE_DEPTH.max"
         }
       ],
       "index_pages": [],
@@ -4812,8 +5020,10 @@
             "min_value": "WgferbZUUEA=",
             "max_value": "WgferbZUUEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_DEPTH.mean"
+          },
+          "schema_path": "EFFECTIVE_DEPTH.mean"
         }
       ],
       "index_pages": [],
@@ -4858,8 +5068,10 @@
             "min_value": "UQEAAAAAAAA=",
             "max_value": "UQEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_DEPTH.count"
+          },
+          "schema_path": "EFFECTIVE_DEPTH.count"
         }
       ],
       "index_pages": [],
@@ -4904,8 +5116,10 @@
             "min_value": "rUfheoR_1UA=",
             "max_value": "rUfheoR_1UA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_DEPTH.sum"
+          },
+          "schema_path": "EFFECTIVE_DEPTH.sum"
         }
       ],
       "index_pages": [],
@@ -4950,8 +5164,10 @@
             "min_value": "wCXuQZyBrkA=",
             "max_value": "wCXuQZyBrkA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "EFFECTIVE_DEPTH.variance"
+          },
+          "schema_path": "EFFECTIVE_DEPTH.variance"
         }
       ],
       "index_pages": [],
@@ -4996,8 +5212,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "rw_area_tot.min"
+          },
+          "schema_path": "rw_area_tot.min"
         }
       ],
       "index_pages": [],
@@ -5042,8 +5260,10 @@
             "min_value": "AAAAAEC-0UA=",
             "max_value": "AAAAAEC-0UA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "rw_area_tot.max"
+          },
+          "schema_path": "rw_area_tot.max"
         }
       ],
       "index_pages": [],
@@ -5088,8 +5308,10 @@
             "min_value": "zgWm8k7gl0A=",
             "max_value": "zgWm8k7gl0A=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "rw_area_tot.mean"
+          },
+          "schema_path": "rw_area_tot.mean"
         }
       ],
       "index_pages": [],
@@ -5134,8 +5356,10 @@
             "min_value": "uQEAAAAAAAA=",
             "max_value": "uQEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "rw_area_tot.count"
+          },
+          "schema_path": "rw_area_tot.count"
         }
       ],
       "index_pages": [],
@@ -5180,8 +5404,10 @@
             "min_value": "AAAAALSQJEE=",
             "max_value": "AAAAALSQJEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "rw_area_tot.sum"
+          },
+          "schema_path": "rw_area_tot.sum"
         }
       ],
       "index_pages": [],
@@ -5226,8 +5452,10 @@
             "min_value": "2KDDJ9taV0E=",
             "max_value": "2KDDJ9taV0E=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "rw_area_tot.variance"
+          },
+          "schema_path": "rw_area_tot.variance"
         }
       ],
       "index_pages": [],
@@ -5272,8 +5500,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_sqft.min"
+          },
+          "schema_path": "effective_lot_sqft.min"
         }
       ],
       "index_pages": [],
@@ -5318,8 +5548,10 @@
             "min_value": "AAAAAADH_UA=",
             "max_value": "AAAAAADH_UA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_sqft.max"
+          },
+          "schema_path": "effective_lot_sqft.max"
         }
       ],
       "index_pages": [],
@@ -5364,8 +5596,10 @@
             "min_value": "7xZUhuA5uEA=",
             "max_value": "7xZUhuA5uEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_sqft.mean"
+          },
+          "schema_path": "effective_lot_sqft.mean"
         }
       ],
       "index_pages": [],
@@ -5410,8 +5644,10 @@
             "min_value": "YAEAAAAAAAA=",
             "max_value": "YAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_sqft.count"
+          },
+          "schema_path": "effective_lot_sqft.count"
         }
       ],
       "index_pages": [],
@@ -5456,8 +5692,10 @@
             "min_value": "xM9ZXMqnQEE=",
             "max_value": "xM9ZXMqnQEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_sqft.sum"
+          },
+          "schema_path": "effective_lot_sqft.sum"
         }
       ],
       "index_pages": [],
@@ -5502,8 +5740,10 @@
             "min_value": "CfRKecUAoUE=",
             "max_value": "CfRKecUAoUE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "effective_lot_sqft.variance"
+          },
+          "schema_path": "effective_lot_sqft.variance"
         }
       ],
       "index_pages": [],
@@ -5548,8 +5788,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "dup.min"
+          },
+          "schema_path": "dup.min"
         }
       ],
       "index_pages": [],
@@ -5594,8 +5836,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "dup.max"
+          },
+          "schema_path": "dup.max"
         }
       ],
       "index_pages": [],
@@ -5640,8 +5884,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "dup.mean"
+          },
+          "schema_path": "dup.mean"
         }
       ],
       "index_pages": [],
@@ -5686,8 +5932,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "dup.count"
+          },
+          "schema_path": "dup.count"
         }
       ],
       "index_pages": [],
@@ -5732,8 +5980,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "dup.sum"
+          },
+          "schema_path": "dup.sum"
         }
       ],
       "index_pages": [],
@@ -5778,8 +6028,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "dup.variance"
+          },
+          "schema_path": "dup.variance"
         }
       ],
       "index_pages": [],
@@ -5824,8 +6076,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nonCTXT.min"
+          },
+          "schema_path": "nonCTXT.min"
         }
       ],
       "index_pages": [],
@@ -5870,8 +6124,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nonCTXT.max"
+          },
+          "schema_path": "nonCTXT.max"
         }
       ],
       "index_pages": [],
@@ -5916,8 +6172,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nonCTXT.mean"
+          },
+          "schema_path": "nonCTXT.mean"
         }
       ],
       "index_pages": [],
@@ -5962,8 +6220,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nonCTXT.count"
+          },
+          "schema_path": "nonCTXT.count"
         }
       ],
       "index_pages": [],
@@ -6008,8 +6268,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nonCTXT.sum"
+          },
+          "schema_path": "nonCTXT.sum"
         }
       ],
       "index_pages": [],
@@ -6054,8 +6316,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "nonCTXT.variance"
+          },
+          "schema_path": "nonCTXT.variance"
         }
       ],
       "index_pages": [],
@@ -6100,8 +6364,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "vacantland.min"
+          },
+          "schema_path": "vacantland.min"
         }
       ],
       "index_pages": [],
@@ -6146,8 +6412,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "vacantland.max"
+          },
+          "schema_path": "vacantland.max"
         }
       ],
       "index_pages": [],
@@ -6192,8 +6460,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "vacantland.mean"
+          },
+          "schema_path": "vacantland.mean"
         }
       ],
       "index_pages": [],
@@ -6238,8 +6508,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "vacantland.count"
+          },
+          "schema_path": "vacantland.count"
         }
       ],
       "index_pages": [],
@@ -6284,8 +6556,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "vacantland.sum"
+          },
+          "schema_path": "vacantland.sum"
         }
       ],
       "index_pages": [],
@@ -6330,8 +6604,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "vacantland.variance"
+          },
+          "schema_path": "vacantland.variance"
         }
       ],
       "index_pages": [],
@@ -6376,8 +6652,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "parkingbillboard.min"
+          },
+          "schema_path": "parkingbillboard.min"
         }
       ],
       "index_pages": [],
@@ -6422,8 +6700,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "parkingbillboard.max"
+          },
+          "schema_path": "parkingbillboard.max"
         }
       ],
       "index_pages": [],
@@ -6468,8 +6748,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "parkingbillboard.mean"
+          },
+          "schema_path": "parkingbillboard.mean"
         }
       ],
       "index_pages": [],
@@ -6514,8 +6796,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "parkingbillboard.count"
+          },
+          "schema_path": "parkingbillboard.count"
         }
       ],
       "index_pages": [],
@@ -6560,8 +6844,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "parkingbillboard.sum"
+          },
+          "schema_path": "parkingbillboard.sum"
         }
       ],
       "index_pages": [],
@@ -6606,8 +6892,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "parkingbillboard.variance"
+          },
+          "schema_path": "parkingbillboard.variance"
         }
       ],
       "index_pages": [],
@@ -6652,8 +6940,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "cvalte10.min"
+          },
+          "schema_path": "cvalte10.min"
         }
       ],
       "index_pages": [],
@@ -6698,8 +6988,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "cvalte10.max"
+          },
+          "schema_path": "cvalte10.max"
         }
       ],
       "index_pages": [],
@@ -6744,8 +7036,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "cvalte10.mean"
+          },
+          "schema_path": "cvalte10.mean"
         }
       ],
       "index_pages": [],
@@ -6790,8 +7084,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "cvalte10.count"
+          },
+          "schema_path": "cvalte10.count"
         }
       ],
       "index_pages": [],
@@ -6836,8 +7132,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "cvalte10.sum"
+          },
+          "schema_path": "cvalte10.sum"
         }
       ],
       "index_pages": [],
@@ -6882,8 +7180,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "cvalte10.variance"
+          },
+          "schema_path": "cvalte10.variance"
         }
       ],
       "index_pages": [],
@@ -6928,8 +7228,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "condootherhotel.min"
+          },
+          "schema_path": "condootherhotel.min"
         }
       ],
       "index_pages": [],
@@ -6974,8 +7276,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "condootherhotel.max"
+          },
+          "schema_path": "condootherhotel.max"
         }
       ],
       "index_pages": [],
@@ -7020,8 +7324,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "condootherhotel.mean"
+          },
+          "schema_path": "condootherhotel.mean"
         }
       ],
       "index_pages": [],
@@ -7066,8 +7372,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "condootherhotel.count"
+          },
+          "schema_path": "condootherhotel.count"
         }
       ],
       "index_pages": [],
@@ -7112,8 +7420,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "condootherhotel.sum"
+          },
+          "schema_path": "condootherhotel.sum"
         }
       ],
       "index_pages": [],
@@ -7158,8 +7468,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "condootherhotel.variance"
+          },
+          "schema_path": "condootherhotel.variance"
         }
       ],
       "index_pages": [],
@@ -7204,8 +7516,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_lot_size.min"
+          },
+          "schema_path": "calculated_lot_size.min"
         }
       ],
       "index_pages": [],
@@ -7250,8 +7564,10 @@
             "min_value": "AAAAAAAAWUA=",
             "max_value": "AAAAAAAAWUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_lot_size.max"
+          },
+          "schema_path": "calculated_lot_size.max"
         }
       ],
       "index_pages": [],
@@ -7296,8 +7612,10 @@
             "min_value": "t-aHRcrA8z8=",
             "max_value": "t-aHRcrA8z8=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_lot_size.mean"
+          },
+          "schema_path": "calculated_lot_size.mean"
         }
       ],
       "index_pages": [],
@@ -7342,8 +7660,10 @@
             "min_value": "UQAAAAAAAAA=",
             "max_value": "UQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_lot_size.count"
+          },
+          "schema_path": "calculated_lot_size.count"
         }
       ],
       "index_pages": [],
@@ -7388,8 +7708,10 @@
             "min_value": "AAAAAAAAWUA=",
             "max_value": "AAAAAAAAWUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_lot_size.sum"
+          },
+          "schema_path": "calculated_lot_size.sum"
         }
       ],
       "index_pages": [],
@@ -7434,8 +7756,10 @@
             "min_value": "glikDDzdXkA=",
             "max_value": "glikDDzdXkA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_lot_size.variance"
+          },
+          "schema_path": "calculated_lot_size.variance"
         }
       ],
       "index_pages": [],
@@ -7480,8 +7804,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_efflot_size.min"
+          },
+          "schema_path": "calculated_efflot_size.min"
         }
       ],
       "index_pages": [],
@@ -7526,8 +7852,10 @@
             "min_value": "3yQGgRVMsEA=",
             "max_value": "3yQGgRVMsEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_efflot_size.max"
+          },
+          "schema_path": "calculated_efflot_size.max"
         }
       ],
       "index_pages": [],
@@ -7572,8 +7900,10 @@
             "min_value": "cxpoUiAmRUA=",
             "max_value": "cxpoUiAmRUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_efflot_size.mean"
+          },
+          "schema_path": "calculated_efflot_size.mean"
         }
       ],
       "index_pages": [],
@@ -7618,8 +7948,10 @@
             "min_value": "ZQAAAAAAAAA=",
             "max_value": "ZQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_efflot_size.count"
+          },
+          "schema_path": "calculated_efflot_size.count"
         }
       ],
       "index_pages": [],
@@ -7664,8 +7996,10 @@
             "min_value": "3yQGgRWwsEA=",
             "max_value": "3yQGgRWwsEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_efflot_size.sum"
+          },
+          "schema_path": "calculated_efflot_size.sum"
         }
       ],
       "index_pages": [],
@@ -7710,8 +8044,10 @@
             "min_value": "EyF4yh4KBUE=",
             "max_value": "EyF4yh4KBUE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "calculated_efflot_size.variance"
+          },
+          "schema_path": "calculated_efflot_size.variance"
         }
       ],
       "index_pages": [],
@@ -7756,8 +8092,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsite.min"
+          },
+          "schema_path": "missingsite.min"
         }
       ],
       "index_pages": [],
@@ -7802,8 +8140,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsite.max"
+          },
+          "schema_path": "missingsite.max"
         }
       ],
       "index_pages": [],
@@ -7848,8 +8188,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsite.mean"
+          },
+          "schema_path": "missingsite.mean"
         }
       ],
       "index_pages": [],
@@ -7894,8 +8236,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsite.count"
+          },
+          "schema_path": "missingsite.count"
         }
       ],
       "index_pages": [],
@@ -7940,8 +8284,10 @@
             "min_value": "0AAAAAAAAAA=",
             "max_value": "0AAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsite.sum"
+          },
+          "schema_path": "missingsite.sum"
         }
       ],
       "index_pages": [],
@@ -7986,8 +8332,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsite.variance"
+          },
+          "schema_path": "missingsite.variance"
         }
       ],
       "index_pages": [],
@@ -8032,8 +8380,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missinggla.min"
+          },
+          "schema_path": "missinggla.min"
         }
       ],
       "index_pages": [],
@@ -8078,8 +8428,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missinggla.max"
+          },
+          "schema_path": "missinggla.max"
         }
       ],
       "index_pages": [],
@@ -8124,8 +8476,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missinggla.mean"
+          },
+          "schema_path": "missinggla.mean"
         }
       ],
       "index_pages": [],
@@ -8170,8 +8524,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missinggla.count"
+          },
+          "schema_path": "missinggla.count"
         }
       ],
       "index_pages": [],
@@ -8216,8 +8572,10 @@
             "min_value": "LAAAAAAAAAA=",
             "max_value": "LAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missinggla.sum"
+          },
+          "schema_path": "missinggla.sum"
         }
       ],
       "index_pages": [],
@@ -8262,8 +8620,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missinggla.variance"
+          },
+          "schema_path": "missinggla.variance"
         }
       ],
       "index_pages": [],
@@ -8308,8 +8668,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsitegla.min"
+          },
+          "schema_path": "missingsitegla.min"
         }
       ],
       "index_pages": [],
@@ -8354,8 +8716,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsitegla.max"
+          },
+          "schema_path": "missingsitegla.max"
         }
       ],
       "index_pages": [],
@@ -8400,8 +8764,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsitegla.mean"
+          },
+          "schema_path": "missingsitegla.mean"
         }
       ],
       "index_pages": [],
@@ -8446,8 +8812,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsitegla.count"
+          },
+          "schema_path": "missingsitegla.count"
         }
       ],
       "index_pages": [],
@@ -8492,8 +8860,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsitegla.sum"
+          },
+          "schema_path": "missingsitegla.sum"
         }
       ],
       "index_pages": [],
@@ -8538,8 +8908,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "missingsitegla.variance"
+          },
+          "schema_path": "missingsitegla.variance"
         }
       ],
       "index_pages": [],
@@ -8584,8 +8956,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "actual_lot_size_sqft.min"
+          },
+          "schema_path": "actual_lot_size_sqft.min"
         }
       ],
       "index_pages": [],
@@ -8630,8 +9004,10 @@
             "min_value": "AAAAAADH_UA=",
             "max_value": "AAAAAADH_UA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "actual_lot_size_sqft.max"
+          },
+          "schema_path": "actual_lot_size_sqft.max"
         }
       ],
       "index_pages": [],
@@ -8676,8 +9052,10 @@
             "min_value": "egsthZz2wEA=",
             "max_value": "egsthZz2wEA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "actual_lot_size_sqft.mean"
+          },
+          "schema_path": "actual_lot_size_sqft.mean"
         }
       ],
       "index_pages": [],
@@ -8722,8 +9100,10 @@
             "min_value": "bgEAAAAAAAA=",
             "max_value": "bgEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "actual_lot_size_sqft.count"
+          },
+          "schema_path": "actual_lot_size_sqft.count"
         }
       ],
       "index_pages": [],
@@ -8768,8 +9148,10 @@
             "min_value": "aWZmxpNASEE=",
             "max_value": "aWZmxpNASEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "actual_lot_size_sqft.sum"
+          },
+          "schema_path": "actual_lot_size_sqft.sum"
         }
       ],
       "index_pages": [],
@@ -8814,8 +9196,10 @@
             "min_value": "biX3W2ICrUE=",
             "max_value": "biX3W2ICrUE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "actual_lot_size_sqft.variance"
+          },
+          "schema_path": "actual_lot_size_sqft.variance"
         }
       ],
       "index_pages": [],
@@ -8860,8 +9244,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "lotsize_sqft.min"
+          },
+          "schema_path": "lotsize_sqft.min"
         }
       ],
       "index_pages": [],
@@ -8906,8 +9292,10 @@
             "min_value": "AAAAAADH_UA=",
             "max_value": "AAAAAADH_UA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "lotsize_sqft.max"
+          },
+          "schema_path": "lotsize_sqft.max"
         }
       ],
       "index_pages": [],
@@ -8952,8 +9340,10 @@
             "min_value": "HriOUpZEwUA=",
             "max_value": "HriOUpZEwUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "lotsize_sqft.mean"
+          },
+          "schema_path": "lotsize_sqft.mean"
         }
       ],
       "index_pages": [],
@@ -8998,8 +9388,10 @@
             "min_value": "bAEAAAAAAAA=",
             "max_value": "bAEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "lotsize_sqft.count"
+          },
+          "schema_path": "lotsize_sqft.count"
         }
       ],
       "index_pages": [],
@@ -9044,8 +9436,10 @@
             "min_value": "yu1ivYWNSEE=",
             "max_value": "yu1ivYWNSEE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "lotsize_sqft.sum"
+          },
+          "schema_path": "lotsize_sqft.sum"
         }
       ],
       "index_pages": [],
@@ -9090,8 +9484,10 @@
             "min_value": "HBPWYH0nrUE=",
             "max_value": "HBPWYH0nrUE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "lotsize_sqft.variance"
+          },
+          "schema_path": "lotsize_sqft.variance"
         }
       ],
       "index_pages": [],
@@ -9136,8 +9532,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "count.min"
+          },
+          "schema_path": "count.min"
         }
       ],
       "index_pages": [],
@@ -9182,8 +9580,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "count.max"
+          },
+          "schema_path": "count.max"
         }
       ],
       "index_pages": [],
@@ -9228,8 +9628,10 @@
             "min_value": "AQAAAAAAAAA=",
             "max_value": "AQAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "count.mean"
+          },
+          "schema_path": "count.mean"
         }
       ],
       "index_pages": [],
@@ -9274,8 +9676,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "count.count"
+          },
+          "schema_path": "count.count"
         }
       ],
       "index_pages": [],
@@ -9320,8 +9724,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "count.sum"
+          },
+          "schema_path": "count.sum"
         }
       ],
       "index_pages": [],
@@ -9366,8 +9772,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "count.variance"
+          },
+          "schema_path": "count.variance"
         }
       ],
       "index_pages": [],
@@ -9412,8 +9820,10 @@
             "min_value": "AIgDVeevUxY=",
             "max_value": "AIgDVeevUxY=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_observation_date.min"
+          },
+          "schema_path": "ul_observation_date.min"
         }
       ],
       "index_pages": [],
@@ -9458,8 +9868,10 @@
             "min_value": "AIgDVeevUxY=",
             "max_value": "AIgDVeevUxY=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_observation_date.max"
+          },
+          "schema_path": "ul_observation_date.max"
         }
       ],
       "index_pages": [],
@@ -9504,8 +9916,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_observation_date.mean"
+          },
+          "schema_path": "ul_observation_date.mean"
         }
       ],
       "index_pages": [],
@@ -9550,8 +9964,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_observation_date.count"
+          },
+          "schema_path": "ul_observation_date.count"
         }
       ],
       "index_pages": [],
@@ -9596,8 +10012,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_observation_date.sum"
+          },
+          "schema_path": "ul_observation_date.sum"
         }
       ],
       "index_pages": [],
@@ -9642,8 +10060,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_observation_date.variance"
+          },
+          "schema_path": "ul_observation_date.variance"
         }
       ],
       "index_pages": [],
@@ -9688,8 +10108,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_tz_offset_minutes_ul_observation_date.min"
+          },
+          "schema_path": "ul_tz_offset_minutes_ul_observation_date.min"
         }
       ],
       "index_pages": [],
@@ -9734,8 +10156,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_tz_offset_minutes_ul_observation_date.max"
+          },
+          "schema_path": "ul_tz_offset_minutes_ul_observation_date.max"
         }
       ],
       "index_pages": [],
@@ -9780,8 +10204,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_tz_offset_minutes_ul_observation_date.mean"
+          },
+          "schema_path": "ul_tz_offset_minutes_ul_observation_date.mean"
         }
       ],
       "index_pages": [],
@@ -9826,8 +10252,10 @@
             "min_value": "7wEAAAAAAAA=",
             "max_value": "7wEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_tz_offset_minutes_ul_observation_date.count"
+          },
+          "schema_path": "ul_tz_offset_minutes_ul_observation_date.count"
         }
       ],
       "index_pages": [],
@@ -9872,8 +10300,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_tz_offset_minutes_ul_observation_date.sum"
+          },
+          "schema_path": "ul_tz_offset_minutes_ul_observation_date.sum"
         }
       ],
       "index_pages": [],
@@ -9918,8 +10348,10 @@
             "min_value": "AAAAAAAAAAA=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "ul_tz_offset_minutes_ul_observation_date.variance"
+          },
+          "schema_path": "ul_tz_offset_minutes_ul_observation_date.variance"
         }
       ],
       "index_pages": [],
@@ -14450,7 +14882,8 @@
                 "min_value": "mhZfciytAAA=",
                 "max_value": "mhZfciytAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "roll_num.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14491,7 +14924,8 @@
                 "min_value": "YF8HoCytAAA=",
                 "max_value": "YF8HoCytAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "roll_num.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14532,7 +14966,8 @@
                 "min_value": "L2QAgiytAAA=",
                 "max_value": "L2QAgiytAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "roll_num.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14573,7 +15008,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "roll_num.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14614,7 +15050,8 @@
                 "min_value": "ILfBXg_ZTgE=",
                 "max_value": "ILfBXg_ZTgE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "roll_num.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14655,7 +15092,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "roll_num.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14696,7 +15134,8 @@
                 "min_value": "cwAAAAAAAAA=",
                 "max_value": "cwAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "PC_CUR.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14737,7 +15176,8 @@
                 "min_value": "5gIAAAAAAAA=",
                 "max_value": "5gIAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "PC_CUR.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14778,7 +15218,8 @@
                 "min_value": "oAEAAAAAAAA=",
                 "max_value": "oAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "PC_CUR.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14819,7 +15260,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "PC_CUR.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14860,7 +15302,8 @@
                 "min_value": "cyUDAAAAAAA=",
                 "max_value": "cyUDAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "PC_CUR.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14901,7 +15344,8 @@
                 "min_value": "higAAAAAAAA=",
                 "max_value": "higAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "PC_CUR.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14942,7 +15386,8 @@
                 "min_value": "4QIAAAAAAAA=",
                 "max_value": "4QIAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2012.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -14983,7 +15428,8 @@
                 "min_value": "7ZPqAQAAAAA=",
                 "max_value": "7ZPqAQAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2012.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15024,7 +15470,8 @@
                 "min_value": "16MkAAAAAAA=",
                 "max_value": "16MkAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2012.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15065,7 +15512,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2012.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15106,7 +15554,8 @@
                 "min_value": "eM3YRgAAAAA=",
                 "max_value": "eM3YRgAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2012.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15147,7 +15596,8 @@
                 "min_value": "Rf9Ckc0LAAA=",
                 "max_value": "Rf9Ckc0LAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2012.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15188,7 +15638,8 @@
                 "min_value": "6AMAAAAAAAA=",
                 "max_value": "6AMAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2016.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15229,7 +15680,8 @@
                 "min_value": "eAgZAgAAAAA=",
                 "max_value": "eAgZAgAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2016.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15270,7 +15722,8 @@
                 "min_value": "XrU1AAAAAAA=",
                 "max_value": "XrU1AAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2016.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15311,7 +15764,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2016.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15352,7 +15806,8 @@
                 "min_value": "qbLZZwAAAAA=",
                 "max_value": "qbLZZwAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2016.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15393,7 +15848,8 @@
                 "min_value": "VEPEO1sWAAA=",
                 "max_value": "VEPEO1sWAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "CVA_2016.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15434,7 +15890,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_3.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15475,7 +15932,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_3.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15516,7 +15974,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_3.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15557,7 +16016,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_3.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15598,7 +16058,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_3.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15639,7 +16100,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_3.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15680,7 +16142,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_4.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15721,7 +16184,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_4.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15762,7 +16226,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_4.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15803,7 +16268,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_4.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15844,7 +16310,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_4.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15885,7 +16352,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "BIA_4.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15926,7 +16394,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_FRONTAGE.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -15967,7 +16436,8 @@
                 "min_value": "16NwPQqVhEA=",
                 "max_value": "16NwPQqVhEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_FRONTAGE.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16008,7 +16478,8 @@
                 "min_value": "INzBHdzhTEA=",
                 "max_value": "INzBHdzhTEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_FRONTAGE.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16049,7 +16520,8 @@
                 "min_value": "XwEAAAAAAAA=",
                 "max_value": "XwEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_FRONTAGE.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16090,7 +16562,8 @@
                 "min_value": "aGZmZtbM00A=",
                 "max_value": "aGZmZtbM00A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_FRONTAGE.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16131,7 +16604,8 @@
                 "min_value": "wxq2IICmuEA=",
                 "max_value": "wxq2IICmuEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_FRONTAGE.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16172,7 +16646,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_DEPTH.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16213,7 +16688,8 @@
                 "min_value": "w_UoXI-Cc0A=",
                 "max_value": "w_UoXI-Cc0A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_DEPTH.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16254,7 +16730,8 @@
                 "min_value": "TPR3slq0SEA=",
                 "max_value": "TPR3slq0SEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_DEPTH.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16295,7 +16772,8 @@
                 "min_value": "UAEAAAAAAAA=",
                 "max_value": "UAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_DEPTH.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16336,7 +16814,8 @@
                 "min_value": "UrgehVs20EA=",
                 "max_value": "UrgehVs20EA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_DEPTH.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16377,7 +16856,8 @@
                 "min_value": "LjDHda8dqUA=",
                 "max_value": "LjDHda8dqUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_DEPTH.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16418,7 +16898,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_LOT_SIZE.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16459,7 +16940,8 @@
                 "min_value": "AAAAAIAZ8kA=",
                 "max_value": "AAAAAIAZ8kA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_LOT_SIZE.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16500,7 +16982,8 @@
                 "min_value": "_ykuGSISuEA=",
                 "max_value": "_ykuGSISuEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_LOT_SIZE.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16541,7 +17024,8 @@
                 "min_value": "bgEAAAAAAAA=",
                 "max_value": "bgEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_LOT_SIZE.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16582,7 +17066,8 @@
                 "min_value": "BQAAYPY0QUE=",
                 "max_value": "BQAAYPY0QUE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_LOT_SIZE.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16623,7 +17108,8 @@
                 "min_value": "4Z9kRjzbmEE=",
                 "max_value": "4Z9kRjzbmEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ACTUAL_LOT_SIZE.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16664,7 +17150,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16705,7 +17192,8 @@
                 "min_value": "AAAAAGD4H0E=",
                 "max_value": "AAAAAGD4H0E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16746,7 +17234,8 @@
                 "min_value": "IgakYwkH00A=",
                 "max_value": "IgakYwkH00A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16787,7 +17276,8 @@
                 "min_value": "TgEAAAAAAAA=",
                 "max_value": "TgEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16828,7 +17318,8 @@
                 "min_value": "AAAAQC7TWEE=",
                 "max_value": "AAAAQC7TWEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16869,7 +17360,8 @@
                 "min_value": "sgBdF0OM6kE=",
                 "max_value": "sgBdF0OM6kE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16910,7 +17402,8 @@
                 "min_value": "AAAAAACIpEA=",
                 "max_value": "AAAAAACIpEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "SOURCE_GLA.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16951,7 +17444,8 @@
                 "min_value": "AAAAAIBqz0A=",
                 "max_value": "AAAAAIBqz0A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "SOURCE_GLA.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -16992,7 +17486,8 @@
                 "min_value": "zczMzMwqukA=",
                 "max_value": "zczMzMwqukA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "SOURCE_GLA.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17033,7 +17528,8 @@
                 "min_value": "CgAAAAAAAAA=",
                 "max_value": "CgAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "SOURCE_GLA.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17074,7 +17570,8 @@
                 "min_value": "AAAAAMBa8EA=",
                 "max_value": "AAAAAMBa8EA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "SOURCE_GLA.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17115,7 +17612,8 @@
                 "min_value": "Z2ZmxtU3e0E=",
                 "max_value": "Z2ZmxtU3e0E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "SOURCE_GLA.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17156,7 +17654,8 @@
                 "min_value": "AAAAAAAAckA=",
                 "max_value": "AAAAAAAAckA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "IPS_GLA.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17197,7 +17696,8 @@
                 "min_value": "AAAAAAAEn0A=",
                 "max_value": "AAAAAAAEn0A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "IPS_GLA.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17238,7 +17738,8 @@
                 "min_value": "AAAAAAAUlEA=",
                 "max_value": "AAAAAAAUlEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "IPS_GLA.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17279,7 +17780,8 @@
                 "min_value": "BAAAAAAAAAA=",
                 "max_value": "BAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "IPS_GLA.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17320,7 +17822,8 @@
                 "min_value": "AAAAAAAUtEA=",
                 "max_value": "AAAAAAAUtEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "IPS_GLA.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17361,7 +17864,8 @@
                 "min_value": "VVVVVc0eH0E=",
                 "max_value": "VVVVVc0eH0E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "IPS_GLA.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17402,7 +17906,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA_ALL.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17443,7 +17948,8 @@
                 "min_value": "AAAAAGD4H0E=",
                 "max_value": "AAAAAGD4H0E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA_ALL.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17484,7 +17990,8 @@
                 "min_value": "RL_ZOuR20kA=",
                 "max_value": "RL_ZOuR20kA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA_ALL.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17525,7 +18032,8 @@
                 "min_value": "XAEAAAAAAAA=",
                 "max_value": "XAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA_ALL.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17566,7 +18074,8 @@
                 "min_value": "AAAAQJ4ZWUE=",
                 "max_value": "AAAAQJ4ZWUE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA_ALL.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17607,7 +18116,8 @@
                 "min_value": "ZDgZ8ByL6UE=",
                 "max_value": "ZDgZ8ByL6UE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "GLA_ALL.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17648,7 +18158,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bia.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17689,7 +18200,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bia.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17730,7 +18242,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bia.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17771,7 +18284,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bia.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17812,7 +18326,8 @@
                 "min_value": "xAEAAAAAAAA=",
                 "max_value": "xAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bia.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17853,7 +18368,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bia.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17894,7 +18410,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_LOT_SIZE.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17935,7 +18452,8 @@
                 "min_value": "kcL1KLSd70A=",
                 "max_value": "kcL1KLSd70A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_LOT_SIZE.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -17976,7 +18494,8 @@
                 "min_value": "EUMVXwZXs0A=",
                 "max_value": "EUMVXwZXs0A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_LOT_SIZE.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18017,7 +18536,8 @@
                 "min_value": "YAEAAAAAAAA=",
                 "max_value": "YAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_LOT_SIZE.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18058,7 +18578,8 @@
                 "min_value": "ODy9wqiXOkE=",
                 "max_value": "ODy9wqiXOkE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_LOT_SIZE.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18099,7 +18620,8 @@
                 "min_value": "4_Tz38Vbk0E=",
                 "max_value": "4_Tz38Vbk0E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_LOT_SIZE.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18140,7 +18662,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_area.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18181,7 +18704,8 @@
                 "min_value": "Z2ZmZmZmBkA=",
                 "max_value": "Z2ZmZmZmBkA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_area.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18222,7 +18746,8 @@
                 "min_value": "yd9rT1w5wj8=",
                 "max_value": "yd9rT1w5wj8=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_area.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18263,7 +18788,8 @@
                 "min_value": "YAEAAAAAAAA=",
                 "max_value": "YAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_area.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18304,7 +18830,8 @@
                 "min_value": "tVM07d4OSUA=",
                 "max_value": "tVM07d4OSUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_area.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18345,7 +18872,8 @@
                 "min_value": "xLB2Qko-sz8=",
                 "max_value": "xLB2Qko-sz8=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_area.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18386,7 +18914,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_FRONTAGE.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18427,7 +18956,8 @@
                 "min_value": "AAAAAB4VJEE=",
                 "max_value": "AAAAAB4VJEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_FRONTAGE.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18468,7 +18998,8 @@
                 "min_value": "nBPCJTodn0A=",
                 "max_value": "nBPCJTodn0A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_FRONTAGE.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18509,7 +19040,8 @@
                 "min_value": "UwEAAAAAAAA=",
                 "max_value": "UwEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_FRONTAGE.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18550,7 +19082,8 @@
                 "min_value": "_P___9mZJEE=",
                 "max_value": "_P___9mZJEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_FRONTAGE.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18591,7 +19124,8 @@
                 "min_value": "7c8A30II00E=",
                 "max_value": "7c8A30II00E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_FRONTAGE.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18632,7 +19166,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_DEPTH.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18673,7 +19208,8 @@
                 "min_value": "MzMzMzPLckA=",
                 "max_value": "MzMzMzPLckA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_DEPTH.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18714,7 +19250,8 @@
                 "min_value": "WgferbZUUEA=",
                 "max_value": "WgferbZUUEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_DEPTH.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18755,7 +19292,8 @@
                 "min_value": "UQEAAAAAAAA=",
                 "max_value": "UQEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_DEPTH.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18796,7 +19334,8 @@
                 "min_value": "rUfheoR_1UA=",
                 "max_value": "rUfheoR_1UA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_DEPTH.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18837,7 +19376,8 @@
                 "min_value": "wCXuQZyBrkA=",
                 "max_value": "wCXuQZyBrkA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "EFFECTIVE_DEPTH.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18878,7 +19418,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "rw_area_tot.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18919,7 +19460,8 @@
                 "min_value": "AAAAAEC-0UA=",
                 "max_value": "AAAAAEC-0UA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "rw_area_tot.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -18960,7 +19502,8 @@
                 "min_value": "zgWm8k7gl0A=",
                 "max_value": "zgWm8k7gl0A=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "rw_area_tot.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19001,7 +19544,8 @@
                 "min_value": "uQEAAAAAAAA=",
                 "max_value": "uQEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "rw_area_tot.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19042,7 +19586,8 @@
                 "min_value": "AAAAALSQJEE=",
                 "max_value": "AAAAALSQJEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "rw_area_tot.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19083,7 +19628,8 @@
                 "min_value": "2KDDJ9taV0E=",
                 "max_value": "2KDDJ9taV0E=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "rw_area_tot.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19124,7 +19670,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_sqft.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19165,7 +19712,8 @@
                 "min_value": "AAAAAADH_UA=",
                 "max_value": "AAAAAADH_UA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_sqft.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19206,7 +19754,8 @@
                 "min_value": "7xZUhuA5uEA=",
                 "max_value": "7xZUhuA5uEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_sqft.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19247,7 +19796,8 @@
                 "min_value": "YAEAAAAAAAA=",
                 "max_value": "YAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_sqft.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19288,7 +19838,8 @@
                 "min_value": "xM9ZXMqnQEE=",
                 "max_value": "xM9ZXMqnQEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_sqft.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19329,7 +19880,8 @@
                 "min_value": "CfRKecUAoUE=",
                 "max_value": "CfRKecUAoUE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "effective_lot_sqft.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19370,7 +19922,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "dup.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19411,7 +19964,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "dup.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19452,7 +20006,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "dup.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19493,7 +20048,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "dup.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19534,7 +20090,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "dup.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19575,7 +20132,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "dup.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19616,7 +20174,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nonCTXT.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19657,7 +20216,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nonCTXT.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19698,7 +20258,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nonCTXT.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19739,7 +20300,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nonCTXT.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19780,7 +20342,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nonCTXT.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19821,7 +20384,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "nonCTXT.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19862,7 +20426,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "vacantland.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19903,7 +20468,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "vacantland.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19944,7 +20510,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "vacantland.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -19985,7 +20552,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "vacantland.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20026,7 +20594,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "vacantland.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20067,7 +20636,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "vacantland.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20108,7 +20678,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "parkingbillboard.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20149,7 +20720,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "parkingbillboard.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20190,7 +20762,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "parkingbillboard.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20231,7 +20804,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "parkingbillboard.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20272,7 +20846,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "parkingbillboard.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20313,7 +20888,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "parkingbillboard.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20354,7 +20930,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "cvalte10.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20395,7 +20972,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "cvalte10.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20436,7 +21014,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "cvalte10.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20477,7 +21056,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "cvalte10.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20518,7 +21098,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "cvalte10.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20559,7 +21140,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "cvalte10.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20600,7 +21182,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "condootherhotel.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20641,7 +21224,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "condootherhotel.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20682,7 +21266,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "condootherhotel.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20723,7 +21308,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "condootherhotel.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20764,7 +21350,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "condootherhotel.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20805,7 +21392,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "condootherhotel.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20846,7 +21434,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_lot_size.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20887,7 +21476,8 @@
                 "min_value": "AAAAAAAAWUA=",
                 "max_value": "AAAAAAAAWUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_lot_size.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20928,7 +21518,8 @@
                 "min_value": "t-aHRcrA8z8=",
                 "max_value": "t-aHRcrA8z8=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_lot_size.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -20969,7 +21560,8 @@
                 "min_value": "UQAAAAAAAAA=",
                 "max_value": "UQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_lot_size.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21010,7 +21602,8 @@
                 "min_value": "AAAAAAAAWUA=",
                 "max_value": "AAAAAAAAWUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_lot_size.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21051,7 +21644,8 @@
                 "min_value": "glikDDzdXkA=",
                 "max_value": "glikDDzdXkA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_lot_size.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21092,7 +21686,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_efflot_size.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21133,7 +21728,8 @@
                 "min_value": "3yQGgRVMsEA=",
                 "max_value": "3yQGgRVMsEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_efflot_size.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21174,7 +21770,8 @@
                 "min_value": "cxpoUiAmRUA=",
                 "max_value": "cxpoUiAmRUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_efflot_size.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21215,7 +21812,8 @@
                 "min_value": "ZQAAAAAAAAA=",
                 "max_value": "ZQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_efflot_size.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21256,7 +21854,8 @@
                 "min_value": "3yQGgRWwsEA=",
                 "max_value": "3yQGgRWwsEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_efflot_size.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21297,7 +21896,8 @@
                 "min_value": "EyF4yh4KBUE=",
                 "max_value": "EyF4yh4KBUE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "calculated_efflot_size.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21338,7 +21938,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsite.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21379,7 +21980,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsite.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21420,7 +22022,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsite.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21461,7 +22064,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsite.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21502,7 +22106,8 @@
                 "min_value": "0AAAAAAAAAA=",
                 "max_value": "0AAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsite.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21543,7 +22148,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsite.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21584,7 +22190,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missinggla.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21625,7 +22232,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missinggla.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21666,7 +22274,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missinggla.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21707,7 +22316,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missinggla.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21748,7 +22358,8 @@
                 "min_value": "LAAAAAAAAAA=",
                 "max_value": "LAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missinggla.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21789,7 +22400,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missinggla.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21830,7 +22442,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsitegla.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21871,7 +22484,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsitegla.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21912,7 +22526,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsitegla.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21953,7 +22568,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsitegla.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -21994,7 +22610,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsitegla.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22035,7 +22652,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "missingsitegla.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22076,7 +22694,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "actual_lot_size_sqft.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22117,7 +22736,8 @@
                 "min_value": "AAAAAADH_UA=",
                 "max_value": "AAAAAADH_UA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "actual_lot_size_sqft.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22158,7 +22778,8 @@
                 "min_value": "egsthZz2wEA=",
                 "max_value": "egsthZz2wEA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "actual_lot_size_sqft.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22199,7 +22820,8 @@
                 "min_value": "bgEAAAAAAAA=",
                 "max_value": "bgEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "actual_lot_size_sqft.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22240,7 +22862,8 @@
                 "min_value": "aWZmxpNASEE=",
                 "max_value": "aWZmxpNASEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "actual_lot_size_sqft.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22281,7 +22904,8 @@
                 "min_value": "biX3W2ICrUE=",
                 "max_value": "biX3W2ICrUE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "actual_lot_size_sqft.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22322,7 +22946,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "lotsize_sqft.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22363,7 +22988,8 @@
                 "min_value": "AAAAAADH_UA=",
                 "max_value": "AAAAAADH_UA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "lotsize_sqft.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22404,7 +23030,8 @@
                 "min_value": "HriOUpZEwUA=",
                 "max_value": "HriOUpZEwUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "lotsize_sqft.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22445,7 +23072,8 @@
                 "min_value": "bAEAAAAAAAA=",
                 "max_value": "bAEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "lotsize_sqft.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22486,7 +23114,8 @@
                 "min_value": "yu1ivYWNSEE=",
                 "max_value": "yu1ivYWNSEE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "lotsize_sqft.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22527,7 +23156,8 @@
                 "min_value": "HBPWYH0nrUE=",
                 "max_value": "HBPWYH0nrUE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "lotsize_sqft.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22568,7 +23198,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "count.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22609,7 +23240,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "count.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22650,7 +23282,8 @@
                 "min_value": "AQAAAAAAAAA=",
                 "max_value": "AQAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "count.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22691,7 +23324,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "count.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22732,7 +23366,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "count.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22773,7 +23408,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "count.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22814,7 +23450,8 @@
                 "min_value": "AIgDVeevUxY=",
                 "max_value": "AIgDVeevUxY=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_observation_date.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22855,7 +23492,8 @@
                 "min_value": "AIgDVeevUxY=",
                 "max_value": "AIgDVeevUxY=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_observation_date.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22896,7 +23534,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_observation_date.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22937,7 +23576,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_observation_date.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -22978,7 +23618,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_observation_date.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23019,7 +23660,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_observation_date.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23060,7 +23702,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_tz_offset_minutes_ul_observation_date.min"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23101,7 +23744,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_tz_offset_minutes_ul_observation_date.max"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23142,7 +23786,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_tz_offset_minutes_ul_observation_date.mean"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23183,7 +23828,8 @@
                 "min_value": "7wEAAAAAAAA=",
                 "max_value": "7wEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_tz_offset_minutes_ul_observation_date.count"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23224,7 +23870,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_tz_offset_minutes_ul_observation_date.sum"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,
@@ -23265,7 +23912,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "ul_tz_offset_minutes_ul_observation_date.variance"
               },
               "encoding_stats": null,
               "bloom_filter_offset": null,

@@ -20,7 +20,8 @@
           "encoding": 2,
           "definition_level_encoding": 4,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "long_field"
         }
       ],
       "index_pages": [],
@@ -52,7 +53,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "long_field"
       },
       "offset_index": {
         "start_offset": 262,
@@ -86,7 +88,8 @@
           "encoding": 2,
           "definition_level_encoding": 4,
           "repetition_level_encoding": 4,
-          "statistics": null
+          "statistics": null,
+          "schema_path": "binary_field"
         }
       ],
       "index_pages": [],
@@ -118,7 +121,8 @@
           0
         ],
         "repetition_level_histograms": null,
-        "definition_level_histograms": null
+        "definition_level_histograms": null,
+        "schema_path": "binary_field"
       },
       "offset_index": {
         "start_offset": 272,
@@ -217,7 +221,8 @@
                 "min_value": "AAAAAAAAAAA=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "long_field"
               },
               "encoding_stats": [
                 {
@@ -268,7 +273,8 @@
                 "min_value": "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy",
                 "max_value": "YTY1NWZkMGUtOTk0OS00MDU5LWJjYWUtZmQ2YTAwMmE0NjUy",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "binary_field"
               },
               "encoding_stats": [
                 {

@@ -31,8 +31,10 @@
             "min_value": "dEt0MeI6d1g=",
             "max_value": "dEt0MeI6d1g=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth0"
+          },
+          "schema_path": "bitwidth0"
         }
       ],
       "index_pages": [],
@@ -70,8 +72,10 @@
             "min_value": "mP________8=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth1"
+          },
+          "schema_path": "bitwidth1"
         }
       ],
       "index_pages": [],
@@ -109,8 +113,10 @@
             "min_value": "rv________8=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth2"
+          },
+          "schema_path": "bitwidth2"
         }
       ],
       "index_pages": [],
@@ -148,8 +154,10 @@
             "min_value": "oP________8=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth3"
+          },
+          "schema_path": "bitwidth3"
         }
       ],
       "index_pages": [],
@@ -187,8 +195,10 @@
             "min_value": "fP________8=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth4"
+          },
+          "schema_path": "bitwidth4"
         }
       ],
       "index_pages": [],
@@ -226,8 +236,10 @@
             "min_value": "3v7_______8=",
             "max_value": "GAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth5"
+          },
+          "schema_path": "bitwidth5"
         }
       ],
       "index_pages": [],
@@ -265,8 +277,10 @@
             "min_value": "o_________8=",
             "max_value": "AwEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth6"
+          },
+          "schema_path": "bitwidth6"
         }
       ],
       "index_pages": [],
@@ -304,8 +318,10 @@
             "min_value": "wP________8=",
             "max_value": "3AEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth7"
+          },
+          "schema_path": "bitwidth7"
         }
       ],
       "index_pages": [],
@@ -343,8 +359,10 @@
             "min_value": "JP3_______8=",
             "max_value": "gwEAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth8"
+          },
+          "schema_path": "bitwidth8"
         }
       ],
       "index_pages": [],
@@ -382,8 +400,10 @@
             "min_value": "3Pn_______8=",
             "max_value": "wgAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth9"
+          },
+          "schema_path": "bitwidth9"
         }
       ],
       "index_pages": [],
@@ -421,8 +441,10 @@
             "min_value": "z_b_______8=",
             "max_value": "2BQAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth10"
+          },
+          "schema_path": "bitwidth10"
         }
       ],
       "index_pages": [],
@@ -460,8 +482,10 @@
             "min_value": "pOD_______8=",
             "max_value": "hTQAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth11"
+          },
+          "schema_path": "bitwidth11"
         }
       ],
       "index_pages": [],
@@ -499,8 +523,10 @@
             "min_value": "PXX_______8=",
             "max_value": "4QcAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth12"
+          },
+          "schema_path": "bitwidth12"
         }
       ],
       "index_pages": [],
@@ -538,8 +564,10 @@
             "min_value": "APD_______8=",
             "max_value": "Cb4AAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth13"
+          },
+          "schema_path": "bitwidth13"
         }
       ],
       "index_pages": [],
@@ -577,8 +605,10 @@
             "min_value": "zN________8=",
             "max_value": "rQABAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth14"
+          },
+          "schema_path": "bitwidth14"
         }
       ],
       "index_pages": [],
@@ -616,8 +646,10 @@
             "min_value": "Ml_-______8=",
             "max_value": "mhABAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth15"
+          },
+          "schema_path": "bitwidth15"
         }
       ],
       "index_pages": [],
@@ -655,8 +687,10 @@
             "min_value": "fLT6______8=",
             "max_value": "h3wCAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth16"
+          },
+          "schema_path": "bitwidth16"
         }
       ],
       "index_pages": [],
@@ -694,8 +728,10 @@
             "min_value": "burv______8=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth17"
+          },
+          "schema_path": "bitwidth17"
         }
       ],
       "index_pages": [],
@@ -733,8 +769,10 @@
             "min_value": "x0_6______8=",
             "max_value": "PCMKAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth18"
+          },
+          "schema_path": "bitwidth18"
         }
       ],
       "index_pages": [],
@@ -772,8 +810,10 @@
             "min_value": "qdr5______8=",
             "max_value": "mw09AAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth19"
+          },
+          "schema_path": "bitwidth19"
         }
       ],
       "index_pages": [],
@@ -811,8 +851,10 @@
             "min_value": "n1S8______8=",
             "max_value": "RwYMAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth20"
+          },
+          "schema_path": "bitwidth20"
         }
       ],
       "index_pages": [],
@@ -850,8 +892,10 @@
             "min_value": "Jqzv______8=",
             "max_value": "gg6-AAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth21"
+          },
+          "schema_path": "bitwidth21"
         }
       ],
       "index_pages": [],
@@ -889,8 +933,10 @@
             "min_value": "DYft_v____8=",
             "max_value": "T2chAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth22"
+          },
+          "schema_path": "bitwidth22"
         }
       ],
       "index_pages": [],
@@ -928,8 +974,10 @@
             "min_value": "lI_Y_v____8=",
             "max_value": "9zqMAQAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth23"
+          },
+          "schema_path": "bitwidth23"
         }
       ],
       "index_pages": [],
@@ -967,8 +1015,10 @@
             "min_value": "WXb4_v____8=",
             "max_value": "gBW0BQAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth24"
+          },
+          "schema_path": "bitwidth24"
         }
       ],
       "index_pages": [],
@@ -1006,8 +1056,10 @@
             "min_value": "8b7h_v____8=",
             "max_value": "awQWCgAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth25"
+          },
+          "schema_path": "bitwidth25"
         }
       ],
       "index_pages": [],
@@ -1045,8 +1097,10 @@
             "min_value": "E-bw9f____8=",
             "max_value": "Rb7ACQAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth26"
+          },
+          "schema_path": "bitwidth26"
         }
       ],
       "index_pages": [],
@@ -1084,8 +1138,10 @@
             "min_value": "H0kT1P____8=",
             "max_value": "Wh3aBwAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth27"
+          },
+          "schema_path": "bitwidth27"
         }
       ],
       "index_pages": [],
@@ -1123,8 +1179,10 @@
             "min_value": "SEnA4v____8=",
             "max_value": "4aFzNgAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth28"
+          },
+          "schema_path": "bitwidth28"
         }
       ],
       "index_pages": [],
@@ -1162,8 +1220,10 @@
             "min_value": "ssg5pP7___8=",
             "max_value": "iwzSHQAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth29"
+          },
+          "schema_path": "bitwidth29"
         }
       ],
       "index_pages": [],
@@ -1201,8 +1261,10 @@
             "min_value": "20NWM_7___8=",
             "max_value": "jsDAIQAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth30"
+          },
+          "schema_path": "bitwidth30"
         }
       ],
       "index_pages": [],
@@ -1240,8 +1302,10 @@
             "min_value": "kwAaa_____8=",
             "max_value": "rUl2YgQAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth31"
+          },
+          "schema_path": "bitwidth31"
         }
       ],
       "index_pages": [],
@@ -1279,8 +1343,10 @@
             "min_value": "AAAAgP____8=",
             "max_value": "mm7ghQUAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth32"
+          },
+          "schema_path": "bitwidth32"
         }
       ],
       "index_pages": [],
@@ -1318,8 +1384,10 @@
             "min_value": "HyrT4P7___8=",
             "max_value": "beQCmwUAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth33"
+          },
+          "schema_path": "bitwidth33"
         }
       ],
       "index_pages": [],
@@ -1357,8 +1425,10 @@
             "min_value": "_qYlrNv___8=",
             "max_value": "CfhQ0gIAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth34"
+          },
+          "schema_path": "bitwidth34"
         }
       ],
       "index_pages": [],
@@ -1396,8 +1466,10 @@
             "min_value": "3MxcTOX___8=",
             "max_value": "jp1osAkAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth35"
+          },
+          "schema_path": "bitwidth35"
         }
       ],
       "index_pages": [],
@@ -1435,8 +1507,10 @@
             "min_value": "kdbRJcf___8=",
             "max_value": "vWZ8NBMAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth36"
+          },
+          "schema_path": "bitwidth36"
         }
       ],
       "index_pages": [],
@@ -1474,8 +1548,10 @@
             "min_value": "kV9c7b____8=",
             "max_value": "F5GnKFQAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth37"
+          },
+          "schema_path": "bitwidth37"
         }
       ],
       "index_pages": [],
@@ -1513,8 +1589,10 @@
             "min_value": "Gn0SG57___8=",
             "max_value": "-n5Iu4MBAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth38"
+          },
+          "schema_path": "bitwidth38"
         }
       ],
       "index_pages": [],
@@ -1552,8 +1630,10 @@
             "min_value": "cZ4vsFb9__8=",
             "max_value": "1raWtxkAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth39"
+          },
+          "schema_path": "bitwidth39"
         }
       ],
       "index_pages": [],
@@ -1591,8 +1671,10 @@
             "min_value": "dvD0cnb7__8=",
             "max_value": "Dm6st-wCAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth40"
+          },
+          "schema_path": "bitwidth40"
         }
       ],
       "index_pages": [],
@@ -1630,8 +1712,10 @@
             "min_value": "wLUdTBn6__8=",
             "max_value": "_sTSVPgBAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth41"
+          },
+          "schema_path": "bitwidth41"
         }
       ],
       "index_pages": [],
@@ -1669,8 +1753,10 @@
             "min_value": "x652Zw34__8=",
             "max_value": "XJlDxEIJAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth42"
+          },
+          "schema_path": "bitwidth42"
         }
       ],
       "index_pages": [],
@@ -1708,8 +1794,10 @@
             "min_value": "iejIlbTs__8=",
             "max_value": "S0ibH9YUAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth43"
+          },
+          "schema_path": "bitwidth43"
         }
       ],
       "index_pages": [],
@@ -1747,8 +1835,10 @@
             "min_value": "Mbrg-Bb3__8=",
             "max_value": "tTGOssE9AAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth44"
+          },
+          "schema_path": "bitwidth44"
         }
       ],
       "index_pages": [],
@@ -1786,8 +1876,10 @@
             "min_value": "9zGnAM2i__8=",
             "max_value": "e0R1XXC1AAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth45"
+          },
+          "schema_path": "bitwidth45"
         }
       ],
       "index_pages": [],
@@ -1825,8 +1917,10 @@
             "min_value": "lgr9odu4_v8=",
             "max_value": "iGmEfuIQAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth46"
+          },
+          "schema_path": "bitwidth46"
         }
       ],
       "index_pages": [],
@@ -1864,8 +1958,10 @@
             "min_value": "Q6JuM4mu_P8=",
             "max_value": "3DygR687AAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth47"
+          },
+          "schema_path": "bitwidth47"
         }
       ],
       "index_pages": [],
@@ -1903,8 +1999,10 @@
             "min_value": "M4cUFHLh_P8=",
             "max_value": "LKE9D31-AwA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth48"
+          },
+          "schema_path": "bitwidth48"
         }
       ],
       "index_pages": [],
@@ -1942,8 +2040,10 @@
             "min_value": "NcYE1hiS-P8=",
             "max_value": "0MLVKT53AwA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth49"
+          },
+          "schema_path": "bitwidth49"
         }
       ],
       "index_pages": [],
@@ -1981,8 +2081,10 @@
             "min_value": "67bdKb-Z6_8=",
             "max_value": "cOHMKtCIBAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth50"
+          },
+          "schema_path": "bitwidth50"
         }
       ],
       "index_pages": [],
@@ -2020,8 +2122,10 @@
             "min_value": "pvIFzngrx_8=",
             "max_value": "AAAAAAAAAAA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth51"
+          },
+          "schema_path": "bitwidth51"
         }
       ],
       "index_pages": [],
@@ -2059,8 +2163,10 @@
             "min_value": "psJNyGyn4P8=",
             "max_value": "7CTyulkcLQA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth52"
+          },
+          "schema_path": "bitwidth52"
         }
       ],
       "index_pages": [],
@@ -2098,8 +2204,10 @@
             "min_value": "L1Oh4ofkp_8=",
             "max_value": "vvBlNrkAEQA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth53"
+          },
+          "schema_path": "bitwidth53"
         }
       ],
       "index_pages": [],
@@ -2137,8 +2245,10 @@
             "min_value": "2ZJglbK-r_4=",
             "max_value": "QoaryRoXXQA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth54"
+          },
+          "schema_path": "bitwidth54"
         }
       ],
       "index_pages": [],
@@ -2176,8 +2286,10 @@
             "min_value": "DFxIZ62cjf8=",
             "max_value": "md8GrD3y-AQ=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth55"
+          },
+          "schema_path": "bitwidth55"
         }
       ],
       "index_pages": [],
@@ -2215,8 +2327,10 @@
             "min_value": "AAAAAAAAgP8=",
             "max_value": "yIjiSvWMawk=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth56"
+          },
+          "schema_path": "bitwidth56"
         }
       ],
       "index_pages": [],
@@ -2254,8 +2368,10 @@
             "min_value": "7v8rC6N15v4=",
             "max_value": "eFdTyq96DRQ=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth57"
+          },
+          "schema_path": "bitwidth57"
         }
       ],
       "index_pages": [],
@@ -2293,8 +2409,10 @@
             "min_value": "OR8TCJToSOs=",
             "max_value": "ji9tK08J9AE=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth58"
+          },
+          "schema_path": "bitwidth58"
         }
       ],
       "index_pages": [],
@@ -2332,8 +2450,10 @@
             "min_value": "Id7Pl91WkMs=",
             "max_value": "jgJtDoRyFgA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth59"
+          },
+          "schema_path": "bitwidth59"
         }
       ],
       "index_pages": [],
@@ -2371,8 +2491,10 @@
             "min_value": "AAAAAAAAAPg=",
             "max_value": "mSEvgGiwej8=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth60"
+          },
+          "schema_path": "bitwidth60"
         }
       ],
       "index_pages": [],
@@ -2410,8 +2532,10 @@
             "min_value": "lsEfj5MD9-8=",
             "max_value": "QAxGOxBxLHo=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth61"
+          },
+          "schema_path": "bitwidth61"
         }
       ],
       "index_pages": [],
@@ -2449,8 +2573,10 @@
             "min_value": "Ot2HSNcSMMI=",
             "max_value": "jRQl5q48RX0=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth62"
+          },
+          "schema_path": "bitwidth62"
         }
       ],
       "index_pages": [],
@@ -2488,8 +2614,10 @@
             "min_value": "Gi1bTZKKC4A=",
             "max_value": "2KvV8yaA-34=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth63"
+          },
+          "schema_path": "bitwidth63"
         }
       ],
       "index_pages": [],
@@ -2527,8 +2655,10 @@
             "min_value": "AAAAAAAAAIA=",
             "max_value": "AMw7qeG2w3o=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "bitwidth64"
+          },
+          "schema_path": "bitwidth64"
         }
       ],
       "index_pages": [],
@@ -2566,8 +2696,10 @@
             "min_value": "fM4ZhA==",
             "max_value": "erS4fw==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "int_value"
+          },
+          "schema_path": "int_value"
         }
       ],
       "index_pages": [],
@@ -3810,7 +3942,8 @@
                 "min_value": "dEt0MeI6d1g=",
                 "max_value": "dEt0MeI6d1g=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth0"
               },
               "encoding_stats": [
                 {
@@ -3855,7 +3988,8 @@
                 "min_value": "mP________8=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth1"
               },
               "encoding_stats": [
                 {
@@ -3900,7 +4034,8 @@
                 "min_value": "rv________8=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth2"
               },
               "encoding_stats": [
                 {
@@ -3945,7 +4080,8 @@
                 "min_value": "oP________8=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth3"
               },
               "encoding_stats": [
                 {
@@ -3990,7 +4126,8 @@
                 "min_value": "fP________8=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth4"
               },
               "encoding_stats": [
                 {
@@ -4035,7 +4172,8 @@
                 "min_value": "3v7_______8=",
                 "max_value": "GAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth5"
               },
               "encoding_stats": [
                 {
@@ -4080,7 +4218,8 @@
                 "min_value": "o_________8=",
                 "max_value": "AwEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth6"
               },
               "encoding_stats": [
                 {
@@ -4125,7 +4264,8 @@
                 "min_value": "wP________8=",
                 "max_value": "3AEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth7"
               },
               "encoding_stats": [
                 {
@@ -4170,7 +4310,8 @@
                 "min_value": "JP3_______8=",
                 "max_value": "gwEAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth8"
               },
               "encoding_stats": [
                 {
@@ -4215,7 +4356,8 @@
                 "min_value": "3Pn_______8=",
                 "max_value": "wgAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth9"
               },
               "encoding_stats": [
                 {
@@ -4260,7 +4402,8 @@
                 "min_value": "z_b_______8=",
                 "max_value": "2BQAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth10"
               },
               "encoding_stats": [
                 {
@@ -4305,7 +4448,8 @@
                 "min_value": "pOD_______8=",
                 "max_value": "hTQAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth11"
               },
               "encoding_stats": [
                 {
@@ -4350,7 +4494,8 @@
                 "min_value": "PXX_______8=",
                 "max_value": "4QcAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth12"
               },
               "encoding_stats": [
                 {
@@ -4395,7 +4540,8 @@
                 "min_value": "APD_______8=",
                 "max_value": "Cb4AAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth13"
               },
               "encoding_stats": [
                 {
@@ -4440,7 +4586,8 @@
                 "min_value": "zN________8=",
                 "max_value": "rQABAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth14"
               },
               "encoding_stats": [
                 {
@@ -4485,7 +4632,8 @@
                 "min_value": "Ml_-______8=",
                 "max_value": "mhABAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth15"
               },
               "encoding_stats": [
                 {
@@ -4530,7 +4678,8 @@
                 "min_value": "fLT6______8=",
                 "max_value": "h3wCAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth16"
               },
               "encoding_stats": [
                 {
@@ -4575,7 +4724,8 @@
                 "min_value": "burv______8=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth17"
               },
               "encoding_stats": [
                 {
@@ -4620,7 +4770,8 @@
                 "min_value": "x0_6______8=",
                 "max_value": "PCMKAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth18"
               },
               "encoding_stats": [
                 {
@@ -4665,7 +4816,8 @@
                 "min_value": "qdr5______8=",
                 "max_value": "mw09AAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth19"
               },
               "encoding_stats": [
                 {
@@ -4710,7 +4862,8 @@
                 "min_value": "n1S8______8=",
                 "max_value": "RwYMAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth20"
               },
               "encoding_stats": [
                 {
@@ -4755,7 +4908,8 @@
                 "min_value": "Jqzv______8=",
                 "max_value": "gg6-AAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth21"
               },
               "encoding_stats": [
                 {
@@ -4800,7 +4954,8 @@
                 "min_value": "DYft_v____8=",
                 "max_value": "T2chAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth22"
               },
               "encoding_stats": [
                 {
@@ -4845,7 +5000,8 @@
                 "min_value": "lI_Y_v____8=",
                 "max_value": "9zqMAQAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth23"
               },
               "encoding_stats": [
                 {
@@ -4890,7 +5046,8 @@
                 "min_value": "WXb4_v____8=",
                 "max_value": "gBW0BQAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth24"
               },
               "encoding_stats": [
                 {
@@ -4935,7 +5092,8 @@
                 "min_value": "8b7h_v____8=",
                 "max_value": "awQWCgAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth25"
               },
               "encoding_stats": [
                 {
@@ -4980,7 +5138,8 @@
                 "min_value": "E-bw9f____8=",
                 "max_value": "Rb7ACQAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth26"
               },
               "encoding_stats": [
                 {
@@ -5025,7 +5184,8 @@
                 "min_value": "H0kT1P____8=",
                 "max_value": "Wh3aBwAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth27"
               },
               "encoding_stats": [
                 {
@@ -5070,7 +5230,8 @@
                 "min_value": "SEnA4v____8=",
                 "max_value": "4aFzNgAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth28"
               },
               "encoding_stats": [
                 {
@@ -5115,7 +5276,8 @@
                 "min_value": "ssg5pP7___8=",
                 "max_value": "iwzSHQAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth29"
               },
               "encoding_stats": [
                 {
@@ -5160,7 +5322,8 @@
                 "min_value": "20NWM_7___8=",
                 "max_value": "jsDAIQAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth30"
               },
               "encoding_stats": [
                 {
@@ -5205,7 +5368,8 @@
                 "min_value": "kwAaa_____8=",
                 "max_value": "rUl2YgQAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth31"
               },
               "encoding_stats": [
                 {
@@ -5250,7 +5414,8 @@
                 "min_value": "AAAAgP____8=",
                 "max_value": "mm7ghQUAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth32"
               },
               "encoding_stats": [
                 {
@@ -5295,7 +5460,8 @@
                 "min_value": "HyrT4P7___8=",
                 "max_value": "beQCmwUAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth33"
               },
               "encoding_stats": [
                 {
@@ -5340,7 +5506,8 @@
                 "min_value": "_qYlrNv___8=",
                 "max_value": "CfhQ0gIAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth34"
               },
               "encoding_stats": [
                 {
@@ -5385,7 +5552,8 @@
                 "min_value": "3MxcTOX___8=",
                 "max_value": "jp1osAkAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth35"
               },
               "encoding_stats": [
                 {
@@ -5430,7 +5598,8 @@
                 "min_value": "kdbRJcf___8=",
                 "max_value": "vWZ8NBMAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth36"
               },
               "encoding_stats": [
                 {
@@ -5475,7 +5644,8 @@
                 "min_value": "kV9c7b____8=",
                 "max_value": "F5GnKFQAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth37"
               },
               "encoding_stats": [
                 {
@@ -5520,7 +5690,8 @@
                 "min_value": "Gn0SG57___8=",
                 "max_value": "-n5Iu4MBAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth38"
               },
               "encoding_stats": [
                 {
@@ -5565,7 +5736,8 @@
                 "min_value": "cZ4vsFb9__8=",
                 "max_value": "1raWtxkAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth39"
               },
               "encoding_stats": [
                 {
@@ -5610,7 +5782,8 @@
                 "min_value": "dvD0cnb7__8=",
                 "max_value": "Dm6st-wCAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth40"
               },
               "encoding_stats": [
                 {
@@ -5655,7 +5828,8 @@
                 "min_value": "wLUdTBn6__8=",
                 "max_value": "_sTSVPgBAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth41"
               },
               "encoding_stats": [
                 {
@@ -5700,7 +5874,8 @@
                 "min_value": "x652Zw34__8=",
                 "max_value": "XJlDxEIJAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth42"
               },
               "encoding_stats": [
                 {
@@ -5745,7 +5920,8 @@
                 "min_value": "iejIlbTs__8=",
                 "max_value": "S0ibH9YUAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth43"
               },
               "encoding_stats": [
                 {
@@ -5790,7 +5966,8 @@
                 "min_value": "Mbrg-Bb3__8=",
                 "max_value": "tTGOssE9AAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth44"
               },
               "encoding_stats": [
                 {
@@ -5835,7 +6012,8 @@
                 "min_value": "9zGnAM2i__8=",
                 "max_value": "e0R1XXC1AAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth45"
               },
               "encoding_stats": [
                 {
@@ -5880,7 +6058,8 @@
                 "min_value": "lgr9odu4_v8=",
                 "max_value": "iGmEfuIQAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth46"
               },
               "encoding_stats": [
                 {
@@ -5925,7 +6104,8 @@
                 "min_value": "Q6JuM4mu_P8=",
                 "max_value": "3DygR687AAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth47"
               },
               "encoding_stats": [
                 {
@@ -5970,7 +6150,8 @@
                 "min_value": "M4cUFHLh_P8=",
                 "max_value": "LKE9D31-AwA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth48"
               },
               "encoding_stats": [
                 {
@@ -6015,7 +6196,8 @@
                 "min_value": "NcYE1hiS-P8=",
                 "max_value": "0MLVKT53AwA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth49"
               },
               "encoding_stats": [
                 {
@@ -6060,7 +6242,8 @@
                 "min_value": "67bdKb-Z6_8=",
                 "max_value": "cOHMKtCIBAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth50"
               },
               "encoding_stats": [
                 {
@@ -6105,7 +6288,8 @@
                 "min_value": "pvIFzngrx_8=",
                 "max_value": "AAAAAAAAAAA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth51"
               },
               "encoding_stats": [
                 {
@@ -6150,7 +6334,8 @@
                 "min_value": "psJNyGyn4P8=",
                 "max_value": "7CTyulkcLQA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth52"
               },
               "encoding_stats": [
                 {
@@ -6195,7 +6380,8 @@
                 "min_value": "L1Oh4ofkp_8=",
                 "max_value": "vvBlNrkAEQA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth53"
               },
               "encoding_stats": [
                 {
@@ -6240,7 +6426,8 @@
                 "min_value": "2ZJglbK-r_4=",
                 "max_value": "QoaryRoXXQA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth54"
               },
               "encoding_stats": [
                 {
@@ -6285,7 +6472,8 @@
                 "min_value": "DFxIZ62cjf8=",
                 "max_value": "md8GrD3y-AQ=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth55"
               },
               "encoding_stats": [
                 {
@@ -6330,7 +6518,8 @@
                 "min_value": "AAAAAAAAgP8=",
                 "max_value": "yIjiSvWMawk=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth56"
               },
               "encoding_stats": [
                 {
@@ -6375,7 +6564,8 @@
                 "min_value": "7v8rC6N15v4=",
                 "max_value": "eFdTyq96DRQ=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth57"
               },
               "encoding_stats": [
                 {
@@ -6420,7 +6610,8 @@
                 "min_value": "OR8TCJToSOs=",
                 "max_value": "ji9tK08J9AE=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth58"
               },
               "encoding_stats": [
                 {
@@ -6465,7 +6656,8 @@
                 "min_value": "Id7Pl91WkMs=",
                 "max_value": "jgJtDoRyFgA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth59"
               },
               "encoding_stats": [
                 {
@@ -6510,7 +6702,8 @@
                 "min_value": "AAAAAAAAAPg=",
                 "max_value": "mSEvgGiwej8=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth60"
               },
               "encoding_stats": [
                 {
@@ -6555,7 +6748,8 @@
                 "min_value": "lsEfj5MD9-8=",
                 "max_value": "QAxGOxBxLHo=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth61"
               },
               "encoding_stats": [
                 {
@@ -6600,7 +6794,8 @@
                 "min_value": "Ot2HSNcSMMI=",
                 "max_value": "jRQl5q48RX0=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth62"
               },
               "encoding_stats": [
                 {
@@ -6645,7 +6840,8 @@
                 "min_value": "Gi1bTZKKC4A=",
                 "max_value": "2KvV8yaA-34=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth63"
               },
               "encoding_stats": [
                 {
@@ -6690,7 +6886,8 @@
                 "min_value": "AAAAAAAAAIA=",
                 "max_value": "AMw7qeG2w3o=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "bitwidth64"
               },
               "encoding_stats": [
                 {
@@ -6735,7 +6932,8 @@
                 "min_value": "fM4ZhA==",
                 "max_value": "erS4fw==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "int_value"
               },
               "encoding_stats": [
                 {

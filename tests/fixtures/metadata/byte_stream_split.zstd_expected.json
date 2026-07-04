@@ -28,8 +28,10 @@
             "min_value": "KXIxwA==",
             "max_value": "coUYQA==",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "f32"
+          },
+          "schema_path": "f32"
         }
       ],
       "index_pages": [],
@@ -64,8 +66,10 @@
             "min_value": "_2z6P4BeCMA=",
             "max_value": "4ZeD6t2RBUA=",
             "is_min_value_exact": null,
-            "is_max_value_exact": null
-          }
+            "is_max_value_exact": null,
+            "schema_path": "f64"
+          },
+          "schema_path": "f64"
         }
       ],
       "index_pages": [],
@@ -157,7 +161,8 @@
                 "min_value": "KXIxwA==",
                 "max_value": "coUYQA==",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "f32"
               },
               "encoding_stats": [
                 {
@@ -203,7 +208,8 @@
                 "min_value": "_2z6P4BeCMA=",
                 "max_value": "4ZeD6t2RBUA=",
                 "is_min_value_exact": null,
-                "is_max_value_exact": null
+                "is_max_value_exact": null,
+                "schema_path": "f64"
               },
               "encoding_stats": [
                 {
