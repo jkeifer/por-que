@@ -1,5 +1,18 @@
 # parsers
 
-!!! note "Placeholder"
+A curated subset of the low-level parsers. The full `parsers/` package is large
+and layered; these are the pieces most useful to read when learning how the
+format is decoded. See [Architecture](../project/architecture.md) for how they
+fit together.
 
-    Stub filled in during a later phase-1 commit (see `arch/DOCS_SITE_SPEC.md`).
+## Thrift compact protocol
+
+::: por_que.parsers.thrift.parser
+
+## Parquet metadata
+
+::: por_que.parsers.parquet.metadata
+
+## Page headers
+
+::: por_que.parsers.parquet.page

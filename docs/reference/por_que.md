@@ -1,5 +1,6 @@
 # por_que
 
-!!! note "Placeholder"
+The top-level package. The names below are the public API re-exported from
+`por_que` directly.
 
-    Stub filled in during a later phase-1 commit (see `arch/DOCS_SITE_SPEC.md`).
+::: por_que
