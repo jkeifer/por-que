@@ -47,7 +47,7 @@ section. If you want to *use* Por Qué to inspect real files, see the
 from por_que import ParquetFile
 
 with open("data.parquet", "rb") as f:
-    pf = ParquetFile.from_reader(f, "data.parquet")
+    pf = await ParquetFile.from_reader(f, "data.parquet")
 
     print(f"Rows:       {pf.metadata.metadata.row_count}")
     print(f"Columns:    {pf.metadata.metadata.column_count}")
@@ -56,6 +56,9 @@ with open("data.parquet", "rb") as f:
     for chunk in pf.column_chunks:
         print(chunk.path_in_schema, chunk.codec, chunk.num_values)
 ```
+
+(`from_reader` is a coroutine — it accepts plain file objects as well as async
+remote readers — so the calls above run inside an `async` function.)
 
 Por Qué reads from local files, in-memory buffers, and — via
 [`hctef`](https://github.com/jkeifer/hctef) — remote files over HTTP using

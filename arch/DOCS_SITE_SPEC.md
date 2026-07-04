@@ -1,5 +1,8 @@
 # Documentation Site Spec (Zensical)
 
+> **Status: historical spec (implemented).** This is the design the docs site
+> was built from. Kept in `arch/` as the record; not published.
+
 Spec for a por-que documentation site built with
 [Zensical](https://zensical.org) — the static site generator from the
 Material for MkDocs team. Written 2026-07-04; verify Zensical's release

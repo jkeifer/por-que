@@ -1,5 +1,10 @@
 # Parquet Physical Parser: Architecture and Implementation Plan
 
+> **Status: historical design note.** The physical-parser model described here
+> has since landed (the two-pass "hybrid walk" is how `physical.py` works).
+> Kept as a record; not published. For current architecture see
+> `docs/project/architecture.md`.
+
 ## 1. Overview
 
 This document outlines a new parsing strategy for `por-que`. The goal is to move from a purely metadata-driven model to a model that represents the **physical layout** of the Parquet file. This will enable deep analysis, byte-level verification, and advanced performance insights that are impossible to achieve by only reading the file's logical metadata summary.
