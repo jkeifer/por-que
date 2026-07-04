@@ -51,7 +51,11 @@ class AsdictTarget(StrEnum):
 
 
 class PorQueMeta(BaseModel, frozen=True):
-    format_version: Literal[0] = 0
+    # format 1: added `schema_path` reference keys and dropped the nested
+    # PhysicalMetadata layer from the serialized structure. See git
+    # history around this comment for the details of what changed when
+    # bumping the format version again.
+    format_version: Literal[1] = 1
     por_que_version: str = get_version()
 
 
