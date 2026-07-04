@@ -20,7 +20,7 @@ Before anything, you often just need the file's **size**. Over HTTP that is a
 
 ```python
 async with AsyncHttpFile(url) as f:
-    total_bytes = await f.size()
+    total_bytes = f.size  # established when the file opens
 ```
 
 Por Qué itself starts here — `ParquetFile.from_reader` seeks to the end to
@@ -39,6 +39,11 @@ complete logical picture: schema, row groups, every column chunk's offsets and
 ```python
 meta = await FileMetadata.from_reader(f)
 ```
+
+For wide files you can project this stage too —
+`FileMetadata.from_reader(f, columns=[...])` skips the column chunks you don't
+care about while keeping the schema and key-value metadata complete (see
+[Fast metadata](fast-metadata.md) for the measured savings).
 
 This is where [pruning](../learn/statistics-and-pruning.md) decisions get made.
 With the metadata alone — a few kilobytes, no data pages — you can check

@@ -56,25 +56,32 @@ depends on.
 ## Why the parser looks the way it does
 
 The interesting design decision in Por Qué is not the bit-twiddling — it is the
-boundary between *fetching bytes* and *decoding them*. The parser reads through
-an async `read()`, but everything else is synchronous:
-[`seek` and `tell`](../reference/protocols.md) require no I/O, so they are plain
-methods. The **only** place the parser awaits is the byte fetch itself.
+boundary between *fetching bytes* and *decoding them*. The thrift parser is
+**fully synchronous**: it walks an in-memory buffer (a `memoryview` plus a
+position that reports absolute file offsets) and never performs I/O at all.
+There is not a single `await` in the decoding core.
 
-That split matters because it separates two concerns that are easy to tangle:
+The async code lives one level up, at the entry points
+(`FileMetadata.from_reader` and friends): they decide *which byte span* to
+fetch — the footer tells you the metadata's exact range; a column chunk records
+its index offsets and lengths — await one read for that whole span, and hand
+the bytes to the parser. When a structure's size isn't knowable up front (a
+page header, for instance), the entry point fetches a speculative span and
+grows it if the parser runs off the end.
+
+That split separates two concerns that are easy to tangle:
 
 - **I/O planning** — *where* and *how much* to read. Over a local file this is
-  free; over HTTP each read is a round trip, so the goal is to read known byte
-  ranges and, when possible, read independent ranges concurrently.
-- **Decoding** — turning those bytes into varints, zigzags, and structs. This is
-  pure computation and never touches the network.
+  nearly free; over HTTP each read is a round trip, so the goal is to fetch
+  known byte ranges whole and, when possible, fetch independent ranges
+  concurrently. This is the part that deserves `async`.
+- **Decoding** — turning those bytes into varints, zigzags, and structs. This
+  is pure computation; making it async would add ceremony to millions of tiny
+  operations without ever having anything to wait for.
 
-Because decoding never blocks on I/O, the same parser core runs unchanged over a
-local file, an in-memory buffer, or a remote HTTP reader — the reader is just an
-object that answers `read`. Local files are adapted to the async interface by a
-thin wrapper ([`ensure_async_reader`](../reference/protocols.md)) whose `read`
-returns immediately, so you pay nothing for the abstraction when the bytes are
-already on disk.
+Because decoding never touches I/O, the same parser core runs unchanged whether
+the span came from a local file, an HTTP range request, or a test's in-memory
+bytes — and the decoding code reads like what it is: a plain loop over bytes.
 
 You will see this planning-versus-decoding split pay off directly in
 [Statistics & pruning](statistics-and-pruning.md), where an offset index lets
