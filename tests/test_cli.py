@@ -125,8 +125,30 @@ def test_dump_metadata_only(local_parquet: str) -> None:
     result = runner.invoke(app, ['dump', local_parquet, '--metadata-only'])
     assert result.exit_code == 0
     payload = json.loads(result.output)
-    assert payload['version'] == 1
+
+    # A self-identifying MetadataExport envelope, not a bare FileMetadata.
+    assert payload['_meta']['model'] == 'metadata'
+    assert payload['_meta']['format_version'] == 1
+    assert payload['source'] == local_parquet
+    assert payload['filesize'] > 0
+    assert payload['metadata']['version'] == 1
     assert 'column_chunks' not in payload
+
+    # ...and it round-trips back into the model it came from.
+    export = por_que.MetadataExport.model_validate(payload)
+    assert export.source == local_parquet
+    assert export.filesize == payload['filesize']
+
+
+def test_dump_discriminator_distinct(local_parquet: str) -> None:
+    """The full dump and metadata export carry distinct `_meta.model` values."""
+    full = json.loads(runner.invoke(app, ['dump', local_parquet]).output)
+    meta = json.loads(
+        runner.invoke(app, ['dump', local_parquet, '--metadata-only']).output,
+    )
+    assert full['_meta']['model'] == 'file'
+    assert meta['_meta']['model'] == 'metadata'
+    assert full['_meta']['model'] != meta['_meta']['model']
 
 
 def test_url_source_uses_http_reader(monkeypatch: pytest.MonkeyPatch) -> None:

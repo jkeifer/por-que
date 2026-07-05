@@ -2,6 +2,7 @@ node_modules/
 dist/
 coverage/
 src/generated/
+test/fixtures/
 *.snap
 package-lock.json
 *.md

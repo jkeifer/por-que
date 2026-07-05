@@ -208,8 +208,8 @@ def dump(
 ) -> None:
     """Dump the JSON serialization to stdout."""
     if metadata_only:
-        metadata = _run(ctx, source, loaders.load_metadata(source))
-        sys.stdout.write(metadata.model_dump_json(by_alias=True, indent=2) + '\n')
+        export = _run(ctx, source, loaders.load_metadata_export(source))
+        sys.stdout.write(export.to_json(indent=2) + '\n')
         return
 
     parquet = _run(ctx, source, loaders.load_file(source))
@@ -251,8 +251,8 @@ def serve(
     if not loaders.is_url(source) and source.endswith('.json'):
         payload = Path(source).read_bytes()
     elif metadata_only:
-        metadata = _run(ctx, source, loaders.load_metadata(source))
-        payload = metadata.model_dump_json(by_alias=True, indent=2).encode()
+        export = _run(ctx, source, loaders.load_metadata_export(source))
+        payload = export.to_json(indent=2).encode()
     else:
         parquet = _run(ctx, source, loaders.load_file(source))
         payload = parquet.to_json(indent=2).encode()

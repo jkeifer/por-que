@@ -960,6 +960,29 @@
       "title": "EnumTypeInfo",
       "type": "object"
     },
+    "FileMeta": {
+      "description": "Envelope for a full ``ParquetFile`` dump.",
+      "properties": {
+        "format_version": {
+          "const": 2,
+          "default": 2,
+          "title": "Format Version",
+          "type": "integer"
+        },
+        "model": {
+          "const": "file",
+          "default": "file",
+          "title": "Model",
+          "type": "string"
+        },
+        "por_que_version": {
+          "title": "Por Que Version",
+          "type": "string"
+        }
+      },
+      "title": "FileMeta",
+      "type": "object"
+    },
     "FileMetadata": {
       "description": "Logical representation of file metadata.",
       "properties": {
@@ -1324,6 +1347,56 @@
       "title": "MapTypeInfo",
       "type": "object"
     },
+    "MetadataExport": {
+      "description": "A metadata-only export: the file footer plus enough context to place it.\n\nThis is the ``dump --metadata-only`` payload -- a first-class,\napp-consumable root model. It carries no page structure (no\n``column_chunks``); everything the webapp needs to lay out the file comes\nfrom ``filesize`` and the footer ``metadata``.",
+      "properties": {
+        "_meta": {
+          "$ref": "#/$defs/MetadataMeta",
+          "description": "Metadata about the por-que serialization format"
+        },
+        "filesize": {
+          "title": "Filesize",
+          "type": "integer"
+        },
+        "metadata": {
+          "$ref": "#/$defs/FileMetadata"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "filesize",
+        "metadata"
+      ],
+      "title": "MetadataExport",
+      "type": "object"
+    },
+    "MetadataMeta": {
+      "description": "Envelope for a metadata-only export (:class:`MetadataExport`).",
+      "properties": {
+        "format_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Format Version",
+          "type": "integer"
+        },
+        "model": {
+          "const": "metadata",
+          "default": "metadata",
+          "title": "Model",
+          "type": "string"
+        },
+        "por_que_version": {
+          "title": "Por Que Version",
+          "type": "string"
+        }
+      },
+      "title": "MetadataMeta",
+      "type": "object"
+    },
     "OffsetIndex": {
       "description": "Index containing page locations and sizes for efficient seeking.",
       "properties": {
@@ -1429,6 +1502,51 @@
       "title": "PageLocation",
       "type": "object"
     },
+    "ParquetFile": {
+      "description": "The root object representing the entire physical file structure.",
+      "properties": {
+        "_meta": {
+          "$ref": "#/$defs/FileMeta",
+          "description": "Metadata about the por-que serialization format"
+        },
+        "column_chunks": {
+          "items": {
+            "$ref": "#/$defs/PhysicalColumnChunk"
+          },
+          "title": "Column Chunks",
+          "type": "array"
+        },
+        "filesize": {
+          "title": "Filesize",
+          "type": "integer"
+        },
+        "magic_footer": {
+          "default": "PAR1",
+          "title": "Magic Footer",
+          "type": "string"
+        },
+        "magic_header": {
+          "default": "PAR1",
+          "title": "Magic Header",
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/$defs/FileMetadata"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "filesize",
+        "column_chunks",
+        "metadata"
+      ],
+      "title": "ParquetFile",
+      "type": "object"
+    },
     "PhysicalColumnChunk": {
       "description": "A container for all the data for a single column within a row group.",
       "properties": {
@@ -1530,22 +1648,6 @@
         "row_group"
       ],
       "title": "PhysicalColumnChunk",
-      "type": "object"
-    },
-    "PorQueMeta": {
-      "properties": {
-        "format_version": {
-          "const": 1,
-          "default": 1,
-          "title": "Format Version",
-          "type": "integer"
-        },
-        "por_que_version": {
-          "title": "Por Que Version",
-          "type": "string"
-        }
-      },
-      "title": "PorQueMeta",
       "type": "object"
     },
     "RowGroup": {
@@ -2302,47 +2404,12 @@
       "type": "object"
     }
   },
-  "description": "The root object representing the entire physical file structure.",
-  "properties": {
-    "_meta": {
-      "$ref": "#/$defs/PorQueMeta",
-      "description": "Metadata about the por-que serialization format"
+  "anyOf": [
+    {
+      "$ref": "#/$defs/ParquetFile"
     },
-    "column_chunks": {
-      "items": {
-        "$ref": "#/$defs/PhysicalColumnChunk"
-      },
-      "title": "Column Chunks",
-      "type": "array"
-    },
-    "filesize": {
-      "title": "Filesize",
-      "type": "integer"
-    },
-    "magic_footer": {
-      "default": "PAR1",
-      "title": "Magic Footer",
-      "type": "string"
-    },
-    "magic_header": {
-      "default": "PAR1",
-      "title": "Magic Header",
-      "type": "string"
-    },
-    "metadata": {
-      "$ref": "#/$defs/FileMetadata"
-    },
-    "source": {
-      "title": "Source",
-      "type": "string"
+    {
+      "$ref": "#/$defs/MetadataExport"
     }
-  },
-  "required": [
-    "source",
-    "filesize",
-    "column_chunks",
-    "metadata"
-  ],
-  "title": "ParquetFile",
-  "type": "object"
+  ]
 }

@@ -4,21 +4,21 @@
 import { InfoPanelManager } from './components/info-panel-manager';
 import { SvgByteVisualizer } from './components/svg-byte-visualizer';
 import { isParquet } from './detect';
-import validate from './generated/validate';
+import { validateFile, validateMetadata, type ValidationError } from './generated/validate';
 import { ParquetWorkerClient } from './js/worker/client';
-import type { Dump } from './types';
+import type { AnyDump } from './types';
 
 const DB_NAME = 'ParquetExplorerDB';
 
 interface StoredFile {
     id: string;
-    data: Dump;
+    data: AnyDump;
     source: string;
     timestamp: number;
 }
 
 class ParquetExplorer {
-    private parquetData: Dump | null = null;
+    private parquetData: AnyDump | null = null;
     private infoPanelManager: InfoPanelManager | null = null;
     private fileStructureViz: SvgByteVisualizer | null = null;
     // Lazily created on the first raw-parquet load so the JSON path never boots
@@ -194,18 +194,32 @@ class ParquetExplorer {
     private async parseJSON(jsonText: string, source: string): Promise<void> {
         const parsed: unknown = JSON.parse(jsonText);
 
-        // Boundary validation against the canonical JSON Schema. After this
-        // gate, downstream code trusts the shape and does not re-check it.
-        if (!validate(parsed)) {
-            const details = (validate.errors ?? [])
-                .slice(0, 5)
-                .map(e => `${e.instancePath || '(root)'}: ${e.message}`)
-                .join('; ');
-            this.showError(`Not a valid por-que dump: ${details || 'schema validation failed'}`);
+        // Dispatch on the self-identifying envelope, then validate against that
+        // root's schema. After this gate, downstream code trusts the shape.
+        const model = (parsed as { _meta?: { model?: unknown } } | null)?._meta?.model;
+        let data: AnyDump;
+        if (model === 'file') {
+            if (!validateFile(parsed)) {
+                this.showError(this.validationMessage('file', validateFile.errors));
+                return;
+            }
+            data = parsed;
+        } else if (model === 'metadata') {
+            if (!validateMetadata(parsed)) {
+                this.showError(this.validationMessage('metadata', validateMetadata.errors));
+                return;
+            }
+            data = parsed;
+        } else {
+            const got = typeof model === 'string' ? `"${model}"` : 'no _meta.model';
+            this.showError(
+                'Not a por-que dump / unsupported format — this build understands full ' +
+                    'dumps (_meta.model "file") and metadata-only exports (_meta.model ' +
+                    `"metadata"), got ${got}.`
+            );
             return;
         }
 
-        const data = parsed;
         if (!data.source) {
             data.source = source;
         }
@@ -216,6 +230,15 @@ class ParquetExplorer {
         this.showExplorer();
         this.populateUI();
         this.hideLoadingScreen();
+    }
+
+    /** First ~5 validation errors, as a single human-readable line. */
+    private validationMessage(kind: string, errors?: ValidationError[] | null): string {
+        const details = (errors ?? [])
+            .slice(0, 5)
+            .map(e => `${e.instancePath || '(root)'}: ${e.message}`)
+            .join('; ');
+        return `Not a valid por-que ${kind} dump: ${details || 'schema validation failed'}`;
     }
 
     private populateUI(): void {
@@ -231,9 +254,9 @@ class ParquetExplorer {
         }
     }
 
-    private initializeFileStructureViz(data: Dump): void {
+    private initializeFileStructureViz(data: AnyDump): void {
         const container = document.getElementById('rowgroup-chart');
-        if (!container || !data.column_chunks) {
+        if (!container) {
             return;
         }
 
@@ -314,7 +337,9 @@ class ParquetExplorer {
 
         const sourceElement = document.getElementById('loaded-file-source');
         if (sourceElement && this.parquetData?.source) {
-            sourceElement.textContent = this.parquetData.source;
+            const metadataOnly = !('column_chunks' in this.parquetData);
+            sourceElement.textContent =
+                this.parquetData.source + (metadataOnly ? '  (metadata-only export)' : '');
         }
     }
 
@@ -398,7 +423,7 @@ class ParquetExplorer {
         });
     }
 
-    private async saveToStorage(data: Dump, source: string): Promise<void> {
+    private async saveToStorage(data: AnyDump, source: string): Promise<void> {
         try {
             await this.saveToIndexedDB(data, source);
         } catch (error) {
@@ -406,7 +431,7 @@ class ParquetExplorer {
         }
     }
 
-    private saveToIndexedDB(data: Dump, source: string): Promise<void> {
+    private saveToIndexedDB(data: AnyDump, source: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const request = indexedDB.open(DB_NAME, 1);
 

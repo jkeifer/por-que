@@ -9,8 +9,8 @@ import {
     type LevelLayout,
     type SegmentLayout,
 } from '../business/segment-layout-calculator';
-import { projectDump, describe, type SegmentNode } from '../business/segment-tree';
-import type { Dump } from '../types';
+import { project, describe, type SegmentNode } from '../business/segment-tree';
+import type { AnyDump } from '../types';
 import type { InfoPanelManager } from './info-panel-manager';
 
 type FunnelElement = SVGElement & { labelElement?: SVGElement | null };
@@ -33,7 +33,7 @@ export class SvgByteVisualizer {
     private svg!: SVGSVGElement;
     private config: LayoutConfig;
 
-    private dump: Dump | null = null;
+    private dump: AnyDump | null = null;
     private root: SegmentNode | null = null;
     private levels: Level[] = [];
     private selectedSegments = new Map<number, string>();
@@ -203,10 +203,10 @@ export class SvgByteVisualizer {
         document.body.appendChild(this.tooltip);
     }
 
-    /** Initialize with parquet data. */
-    initWithData(data: Dump): void {
+    /** Initialize with parquet data (a full dump or a metadata-only export). */
+    initWithData(data: AnyDump): void {
         this.dump = data;
-        this.root = projectDump(data);
+        this.root = project(data);
         this.levels = [];
         this.selectedSegments.clear();
         this.selectionPath = [];

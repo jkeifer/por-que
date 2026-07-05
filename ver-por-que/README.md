@@ -96,8 +96,9 @@ to use the deployed version.
 ## Schema-generated types
 
 The dump JSON shape is defined by the canonical JSON Schema at
-[`schema/por-que.schema.json`](./schema/por-que.schema.json). TypeScript types
-and a standalone runtime validator are generated from it into `src/generated/`
+[`../src/por_que/dump-schema.json`](../src/por_que/dump-schema.json) (a union of
+the `file` and `metadata` dump roots). TypeScript types and standalone runtime
+validators are generated from it into `src/generated/`
 (gitignored) by `npm run generate`. The `dev`, `build`, `test`, `typecheck`,
 and `lint` scripts all run `generate` first, so a fresh clone just works — but
 if you edit the schema, re-run `npm run generate`.

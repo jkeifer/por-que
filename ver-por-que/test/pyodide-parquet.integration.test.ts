@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, it, expect } from 'vitest';
 import { loadPyodide } from 'pyodide';
 import { createParquetParser, type LoadPyodide } from '../src/js/worker/pyodide-parquet';
-import validate from '../src/generated/validate';
+import { validateFile } from '../src/generated/validate';
 
 /**
  * End-to-end: boot real pyodide, install the locally-built por-que wheel, parse
@@ -47,10 +47,10 @@ describe.skipIf(!hasWheel)('createParquetParser (real pyodide)', () => {
         const dump = await parse(data, 'alltypes_plain.snappy.parquet');
 
         const parsed: unknown = JSON.parse(dump);
-        const ok = validate(parsed);
+        const ok = validateFile(parsed);
         if (!ok) {
             throw new Error(
-                `dump failed schema validation: ${JSON.stringify(validate.errors?.slice(0, 3))}`
+                `dump failed schema validation: ${JSON.stringify(validateFile.errors?.slice(0, 3))}`
             );
         }
         expect(ok).toBe(true);

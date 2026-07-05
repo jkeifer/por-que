@@ -86,10 +86,11 @@ the updated fixtures. See `--help` for details.
 
 ## Dump Schema
 
-`ParquetFile`'s serialization-mode JSON Schema *is* the dump contract consumed
-by the webapp; the committed copy lives at
-`ver-por-que/schema/por-que.schema.json`. Regenerate it after changing any
-serialized model:
+The serialization-mode JSON Schema of the dump root models (`ParquetFile` and
+`MetadataExport`, emitted as a discriminated union) *is* the dump contract
+consumed by the webapp; the committed copy lives inside the package at
+`src/por_que/dump-schema.json` (and ships in the wheel). Regenerate it after
+changing any serialized model:
 
 ```bash
 uv run python scripts/emit-schema.py
