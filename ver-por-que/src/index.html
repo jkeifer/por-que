@@ -45,19 +45,21 @@
                                     <polyline points="17,8 12,3 7,8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                <h3>Drop JSON file here</h3>
+                                <h3>Drop a Parquet or JSON file here</h3>
                                 <p>Or click to browse files</p>
-                                <input type="file" id="file-input" accept=".json" hidden />
+                                <input type="file" id="file-input" accept=".parquet,.json" hidden />
                             </div>
                         </div>
 
                         <div class="url-input-section">
-                            <label for="url-input">Or enter URL to remote JSON file:</label>
+                            <label for="url-input"
+                                >Or enter URL to a remote Parquet or JSON file:</label
+                            >
                             <div class="url-input-group">
                                 <input
                                     type="url"
                                     id="url-input"
-                                    placeholder="https://example.com/parquet-metadata.json"
+                                    placeholder="https://example.com/data.parquet"
                                 />
                                 <button id="load-url-btn" class="btn btn-primary">Load</button>
                             </div>

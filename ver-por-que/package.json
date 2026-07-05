@@ -6,9 +6,10 @@
     "source": "src/index.html",
     "scripts": {
         "generate": "node scripts/generate.mjs",
+        "wheel": "cd .. && uv run python scripts/build-webapp-wheel.py",
         "predev": "npm run generate",
         "dev": "parcel src/index.html",
-        "prebuild": "npm run generate && node scripts/get-git-info.js",
+        "prebuild": "npm run generate && node scripts/get-git-info.js && rm -rf dist",
         "build": "parcel build src/index.html --public-url ./",
         "pretest": "npm run generate",
         "test": "vitest run",
@@ -39,7 +40,9 @@
         "globals": "^15.11.0",
         "json-schema-to-typescript": "^15.0.4",
         "parcel": "^2.16.0",
+        "parcel-reporter-static-files-copy": "^1.5.3",
         "prettier": "^3.6.2",
+        "pyodide": "^314.0.2",
         "typescript": "^5.6.3",
         "typescript-eslint": "^8.8.0",
         "vitest": "^2.1.4"

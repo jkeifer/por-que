@@ -9,6 +9,9 @@ src/build-info.js
 # Generated from schema/por-que.schema.json by `npm run generate`
 src/generated/
 
+# por-que wheel + manifest staged by `npm run wheel` for in-browser parsing
+static/vendor/
+
 # Logs
 *.log
 npm-debug.log*

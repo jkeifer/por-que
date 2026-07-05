@@ -3,7 +3,9 @@
  */
 import { InfoPanelManager } from './components/info-panel-manager';
 import { SvgByteVisualizer } from './components/svg-byte-visualizer';
+import { isParquet } from './detect';
 import validate from './generated/validate';
+import { ParquetWorkerClient } from './js/worker/client';
 import type { Dump } from './types';
 
 const DB_NAME = 'ParquetExplorerDB';
@@ -19,6 +21,9 @@ class ParquetExplorer {
     private parquetData: Dump | null = null;
     private infoPanelManager: InfoPanelManager | null = null;
     private fileStructureViz: SvgByteVisualizer | null = null;
+    // Lazily created on the first raw-parquet load so the JSON path never boots
+    // pyodide.
+    private workerClient: ParquetWorkerClient | null = null;
 
     /** Initialize the application (event listeners are bound exactly once). */
     async init(): Promise<void> {
@@ -129,29 +134,22 @@ class ParquetExplorer {
         }
     }
 
-    /** Load a file into the existing app instance. */
+    /** Load a file (por-que dump JSON or a raw .parquet) into the app. */
     async loadFile(file: File): Promise<void> {
-        if (!file.name.toLowerCase().endsWith('.json')) {
-            this.showError('Please select a .json file');
-            return;
-        }
-
         this.showLoadingScreen();
-        this.updateLoadingStatus('Reading JSON file...');
+        this.updateLoadingStatus('Reading file...');
 
         try {
-            const text = await file.text();
-            this.updateLoadingStatus('Parsing JSON data...');
-            await this.parseJSON(text, file.name);
+            await this.ingest(await file.arrayBuffer(), file.name);
         } catch (error) {
             this.showError(`Failed to parse file: ${(error as Error).message}`);
         }
     }
 
-    /** Load a remote JSON file into the existing app instance. */
+    /** Load a remote dump JSON or raw .parquet into the app. */
     async loadURL(url: string): Promise<void> {
         this.showLoadingScreen();
-        this.updateLoadingStatus('Fetching remote JSON...');
+        this.updateLoadingStatus('Fetching remote file...');
 
         try {
             const response = await fetch(url);
@@ -159,12 +157,38 @@ class ParquetExplorer {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
-            this.updateLoadingStatus('Parsing JSON data...');
-            const text = await response.text();
-            await this.parseJSON(text, url);
+            await this.ingest(await response.arrayBuffer(), url);
         } catch (error) {
             this.showError(`Failed to load URL: ${(error as Error).message}`);
         }
+    }
+
+    /**
+     * Route bytes to the right parser: raw parquet goes through the pyodide
+     * worker (producing a dump JSON string), everything else is treated as a
+     * dump JSON document directly. Both converge on the same schema-validated
+     * boundary in parseJSON.
+     */
+    private async ingest(buffer: ArrayBuffer, source: string): Promise<void> {
+        const head = new Uint8Array(buffer, 0, Math.min(4, buffer.byteLength));
+        if (isParquet(head, source)) {
+            const dump = await this.parseParquet(buffer, source);
+            await this.parseJSON(dump, source);
+        } else {
+            this.updateLoadingStatus('Parsing JSON data...');
+            await this.parseJSON(new TextDecoder().decode(buffer), source);
+        }
+    }
+
+    /** Parse raw parquet bytes in the browser via the pyodide worker. */
+    private parseParquet(buffer: ArrayBuffer, source: string): Promise<string> {
+        if (!this.workerClient) {
+            this.workerClient = new ParquetWorkerClient(status => this.updateLoadingStatus(status));
+        }
+        // First parse downloads the ~12MB python runtime; the worker emits
+        // status events that updateLoadingStatus surfaces.
+        this.updateLoadingStatus('Loading Python runtime...');
+        return this.workerClient.parse(buffer, source);
     }
 
     private async parseJSON(jsonText: string, source: string): Promise<void> {
