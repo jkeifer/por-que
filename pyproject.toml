@@ -41,8 +41,8 @@ cli = [
 [dependency-groups]
 dev = [
     "deepdiff>=8.6.1",
+    "lefthook>=1.10",
     "mypy>=1.15.0",
-    "pre-commit>=4.2.0",
     "pre-commit-hooks>=5.0.0",
     "pytest>=8.3.5",
     "pytest-asyncio>=1.2.0",
@@ -72,6 +72,19 @@ version-file = "src/por_que/__version__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/por_que"]
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "hatch_build.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "ver-por-que/node_modules",
+    "ver-por-que/.parcel-cache",
+    "ver-por-que/dist",
+]
+
+[tool.hatch.build.targets.sdist.hooks.custom]
+path = "hatch_build.py"
 
 [tool.ruff.format]
 quote-style = 'single'
