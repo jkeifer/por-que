@@ -6,20 +6,20 @@
       "path_in_schema": "int64_list.list.item",
       "start_offset": 4,
       "total_byte_size": 122,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 6,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 46,
           "header_size": 61,
           "compressed_page_size": 19,
           "uncompressed_page_size": 17,
           "crc": null,
           "num_values": 6,
-          "encoding": 2,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "AQAAAAAAAAA=",
             "max": "BAAAAAAAAAA=",
@@ -36,14 +36,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 14,
         "compressed_page_size": 28,
         "uncompressed_page_size": 32,
         "crc": null,
         "num_values": 4,
-        "encoding": 2,
+        "encoding": "PLAIN_DICTIONARY",
         "is_sorted": false
       },
       "column_index": null,
@@ -54,20 +54,20 @@
       "path_in_schema": "utf8_list.list.item",
       "start_offset": 220,
       "total_byte_size": 93,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 8,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 263,
           "header_size": 31,
           "compressed_page_size": 19,
           "uncompressed_page_size": 17,
           "crc": null,
           "num_values": 8,
-          "encoding": 2,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -84,14 +84,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 220,
         "header_size": 14,
         "compressed_page_size": 29,
         "uncompressed_page_size": 28,
         "crc": null,
         "num_values": 4,
-        "encoding": 2,
+        "encoding": "PLAIN_DICTIONARY",
         "is_sorted": false
       },
       "column_index": null,
@@ -139,8 +139,8 @@
                   "byte_length": 11,
                   "definition_level": 3,
                   "repetition_level": 1,
-                  "type": 2,
-                  "repetition": 1,
+                  "type": "INT64",
+                  "repetition": "OPTIONAL",
                   "converted_type": null,
                   "type_length": null,
                   "scale": null,
@@ -150,17 +150,17 @@
                   "list_semantics": "modern_list"
                 }
               },
-              "repetition": 2,
+              "repetition": "REPEATED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 1,
-          "converted_type": 3,
+          "repetition": "OPTIONAL",
+          "converted_type": "LIST",
           "field_id": null,
           "logical_type": {
-            "logical_type": 3
+            "logical_type": "LIST"
           }
         },
         "utf8_list": {
@@ -191,34 +191,34 @@
                   "byte_length": 17,
                   "definition_level": 3,
                   "repetition_level": 1,
-                  "type": 6,
-                  "repetition": 1,
-                  "converted_type": 0,
+                  "type": "BYTE_ARRAY",
+                  "repetition": "OPTIONAL",
+                  "converted_type": "UTF8",
                   "type_length": null,
                   "scale": null,
                   "precision": null,
                   "field_id": null,
                   "logical_type": {
-                    "logical_type": 1
+                    "logical_type": "STRING"
                   },
                   "list_semantics": "modern_list"
                 }
               },
-              "repetition": 2,
+              "repetition": "REPEATED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 1,
-          "converted_type": 3,
+          "repetition": "OPTIONAL",
+          "converted_type": "LIST",
           "field_id": null,
           "logical_type": {
-            "logical_type": 3
+            "logical_type": "LIST"
           }
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -230,14 +230,14 @@
             "metadata": {
               "start_offset": 500,
               "byte_length": 89,
-              "type": 2,
+              "type": "INT64",
               "encodings": [
-                2,
-                0,
-                3
+                "PLAIN_DICTIONARY",
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "int64_list.list.item",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 6,
               "total_uncompressed_size": 124,
               "total_compressed_size": 122,
@@ -272,14 +272,14 @@
             "metadata": {
               "start_offset": 594,
               "byte_length": 60,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                2,
-                0,
-                3
+                "PLAIN_DICTIONARY",
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "utf8_list.list.item",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 8,
               "total_uncompressed_size": 90,
               "total_compressed_size": 93,

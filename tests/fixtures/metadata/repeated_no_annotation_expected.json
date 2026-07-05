@@ -6,34 +6,34 @@
       "path_in_schema": "id",
       "start_offset": 4,
       "total_byte_size": 60,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 6,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 42,
           "header_size": 17,
           "compressed_page_size": 5,
           "uncompressed_page_size": 5,
           "crc": null,
           "num_values": 6,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "id"
         }
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 14,
         "compressed_page_size": 24,
         "uncompressed_page_size": 24,
         "crc": null,
         "num_values": 6,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": null,
@@ -44,34 +44,34 @@
       "path_in_schema": "phoneNumbers.phone.number",
       "start_offset": 93,
       "total_byte_size": 80,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 8,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 139,
           "header_size": 17,
           "compressed_page_size": 17,
           "uncompressed_page_size": 17,
           "crc": null,
           "num_values": 8,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "phoneNumbers.phone.number"
         }
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 93,
         "header_size": 14,
         "compressed_page_size": 32,
         "uncompressed_page_size": 32,
         "crc": null,
         "num_values": 4,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": null,
@@ -82,34 +82,34 @@
       "path_in_schema": "phoneNumbers.phone.kind",
       "start_offset": 229,
       "total_byte_size": 65,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 8,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 261,
           "header_size": 17,
           "compressed_page_size": 16,
           "uncompressed_page_size": 16,
           "crc": null,
           "num_values": 8,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "phoneNumbers.phone.kind"
         }
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 229,
         "header_size": 14,
         "compressed_page_size": 18,
         "uncompressed_page_size": 18,
         "crc": null,
         "num_values": 2,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": null,
@@ -137,8 +137,8 @@
           "byte_length": 9,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 1,
-          "repetition": 0,
+          "type": "INT32",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -175,8 +175,8 @@
                   "byte_length": 13,
                   "definition_level": 2,
                   "repetition_level": 1,
-                  "type": 2,
-                  "repetition": 0,
+                  "type": "INT64",
+                  "repetition": "REQUIRED",
                   "converted_type": null,
                   "type_length": null,
                   "scale": null,
@@ -193,9 +193,9 @@
                   "byte_length": 13,
                   "definition_level": 3,
                   "repetition_level": 1,
-                  "type": 6,
-                  "repetition": 1,
-                  "converted_type": 0,
+                  "type": "BYTE_ARRAY",
+                  "repetition": "OPTIONAL",
+                  "converted_type": "UTF8",
                   "type_length": null,
                   "scale": null,
                   "precision": null,
@@ -204,19 +204,19 @@
                   "list_semantics": "legacy_repeated"
                 }
               },
-              "repetition": 2,
+              "repetition": "REPEATED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 1,
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "field_id": null,
           "logical_type": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -228,13 +228,13 @@
             "metadata": {
               "start_offset": 437,
               "byte_length": 24,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                8
+                "PLAIN",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "id",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 6,
               "total_uncompressed_size": 60,
               "total_compressed_size": 60,
@@ -259,13 +259,13 @@
             "metadata": {
               "start_offset": 466,
               "byte_length": 51,
-              "type": 2,
+              "type": "INT64",
               "encodings": [
-                0,
-                8
+                "PLAIN",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "phoneNumbers.phone.number",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 8,
               "total_uncompressed_size": 80,
               "total_compressed_size": 80,
@@ -290,13 +290,13 @@
             "metadata": {
               "start_offset": 522,
               "byte_length": 49,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                8
+                "PLAIN",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "phoneNumbers.phone.kind",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 8,
               "total_uncompressed_size": 65,
               "total_compressed_size": 65,

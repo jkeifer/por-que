@@ -6,20 +6,20 @@
       "path_in_schema": "b_struct.b_c_int",
       "start_offset": 4,
       "total_byte_size": 29,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 8,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 21,
           "compressed_page_size": 8,
           "uncompressed_page_size": 6,
           "crc": null,
           "num_values": 8,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 4,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "BIT_PACKED",
           "statistics": {
             "min": null,
             "max": null,
@@ -71,8 +71,8 @@
               "byte_length": 14,
               "definition_level": 2,
               "repetition_level": 0,
-              "type": 1,
-              "repetition": 1,
+              "type": "INT32",
+              "repetition": "OPTIONAL",
               "converted_type": null,
               "type_length": null,
               "scale": null,
@@ -82,13 +82,13 @@
               "list_semantics": null
             }
           },
-          "repetition": 1,
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "field_id": null,
           "logical_type": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -100,14 +100,14 @@
             "metadata": {
               "start_offset": 92,
               "byte_length": 50,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                4,
-                3
+                "PLAIN",
+                "BIT_PACKED",
+                "RLE"
               ],
               "path_in_schema": "b_struct.b_c_int",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 8,
               "total_uncompressed_size": 27,
               "total_compressed_size": 29,
@@ -127,8 +127,8 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 }
               ],

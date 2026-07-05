@@ -6,20 +6,20 @@
       "path_in_schema": "wkt",
       "start_offset": 4,
       "total_byte_size": 8636,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 8610,
           "header_size": 21,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
           "num_values": 1,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -36,14 +36,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 18,
         "compressed_page_size": 8588,
         "uncompressed_page_size": 8588,
         "crc": null,
         "num_values": 1,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": null,
@@ -54,20 +54,20 @@
       "path_in_schema": "geometry",
       "start_offset": 8640,
       "total_byte_size": 3597,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 12209,
           "header_size": 19,
           "compressed_page_size": 9,
           "uncompressed_page_size": 9,
           "crc": null,
           "num_values": 1,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -84,14 +84,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 8640,
         "header_size": 16,
         "compressed_page_size": 3553,
         "uncompressed_page_size": 3553,
         "crc": null,
         "num_values": 1,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": null,
@@ -119,15 +119,15 @@
           "byte_length": 16,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 1,
-          "converted_type": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "OPTIONAL",
+          "converted_type": "UTF8",
           "type_length": null,
           "scale": null,
           "precision": null,
           "field_id": null,
           "logical_type": {
-            "logical_type": 1
+            "logical_type": "STRING"
           },
           "list_semantics": null
         },
@@ -139,20 +139,20 @@
           "byte_length": 49,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 1,
+          "type": "BYTE_ARRAY",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
           "precision": null,
           "field_id": null,
           "logical_type": {
-            "logical_type": 17
+            "logical_type": "GEOMETRY"
           },
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -164,14 +164,14 @@
             "metadata": {
               "start_offset": 12328,
               "byte_length": 64,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "wkt",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 8636,
               "total_compressed_size": 8636,
@@ -191,13 +191,13 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 2,
-                  "encoding": 0,
+                  "page_type": "DICTIONARY_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 },
                 {
-                  "page_type": 0,
-                  "encoding": 8,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "RLE_DICTIONARY",
                   "count": 1
                 }
               ],
@@ -224,14 +224,14 @@
             "metadata": {
               "start_offset": 12396,
               "byte_length": 107,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "geometry",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 3597,
               "total_compressed_size": 3597,
@@ -241,13 +241,13 @@
               "statistics": null,
               "encoding_stats": [
                 {
-                  "page_type": 2,
-                  "encoding": 0,
+                  "page_type": "DICTIONARY_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 },
                 {
-                  "page_type": 0,
-                  "encoding": 8,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "RLE_DICTIONARY",
                   "count": 1
                 }
               ],
@@ -273,7 +273,7 @@
                   "mmax": null
                 },
                 "geospatial_types": [
-                  3
+                  "POLYGON"
                 ]
               }
             },

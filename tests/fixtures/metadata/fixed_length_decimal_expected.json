@@ -6,20 +6,20 @@
       "path_in_schema": "value",
       "start_offset": 4,
       "total_byte_size": 319,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 24,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 49,
           "compressed_page_size": 270,
           "uncompressed_page_size": 270,
           "crc": null,
           "num_values": 24,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 4,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "BIT_PACKED",
           "statistics": {
             "min": "AAAAAAAAAAAAAMg=",
             "max": "AAAAAAAAAAAACWA=",
@@ -61,9 +61,9 @@
           "byte_length": 20,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 7,
-          "repetition": 1,
-          "converted_type": 5,
+          "type": "FIXED_LEN_BYTE_ARRAY",
+          "repetition": "OPTIONAL",
+          "converted_type": "DECIMAL",
           "type_length": 11,
           "scale": 2,
           "precision": 25,
@@ -72,7 +72,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -84,14 +84,14 @@
             "metadata": {
               "start_offset": 373,
               "byte_length": 67,
-              "type": 7,
+              "type": "FIXED_LEN_BYTE_ARRAY",
               "encodings": [
-                4,
-                3,
-                0
+                "BIT_PACKED",
+                "RLE",
+                "PLAIN"
               ],
               "path_in_schema": "value",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 24,
               "total_uncompressed_size": 319,
               "total_compressed_size": 319,
@@ -111,8 +111,8 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 }
               ],

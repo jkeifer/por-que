@@ -6,34 +6,34 @@
       "path_in_schema": "a",
       "start_offset": 4,
       "total_byte_size": 113,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 6,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 81,
           "header_size": 23,
           "compressed_page_size": 13,
           "uncompressed_page_size": 11,
           "crc": 1978545949,
           "num_values": 6,
-          "encoding": 2,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 4,
+          "encoding": "PLAIN_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "BIT_PACKED",
           "statistics": null,
           "schema_path": "a"
         }
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 19,
         "compressed_page_size": 58,
         "uncompressed_page_size": 60,
         "crc": 1437746724,
         "num_values": 5,
-        "encoding": 2,
+        "encoding": "PLAIN_DICTIONARY",
         "is_sorted": false
       },
       "column_index": null,
@@ -72,8 +72,8 @@
           "byte_length": 8,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 3,
-          "repetition": 1,
+          "type": "INT96",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -83,7 +83,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -95,14 +95,14 @@
             "metadata": {
               "start_offset": 167,
               "byte_length": 47,
-              "type": 3,
+              "type": "INT96",
               "encodings": [
-                2,
-                4,
-                3
+                "PLAIN_DICTIONARY",
+                "BIT_PACKED",
+                "RLE"
               ],
               "path_in_schema": "a",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 6,
               "total_uncompressed_size": 113,
               "total_compressed_size": 113,
@@ -122,13 +122,13 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 2,
-                  "encoding": 2,
+                  "page_type": "DICTIONARY_PAGE",
+                  "encoding": "PLAIN_DICTIONARY",
                   "count": 1
                 },
                 {
-                  "page_type": 0,
-                  "encoding": 2,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN_DICTIONARY",
                   "count": 1
                 }
               ],

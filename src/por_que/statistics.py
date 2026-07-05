@@ -7,11 +7,12 @@ from typing import TYPE_CHECKING, Any, Self
 from pydantic import BaseModel, Field
 
 from .enums import (
-    BoundaryOrder,
-    Encoding,
-    GeospatialType,
-    PageType,
+    BoundaryOrderName,
+    EncodingName,
+    GeospatialTypeName,
+    PageTypeName,
     Type,
+    TypeName,
 )
 from .exceptions import ParquetFormatError, parse_context
 from .protocols import AsyncReadableSeekable
@@ -85,14 +86,14 @@ class GeospatialStatistics(BaseModel, frozen=True):
     """Statistics specific to Geometry and Geography logical types."""
 
     bbox: BoundingBox | None = None
-    geospatial_types: list[GeospatialType] | None = None
+    geospatial_types: list[GeospatialTypeName] | None = None
 
 
 class PageEncodingStats(BaseModel, frozen=True):
     """Statistics of a given page type and encoding."""
 
-    page_type: PageType
-    encoding: Encoding
+    page_type: PageTypeName
+    encoding: EncodingName
     count: int
 
 
@@ -164,7 +165,7 @@ class ColumnIndex(
     null_pages: list[bool]  # Which pages are all null
     min_values: list[bytes]  # Raw min values for each page
     max_values: list[bytes]  # Raw max values for each page
-    boundary_order: BoundaryOrder  # Whether min/max values are ordered
+    boundary_order: BoundaryOrderName  # Whether min/max values are ordered
     null_counts: list[int] | None = None  # Null count per page
     repetition_level_histograms: list[int] | None = None
     definition_level_histograms: list[int] | None = None
@@ -279,7 +280,7 @@ class BloomFilter(BaseModel, frozen=True):
     num_bytes: int
     header_length: int
     bitset: bytes = Field(repr=False)
-    physical_type: Type
+    physical_type: TypeName
 
     @classmethod
     async def from_reader(

@@ -17,8 +17,11 @@ from pydantic import (
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
 from .enums import (
     Compression,
+    CompressionName,
     Encoding,
+    EncodingName,
     Type,
+    TypeName,
 )
 from .exceptions import ParquetCorruptedError, ParquetMagicError, parse_context
 from .protocols import AsyncReadableSeekable, ReadableSeekable
@@ -122,10 +125,10 @@ class ColumnMetadata(SchemaLinked, frozen=True):
 
     start_offset: int
     byte_length: int
-    type: Type
-    encodings: list[Encoding]
+    type: TypeName
+    encodings: list[EncodingName]
     path_in_schema: str
-    codec: Compression
+    codec: CompressionName
     num_values: int
     total_uncompressed_size: int
     total_compressed_size: int

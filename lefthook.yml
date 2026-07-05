@@ -13,6 +13,9 @@ pre-commit:
     mypy:
       glob: "*.{py,pyi}"
       run: uv run mypy {staged_files}
+    emit-schema:
+      glob: "src/por_que/**/*.py"
+      run: uv run python scripts/emit-schema.py --check
     check-added-large-files:
       exclude:
         - tests/fixtures/**

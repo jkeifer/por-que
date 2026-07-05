@@ -6,20 +6,20 @@
       "path_in_schema": "mycol",
       "start_offset": 4,
       "total_byte_size": 45,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 19,
           "header_size": 21,
           "compressed_page_size": 9,
           "uncompressed_page_size": 7,
           "crc": null,
           "num_values": 1,
-          "encoding": 2,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -36,14 +36,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 14,
         "compressed_page_size": 1,
         "uncompressed_page_size": 0,
         "crc": null,
         "num_values": 0,
-        "encoding": 2,
+        "encoding": "PLAIN_DICTIONARY",
         "is_sorted": false
       },
       "column_index": null,
@@ -71,8 +71,8 @@
           "byte_length": 12,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 5,
-          "repetition": 1,
+          "type": "DOUBLE",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -82,7 +82,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -94,14 +94,14 @@
             "metadata": {
               "start_offset": 123,
               "byte_length": 32,
-              "type": 5,
+              "type": "DOUBLE",
               "encodings": [
-                2,
-                0,
-                3
+                "PLAIN_DICTIONARY",
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "mycol",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 1,
               "total_uncompressed_size": 42,
               "total_compressed_size": 45,

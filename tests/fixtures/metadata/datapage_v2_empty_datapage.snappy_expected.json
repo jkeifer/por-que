@@ -6,11 +6,11 @@
       "path_in_schema": "value",
       "start_offset": 4,
       "total_byte_size": 23,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 3,
+          "page_type": "DATA_PAGE_V2",
           "start_offset": 4,
           "header_size": 21,
           "compressed_page_size": 2,
@@ -19,7 +19,7 @@
           "num_values": 1,
           "num_nulls": 1,
           "num_rows": 1,
-          "encoding": 0,
+          "encoding": "PLAIN",
           "definition_levels_byte_length": 2,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
@@ -41,7 +41,7 @@
         "max_values": [
           ""
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           1
         ],
@@ -84,8 +84,8 @@
           "byte_length": 12,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 4,
-          "repetition": 1,
+          "type": "FLOAT",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -95,7 +95,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -107,12 +107,12 @@
             "metadata": {
               "start_offset": 94,
               "byte_length": 37,
-              "type": 4,
+              "type": "FLOAT",
               "encodings": [
-                0
+                "PLAIN"
               ],
               "path_in_schema": "value",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 1,
               "total_uncompressed_size": 23,
               "total_compressed_size": 23,
@@ -132,8 +132,8 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 3,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE_V2",
+                  "encoding": "PLAIN",
                   "count": 1
                 }
               ],

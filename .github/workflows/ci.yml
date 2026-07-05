@@ -37,6 +37,8 @@ jobs:
           LEFTHOOK_EXCLUDE: js
       - name: Test
         run: uv run pytest
+      - name: Schema up to date
+        run: uv run python scripts/emit-schema.py --check
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v4
         env:

@@ -15,14 +15,19 @@ from .enums import (
     ColumnConvertedType,
     ColumnLogicalType,
     ConvertedType,
+    ConvertedTypeName,
     GroupConvertedType,
     GroupLogicalType,
     ListSemantics,
+    LiteralEnumByName,
     LogicalType,
     Repetition,
+    RepetitionName,
     SchemaElementType,
     TimeUnit,
+    TimeUnitName,
     Type,
+    TypeName,
 )
 
 
@@ -35,13 +40,19 @@ class LogicalTypeInfo(BaseModel, frozen=True):
 class StringTypeInfo(LogicalTypeInfo, frozen=True):
     """String logical type."""
 
-    logical_type: Literal[LogicalType.STRING] = LogicalType.STRING
+    logical_type: Annotated[
+        Literal[LogicalType.STRING],
+        LiteralEnumByName(LogicalType.STRING),
+    ] = LogicalType.STRING
 
 
 class IntTypeInfo(LogicalTypeInfo, frozen=True):
     """Integer logical type with bit width and signedness."""
 
-    logical_type: Literal[LogicalType.INTEGER] = LogicalType.INTEGER
+    logical_type: Annotated[
+        Literal[LogicalType.INTEGER],
+        LiteralEnumByName(LogicalType.INTEGER),
+    ] = LogicalType.INTEGER
     bit_width: int = 32
     is_signed: bool = True
 
@@ -49,7 +60,10 @@ class IntTypeInfo(LogicalTypeInfo, frozen=True):
 class DecimalTypeInfo(LogicalTypeInfo, frozen=True):
     """Decimal logical type with scale and precision."""
 
-    logical_type: Literal[LogicalType.DECIMAL] = LogicalType.DECIMAL
+    logical_type: Annotated[
+        Literal[LogicalType.DECIMAL],
+        LiteralEnumByName(LogicalType.DECIMAL),
+    ] = LogicalType.DECIMAL
     scale: int = 0
     precision: int = 10
 
@@ -57,89 +71,131 @@ class DecimalTypeInfo(LogicalTypeInfo, frozen=True):
 class TimeTypeInfo(LogicalTypeInfo, frozen=True):
     """Time logical type with unit and UTC adjustment."""
 
-    logical_type: Literal[LogicalType.TIME] = LogicalType.TIME
+    logical_type: Annotated[
+        Literal[LogicalType.TIME],
+        LiteralEnumByName(LogicalType.TIME),
+    ] = LogicalType.TIME
     is_adjusted_to_utc: bool = True
-    unit: TimeUnit = TimeUnit.MILLIS
+    unit: TimeUnitName = TimeUnit.MILLIS
 
 
 class TimestampTypeInfo(LogicalTypeInfo, frozen=True):
     """Timestamp logical type with unit and UTC adjustment."""
 
-    logical_type: Literal[LogicalType.TIMESTAMP] = LogicalType.TIMESTAMP
+    logical_type: Annotated[
+        Literal[LogicalType.TIMESTAMP],
+        LiteralEnumByName(LogicalType.TIMESTAMP),
+    ] = LogicalType.TIMESTAMP
     is_adjusted_to_utc: bool = True
-    unit: TimeUnit = TimeUnit.MILLIS
+    unit: TimeUnitName = TimeUnit.MILLIS
 
 
 class DateTypeInfo(LogicalTypeInfo, frozen=True):
     """Date logical type."""
 
-    logical_type: Literal[LogicalType.DATE] = LogicalType.DATE
+    logical_type: Annotated[
+        Literal[LogicalType.DATE],
+        LiteralEnumByName(LogicalType.DATE),
+    ] = LogicalType.DATE
 
 
 class EnumTypeInfo(LogicalTypeInfo, frozen=True):
     """Enum logical type."""
 
-    logical_type: Literal[LogicalType.ENUM] = LogicalType.ENUM
+    logical_type: Annotated[
+        Literal[LogicalType.ENUM],
+        LiteralEnumByName(LogicalType.ENUM),
+    ] = LogicalType.ENUM
 
 
 class JsonTypeInfo(LogicalTypeInfo, frozen=True):
     """JSON logical type."""
 
-    logical_type: Literal[LogicalType.JSON] = LogicalType.JSON
+    logical_type: Annotated[
+        Literal[LogicalType.JSON],
+        LiteralEnumByName(LogicalType.JSON),
+    ] = LogicalType.JSON
 
 
 class BsonTypeInfo(LogicalTypeInfo, frozen=True):
     """BSON logical type."""
 
-    logical_type: Literal[LogicalType.BSON] = LogicalType.BSON
+    logical_type: Annotated[
+        Literal[LogicalType.BSON],
+        LiteralEnumByName(LogicalType.BSON),
+    ] = LogicalType.BSON
 
 
 class UuidTypeInfo(LogicalTypeInfo, frozen=True):
     """UUID logical type."""
 
-    logical_type: Literal[LogicalType.UUID] = LogicalType.UUID
+    logical_type: Annotated[
+        Literal[LogicalType.UUID],
+        LiteralEnumByName(LogicalType.UUID),
+    ] = LogicalType.UUID
 
 
 class Float16TypeInfo(LogicalTypeInfo, frozen=True):
     """Float16 logical type."""
 
-    logical_type: Literal[LogicalType.FLOAT16] = LogicalType.FLOAT16
+    logical_type: Annotated[
+        Literal[LogicalType.FLOAT16],
+        LiteralEnumByName(LogicalType.FLOAT16),
+    ] = LogicalType.FLOAT16
 
 
 class MapTypeInfo(LogicalTypeInfo, frozen=True):
     """Map logical type."""
 
-    logical_type: Literal[LogicalType.MAP] = LogicalType.MAP
+    logical_type: Annotated[
+        Literal[LogicalType.MAP],
+        LiteralEnumByName(LogicalType.MAP),
+    ] = LogicalType.MAP
 
 
 class ListTypeInfo(LogicalTypeInfo, frozen=True):
     """List logical type."""
 
-    logical_type: Literal[LogicalType.LIST] = LogicalType.LIST
+    logical_type: Annotated[
+        Literal[LogicalType.LIST],
+        LiteralEnumByName(LogicalType.LIST),
+    ] = LogicalType.LIST
 
 
 class VariantTypeInfo(LogicalTypeInfo, frozen=True):
     """Variant logical type."""
 
-    logical_type: Literal[LogicalType.VARIANT] = LogicalType.VARIANT
+    logical_type: Annotated[
+        Literal[LogicalType.VARIANT],
+        LiteralEnumByName(LogicalType.VARIANT),
+    ] = LogicalType.VARIANT
 
 
 class GeometryTypeInfo(LogicalTypeInfo, frozen=True):
     """Geometry logical type."""
 
-    logical_type: Literal[LogicalType.GEOMETRY] = LogicalType.GEOMETRY
+    logical_type: Annotated[
+        Literal[LogicalType.GEOMETRY],
+        LiteralEnumByName(LogicalType.GEOMETRY),
+    ] = LogicalType.GEOMETRY
 
 
 class GeographyTypeInfo(LogicalTypeInfo, frozen=True):
     """Geography logical type."""
 
-    logical_type: Literal[LogicalType.GEOGRAPHY] = LogicalType.GEOGRAPHY
+    logical_type: Annotated[
+        Literal[LogicalType.GEOGRAPHY],
+        LiteralEnumByName(LogicalType.GEOGRAPHY),
+    ] = LogicalType.GEOGRAPHY
 
 
 class UnknownTypeInfo(LogicalTypeInfo, frozen=True):
     """Unknown logical type."""
 
-    logical_type: Literal[LogicalType.UNKNOWN] = LogicalType.UNKNOWN
+    logical_type: Annotated[
+        Literal[LogicalType.UNKNOWN],
+        LiteralEnumByName(LogicalType.UNKNOWN),
+    ] = LogicalType.UNKNOWN
 
 
 LogicalTypeInfoUnion = (
@@ -440,12 +496,12 @@ class BaseSchemaGroup(SchemaElement, frozen=True):
 
 class SchemaRoot(BaseSchemaGroup, frozen=True):
     element_type: SchemaElementType = SchemaElementType.ROOT
-    repetition: Repetition = Repetition.REQUIRED
+    repetition: RepetitionName = Repetition.REQUIRED
 
 
 class SchemaGroup(BaseSchemaGroup, frozen=True):
-    repetition: Repetition
-    converted_type: ConvertedType | None
+    repetition: RepetitionName
+    converted_type: ConvertedTypeName | None
     field_id: int | None = None
     logical_type: LogicalTypeInfoUnion | None = None
 
@@ -458,9 +514,9 @@ class SchemaGroup(BaseSchemaGroup, frozen=True):
 
 class SchemaLeaf(SchemaElement, frozen=True):
     element_type: SchemaElementType = SchemaElementType.COLUMN
-    type: Type
-    repetition: Repetition
-    converted_type: ConvertedType | None
+    type: TypeName
+    repetition: RepetitionName
+    converted_type: ConvertedTypeName | None
     type_length: int | None = None
     scale: int | None = None
     precision: int | None = None

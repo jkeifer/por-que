@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field, model_validator
 
 from ._version import get_version
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
-from .enums import Compression
+from .enums import CompressionName
 from .exceptions import (
     ParquetCorruptedError,
     ParquetMagicError,
@@ -65,7 +65,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     path_in_schema: str
     start_offset: int
     total_byte_size: int
-    codec: Compression
+    codec: CompressionName
     num_values: int
     data_pages: list[AnyDataPage]
     index_pages: list[IndexPage]
