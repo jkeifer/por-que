@@ -9,8 +9,6 @@ worked example of how to build a tool on top of the library.
 This v1 is a pragmatic, non-interactive subset of the vision in
 ``arch/CLI_DESIGN.md``: read-only inspection of schema, metadata, row groups,
 and page structure, plus a raw JSON ``dump``. The interactive "microscope"
-explorer described in the design docs is intentionally deferred.
-
-Stretch goal: a ``ver-por-que`` local-launch mode that bundles and serves the
-web viewer directly from the CLI is out of scope for this release.
+explorer described in the design docs is intentionally deferred, but ``serve``
+launches the bundled ``ver-por-que`` webapp locally against a file's dump.
 """
