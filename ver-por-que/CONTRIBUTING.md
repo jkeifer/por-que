@@ -51,16 +51,31 @@ help you get started with development and contributing to the project.
 
 ### Available Commands
 
-| Command                | Description                               |
-| ---------------------- | ----------------------------------------- |
-| `npm run dev`          | Start development server with hot reload  |
-| `npm run build`        | Build for production                      |
-| `npm run typecheck`    | Type-check with `tsc --noEmit`            |
-| `npm test`             | Run unit tests with Vitest                |
-| `npm run lint`         | Check code style and quality              |
-| `npm run lint:fix`     | Auto-fix linting issues                   |
-| `npm run format`       | Format code with Prettier                 |
-| `npm run format:check` | Check code formatting                     |
+| Command                | Description                                        |
+| ---------------------- | ------------------------------------------------- |
+| `npm run generate`     | Generate types + validator from the JSON Schema   |
+| `npm run dev`          | Start development server with hot reload          |
+| `npm run build`        | Build for production                              |
+| `npm run typecheck`    | Type-check with `tsc --noEmit`                    |
+| `npm test`             | Run unit tests with Vitest                        |
+| `npm run lint`         | Check code style and quality                      |
+| `npm run lint:fix`     | Auto-fix linting issues                           |
+| `npm run format`       | Format code with Prettier                         |
+| `npm run format:check` | Check code formatting                             |
+
+`dev`, `build`, `test`, `typecheck`, and `lint` each run `generate` first (via
+npm pre-hooks), so a fresh clone works without a manual step. `generate` reads
+[`schema/por-que.schema.json`](./schema/por-que.schema.json) — the canonical
+contract for the dump JSON — and emits `src/generated/` (gitignored):
+
+- `por-que.d.ts` — TypeScript types ([json-schema-to-typescript])
+- `validate.js` / `validate.d.ts` — a standalone AJV validator used at the load
+  boundary in `main.ts`
+
+Edit the schema, not the generated files. Re-run `npm run generate` after any
+schema change.
+
+[json-schema-to-typescript]: https://github.com/bcherny/json-schema-to-typescript
 
 ### Pre-commit Hooks
 
@@ -81,24 +96,24 @@ npm run format
 ### Project Structure
 
 ```plaintext
+schema/por-que.schema.json     # Canonical contract for the dump JSON
 src/
 ├── index.html             # Main HTML entry point (loads main.ts as a module)
 ├── css/                   # Styles
-├── main.ts                # Application entry point and main controller
+├── main.ts                # Entry point; JSON.parse → AJV validate → typed dump
 ├── format.ts              # Shared byte/number formatting helpers
-├── types.ts               # Interfaces for the por-que JSON dump shapes
-├── domain/                # Core domain models and logic
-│   ├── parquet-constants.ts     # Parquet format constants
-│   ├── parquet-type-resolver.ts # Type resolution logic
-│   └── parquet-segment.ts       # Segment domain model
-├── business/              # Business logic layer
-│   ├── segment-hierarchy-builder.ts  # Builds segment hierarchy
-│   └── segment-layout-calculator.ts  # Calculates byte positions
-├── components/            # UI components
-│   ├── info-panel-manager.ts       # Manages info panels
+├── types.ts               # Friendly aliases over the schema-generated types
+├── generated/             # GENERATED (gitignored): por-que.d.ts + validate.js
+├── domain/
+│   └── parquet-type-resolver.ts # Logical-type pretty-printing / display logic
+├── business/
+│   ├── segment-tree.ts              # projectDump(): dump → SegmentNode tree
+│   └── segment-layout-calculator.ts # Calculates byte positions
+├── components/
+│   ├── info-panel-manager.ts       # Declarative kind → panel sections registry
 │   └── svg-byte-visualizer.ts      # Byte visualization renderer
 └── config/
-    └── visualization-config.ts     # Visualization settings
+    └── visualization-config.ts     # Layout constants + kind → color map
 ```
 
 Everything is TypeScript ESM using real `import`/`export`; there is no
@@ -106,28 +121,31 @@ global-script sharing. Unit tests live in `test/` and run under Vitest.
 
 ### Key Components
 
-#### ParquetExplorer (`app.js`)
+#### ParquetExplorer (`main.ts`)
 
-- Main application controller
-- Handles file loading (local files and URLs)
-- Manages application state
+- Main application controller; loads files (local, URL, or `?url=`)
+- Validates the dump against the schema at the boundary, then trusts the shape
 - Coordinates between components
 
-#### SVGByteVisualizer (`svg-byte-visualizer.js`)
+#### projectDump (`business/segment-tree.ts`)
 
-- Renders the visual representation of the Parquet file structure
-- Displays row groups, column chunks, and data pages as colored segments
-- Handles user interactions (clicks, hovers)
+- One recursive pass turns a validated dump into a `SegmentNode` tree
+- Every span is a REAL byte offset off the wire — nothing is estimated
+- A node's `kind` (a string-literal union) says what it is; its `children` are
+  the next drill-down level
 
-#### SegmentHierarchyBuilder (`business/segment-hierarchy-builder.js`)
+#### SvgByteVisualizer (`components/svg-byte-visualizer.ts`)
 
-- Transforms por-que JSON into a hierarchical segment structure
-- Builds the tree of file → row groups → columns → pages
+- Renders the tree: each level is a node's children, colored by `kind`
+- Handles user interactions (clicks to drill down, hovers)
 
-#### SegmentLayoutCalculator (`business/segment-layout-calculator.js`)
+#### InfoPanelManager (`components/info-panel-manager.ts`)
 
-- Calculates byte positions and sizes for visual layout
-- Determines colors and labels for segments
+- A `Record<Kind, (node, dump) => Section[]>` registry plus one renderer
+
+#### SegmentLayoutCalculator (`business/segment-layout-calculator.ts`)
+
+- Calculates byte positions and sizes for the visual layout
 
 ## 🎯 Contributing Guidelines
 
@@ -202,7 +220,7 @@ The deployment workflow is in `.github/workflows/deploy.yml`.
 ### Build Process
 
 ```bash
-npm run build              # Production build (runs get-git-info.js first)
+npm run build              # Production build (runs generate + get-git-info.js first)
 ```
 
 Output goes to `dist/` directory with assets at `./` public URL.
@@ -241,9 +259,12 @@ npm run build              # Rebuild
 ## 🧪 Testing
 
 Unit tests run under [Vitest](https://vitest.dev/) (`npm test`) and live in
-`test/`. They cover the pure domain/business logic: formatting helpers, the
-segment layout calculator, the `ParquetSegment` model, and the segment
-hierarchy builder. New logic in those layers should come with a focused test.
+`test/`. They cover the pure logic: formatting helpers, the segment layout
+calculator, and the tree projection (`projectDump`) — the projection tests read
+real dump fixtures from `../tests/fixtures/metadata/`, assert the validator
+accepts them and rejects mutations, and check the tree has real offsets, sorted
+children, and correct `kind` coverage. New logic in those layers should come
+with a focused test.
 
 Welcome additions:
 

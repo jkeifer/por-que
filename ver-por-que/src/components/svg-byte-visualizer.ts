@@ -5,16 +5,12 @@
 import { formatBytes } from '../format';
 import { VisualizationConfig, type LayoutConfig } from '../config/visualization-config';
 import {
-    SegmentHierarchyBuilder,
-    type HierarchyCache,
-} from '../business/segment-hierarchy-builder';
-import {
     SegmentLayoutCalculator,
     type LevelLayout,
     type SegmentLayout,
 } from '../business/segment-layout-calculator';
-import type { ParquetSegment } from '../domain/parquet-segment';
-import type { FileData } from '../types';
+import { projectDump, describe, type SegmentNode } from '../business/segment-tree';
+import type { Dump } from '../types';
 import type { InfoPanelManager } from './info-panel-manager';
 
 type FunnelElement = SVGElement & { labelElement?: SVGElement | null };
@@ -23,7 +19,7 @@ type SegmentRect = SVGElement & { labelElement?: SVGElement | null };
 interface Level {
     name: string;
     parentSegmentId: string | null;
-    segments: ParquetSegment[];
+    segments: SegmentNode[];
     layout: LevelLayout;
     svgGroup: SVGGElement;
     animationState: 'appearing' | 'visible';
@@ -37,11 +33,11 @@ export class SvgByteVisualizer {
     private svg!: SVGSVGElement;
     private config: LayoutConfig;
 
-    private data: FileData | null = null;
-    private hierarchyCache: HierarchyCache | null = null;
+    private dump: Dump | null = null;
+    private root: SegmentNode | null = null;
     private levels: Level[] = [];
     private selectedSegments = new Map<number, string>();
-    private selectionPath: ParquetSegment[] = [];
+    private selectionPath: SegmentNode[] = [];
     private hoveredSegment: string | null = null;
 
     private width = 0;
@@ -208,37 +204,28 @@ export class SvgByteVisualizer {
     }
 
     /** Initialize with parquet data. */
-    initWithData(data: FileData): void {
-        this.data = data;
+    initWithData(data: Dump): void {
+        this.dump = data;
+        this.root = projectDump(data);
         this.levels = [];
         this.selectedSegments.clear();
         this.selectionPath = [];
 
-        this.hierarchyCache = SegmentHierarchyBuilder.buildAll(data);
-
         requestAnimationFrame(() => {
             this.updateSvgSize();
 
-            const overviewSegments = this.getSegmentsForLevel('overview');
-            this.addLevel('overview', null, overviewSegments);
+            this.addLevel('overview', null, this.root!.children);
 
-            if (this.infoPanelManager && this.data) {
-                this.infoPanelManager.showOverview(this.data);
+            if (this.infoPanelManager && this.dump && this.root) {
+                this.infoPanelManager.show(this.root, this.dump);
             }
         });
-    }
-
-    private getSegmentsForLevel(level: string, parentId: string | null = null): ParquetSegment[] {
-        if (!this.hierarchyCache) {
-            return [];
-        }
-        return SegmentHierarchyBuilder.getSegmentsForLevel(this.hierarchyCache, level, parentId);
     }
 
     private addLevel(
         levelName: string,
         parentSegmentId: string | null,
-        segments: ParquetSegment[]
+        segments: SegmentNode[]
     ): Level {
         const levelIndex = this.levels.length;
         const layout = this.computeLevelLayout(levelName, parentSegmentId, segments, levelIndex);
@@ -282,11 +269,11 @@ export class SvgByteVisualizer {
         segmentLayout: SegmentLayout,
         group: SVGGElement,
         levelIndex: number,
-        segmentIndex: number
+        _segmentIndex: number
     ): void {
         const segment = segmentLayout.segment;
 
-        const colorVar = VisualizationConfig.getSegmentColor(segment, segmentIndex);
+        const colorVar = VisualizationConfig.getSegmentColor(segment.kind);
         const fillColor =
             this.getCSSVariable(colorVar) ||
             this.getCSSVariable(VisualizationConfig.COLORS.DEFAULT);
@@ -444,7 +431,7 @@ export class SvgByteVisualizer {
 
     private setupSegmentEventListeners(
         rect: SVGElement,
-        segment: ParquetSegment,
+        segment: SegmentNode,
         levelIndex: number
     ): void {
         rect.addEventListener('mouseenter', (e: MouseEvent) => {
@@ -476,7 +463,7 @@ export class SvgByteVisualizer {
     private computeLevelLayout(
         levelName: string,
         parentSegmentId: string | null,
-        segments: ParquetSegment[],
+        segments: SegmentNode[],
         levelIndex: number
     ): LevelLayout {
         return SegmentLayoutCalculator.computeLevelLayout(
@@ -766,7 +753,7 @@ export class SvgByteVisualizer {
         return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
 
-    private handleSegmentClick(segment: ParquetSegment, levelIndex: number): void {
+    private handleSegmentClick(segment: SegmentNode, levelIndex: number): void {
         const isCurrentlySelected = this.isSegmentSelected(segment.id, levelIndex);
 
         for (let i = levelIndex; i < this.levels.length; i++) {
@@ -782,40 +769,28 @@ export class SvgByteVisualizer {
 
         this.updateSelectionDisplay();
 
-        if (this.infoPanelManager) {
-            if (this.selectionPath.length > 0) {
-                this.infoPanelManager.showSegment(
-                    this.selectionPath[this.selectionPath.length - 1]!
-                );
-            } else if (this.data) {
-                this.infoPanelManager.showOverview(this.data);
-            }
+        if (this.infoPanelManager && this.dump) {
+            const selected = this.selectionPath[this.selectionPath.length - 1];
+            this.infoPanelManager.show(selected ?? this.root!, this.dump);
         }
 
         const hasChildLevels = this.levels.length > levelIndex + 1;
-        const willAddNewChild = !isCurrentlySelected && this.segmentHasChildren(segment);
+        const willAddNewChild = !isCurrentlySelected && segment.children.length > 0;
 
         if (willAddNewChild) {
-            const childLevelName = segment.childLevelName;
-            if (!childLevelName) {
-                return;
-            }
-            const childSegments = this.getSegmentsForLevel(childLevelName, segment.id);
-
-            if (childSegments && childSegments.length > 0) {
-                if (hasChildLevels) {
-                    const numLevelsToRemove = this.levels.length - (levelIndex + 1);
-                    const newChildLevelIndex = levelIndex + 1;
-                    this._replaceLevels(
-                        newChildLevelIndex,
-                        childLevelName,
-                        segment.id,
-                        childSegments,
-                        numLevelsToRemove !== 1
-                    );
-                } else {
-                    this.addLevel(childLevelName, segment.id, childSegments);
-                }
+            const childSegments = segment.children;
+            if (hasChildLevels) {
+                const numLevelsToRemove = this.levels.length - (levelIndex + 1);
+                const newChildLevelIndex = levelIndex + 1;
+                this._replaceLevels(
+                    newChildLevelIndex,
+                    segment.kind,
+                    segment.id,
+                    childSegments,
+                    numLevelsToRemove !== 1
+                );
+            } else {
+                this.addLevel(segment.kind, segment.id, childSegments);
             }
         } else if (hasChildLevels) {
             this.removeLevelsFrom(levelIndex + 1);
@@ -832,7 +807,7 @@ export class SvgByteVisualizer {
         childIndex: number,
         newLevelName: string,
         newParentSegmentId: string,
-        newSegments: ParquetSegment[],
+        newSegments: SegmentNode[],
         animateHeight: boolean
     ): void {
         const levelsToRemove = this.levels.slice(childIndex);
@@ -907,26 +882,15 @@ export class SvgByteVisualizer {
         return this.selectedSegments.get(levelIndex) === segmentId;
     }
 
-    private segmentHasChildren(segment: ParquetSegment): boolean {
-        const childLevelName = segment.childLevelName;
-        if (!childLevelName) {
-            return false;
-        }
-        const childSegments = this.getSegmentsForLevel(childLevelName, segment.id);
-        return childSegments.length > 0;
-    }
-
-    private showSegmentTooltip(event: MouseEvent, segment: ParquetSegment): void {
-        let content = '';
-
-        if (segment.description && segment.description !== segment.name) {
-            content += `<strong>${segment.description}</strong><br/>`;
-        } else {
-            content += `<strong>${segment.name}</strong><br/>`;
-        }
+    private showSegmentTooltip(event: MouseEvent, segment: SegmentNode): void {
+        const label = describe(segment);
+        let content =
+            label && label !== segment.name
+                ? `<strong>${label}</strong><br/>`
+                : `<strong>${segment.name}</strong><br/>`;
 
         content += `Range: ${formatBytes(segment.start)} - ${formatBytes(segment.end)}<br/>`;
-        content += `Size: ${formatBytes(segment.size)}`;
+        content += `Size: ${formatBytes(segment.end - segment.start)}`;
 
         this.showTooltip(event, content);
     }
@@ -1021,8 +985,8 @@ export class SvgByteVisualizer {
                 this.selectionPath = [];
                 this.removeLevelsFrom(1);
                 this.updateSelectionDisplay();
-                if (this.infoPanelManager && this.data) {
-                    this.infoPanelManager.showOverview(this.data);
+                if (this.infoPanelManager && this.dump && this.root) {
+                    this.infoPanelManager.show(this.root, this.dump);
                 }
                 event.preventDefault();
                 break;

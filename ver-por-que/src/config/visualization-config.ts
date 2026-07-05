@@ -2,7 +2,7 @@
  * Visualization Configuration
  * Centralized layout, color, and behavior constants plus segment color logic.
  */
-import type { ParquetSegment } from '../domain/parquet-segment';
+import type { Kind } from '../business/segment-tree';
 
 export interface LayoutConfig {
     LEVEL_HEIGHT: number;
@@ -59,118 +59,34 @@ export class VisualizationConfig {
         MIN_WIDTH: 200,
     };
 
-    /**
-     * Get CSS custom property name for a segment based on its semantic type.
-     */
-    static getSegmentColor(segment: ParquetSegment, segmentIndex = 0): string {
-        const elementType = this._getSemanticElementType(segment);
-        const colorFamily = this._getColorFamilyForElementType(elementType);
-        const shadeIndex = segmentIndex % colorFamily.length;
-        return colorFamily[shadeIndex] ?? VisualizationConfig.COLORS.DEFAULT;
-    }
+    /** One CSS custom property per segment kind. */
+    static KIND_COLORS: Record<Kind, string> = {
+        file: '--generic-segment-color',
+        magic_header: '--magic-color',
+        magic_footer: '--magic-color',
+        footer: '--footer-color',
+        data_region: '--row-groups',
+        metadata_region: '--metadata-container-color',
+        row_group: '--row-group-medium',
+        column_chunk: '--column-chunk-medium',
+        dictionary_page: '--dictionary-page-color',
+        data_page: '--data-page-medium',
+        index_page: '--index-page-medium',
+        column_index: '--column-index-medium',
+        offset_index: '--column-index-dark',
+        schema_root: '--schema-group-dark',
+        schema_group: '--schema-group-medium',
+        schema_leaf: '--schema-element-medium',
+        row_groups_meta: '--row-groups',
+        row_group_meta: '--row-group-medium',
+        chunk_meta: '--column-chunk-medium',
+        kv_meta: '--red-medium',
+        kv_entry: '--green-medium',
+    };
 
-    private static _getSemanticElementType(segment: ParquetSegment): string {
-        if (segment.id === 'header_magic' || segment.id === 'footer_magic') {
-            return 'magic';
-        }
-        if (segment.id === 'footer') {
-            return 'footer';
-        }
-        if (segment.id === 'metadata') {
-            return 'metadata_container';
-        }
-        if (segment.id === 'rowgroups') {
-            return 'rowgroups_container';
-        }
-        if (segment.id === 'schema_root') {
-            return 'schema_group';
-        }
-        if (segment.metadata && segment.metadata.element_type === 'group') {
-            return 'schema_group';
-        }
-        if (segment.metadata && segment.metadata.element_type === 'column') {
-            return 'schema_element';
-        }
-        if (segment.id === 'row_groups_metadata') {
-            return 'row_group_metadata';
-        }
-        if (segment.id === 'column_indices') {
-            return 'column_index';
-        }
-        if (segment.metadata && segment.metadata.index_type) {
-            return 'column_index';
-        }
-        if (segment.rowGroupIndex !== undefined && segment.chunkIndex === undefined) {
-            return 'row_group';
-        }
-        if (segment.columnPath && segment.chunkIndex !== undefined) {
-            return 'column_chunk';
-        }
-        if (segment.pageIndex !== undefined) {
-            if (segment.name && segment.name.includes('DICT')) {
-                return 'dictionary_page';
-            } else if (segment.name && segment.name.includes('DATA')) {
-                return 'data_page';
-            } else if (segment.name && segment.name.includes('IDX')) {
-                return 'index_page';
-            }
-            return 'page';
-        }
-        if (segment.id === 'key_value_metadata') {
-            return 'key_value_metadata_container';
-        }
-        if (segment.id.startsWith('kv_') && segment.metadata?.key) {
-            return 'key_value_metadata_entry';
-        }
-        if (segment.metadata && typeof segment.metadata === 'object') {
-            return 'metadata_element';
-        }
-        return 'generic';
-    }
-
-    private static _getColorFamilyForElementType(elementType: string): string[] {
-        const colorFamilies = {
-            magic: ['--magic-color', '--magic-color', '--magic-color'],
-            footer: ['--footer-color', '--footer-color', '--footer-color'],
-            metadata_container: [
-                '--metadata-container-color',
-                '--metadata-container-color',
-                '--metadata-container-color',
-            ],
-            rowgroups_container: ['--row-groups', '--row-groups', '--row-groups'],
-            schema_group: ['--schema-group-light', '--schema-group-medium', '--schema-group-dark'],
-            schema_element: [
-                '--schema-element-light',
-                '--schema-element-medium',
-                '--schema-element-dark',
-            ],
-            row_group: ['--row-group-light', '--row-group-medium', '--row-group-dark'],
-            column_chunk: ['--column-chunk-light', '--column-chunk-medium', '--column-chunk-dark'],
-            data_page: ['--data-page-light', '--data-page-medium', '--data-page-dark'],
-            dictionary_page: [
-                '--dictionary-page-color',
-                '--dictionary-page-color',
-                '--dictionary-page-color',
-            ],
-            index_page: ['--index-page-light', '--index-page-medium', '--index-page-dark'],
-            page: ['--generic-page-light', '--generic-page-medium', '--generic-page-dark'],
-            row_group_metadata: ['--row-groups', '--row-groups', '--row-groups'],
-            column_index: ['--column-index-light', '--column-index-medium', '--column-index-dark'],
-            metadata_element: [
-                '--metadata-element-light',
-                '--metadata-element-medium',
-                '--metadata-element-dark',
-            ],
-            key_value_metadata_container: ['--red-medium', '--red-medium', '--red-medium'],
-            key_value_metadata_entry: ['--green-light', '--green-medium', '--green-dark'],
-            generic: [
-                '--generic-segment-color',
-                '--generic-segment-color',
-                '--generic-segment-color',
-            ],
-        };
-
-        return colorFamilies[elementType as keyof typeof colorFamilies] ?? colorFamilies.generic;
+    /** CSS custom property name for a segment kind. */
+    static getSegmentColor(kind: Kind): string {
+        return VisualizationConfig.KIND_COLORS[kind] ?? VisualizationConfig.COLORS.DEFAULT;
     }
 
     /**

@@ -76,6 +76,18 @@ to use the deployed version.
    - Click on different segments to see details about row groups, columns, and pages
    - Understand how your data is compressed and encoded
 
+   The app can also auto-load a dump on startup via a `?url=` query parameter
+   (e.g. `/?url=data.json`), which is how `por-que serve` opens a file.
+
+## Schema-generated types
+
+The dump JSON shape is defined by the canonical JSON Schema at
+[`schema/por-que.schema.json`](./schema/por-que.schema.json). TypeScript types
+and a standalone runtime validator are generated from it into `src/generated/`
+(gitignored) by `npm run generate`. The `dev`, `build`, `test`, `typecheck`,
+and `lint` scripts all run `generate` first, so a fresh clone just works — but
+if you edit the schema, re-run `npm run generate`.
+
 ## License
 
 ISC license.

@@ -1541,7 +1541,6 @@
           "type": "integer"
         },
         "por_que_version": {
-          "default": "0.2.5.dev38+gbd0dfcbe4.d19800101",
           "title": "Por Que Version",
           "type": "string"
         }

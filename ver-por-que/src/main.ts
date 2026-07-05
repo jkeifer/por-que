@@ -3,19 +3,20 @@
  */
 import { InfoPanelManager } from './components/info-panel-manager';
 import { SvgByteVisualizer } from './components/svg-byte-visualizer';
-import type { FileData } from './types';
+import validate from './generated/validate';
+import type { Dump } from './types';
 
 const DB_NAME = 'ParquetExplorerDB';
 
 interface StoredFile {
     id: string;
-    data: FileData;
+    data: Dump;
     source: string;
     timestamp: number;
 }
 
 class ParquetExplorer {
-    private parquetData: FileData | null = null;
+    private parquetData: Dump | null = null;
     private infoPanelManager: InfoPanelManager | null = null;
     private fileStructureViz: SvgByteVisualizer | null = null;
 
@@ -23,7 +24,15 @@ class ParquetExplorer {
     async init(): Promise<void> {
         try {
             this.setupEventListeners();
-            await this.tryLoadFromStorage();
+
+            // `?url=` is the contract for `por-que serve`, which opens
+            // /?url=data.json. It wins over any previously stored file.
+            const urlParam = new URLSearchParams(location.search).get('url');
+            if (urlParam) {
+                await this.loadURL(urlParam);
+            } else {
+                await this.tryLoadFromStorage();
+            }
             this.hideLoadingScreen();
         } catch (error) {
             this.showError(`Initialization failed: ${(error as Error).message}`);
@@ -159,44 +168,30 @@ class ParquetExplorer {
     }
 
     private async parseJSON(jsonText: string, source: string): Promise<void> {
-        try {
-            const data = JSON.parse(jsonText) as FileData;
-            this.validateParquetJSON(data);
+        const parsed: unknown = JSON.parse(jsonText);
 
-            if (!data.source) {
-                data.source = source;
-            }
-
-            this.parquetData = data;
-            await this.saveToStorage(data, source);
-
-            this.showExplorer();
-            this.populateUI();
-            this.hideLoadingScreen();
-        } catch (error) {
-            throw new Error(`JSON parsing failed: ${(error as Error).message}`);
-        }
-    }
-
-    private validateParquetJSON(data: FileData): void {
-        const requiredFields: (keyof FileData)[] = [
-            'source',
-            'filesize',
-            'column_chunks',
-            'metadata',
-        ];
-        for (const field of requiredFields) {
-            if (!(field in data)) {
-                throw new Error(`Missing required field: ${field}`);
-            }
+        // Boundary validation against the canonical JSON Schema. After this
+        // gate, downstream code trusts the shape and does not re-check it.
+        if (!validate(parsed)) {
+            const details = (validate.errors ?? [])
+                .slice(0, 5)
+                .map(e => `${e.instancePath || '(root)'}: ${e.message}`)
+                .join('; ');
+            this.showError(`Not a valid por-que dump: ${details || 'schema validation failed'}`);
+            return;
         }
 
-        if (!data.metadata) {
-            throw new Error('Invalid metadata structure');
+        const data = parsed;
+        if (!data.source) {
+            data.source = source;
         }
-        if (!data.metadata.schema_root) {
-            throw new Error('Missing schema in metadata');
-        }
+
+        this.parquetData = data;
+        await this.saveToStorage(data, source);
+
+        this.showExplorer();
+        this.populateUI();
+        this.hideLoadingScreen();
     }
 
     private populateUI(): void {
@@ -212,7 +207,7 @@ class ParquetExplorer {
         }
     }
 
-    private initializeFileStructureViz(data: FileData): void {
+    private initializeFileStructureViz(data: Dump): void {
         const container = document.getElementById('rowgroup-chart');
         if (!container || !data.column_chunks) {
             return;
@@ -379,7 +374,7 @@ class ParquetExplorer {
         });
     }
 
-    private async saveToStorage(data: FileData, source: string): Promise<void> {
+    private async saveToStorage(data: Dump, source: string): Promise<void> {
         try {
             await this.saveToIndexedDB(data, source);
         } catch (error) {
@@ -387,7 +382,7 @@ class ParquetExplorer {
         }
     }
 
-    private saveToIndexedDB(data: FileData, source: string): Promise<void> {
+    private saveToIndexedDB(data: Dump, source: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const request = indexedDB.open(DB_NAME, 1);
 
