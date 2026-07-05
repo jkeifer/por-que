@@ -98,28 +98,7 @@
             </section>
         </main>
 
-        <!-- Scripts -->
-
-        <!-- Domain layer - pure domain knowledge -->
-        <script src="js/domain/parquet-constants.js"></script>
-        <script src="js/domain/parquet-type-resolver.js"></script>
-        <script src="js/domain/parquet-segment.js"></script>
-
-        <!-- Configuration -->
-        <script src="js/config/visualization-config.js"></script>
-
-        <!-- Business logic layer -->
-        <script src="js/business/segment-hierarchy-builder.js"></script>
-        <script src="js/business/segment-layout-calculator.js"></script>
-
-        <!-- Component layer -->
-        <script src="js/components/schema-tree.js"></script>
-        <script src="js/components/column-browser.js"></script>
-        <script src="js/components/file-structure-analyzer.js"></script>
-        <script src="js/components/info-panel-manager.js"></script>
-        <script src="js/components/svg-byte-visualizer.js"></script>
-
-        <!-- Application entry point -->
-        <script src="js/app.js"></script>
+        <!-- Application entry point (TypeScript, bundled by Parcel) -->
+        <script type="module" src="main.ts"></script>
     </body>
 </html>
