@@ -29,8 +29,12 @@ jobs:
           uv sync \
             --locked \
             --no-editable
-      - name: Pre-Commit Hooks
-        run: uv run pre-commit run --all-files
+        env:
+          POR_QUE_NO_WEBAPP: "1"
+      - name: Lefthook
+        run: uv run lefthook run pre-commit --all-files
+        env:
+          LEFTHOOK_EXCLUDE: js
       - name: Test
         run: uv run pytest
       - name: "Upload coverage to Codecov"

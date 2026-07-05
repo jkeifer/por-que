@@ -1,0 +1,49 @@
+{
+    "name": "ver-por-que",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "An interactive web-based tool for exploring how parquet files are structured. Pair with the python tool por-que, dump the file structure to JSON, and then load in this UI to see how the file is put together.",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "dev": "parcel src/index.html",
+        "build": "node scripts/get-git-info.js && parcel build src/index.html --public-url ./",
+        "build:dev": "parcel build src/index.html",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/unit",
+        "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/integration",
+        "test:properties": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/properties",
+        "test:regression": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/regression",
+        "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+        "test:snapshots": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/regression/snapshot-regression.test.js",
+        "test:snapshots:update": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/regression/snapshot-regression.test.js --updateSnapshot",
+        "benchmark": "node tests/performance/coordinate-benchmarks.js",
+        "test:all": "npm run test:coverage && npm run benchmark",
+        "lint": "eslint src/",
+        "lint:fix": "eslint src/ --fix",
+        "format": "prettier --write src/",
+        "format:check": "prettier --check src/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jkeifer/ver-por-que.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jkeifer/ver-por-que/issues"
+    },
+    "homepage": "https://jkeifer.github.io/ver-por-que",
+    "devDependencies": {
+        "@eslint/js": "^9.38.0",
+        "benchmark": "^2.1.4",
+        "eslint": "^9.38.0",
+        "fast-check": "^4.3.0",
+        "jest": "^30.2.0",
+        "jest-canvas-mock": "^2.5.2",
+        "parcel": "^2.16.0",
+        "prettier": "^3.6.2"
+    }
+}

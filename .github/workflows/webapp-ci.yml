@@ -1,0 +1,38 @@
+name: "Webapp CI"
+
+concurrency:
+  group: webapp-${{ github.ref }}
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "ver-por-que/**"
+  pull_request:
+    paths:
+      - "ver-por-que/**"
+
+jobs:
+  ci:
+    name: Webapp CI
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ver-por-que
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: ver-por-que/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Format check
+        run: npm run format:check
+      - name: Build
+        run: npm run build
