@@ -56,7 +56,9 @@ class PorQueMeta(BaseModel, frozen=True):
     # history around this comment for the details of what changed when
     # bumping the format version again.
     format_version: Literal[1] = 1
-    por_que_version: str = get_version()
+    # default_factory so the volatile vcs version doesn't leak into the
+    # emitted JSON schema as a `default`
+    por_que_version: str = Field(default_factory=get_version)
 
 
 class PhysicalColumnChunk(BaseModel, frozen=True):

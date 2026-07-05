@@ -6,6 +6,9 @@ dist/
 .parcel-cache/
 src/build-info.js
 
+# Generated from schema/por-que.schema.json by `npm run generate`
+src/generated/
+
 # Logs
 *.log
 npm-debug.log*

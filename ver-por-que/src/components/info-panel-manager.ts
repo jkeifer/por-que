@@ -1,43 +1,553 @@
 /**
  * Info Panel Manager
- * Manages the info panel content separately from the visualization.
+ *
+ * One declarative registry maps each segment `kind` to the sections it shows.
+ * A single renderer turns sections into HTML. No per-kind generate* methods, no
+ * shape-sniffing dispatch — the node's kind already says what it is.
  */
 import { formatBytes, formatNumber, formatOffset } from '../format';
-import { ParquetConstants } from '../domain/parquet-constants';
-import { ParquetTypeResolver } from '../domain/parquet-type-resolver';
-import type { ParquetSegment } from '../domain/parquet-segment';
-import type { FileData, SchemaNode } from '../types';
+import { logicalTypeLabel, displayType } from '../domain/parquet-type-resolver';
+import { describe, type Kind, type SegmentNode } from '../business/segment-tree';
+import type { Dump, ColumnStatistics, SchemaGroup, SchemaLeaf, SchemaRoot } from '../types';
 
-type InfoItem = [string, string | number];
-
-interface PageBucket {
-    count: number;
-    percentage?: string;
+type Row = [string, string | number];
+interface Section {
+    title: string;
+    rows?: Row[];
+    html?: string;
 }
 
-interface PageSummary {
-    totalPages: number;
-    avgPageSize: number;
-    pageTypes: Record<string, PageBucket>;
-    encodings: Record<string, PageBucket>;
+type Handler<K extends Kind> = (node: Extract<SegmentNode, { kind: K }>, dump: Dump) => Section[];
+type Registry = { [K in Kind]: Handler<K> };
+
+/** Standard Start/End/Size section every physical segment shows. */
+function layout(node: SegmentNode): Section {
+    return {
+        title: 'Physical Layout',
+        rows: [
+            ['Start Offset', formatOffset(node.start)],
+            ['End Offset', formatOffset(node.end)],
+            ['Size', formatBytes(node.end - node.start)],
+        ],
+    };
 }
+
+/** True when a nullable/optional value is actually set. */
+function present<T>(v: T | null | undefined): v is T {
+    return v !== null && v !== undefined;
+}
+
+function ratio(compressed: number, uncompressed: number): string {
+    return uncompressed > 0 ? `${((compressed / uncompressed) * 100).toFixed(1)}%` : 'N/A';
+}
+
+function countColumns(node: SchemaRoot | SchemaGroup | SchemaLeaf): number {
+    const children = 'children' in node ? node.children : undefined;
+    if (!children) {
+        return node.element_type === 'group' || node.element_type === 'root' ? 0 : 1;
+    }
+    return Object.values(children).reduce((sum, c) => sum + countColumns(c), 0);
+}
+
+function statRows(stats: ColumnStatistics): Row[] {
+    const val = (v: unknown): string => {
+        if (v === null || v === undefined) {
+            return 'N/A';
+        }
+        const s = String(v);
+        return s.length > 50 ? `${s.slice(0, 47)}...` : s;
+    };
+    return [
+        ['Min Value', val(stats.min_value)],
+        ['Max Value', val(stats.max_value)],
+        ['Null Count', stats.null_count === null ? 'N/A' : formatNumber(stats.null_count)],
+        [
+            'Distinct Count',
+            stats.distinct_count === null || stats.distinct_count === undefined
+                ? 'N/A'
+                : formatNumber(stats.distinct_count),
+        ],
+    ];
+}
+
+/** Aggregate page-type / encoding counts across all data pages (overview). */
+function pageSummary(dump: Dump): Section | null {
+    if (dump.column_chunks.length === 0) {
+        return null;
+    }
+    const pageTypes: Record<string, number> = {};
+    const encodings: Record<string, number> = {};
+    let total = 0;
+    let bytes = 0;
+    const bump = (m: Record<string, number>, k: string): void => {
+        m[k] = (m[k] ?? 0) + 1;
+    };
+    for (const chunk of dump.column_chunks) {
+        if (chunk.dictionary_page) {
+            total++;
+            bytes += chunk.dictionary_page.compressed_page_size;
+            bump(pageTypes, 'DICTIONARY_PAGE');
+            bump(encodings, chunk.dictionary_page.encoding);
+        }
+        for (const p of chunk.data_pages) {
+            total++;
+            bytes += p.compressed_page_size;
+            bump(pageTypes, p.page_type ?? 'DATA_PAGE');
+            bump(encodings, p.encoding);
+        }
+        for (const p of chunk.index_pages) {
+            total++;
+            bytes += p.compressed_page_size;
+            bump(pageTypes, 'INDEX_PAGE');
+        }
+    }
+    const pct = (n: number): string => (total > 0 ? ((n / total) * 100).toFixed(1) : '0.0');
+    const rows: Row[] = [
+        ['Total Pages', formatNumber(total)],
+        ['Average Page Size', formatBytes(total > 0 ? bytes / total : 0)],
+    ];
+    const list = (m: Record<string, number>): string =>
+        Object.entries(m)
+            .map(([k, n]) => `${k}: ${formatNumber(n)} (${pct(n)}%)`)
+            .join('<br>');
+    if (Object.keys(pageTypes).length > 0) {
+        rows.push(['Page Types', list(pageTypes)]);
+    }
+    if (Object.keys(encodings).length > 0) {
+        rows.push(['Encodings', list(encodings)]);
+    }
+    return { title: 'Data Page Summary', rows };
+}
+
+// -- JSON value viewer (kept for key-value entries) --------------------------
+
+function escapeHtml(text: string): string {
+    return text.replace(
+        /[&<>"']/g,
+        c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!
+    );
+}
+
+function renderJson(obj: unknown, depth = 0): string {
+    const indent = '  '.repeat(depth);
+    if (Array.isArray(obj)) {
+        if (obj.length === 0) {
+            return '<span class="json-empty-array">[]</span>';
+        }
+        const items = obj
+            .map(
+                (item, i) =>
+                    `${indent}  ${renderJson(item, depth + 1)}${i < obj.length - 1 ? '<span class="json-comma">,</span>' : ''}`
+            )
+            .join('<br>');
+        return `<span class="json-bracket">[</span><br>${items}<br>${indent}<span class="json-bracket">]</span>`;
+    }
+    if (obj !== null && typeof obj === 'object') {
+        const rec = obj as Record<string, unknown>;
+        const keys = Object.keys(rec);
+        if (keys.length === 0) {
+            return '<span class="json-empty-object">{}</span>';
+        }
+        const items = keys
+            .map(
+                (k, i) =>
+                    `${indent}  <span class="json-key">"${escapeHtml(k)}"</span><span class="json-colon">: </span>${renderJson(rec[k], depth + 1)}${i < keys.length - 1 ? '<span class="json-comma">,</span>' : ''}`
+            )
+            .join('<br>');
+        return `<span class="json-bracket">{</span><br>${items}<br>${indent}<span class="json-bracket">}</span>`;
+    }
+    if (obj === null) {
+        return '<span class="json-null">null</span>';
+    }
+    if (typeof obj === 'string') {
+        return `<span class="json-string">"${escapeHtml(obj)}"</span>`;
+    }
+    return `<span class="json-${typeof obj}">${escapeHtml(String(obj))}</span>`;
+}
+
+function valueViewer(value: string): Section {
+    try {
+        const parsed: unknown = JSON.parse(value);
+        if (parsed && typeof parsed === 'object') {
+            return {
+                title: 'Value (JSON)',
+                html: `<div class="value-viewer json-viewer"><div class="json-tree">${renderJson(parsed)}</div></div>`,
+            };
+        }
+    } catch {
+        // not JSON; fall through to plain text
+    }
+    return {
+        title: 'Value',
+        html: `<div class="value-viewer code-viewer"><pre><code>${escapeHtml(value)}</code></pre></div>`,
+    };
+}
+
+// -- The registry ------------------------------------------------------------
+
+const PANELS: Registry = {
+    file: (_node, dump) => {
+        const m = dump.metadata;
+        const sections: Section[] = [
+            {
+                title: 'File Information',
+                rows: [
+                    ['Source', dump.source],
+                    ['Total Size', formatBytes(dump.filesize)],
+                    ['Parquet Version', m.version],
+                    ['Created By', m.created_by ?? 'Unknown'],
+                ],
+            },
+            {
+                title: 'Schema Summary',
+                rows: [
+                    ['Total Columns', formatNumber(m.column_count)],
+                    ['Total Rows', formatNumber(m.row_count)],
+                    ['Row Groups', formatNumber(m.row_group_count)],
+                ],
+            },
+            {
+                title: 'Compression',
+                rows: [
+                    ['Compressed Size', formatBytes(m.compression_stats.total_compressed)],
+                    ['Uncompressed Size', formatBytes(m.compression_stats.total_uncompressed)],
+                    ['Compression Ratio', `${(m.compression_stats.ratio * 100).toFixed(1)}%`],
+                    ['Space Saved', `${m.compression_stats.space_saved_percent.toFixed(1)}%`],
+                ],
+            },
+        ];
+        const summary = pageSummary(dump);
+        if (summary) {
+            sections.push(summary);
+        }
+        return sections;
+    },
+
+    magic_header: node => [layout(node), { title: 'Magic', rows: [['Bytes', node.text]] }],
+    magic_footer: node => [layout(node), { title: 'Magic', rows: [['Bytes', node.text]] }],
+
+    footer: node => [
+        layout(node),
+        {
+            title: 'Footer',
+            rows: [['Purpose', 'Length of the thrift file metadata, in bytes']],
+        },
+    ],
+
+    data_region: (node, dump) => [
+        layout(node),
+        {
+            title: 'Data Region',
+            rows: [
+                ['Row Groups', formatNumber(dump.metadata.row_group_count)],
+                ['Column Chunks', formatNumber(dump.column_chunks.length)],
+            ],
+        },
+    ],
+
+    metadata_region: node => {
+        const m = node.meta;
+        return [
+            layout(node),
+            {
+                title: 'File Metadata',
+                rows: [
+                    ['Version', m.version],
+                    ['Created By', m.created_by ?? 'Unknown'],
+                    ['Columns', m.column_count],
+                    ['Rows', formatNumber(m.row_count)],
+                    ['Row Groups', m.row_group_count],
+                ],
+            },
+        ];
+    },
+
+    row_group: node => {
+        const rows: Row[] = [['Row Group Index', node.index]];
+        if (node.group) {
+            const cs = node.group.compression_stats;
+            rows.push(
+                ['Row Count', formatNumber(node.group.row_count)],
+                ['Column Count', Object.keys(node.group.column_chunks).length],
+                ['Compressed Size', formatBytes(cs.total_compressed)],
+                ['Uncompressed Size', formatBytes(cs.total_uncompressed)],
+                ['Compression Ratio', ratio(cs.total_compressed, cs.total_uncompressed)]
+            );
+        }
+        return [layout(node), { title: 'Row Group', rows }];
+    },
+
+    column_chunk: node => {
+        const { chunk, meta, leaf } = node;
+        const sections: Section[] = [
+            layout(node),
+            {
+                title: 'Data Types',
+                rows: [
+                    ['Physical Type', meta?.type ?? leaf?.type ?? 'Unknown'],
+                    ['Logical Type', (leaf && logicalTypeLabel(leaf.logical_type)) ?? 'None'],
+                    ['Converted Type', leaf?.converted_type ?? 'None'],
+                    ['Display Type', leaf ? displayType(leaf) : (meta?.type ?? 'Unknown')],
+                ],
+            },
+            {
+                title: 'Compression & Encoding',
+                rows: [
+                    ['Codec', chunk.codec],
+                    ...(meta
+                        ? ([
+                              ['Compressed Size', formatBytes(meta.total_compressed_size)],
+                              ['Uncompressed Size', formatBytes(meta.total_uncompressed_size)],
+                              [
+                                  'Compression Ratio',
+                                  ratio(meta.total_compressed_size, meta.total_uncompressed_size),
+                              ],
+                              ['Encodings', meta.encodings.join(', ')],
+                          ] as Row[])
+                        : []),
+                ],
+            },
+        ];
+        const pageRows: Row[] = [['Values', formatNumber(chunk.num_values)]];
+        if (meta) {
+            pageRows.push(['Data Page Offset', formatOffset(meta.data_page_offset)]);
+            if (present(meta.dictionary_page_offset)) {
+                pageRows.push([
+                    'Dictionary Page Offset',
+                    formatOffset(meta.dictionary_page_offset),
+                ]);
+            }
+        }
+        const pageCount =
+            (chunk.dictionary_page ? 1 : 0) + chunk.data_pages.length + chunk.index_pages.length;
+        pageRows.push(['Total Pages', formatNumber(pageCount)]);
+        sections.push({ title: 'Page Layout', rows: pageRows });
+        return sections;
+    },
+
+    dictionary_page: node => [
+        layout(node),
+        {
+            title: 'Dictionary Page',
+            rows: [
+                ['Page Type', node.page.page_type ?? 'DICTIONARY_PAGE'],
+                ['Encoding', node.page.encoding],
+                ['Values', formatNumber(node.page.num_values)],
+                ['Header Size', formatBytes(node.page.header_size)],
+                ['Compressed Size', formatBytes(node.page.compressed_page_size)],
+                ['Uncompressed Size', formatBytes(node.page.uncompressed_page_size)],
+                [
+                    'Compression Ratio',
+                    ratio(node.page.compressed_page_size, node.page.uncompressed_page_size),
+                ],
+            ],
+        },
+    ],
+
+    data_page: node => {
+        const p = node.page;
+        const rows: Row[] = [
+            ['Page Type', p.page_type ?? 'DATA_PAGE'],
+            ['Encoding', p.encoding],
+            ['Values', formatNumber(p.num_values)],
+            ['Header Size', formatBytes(p.header_size)],
+            ['Compressed Size', formatBytes(p.compressed_page_size)],
+            ['Uncompressed Size', formatBytes(p.uncompressed_page_size)],
+            ['Compression Ratio', ratio(p.compressed_page_size, p.uncompressed_page_size)],
+        ];
+        const sections: Section[] = [layout(node), { title: 'Data Page', rows }];
+        if (p.statistics) {
+            sections.push({ title: 'Page Statistics', rows: statRows(p.statistics) });
+        }
+        return sections;
+    },
+
+    index_page: node => [
+        layout(node),
+        {
+            title: 'Index Page',
+            rows: [
+                ['Page Type', node.page.page_type ?? 'INDEX_PAGE'],
+                ['Header Size', formatBytes(node.page.header_size)],
+                ['Compressed Size', formatBytes(node.page.compressed_page_size)],
+                ['Uncompressed Size', formatBytes(node.page.uncompressed_page_size)],
+            ],
+        },
+    ],
+
+    column_index: node => [
+        layout(node),
+        {
+            title: 'Column Index',
+            rows: [
+                ['Column', node.path],
+                ['Boundary Order', node.index.boundary_order],
+                ['Pages', formatNumber(node.index.null_pages.length)],
+                ['Purpose', 'Per-page min/max and null stats for predicate push-down'],
+            ],
+        },
+    ],
+
+    offset_index: node => [
+        layout(node),
+        {
+            title: 'Offset Index',
+            rows: [
+                ['Column', node.path],
+                ['Page Locations', formatNumber(node.index.page_locations.length)],
+                ['Purpose', 'Page byte offsets and row ranges for seeking'],
+            ],
+        },
+    ],
+
+    schema_root: node => [
+        layout(node),
+        {
+            title: 'Schema Root',
+            rows: [
+                ['Name', node.node.name],
+                ['Children', node.node.num_children],
+                ['Total Columns', formatNumber(countColumns(node.node))],
+            ],
+        },
+    ],
+
+    schema_group: node => {
+        const g = node.node;
+        const rows: Row[] = [
+            ['Name', g.name],
+            ['Repetition', g.repetition],
+            ['Children', g.num_children],
+        ];
+        if (present(g.field_id)) {
+            rows.push(['Field ID', g.field_id]);
+        }
+        if (g.converted_type) {
+            rows.push(['Converted Type', g.converted_type]);
+        }
+        const logical = logicalTypeLabel(g.logical_type);
+        if (logical) {
+            rows.push(['Logical Type', logical]);
+        }
+        return [layout(node), { title: 'Schema Group', rows }];
+    },
+
+    schema_leaf: node => {
+        const l = node.node;
+        const rows: Row[] = [
+            ['Name', l.name],
+            ['Physical Type', l.type],
+            ['Repetition', l.repetition],
+            ['Logical Type', logicalTypeLabel(l.logical_type) ?? 'None'],
+            ['Converted Type', l.converted_type ?? 'None'],
+        ];
+        if (present(l.field_id)) {
+            rows.push(['Field ID', l.field_id]);
+        }
+        if (present(l.type_length)) {
+            rows.push(['Type Length', l.type_length]);
+        }
+        if (present(l.precision)) {
+            rows.push(['Precision', l.precision]);
+        }
+        if (present(l.scale)) {
+            rows.push(['Scale', l.scale]);
+        }
+        return [layout(node), { title: 'Schema Column', rows }];
+    },
+
+    row_groups_meta: node => {
+        const totalRows = node.groups.reduce((s, g) => s + g.row_count, 0);
+        const compressed = node.groups.reduce(
+            (s, g) => s + g.compression_stats.total_compressed,
+            0
+        );
+        const uncompressed = node.groups.reduce(
+            (s, g) => s + g.compression_stats.total_uncompressed,
+            0
+        );
+        return [
+            layout(node),
+            {
+                title: 'Row Group Metadata',
+                rows: [
+                    ['Row Groups', node.groups.length],
+                    ['Total Rows', formatNumber(totalRows)],
+                    ['Total Compressed', formatBytes(compressed)],
+                    ['Total Uncompressed', formatBytes(uncompressed)],
+                    ['Compression Ratio', ratio(compressed, uncompressed)],
+                ],
+            },
+        ];
+    },
+
+    row_group_meta: node => {
+        const cs = node.group.compression_stats;
+        return [
+            layout(node),
+            {
+                title: `Row Group ${node.index}`,
+                rows: [
+                    ['Row Count', formatNumber(node.group.row_count)],
+                    ['Column Count', Object.keys(node.group.column_chunks).length],
+                    ['Compressed Size', formatBytes(cs.total_compressed)],
+                    ['Uncompressed Size', formatBytes(cs.total_uncompressed)],
+                ],
+            },
+        ];
+    },
+
+    chunk_meta: node => {
+        const m = node.meta;
+        const sections: Section[] = [
+            layout(node),
+            {
+                title: 'Column Metadata',
+                rows: [
+                    ['Column', node.path],
+                    ['Physical Type', m.type],
+                    ['Codec', m.codec],
+                    ['Encodings', m.encodings.join(', ')],
+                    ['Values', formatNumber(m.num_values)],
+                    ['Compressed Size', formatBytes(m.total_compressed_size)],
+                    ['Uncompressed Size', formatBytes(m.total_uncompressed_size)],
+                    ['Data Page Offset', formatOffset(m.data_page_offset)],
+                ],
+            },
+        ];
+        if (m.statistics) {
+            sections.push({ title: 'Statistics', rows: statRows(m.statistics) });
+        }
+        return sections;
+    },
+
+    kv_meta: node => [
+        layout(node),
+        {
+            title: 'Key-Value Metadata',
+            rows: node.entries.map(e => [
+                e.key,
+                e.value.length > 50 ? `${e.value.slice(0, 47)}...` : e.value,
+            ]),
+        },
+    ],
+
+    kv_entry: node => [
+        layout(node),
+        { title: 'Key-Value Metadata', rows: [['Key', node.entry.key]] },
+        valueViewer(node.entry.value),
+    ],
+};
+
+/** Kinds that have a panel handler (exhaustiveness checks). */
+export const PANEL_KINDS = new Set<Kind>(Object.keys(PANELS) as Kind[]);
 
 export class InfoPanelManager {
     private container: HTMLElement;
-    private infoPanel!: HTMLElement;
-    private data: FileData | null = null;
-    private typeResolver: typeof ParquetTypeResolver;
+    private infoPanel: HTMLElement;
 
-    constructor(
-        container: HTMLElement,
-        typeResolver: typeof ParquetTypeResolver = ParquetTypeResolver
-    ) {
+    constructor(container: HTMLElement) {
         this.container = container;
-        this.typeResolver = typeResolver;
-        this.init();
-    }
-
-    private init(): void {
         this.container.innerHTML = '';
         this.infoPanel = document.createElement('div');
         this.infoPanel.className = 'info-panel';
@@ -45,1113 +555,35 @@ export class InfoPanelManager {
         this.container.appendChild(this.infoPanel);
     }
 
-    /** Show file overview when no segment is selected. */
-    showOverview(data: FileData): void {
-        this.data = data;
+    /** Render the panel for a segment node (the root node renders the overview). */
+    show(node: SegmentNode, dump: Dump): void {
+        // ponytail: registry keys are correlated with node.kind by construction;
+        // the mapped type can't prove that at the call site, so widen once here.
+        const handler = PANELS[node.kind] as (n: SegmentNode, d: Dump) => Section[];
+        const heading = node.kind === 'file' ? 'File Overview' : describe(node);
         this.infoPanel.style.display = 'block';
-        this.infoPanel.innerHTML = this.generateOverviewInfoPanel();
+        this.infoPanel.innerHTML = `<h3>${heading}</h3><div class="info-sections">${handler(
+            node,
+            dump
+        )
+            .map(s => this.renderSection(s))
+            .join('')}</div>`;
     }
 
-    /** Show info for the selected segment using metadata-based logic. */
-    showSegment(segment: ParquetSegment): void {
-        this.infoPanel.style.display = 'block';
-
-        let html = `<h3>${segment.description}</h3>`;
-
-        if (segment.logicalMetadata?.metadata && segment.physicalMetadata) {
-            html += this.generateColumnInfoPanel(segment);
-        } else if (
-            segment.rowGroupIndex !== undefined &&
-            segment.chunkIndex === undefined &&
-            segment.metadata
-        ) {
-            html += this.generateRowGroupInfoPanel(segment);
-        } else if (segment.pageIndex !== undefined && segment.metadata) {
-            if (segment.name.includes('DICT')) {
-                html += this.generatePageInfoPanel(segment, 'Dictionary Page');
-            } else if (segment.name.includes('DATA')) {
-                html += this.generatePageInfoPanel(segment, 'Data Page');
-            } else if (segment.name.includes('IDX')) {
-                html += this.generatePageInfoPanel(segment, 'Index Page');
-            } else {
-                html += this.generatePageInfoPanel(segment, 'Page');
-            }
-        } else if (segment.id === 'metadata') {
-            html += this.generateMetadataInfoPanel(segment);
-        } else if (segment.id === 'schema_root' && segment.metadata) {
-            html += this.generateSchemaInfoPanel(segment);
-        } else if (segment.id === 'row_groups_metadata' && segment.metadata) {
-            html += this.generateRowGroupMetadataInfoPanel(segment);
-        } else if (segment.metadata?.element_type === 'group') {
-            html += this.generateSchemaGroupInfoPanel(segment);
-        } else if (segment.metadata?.element_type === 'column') {
-            html += this.generateSchemaElementInfoPanel(segment);
-        } else if (segment.metadata?.index_type) {
-            html += this.generateMetadataElementInfoPanel(segment);
-        } else if (segment.metadata?.row_count && segment.rowGroupIndex !== undefined) {
-            html += this.generateRowGroupMetadataInfoPanel(segment);
-        } else if (segment.metadata?.key && segment.metadata?.value) {
-            html += this.generateKeyValueMetadataInfoPanel(segment);
-        } else if (
-            segment.metadata &&
-            typeof segment.metadata === 'object' &&
-            segment.id !== 'rowgroups'
-        ) {
-            html += this.generateMetadataElementInfoPanel(segment);
-        } else {
-            html += this.generateBasicInfoPanel(segment);
-        }
-
-        this.infoPanel.innerHTML = html;
-    }
-
-    /** Hide info panel. */
     hide(): void {
         this.infoPanel.style.display = 'none';
     }
 
-    private generateOverviewInfoPanel(): string {
-        let html = '<h3>File Overview</h3><div class="info-sections">';
-
-        const data = this.data;
-        const metadata = this.data?.metadata;
-
-        if (!data || !metadata) {
-            html += this.generateInfoSection('Information', [['Status', 'No file data available']]);
-            html += '</div>';
-            return html;
-        }
-
-        html += this.generateInfoSection('File Information', [
-            ['Source', data.source || 'Unknown'],
-            ['Total Size', formatBytes(data.filesize || 0)],
-            ['Parquet Version', metadata.version ?? 'Unknown'],
-            ['Created By', metadata.created_by || 'Unknown'],
-        ]);
-
-        const schema = metadata.schema_root;
-        if (schema) {
-            html += this.generateInfoSection('Schema Summary', [
-                [
-                    'Total Columns',
-                    metadata.column_count ? metadata.column_count.toLocaleString() : 'N/A',
-                ],
-                ['Total Rows', metadata.row_count ? metadata.row_count.toLocaleString() : 'N/A'],
-                [
-                    'Row Groups',
-                    metadata.row_group_count ? metadata.row_group_count.toLocaleString() : 'N/A',
-                ],
-            ]);
-        }
-
-        if (metadata.compression_stats) {
-            const compressionStats = metadata.compression_stats;
-            html += this.generateInfoSection('Compression Stats', [
-                ['Compressed Size', formatBytes(compressionStats.total_compressed || 0)],
-                ['Uncompressed Size', formatBytes(compressionStats.total_uncompressed || 0)],
-                [
-                    'Compression Ratio',
-                    compressionStats.ratio
-                        ? (compressionStats.ratio * 100).toFixed(1) + '%'
-                        : 'N/A',
-                ],
-                [
-                    'Space Saved',
-                    compressionStats.space_saved_percent
-                        ? compressionStats.space_saved_percent.toFixed(1) + '%'
-                        : 'N/A',
-                ],
-            ]);
-        }
-
-        const pageSummary = this.generatePageSummaryData(data);
-        if (pageSummary) {
-            const pageSummaryInfo: InfoItem[] = [
-                ['Total Page Count', pageSummary.totalPages.toLocaleString()],
-                ['Average Page Size', formatBytes(pageSummary.avgPageSize)],
-            ];
-
-            if (pageSummary.pageTypes && Object.keys(pageSummary.pageTypes).length > 0) {
-                const pageTypeLines = Object.entries(pageSummary.pageTypes)
-                    .map(
-                        ([type, info]) =>
-                            `${type}: ${info.count.toLocaleString()} (${info.percentage}%)`
-                    )
-                    .join('<br>');
-                pageSummaryInfo.push(['Page Types', pageTypeLines]);
-            }
-
-            if (pageSummary.encodings && Object.keys(pageSummary.encodings).length > 0) {
-                const encodingLines = Object.entries(pageSummary.encodings)
-                    .map(
-                        ([encoding, info]) =>
-                            `${encoding}: ${info.count.toLocaleString()} (${info.percentage}%)`
-                    )
-                    .join('<br>');
-                pageSummaryInfo.push(['Page Encodings', encodingLines]);
-            }
-
-            html += this.generateInfoSection('Data Page Summary', pageSummaryInfo);
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateBasicInfoPanel(segment: ParquetSegment): string {
-        if (segment.id === 'rowgroups' && this.data?.metadata?.row_groups) {
-            const rowGroups = this.data.metadata.row_groups;
-            const totalRows = rowGroups.reduce((sum, rg) => sum + (rg.row_count || 0), 0);
-            const avgRowsPerGroup =
-                rowGroups.length > 0 ? Math.round(totalRows / rowGroups.length) : 0;
-
-            let html = '<div class="info-sections">';
-
-            html += this.generateInfoSection('Physical Layout', [
-                ['Start Offset', formatOffset(segment.start)],
-                ['End Offset', formatOffset(segment.end)],
-                ['Total Size', formatBytes(segment.size)],
-            ]);
-
-            html += this.generateInfoSection('Row Group Statistics', [
-                ['Total Row Groups', rowGroups.length.toLocaleString()],
-                ['Total Rows', formatNumber(totalRows)],
-                ['Avg Rows per Group', formatNumber(avgRowsPerGroup)],
-            ]);
-
-            html += '</div>';
-            return html;
-        }
-
-        return this.generateInfoSection('Segment Information', [
-            ['Name', segment.name],
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-    }
-
-    private generateColumnInfoPanel(segment: ParquetSegment): string {
-        const logicalMeta = segment.logicalMetadata?.metadata;
-        const physicalMeta = segment.physicalMetadata;
-        if (!logicalMeta || !physicalMeta) {
-            return '';
-        }
-
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Total Size', formatBytes(segment.size)],
-        ]);
-
-        const typeInfo: InfoItem[] = [];
-
-        typeInfo.push(['Physical Type', this.typeResolver.getPhysicalTypeName(logicalMeta.type)]);
-        typeInfo.push(['Logical Type', this.getLogicalTypeInfo(segment) || 'None']);
-        typeInfo.push(['Converted Type', this.getConvertedTypeInfo(segment) || 'None']);
-
-        if (logicalMeta.type_length) {
-            typeInfo.push(['Type Length', logicalMeta.type_length]);
-        }
-        if (logicalMeta.precision) {
-            typeInfo.push(['Precision', logicalMeta.precision]);
-        }
-        if (logicalMeta.scale) {
-            typeInfo.push(['Scale', logicalMeta.scale]);
-        }
-
-        html += this.generateInfoSection('Data Types', typeInfo);
-
-        const compressionInfo: InfoItem[] = [];
-        if (physicalMeta.codec !== undefined) {
-            compressionInfo.push([
-                'Algorithm',
-                this.typeResolver.getCompressionName(physicalMeta.codec),
-            ]);
-        }
-
-        if (logicalMeta.total_compressed_size && logicalMeta.total_uncompressed_size) {
-            compressionInfo.push([
-                'Compressed Size',
-                formatBytes(logicalMeta.total_compressed_size),
-            ]);
-            compressionInfo.push([
-                'Uncompressed Size',
-                formatBytes(logicalMeta.total_uncompressed_size),
-            ]);
-            const ratio = (
-                (logicalMeta.total_compressed_size / logicalMeta.total_uncompressed_size) *
-                100
-            ).toFixed(1);
-            compressionInfo.push(['Compression Ratio', `${ratio}%`]);
-            const savedBytes =
-                logicalMeta.total_uncompressed_size - logicalMeta.total_compressed_size;
-            compressionInfo.push(['Space Saved', formatBytes(savedBytes)]);
-        }
-
-        if (logicalMeta.encodings && logicalMeta.encodings.length > 0) {
-            compressionInfo.push([
-                'Encodings',
-                this.typeResolver.getEncodingNames(logicalMeta.encodings),
-            ]);
-        }
-
-        if (compressionInfo.length > 0) {
-            html += this.generateInfoSection('Compression & Encoding', compressionInfo);
-        }
-
-        const pageInfo: InfoItem[] = [];
-        if (logicalMeta.data_page_offset) {
-            pageInfo.push(['Data Page Offset', formatOffset(logicalMeta.data_page_offset)]);
-        }
-        if (logicalMeta.dictionary_page_offset) {
-            pageInfo.push([
-                'Dictionary Page Offset',
-                formatOffset(logicalMeta.dictionary_page_offset),
-            ]);
-        }
-        if (logicalMeta.index_page_offset) {
-            pageInfo.push(['Index Page Offset', formatOffset(logicalMeta.index_page_offset)]);
-        }
-        if (physicalMeta.num_values) {
-            pageInfo.push(['Total Values', formatNumber(physicalMeta.num_values)]);
-        }
-
-        const pageStats = this.calculatePageStatistics(segment);
-        if (pageStats.totalPages > 0) {
-            pageInfo.push(['Total Pages', formatNumber(pageStats.totalPages)]);
-        }
-        if (pageStats.avgRowsPerPage > 0) {
-            pageInfo.push([
-                'Avg Values per Page',
-                formatNumber(Math.round(pageStats.avgRowsPerPage)),
-            ]);
-        }
-
-        if (pageInfo.length > 0) {
-            html += this.generateInfoSection('Page Layout', pageInfo);
-        }
-
-        if (logicalMeta.statistics) {
-            const stats = logicalMeta.statistics;
-            const statsInfo: InfoItem[] = [];
-
-            const minValue =
-                stats.min_value !== undefined && stats.min_value !== null
-                    ? this.formatStatValue(stats.min_value)
-                    : 'N/A';
-            const maxValue =
-                stats.max_value !== undefined && stats.max_value !== null
-                    ? this.formatStatValue(stats.max_value)
-                    : 'N/A';
-
-            statsInfo.push(['Min Value', minValue]);
-            statsInfo.push(['Max Value', maxValue]);
-
-            if (
-                stats.null_count !== undefined &&
-                stats.null_count !== null &&
-                (physicalMeta.num_values ?? 0) > 0
-            ) {
-                const nullPercent = ((stats.null_count / physicalMeta.num_values!) * 100).toFixed(
-                    1
-                );
-                statsInfo.push([
-                    'Null Count',
-                    `${formatNumber(stats.null_count)} (${nullPercent}%)`,
-                ]);
-            } else {
-                statsInfo.push(['Null Count', 'N/A']);
-            }
-
-            if (
-                stats.distinct_count !== undefined &&
-                stats.distinct_count !== null &&
-                (physicalMeta.num_values ?? 0) > 0
-            ) {
-                const distinctPercent = (
-                    (stats.distinct_count / physicalMeta.num_values!) *
-                    100
-                ).toFixed(1);
-                statsInfo.push([
-                    'Distinct Count',
-                    `${formatNumber(stats.distinct_count)} (${distinctPercent}%)`,
-                ]);
-            } else {
-                statsInfo.push(['Distinct Count', 'N/A']);
-            }
-
-            html += this.generateInfoSection('Column Statistics', statsInfo);
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private formatStatValue(value: unknown): string {
-        if (value === null || value === undefined) {
-            return 'N/A';
-        }
-        if (typeof value === 'string') {
-            return value.length > 50 ? value.substring(0, 47) + '...' : value;
-        }
-        if (typeof value === 'number') {
-            return formatNumber(value);
-        }
-        return String(value);
-    }
-
-    private getLogicalTypeInfo(segment: ParquetSegment): string | null {
-        const logicalMeta = segment.logicalMetadata?.metadata;
-        if (!logicalMeta) {
-            return null;
-        }
-        return this.typeResolver.getLogicalTypeName(logicalMeta.logical_type);
-    }
-
-    private getConvertedTypeInfo(segment: ParquetSegment): string | null {
-        const logicalMeta = segment.logicalMetadata?.metadata;
-        if (!logicalMeta) {
-            return null;
-        }
-        return this.typeResolver.getConvertedTypeName(logicalMeta.converted_type);
-    }
-
-    private generateRowGroupInfoPanel(segment: ParquetSegment): string {
-        const metadata = segment.metadata;
-        if (!metadata) {
-            return '';
-        }
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Row Group Index', segment.rowGroupIndex!],
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Total Size', formatBytes(segment.size)],
-        ]);
-
-        const dataInfo: InfoItem[] = [['Row Count', formatNumber(metadata.row_count)]];
-
-        if (metadata.compression_stats?.total_uncompressed && (metadata.row_count ?? 0) > 0) {
-            const avgRowSize = metadata.compression_stats.total_uncompressed / metadata.row_count!;
-            dataInfo.push(['Avg Row Size', formatBytes(avgRowSize)]);
-        }
-
-        const columnCount = Object.keys(metadata.column_chunks || {}).length;
-        dataInfo.push(['Column Count', columnCount]);
-
-        if (metadata.compression_stats) {
-            dataInfo.push([
-                'Compressed Size',
-                formatBytes(metadata.compression_stats.total_compressed || 0),
-            ]);
-            dataInfo.push([
-                'Uncompressed Size',
-                formatBytes(metadata.compression_stats.total_uncompressed || 0),
-            ]);
-            const ratio = (
-                ((metadata.compression_stats.total_compressed || 0) /
-                    (metadata.compression_stats.total_uncompressed || 1)) *
-                100
-            ).toFixed(1);
-            dataInfo.push(['Compression Ratio', `${ratio}%`]);
-        }
-
-        html += this.generateInfoSection('Data & Compression', dataInfo);
-
-        html += '</div>';
-        return html;
-    }
-
-    private generatePageInfoPanel(segment: ParquetSegment, pageType: string): string {
-        const metadata = segment.metadata;
-        if (!metadata) {
-            return '';
-        }
-        let html = '<div class="info-sections">';
-
-        const actualPageType =
-            metadata.page_type !== undefined
-                ? (ParquetConstants.PAGE_TYPES[metadata.page_type] ??
-                  `Unknown (${metadata.page_type})`)
-                : pageType;
-
-        const encodingName =
-            metadata.encoding !== undefined
-                ? this.typeResolver.getEncodingName(metadata.encoding)
-                : 'N/A';
-
-        html += this.generateInfoSection('Page Overview', [
-            ['Page Type', actualPageType],
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Encoding', encodingName],
-        ]);
-
-        const headerSize =
-            metadata.header_size !== undefined ? formatBytes(metadata.header_size) : 'N/A';
-        const compressedSize =
-            metadata.compressed_page_size !== undefined
-                ? formatBytes(metadata.compressed_page_size)
-                : 'N/A';
-        const uncompressedSize =
-            metadata.uncompressed_page_size !== undefined
-                ? formatBytes(metadata.uncompressed_page_size)
-                : 'N/A';
-
-        const sizeInfo: InfoItem[] = [
-            ['Total Page Size', formatBytes(segment.size)],
-            ['Header Size', headerSize],
-            ['Compressed Data Size', compressedSize],
-            ['Uncompressed Size', uncompressedSize],
-        ];
-
-        if (
-            metadata.compressed_page_size !== undefined &&
-            metadata.uncompressed_page_size !== undefined
-        ) {
-            const ratio = (
-                (metadata.compressed_page_size / metadata.uncompressed_page_size) *
-                100
-            ).toFixed(1);
-            sizeInfo.push(['Compression Ratio', `${ratio}%`]);
-        } else {
-            sizeInfo.push(['Compression Ratio', 'N/A']);
-        }
-
-        html += this.generateInfoSection('Size Information', sizeInfo);
-
-        const numValues =
-            metadata.num_values !== undefined ? formatNumber(metadata.num_values) : 'N/A';
-        const numRows = metadata.num_rows !== undefined ? formatNumber(metadata.num_rows) : 'N/A';
-        const crcChecksum =
-            metadata.crc !== undefined ? metadata.crc.toString(16).toUpperCase() : 'N/A';
-
-        const dataInfo: InfoItem[] = [
-            ['Values', numValues],
-            ['Rows', numRows],
-            ['CRC Checksum', crcChecksum],
-        ];
-
-        if (segment.type === 'dictionary') {
-            const isSorted =
-                metadata.is_sorted !== undefined ? (metadata.is_sorted ? 'Yes' : 'No') : 'N/A';
-            dataInfo.push(['Is Sorted', isSorted]);
-        }
-
-        html += this.generateInfoSection('Data Page Content', dataInfo);
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateMetadataInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        const metadata = this.data?.metadata;
-        if (!metadata) {
-            html += this.generateInfoSection('Debug Info', [
-                ['Analyzer Available', this.data ? 'Yes' : 'No'],
-                ['Metadata Available', 'No'],
-            ]);
-            html += '</div>';
-            return html;
-        }
-
-        html += this.generateInfoSection('File Metadata', [
-            ['Version', metadata.version ?? 'Unknown'],
-            ['Created By', metadata.created_by || 'Unknown'],
-            ['Columns', metadata.column_count || 'N/A'],
-            ['Rows', metadata.row_count ? metadata.row_count.toLocaleString() : 'N/A'],
-            ['Row Groups', metadata.row_group_count || 'N/A'],
-        ]);
-
-        if (metadata.compression_stats) {
-            html += this.generateInfoSection('Compression Statistics', [
-                ['Total Compressed', formatBytes(metadata.compression_stats.total_compressed || 0)],
-                [
-                    'Total Uncompressed',
-                    formatBytes(metadata.compression_stats.total_uncompressed || 0),
-                ],
-                [
-                    'Compression Ratio',
-                    metadata.compression_stats.ratio
-                        ? (metadata.compression_stats.ratio * 100).toFixed(1) + '%'
-                        : 'N/A',
-                ],
-                [
-                    'Space Saved',
-                    metadata.compression_stats.space_saved_percent
-                        ? metadata.compression_stats.space_saved_percent.toFixed(1) + '%'
-                        : 'N/A',
-                ],
-            ]);
-        }
-
-        if (metadata.key_value_metadata && metadata.key_value_metadata.length > 0) {
-            const kvPairs: InfoItem[] = metadata.key_value_metadata.map(kv => [
-                kv.key || 'Unknown Key',
-                kv.value
-                    ? kv.value.length > 50
-                        ? kv.value.substring(0, 47) + '...'
-                        : kv.value
-                    : 'N/A',
-            ]);
-            html += this.generateInfoSection('Key-Value Metadata', kvPairs);
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateSchemaInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        if (segment.metadata) {
-            const schema = segment.metadata;
-
-            html += this.generateInfoSection('Root Information', [
-                ['Name', schema.name || 'Unknown'],
-                ['Element Type', schema.element_type || 'group'],
-                ['Children Count', schema.num_children || '0'],
-            ]);
-
-            const totalColumns = this.countColumns(schema);
-            if (totalColumns > 0) {
-                html += this.generateInfoSection('Schema Statistics', [
-                    ['Total Columns', totalColumns.toLocaleString()],
-                ]);
-            }
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateSchemaGroupInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        if (segment.metadata) {
-            const group = segment.metadata;
-
-            const groupInfo: InfoItem[] = [
-                ['Name', group.name || 'Unknown'],
-                ['Element Type', 'group'],
-                ['Repetition', this.getRepetitionType(group.repetition)],
-                ['Children Count', group.num_children || Object.keys(group.children || {}).length],
-            ];
-
-            if (group.field_id !== null && group.field_id !== undefined) {
-                groupInfo.push(['Field ID', group.field_id.toString()]);
-            }
-
-            html += this.generateInfoSection('Group Information', groupInfo);
-
-            if (group.logical_type) {
-                const logicalTypeName = this.typeResolver.getLogicalTypeName(group.logical_type);
-                if (logicalTypeName) {
-                    html += this.generateInfoSection('Logical Type', [['Type', logicalTypeName]]);
-                }
-            }
-
-            if (group.children) {
-                const childrenInfo: InfoItem[] = Object.entries(group.children).map(
-                    ([name, child]) => [
-                        name,
-                        child.element_type === 'group'
-                            ? 'Group'
-                            : this.typeResolver.getPhysicalTypeName(child.type),
-                    ]
-                );
-                html += this.generateInfoSection('Child Elements', childrenInfo);
-            }
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateSchemaElementInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        if (segment.metadata) {
-            const element = segment.metadata;
-
-            const elementInfo: InfoItem[] = [
-                ['Name', element.name || 'Unknown'],
-                ['Element Type', 'column'],
-                ['Physical Type', this.typeResolver.getPhysicalTypeName(element.type)],
-                ['Repetition', this.getRepetitionType(element.repetition)],
-            ];
-
-            if (element.field_id !== null && element.field_id !== undefined) {
-                elementInfo.push(['Field ID', element.field_id.toString()]);
-            }
-            if (element.type_length !== null && element.type_length !== undefined) {
-                elementInfo.push(['Type Length', element.type_length.toString()]);
-            }
-            if (element.precision !== null && element.precision !== undefined) {
-                elementInfo.push(['Precision', element.precision.toString()]);
-            }
-            if (element.scale !== null && element.scale !== undefined) {
-                elementInfo.push(['Scale', element.scale.toString()]);
-            }
-
-            html += this.generateInfoSection('Column Information', elementInfo);
-
-            const typeInfo: InfoItem[] = [];
-
-            if (element.logical_type) {
-                const logicalTypeName = this.typeResolver.getLogicalTypeName(element.logical_type);
-                typeInfo.push(['Logical Type', logicalTypeName || 'Unknown']);
-            } else {
-                typeInfo.push(['Logical Type', 'None']);
-            }
-
-            const convertedTypeName = this.typeResolver.getConvertedTypeName(
-                element.converted_type
-            );
-            typeInfo.push(['Converted Type (Legacy)', convertedTypeName || 'None']);
-
-            html += this.generateInfoSection('Type Information', typeInfo);
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateRowGroupMetadataInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        if (segment.metadata) {
-            const metadata = segment.metadata;
-
-            const overviewInfo: InfoItem[] = [
-                ['Element Type', 'Row Group Metadata'],
-                ['Purpose', 'Metadata for all row groups in the file'],
-            ];
-
-            if (metadata.num_row_groups) {
-                overviewInfo.push(['Total Row Groups', metadata.num_row_groups.toString()]);
-            }
-            if (metadata.row_groups && metadata.row_groups.length > 0) {
-                overviewInfo.push(['Row Groups Available', metadata.row_groups.length.toString()]);
-
-                const totalRows = metadata.row_groups.reduce(
-                    (sum, rg) => sum + (rg.row_count || 0),
-                    0
-                );
-                if (totalRows > 0) {
-                    overviewInfo.push(['Total Rows', formatNumber(totalRows)]);
-                }
-            }
-
-            html += this.generateInfoSection('Row Group Metadata', overviewInfo);
-
-            if (metadata.row_groups && metadata.row_groups.length > 0) {
-                const rowGroups = metadata.row_groups;
-                const totalCompressed = rowGroups.reduce(
-                    (sum, rg) => sum + (rg.compression_stats?.total_compressed || 0),
-                    0
-                );
-                const totalUncompressed = rowGroups.reduce(
-                    (sum, rg) => sum + (rg.compression_stats?.total_uncompressed || 0),
-                    0
-                );
-                const avgRowsPerGroup =
-                    rowGroups.reduce((sum, rg) => sum + (rg.row_count || 0), 0) / rowGroups.length;
-
-                const summaryInfo: InfoItem[] = [
-                    ['Average Rows per Group', formatNumber(Math.round(avgRowsPerGroup))],
-                ];
-
-                if (totalCompressed > 0 && totalUncompressed > 0) {
-                    summaryInfo.push(['Total Compressed Size', formatBytes(totalCompressed)]);
-                    summaryInfo.push(['Total Uncompressed Size', formatBytes(totalUncompressed)]);
-                    const ratio = ((totalCompressed / totalUncompressed) * 100).toFixed(1);
-                    summaryInfo.push(['Overall Compression Ratio', `${ratio}%`]);
-                }
-
-                html += this.generateInfoSection('Summary Statistics', summaryInfo);
-            }
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateMetadataElementInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        const elementType = segment.type
-            ? segment.type.replace('_', ' ').toUpperCase()
-            : 'METADATA ELEMENT';
-        html += this.generateInfoSection('Metadata Element', [
-            ['Element Type', elementType],
-            [
-                'Purpose',
-                segment.type
-                    ? this.getMetadataElementPurpose(segment.type)
-                    : 'File metadata structure',
-            ],
-        ]);
-
-        if (segment.metadata) {
-            const additionalInfo: InfoItem[] = [];
-            if (typeof segment.metadata === 'object') {
-                Object.entries(segment.metadata).forEach(([key, value]) => {
-                    if (key !== 'children' && value !== null && value !== undefined) {
-                        additionalInfo.push([
-                            key.replace(/_/g, ' ').toUpperCase(),
-                            typeof value === 'object'
-                                ? JSON.stringify(value).substring(0, 50) + '...'
-                                : String(value),
-                        ]);
-                    }
-                });
-            }
-
-            if (additionalInfo.length > 0) {
-                html += this.generateInfoSection('Additional Information', additionalInfo);
-            }
-        }
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateKeyValueMetadataInfoPanel(segment: ParquetSegment): string {
-        let html = '<div class="info-sections">';
-
-        html += this.generateInfoSection('Physical Layout', [
-            ['Start Offset', formatOffset(segment.start)],
-            ['End Offset', formatOffset(segment.end)],
-            ['Size', formatBytes(segment.size)],
-        ]);
-
-        html += this.generateInfoSection('Key-Value Metadata', [
-            ['Key', segment.metadata?.key ?? ''],
-        ]);
-
-        html += this.generateValueViewerSection(segment.metadata?.value);
-
-        html += '</div>';
-        return html;
-    }
-
-    private generateValueViewerSection(value: string | undefined): string {
-        if (!value) {
-            return `
-                <div class="info-section">
-                    <h5 class="info-section-title">Value</h5>
-                    <div class="value-viewer">
-                        <div class="value-empty">No value</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        let parsedJson: unknown = null;
-        let isJson = false;
-
-        try {
-            parsedJson = JSON.parse(value);
-            isJson = true;
-        } catch {
-            isJson = false;
-        }
-
-        if (isJson && parsedJson && typeof parsedJson === 'object') {
-            const jsonHtml = this.renderJsonTreeHtml(parsedJson);
-            return `
-                <div class="info-section large-card">
-                    <h5 class="info-section-title">Value (JSON)</h5>
-                    <div class="value-viewer json-viewer">
-                        <div class="json-tree">${jsonHtml}</div>
-                    </div>
-                </div>
-            `;
-        } else {
-            const escapedValue = this.escapeHtml(String(value));
-            return `
-                <div class="info-section large-card">
-                    <h5 class="info-section-title">Value</h5>
-                    <div class="value-viewer code-viewer">
-                        <pre><code>${escapedValue}</code></pre>
-                    </div>
-                </div>
-            `;
-        }
-    }
-
-    private renderJsonTreeHtml(obj: unknown, depth = 0): string {
-        const indent = '  '.repeat(depth);
-
-        if (Array.isArray(obj)) {
-            if (obj.length === 0) {
-                return '<span class="json-empty-array">[]</span>';
-            }
-
-            let html = '<span class="json-bracket">[</span><br>';
-            obj.forEach((item, index) => {
-                const isLast = index === obj.length - 1;
-                html += `${indent}  `;
-                html += this.renderJsonTreeHtml(item, depth + 1);
-                if (!isLast) {
-                    html += '<span class="json-comma">,</span>';
-                }
-                html += '<br>';
-            });
-            html += `${indent}<span class="json-bracket">]</span>`;
-            return html;
-        } else if (obj !== null && typeof obj === 'object') {
-            const record = obj as Record<string, unknown>;
-            const keys = Object.keys(record);
-            if (keys.length === 0) {
-                return '<span class="json-empty-object">{}</span>';
-            }
-
-            let html = '<span class="json-bracket">{</span><br>';
-            keys.forEach((key, index) => {
-                const isLast = index === keys.length - 1;
-                html += `${indent}  `;
-                html += `<span class="json-key">"${this.escapeHtml(key)}"</span>`;
-                html += '<span class="json-colon">: </span>';
-                html += this.renderJsonTreeHtml(record[key], depth + 1);
-                if (!isLast) {
-                    html += '<span class="json-comma">,</span>';
-                }
-                html += '<br>';
-            });
-            html += `${indent}<span class="json-bracket">}</span>`;
-            return html;
-        } else {
-            return this.renderJsonPrimitive(obj);
-        }
-    }
-
-    private renderJsonPrimitive(value: unknown): string {
-        if (value === null) {
-            return '<span class="json-null">null</span>';
-        }
-        if (typeof value === 'boolean') {
-            return `<span class="json-boolean">${value}</span>`;
-        }
-        if (typeof value === 'number') {
-            return `<span class="json-number">${value}</span>`;
-        }
-        if (typeof value === 'string') {
-            return `<span class="json-string">"${this.escapeHtml(value)}"</span>`;
-        }
-        return `<span class="json-unknown">${this.escapeHtml(String(value))}</span>`;
-    }
-
-    private escapeHtml(text: string): string {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    private getMetadataElementPurpose(type: string): string {
-        const purposes: Record<string, string> = {
-            column_index: 'Min/max statistics and null information for pages',
-            offset_index: 'Page locations and sizes for efficient seeking',
-            page_index: 'Combined column and offset index information',
-        };
-        return purposes[type] || 'Metadata element for file structure';
-    }
-
-    private getRepetitionType(repetitionType: number | undefined): string {
-        return this.typeResolver.getRepetitionTypeName(repetitionType);
-    }
-
-    private generateInfoSection(title: string, items: InfoItem[]): string {
-        return `
-            <div class="info-section regular-card">
-                <h5 class="info-section-title">${title}</h5>
-                <div class="info-grid">
-                    ${items
-                        .map(
-                            ([label, value]) => `
-                        <div class="info-item">
-                            <span class="info-label">${label}:</span>
-                            <span class="info-value">${value}</span>
-                        </div>
-                    `
-                        )
-                        .join('')}
-                </div>
-            </div>
-        `;
-    }
-
-    private countColumns(node: SchemaNode | undefined): number {
-        if (!node) {
-            return 0;
-        }
-
-        if (node.element_type === 'column') {
-            return 1;
-        }
-
-        if (node.children) {
-            return Object.values(node.children).reduce(
-                (sum, child) => sum + this.countColumns(child),
-                0
-            );
-        }
-
-        return 0;
-    }
-
-    private generatePageSummaryData(data: FileData): PageSummary | null {
-        if (!data.column_chunks || data.column_chunks.length === 0) {
-            return null;
-        }
-
-        let totalPages = 0;
-        let totalSize = 0;
-        const pageTypes: Record<string, PageBucket> = {};
-        const encodings: Record<string, PageBucket> = {};
-
-        const bump = (bucket: Record<string, PageBucket>, key: string): void => {
-            const existing = bucket[key];
-            if (existing) {
-                existing.count++;
-            } else {
-                bucket[key] = { count: 1 };
-            }
-        };
-
-        data.column_chunks.forEach(chunk => {
-            if (chunk.dictionary_page) {
-                totalPages++;
-                totalSize += chunk.dictionary_page.compressed_page_size || 0;
-                bump(pageTypes, 'DICTIONARY');
-                bump(
-                    encodings,
-                    ParquetTypeResolver.getEncodingName(chunk.dictionary_page.encoding) || 'UNKNOWN'
-                );
-            }
-
-            if (chunk.data_pages && chunk.data_pages.length > 0) {
-                chunk.data_pages.forEach(page => {
-                    totalPages++;
-                    totalSize += page.compressed_page_size || 0;
-
-                    let pageType = 'DATA';
-                    if (page.page_type !== undefined) {
-                        const pageTypeMap: Record<number, string> = {
-                            0: 'DATA_V1',
-                            1: 'INDEX',
-                            2: 'DICTIONARY',
-                            3: 'DATA_V2',
-                        };
-                        pageType = pageTypeMap[page.page_type] || 'DATA';
-                    }
-
-                    bump(pageTypes, pageType);
-                    bump(
-                        encodings,
-                        ParquetTypeResolver.getEncodingName(page.encoding) || 'UNKNOWN'
-                    );
-                });
-            }
-
-            if (chunk.index_pages && chunk.index_pages.length > 0) {
-                chunk.index_pages.forEach(page => {
-                    totalPages++;
-                    totalSize += page.compressed_page_size || 0;
-                    bump(pageTypes, 'INDEX');
-                });
-            }
-        });
-
-        Object.values(pageTypes).forEach(bucket => {
-            bucket.percentage =
-                totalPages > 0 ? ((bucket.count / totalPages) * 100).toFixed(1) : '0.0';
-        });
-        Object.values(encodings).forEach(bucket => {
-            bucket.percentage =
-                totalPages > 0 ? ((bucket.count / totalPages) * 100).toFixed(1) : '0.0';
-        });
-
-        return {
-            totalPages,
-            avgPageSize: totalPages > 0 ? totalSize / totalPages : 0,
-            pageTypes,
-            encodings,
-        };
-    }
-
-    private calculatePageStatistics(segment: ParquetSegment): {
-        totalPages: number;
-        avgRowsPerPage: number;
-    } {
-        const stats = { totalPages: 0, avgRowsPerPage: 0 };
-
-        const physicalMeta = segment.physicalMetadata;
-        if (!physicalMeta) {
-            return stats;
-        }
-
-        let totalPages = 0;
-
-        if (physicalMeta.dictionary_page) {
-            totalPages++;
-        }
-        if (physicalMeta.data_pages && Array.isArray(physicalMeta.data_pages)) {
-            totalPages += physicalMeta.data_pages.length;
-        }
-        if (physicalMeta.index_pages && Array.isArray(physicalMeta.index_pages)) {
-            totalPages += physicalMeta.index_pages.length;
-        }
-
-        const chunkRows =
-            physicalMeta.num_values || segment.logicalMetadata?.metadata?.num_values || 0;
-
-        stats.totalPages = totalPages;
-        stats.avgRowsPerPage = totalPages > 0 ? chunkRows / totalPages : 0;
-
-        return stats;
+    private renderSection(section: Section): string {
+        const body =
+            section.html ??
+            `<div class="info-grid">${(section.rows ?? [])
+                .map(
+                    ([label, value]) =>
+                        `<div class="info-item"><span class="info-label">${label}:</span><span class="info-value">${value}</span></div>`
+                )
+                .join('')}</div>`;
+        const card = section.html ? 'large-card' : 'regular-card';
+        return `<div class="info-section ${card}"><h5 class="info-section-title">${section.title}</h5>${body}</div>`;
     }
 }

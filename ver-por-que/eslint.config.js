@@ -10,6 +10,7 @@ export default tseslint.config(
             '.parcel-cache/**',
             'coverage/**',
             'src/build-info.js',
+            'src/generated/**',
         ],
     },
     js.configs.recommended,

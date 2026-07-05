@@ -1,20 +1,22 @@
 import { describe, it, expect } from 'vitest';
 import { SegmentLayoutCalculator } from '../src/business/segment-layout-calculator';
 import { VisualizationConfig } from '../src/config/visualization-config';
-import { ParquetSegment } from '../src/domain/parquet-segment';
+import type { SegmentNode } from '../src/business/segment-tree';
 
 const config = VisualizationConfig.LAYOUT;
 
-/** Build contiguous segments with the given byte sizes. */
-function segmentsOfSizes(sizes: number[]): ParquetSegment[] {
+/** Build contiguous leaf segments with the given byte sizes. */
+function segmentsOfSizes(sizes: number[]): SegmentNode[] {
     let offset = 0;
     return sizes.map((size, i) => {
-        const seg = new ParquetSegment({
+        const seg: SegmentNode = {
+            kind: 'footer',
             id: `s${i}`,
             name: `s${i}`,
             start: offset,
             end: offset + size,
-        });
+            children: [],
+        };
         offset += size;
         return seg;
     });

@@ -3,10 +3,12 @@
  * Pure functions for calculating segment layouts and positioning.
  */
 import { VisualizationConfig, type LayoutConfig } from '../config/visualization-config';
-import type { ParquetSegment } from '../domain/parquet-segment';
+import type { SegmentNode } from './segment-tree';
+
+const sizeOf = (n: SegmentNode): number => Math.max(0, n.end - n.start);
 
 export interface SegmentLayout {
-    segment: ParquetSegment;
+    segment: SegmentNode;
     x: number;
     y: number;
     width: number;
@@ -32,7 +34,7 @@ export interface LevelLayout {
 }
 
 interface SegmentWidthData {
-    segment: ParquetSegment;
+    segment: SegmentNode;
     naturalWidthPercent: number;
     naturalWidthPixels: number;
     finalWidthPercent: number;
@@ -44,7 +46,7 @@ interface SegmentWidthData {
 export class SegmentLayoutCalculator {
     /** Calculate proportional widths for segments. */
     static calculateSegmentWidths(
-        segments: ParquetSegment[],
+        segments: SegmentNode[],
         containerWidth: number,
         config: LayoutConfig = VisualizationConfig.LAYOUT
     ): SegmentLayout[] {
@@ -65,8 +67,8 @@ export class SegmentLayoutCalculator {
 
         const segmentData: SegmentWidthData[] = segments.map((segment, index) => ({
             segment: segment,
-            naturalWidthPercent: (segment.size / totalSize) * 100,
-            naturalWidthPixels: (segment.size / totalSize) * containerWidth,
+            naturalWidthPercent: (sizeOf(segment) / totalSize) * 100,
+            naturalWidthPixels: (sizeOf(segment) / totalSize) * containerWidth,
             finalWidthPercent: 0,
             finalWidthPixels: 0,
             isExpanded: false,
@@ -115,7 +117,7 @@ export class SegmentLayoutCalculator {
 
     /** Calculate logarithmic minimum widths for segments. */
     static calculateLogarithmicMinWidths(
-        segments: ParquetSegment[],
+        segments: SegmentNode[],
         _totalSize: number,
         containerWidth: number,
         config: LayoutConfig
@@ -127,7 +129,7 @@ export class SegmentLayoutCalculator {
             return segments.map(() => containerWidth / segments.length);
         }
 
-        const sizes = segments.map(s => Math.max(1, s.size));
+        const sizes = segments.map(s => Math.max(1, sizeOf(s)));
         const minSize = Math.min(...sizes);
         const maxSize = Math.max(...sizes);
 
@@ -188,7 +190,7 @@ export class SegmentLayoutCalculator {
     static computeLevelLayout(
         levelName: string,
         parentSegmentId: string | null,
-        segments: ParquetSegment[],
+        segments: SegmentNode[],
         levelIndex: number,
         containerWidth: number,
         config: LayoutConfig
