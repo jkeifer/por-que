@@ -41,12 +41,12 @@ pre-commit:
     eslint:
       tags: [js]
       root: ver-por-que/
-      glob: "*.{js,mjs}"
+      glob: "*.{js,mjs,ts}"
       run: npm run lint:fix
       stage_fixed: true
     prettier:
       tags: [js]
       root: ver-por-que/
-      glob: "*.{js,mjs,json,md,html,css}"
+      glob: "*.{js,mjs,ts,json,md,html,css}"
       run: npm run format
       stage_fixed: true
