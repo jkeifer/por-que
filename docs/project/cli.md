@@ -37,8 +37,24 @@ separate web viewer; that work became
 [ver-por-que](https://teotl.dev/ver-por-que), which consumes por-que's JSON
 exports (see the [serialization contract](../guides/serialization.md)).
 
-## Stretch goal: local launch of ver-por-que
+## Local launch of ver-por-que
 
-A stretch goal is for the CLI to bundle and launch ver-por-que locally against
-a freshly generated export — one command to inspect a file in the browser
-without a network round-trip. This is aspirational and not scheduled.
+`por-que serve PATH_OR_URL` bundles and launches
+[ver-por-que](https://teotl.dev/ver-por-que) locally against a freshly
+generated export — one command to inspect a file in the browser without a
+network round-trip:
+
+```bash
+por-que serve data.parquet
+```
+
+This starts a local server, opens the webapp pointed at the file's dump, and
+serves until interrupted with `Ctrl-C`. Useful flags:
+
+- `--port` / `--host` — bind to a specific address instead of an ephemeral
+  local port.
+- `--no-browser` — print the URL instead of opening it automatically.
+- `--metadata-only` — dump only file metadata, mirroring `dump`'s flag.
+
+A path ending in `.json` is served as-is (skipping parquet parsing entirely),
+so you can also point `serve` at a dump produced earlier by `dump`.

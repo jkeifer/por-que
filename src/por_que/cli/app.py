@@ -2,24 +2,27 @@
 
 A pragmatic, non-interactive subset of the tool described in
 ``arch/CLI_DESIGN.md``: inspect a parquet file's schema, metadata, row groups,
-and page structure, or dump its full JSON serialization. Works on local paths
-and ``http(s)`` URLs alike.
+and page structure, dump its full JSON serialization, or serve the bundled
+webapp against it. Works on local paths and ``http(s)`` URLs alike.
 """
 
 from __future__ import annotations
 
 import asyncio
+import http.server
 import sys
+import webbrowser
 
 from collections.abc import Coroutine
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Annotated, Any
 
 import typer
 
 from rich.console import Console
 
-from . import loaders, render
+from . import loaders, render, webapp
 
 app = typer.Typer(
     add_completion=False,
@@ -211,3 +214,60 @@ def dump(
 
     parquet = _run(ctx, source, loaders.load_file(source))
     sys.stdout.write(parquet.to_json(indent=2) + '\n')
+
+
+@app.command()
+def serve(
+    ctx: typer.Context,
+    source: SourceArg,
+    port: Annotated[
+        int,
+        typer.Option('--port', '-p', help='Port to listen on (0 = ephemeral).'),
+    ] = 0,
+    host: Annotated[
+        str,
+        typer.Option('--host', help='Host/interface to bind.'),
+    ] = '127.0.0.1',
+    no_browser: Annotated[
+        bool,
+        typer.Option('--no-browser', help='Do not open a browser.'),
+    ] = False,
+    metadata_only: Annotated[
+        bool,
+        typer.Option('--metadata-only', help='Dump only file metadata, not pages.'),
+    ] = False,
+    webapp_dir: Annotated[
+        Path | None,
+        typer.Option('--webapp-dir', help='Override path to the webapp assets.'),
+    ] = None,
+) -> None:
+    """Serve the bundled webapp locally to visualize a parquet file's dump."""
+    try:
+        assets = webapp.resolve_webapp_dir(webapp_dir)
+    except webapp.WebappNotFoundError as exc:
+        err_console.print(f'[red]error:[/red] {exc}')
+        raise typer.Exit(1) from exc
+
+    if not loaders.is_url(source) and source.endswith('.json'):
+        payload = Path(source).read_bytes()
+    elif metadata_only:
+        metadata = _run(ctx, source, loaders.load_metadata(source))
+        payload = metadata.model_dump_json(by_alias=True, indent=2).encode()
+    else:
+        parquet = _run(ctx, source, loaders.load_file(source))
+        payload = parquet.to_json(indent=2).encode()
+
+    handler = webapp.make_handler(assets, payload, _verbosity(ctx).verbose)
+    httpd = http.server.ThreadingHTTPServer((host, port), handler)
+    url = f'http://{host}:{httpd.server_address[1]}/?url=data.json'
+    console.print(url)
+    if not no_browser:
+        webbrowser.open(url)
+
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
