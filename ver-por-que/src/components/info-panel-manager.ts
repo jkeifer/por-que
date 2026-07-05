@@ -8,7 +8,23 @@
 import { formatBytes, formatNumber, formatOffset } from '../format';
 import { logicalTypeLabel, displayType } from '../domain/parquet-type-resolver';
 import { describe, type Kind, type SegmentNode } from '../business/segment-tree';
-import type { Dump, ColumnStatistics, SchemaGroup, SchemaLeaf, SchemaRoot } from '../types';
+import type { AnyDump, ColumnStatistics, SchemaGroup, SchemaLeaf, SchemaRoot } from '../types';
+
+/** A metadata-only export lacks the physical `column_chunks` array. */
+function isMetadataOnly(dump: AnyDump): boolean {
+    return !('column_chunks' in dump);
+}
+
+/** Column-chunk count from either root (physical array or footer row groups). */
+function columnChunkCount(dump: AnyDump): number {
+    if ('column_chunks' in dump) {
+        return dump.column_chunks.length;
+    }
+    return dump.metadata.row_groups.reduce((n, g) => n + Object.keys(g.column_chunks).length, 0);
+}
+
+const METADATA_ONLY_NOTE =
+    'Page detail is not in a metadata-only dump — load the original .parquet to see pages.';
 
 type Row = [string, string | number];
 interface Section {
@@ -17,7 +33,10 @@ interface Section {
     html?: string;
 }
 
-type Handler<K extends Kind> = (node: Extract<SegmentNode, { kind: K }>, dump: Dump) => Section[];
+type Handler<K extends Kind> = (
+    node: Extract<SegmentNode, { kind: K }>,
+    dump: AnyDump
+) => Section[];
 type Registry = { [K in Kind]: Handler<K> };
 
 /** Standard Start/End/Size section every physical segment shows. */
@@ -71,7 +90,11 @@ function statRows(stats: ColumnStatistics): Row[] {
 }
 
 /** Aggregate page-type / encoding counts across all data pages (overview). */
-function pageSummary(dump: Dump): Section | null {
+function pageSummary(dump: AnyDump): Section | null {
+    // A metadata-only export carries no page structure to summarize.
+    if (!('column_chunks' in dump)) {
+        return { title: 'Data Pages', rows: [['Detail', METADATA_ONLY_NOTE]] };
+    }
     if (dump.column_chunks.length === 0) {
         return null;
     }
@@ -194,6 +217,7 @@ const PANELS: Registry = {
                 rows: [
                     ['Source', dump.source],
                     ['Total Size', formatBytes(dump.filesize)],
+                    ['Mode', isMetadataOnly(dump) ? 'Metadata-only export' : 'Full dump'],
                     ['Parquet Version', m.version],
                     ['Created By', m.created_by ?? 'Unknown'],
                 ],
@@ -240,7 +264,7 @@ const PANELS: Registry = {
             title: 'Data Region',
             rows: [
                 ['Row Groups', formatNumber(dump.metadata.row_group_count)],
-                ['Column Chunks', formatNumber(dump.column_chunks.length)],
+                ['Column Chunks', formatNumber(columnChunkCount(dump))],
             ],
         },
     ],
@@ -293,7 +317,7 @@ const PANELS: Registry = {
             {
                 title: 'Compression & Encoding',
                 rows: [
-                    ['Codec', chunk.codec],
+                    ['Codec', chunk?.codec ?? meta?.codec ?? 'Unknown'],
                     ...(meta
                         ? ([
                               ['Compressed Size', formatBytes(meta.total_compressed_size)],
@@ -308,7 +332,8 @@ const PANELS: Registry = {
                 ],
             },
         ];
-        const pageRows: Row[] = [['Values', formatNumber(chunk.num_values)]];
+        const values = chunk?.num_values ?? meta?.num_values;
+        const pageRows: Row[] = present(values) ? [['Values', formatNumber(values)]] : [];
         if (meta) {
             pageRows.push(['Data Page Offset', formatOffset(meta.data_page_offset)]);
             if (present(meta.dictionary_page_offset)) {
@@ -318,10 +343,18 @@ const PANELS: Registry = {
                 ]);
             }
         }
-        const pageCount =
-            (chunk.dictionary_page ? 1 : 0) + chunk.data_pages.length + chunk.index_pages.length;
-        pageRows.push(['Total Pages', formatNumber(pageCount)]);
-        sections.push({ title: 'Page Layout', rows: pageRows });
+        // chunk === null => metadata-only export: page structure isn't in the dump.
+        if (chunk) {
+            const pageCount =
+                (chunk.dictionary_page ? 1 : 0) +
+                chunk.data_pages.length +
+                chunk.index_pages.length;
+            pageRows.push(['Total Pages', formatNumber(pageCount)]);
+            sections.push({ title: 'Page Layout', rows: pageRows });
+        } else {
+            sections.push({ title: 'Page Layout', rows: pageRows });
+            sections.push({ title: 'Pages', rows: [['Detail', METADATA_ONLY_NOTE]] });
+        }
         return sections;
     },
 
@@ -381,8 +414,13 @@ const PANELS: Registry = {
             title: 'Column Index',
             rows: [
                 ['Column', node.path],
-                ['Boundary Order', node.index.boundary_order],
-                ['Pages', formatNumber(node.index.null_pages.length)],
+                // index === null in a metadata-only export: span only, no contents.
+                ...(node.index
+                    ? ([
+                          ['Boundary Order', node.index.boundary_order],
+                          ['Pages', formatNumber(node.index.null_pages.length)],
+                      ] as Row[])
+                    : ([['Detail', METADATA_ONLY_NOTE]] as Row[])),
                 ['Purpose', 'Per-page min/max and null stats for predicate push-down'],
             ],
         },
@@ -394,7 +432,11 @@ const PANELS: Registry = {
             title: 'Offset Index',
             rows: [
                 ['Column', node.path],
-                ['Page Locations', formatNumber(node.index.page_locations.length)],
+                ...(node.index
+                    ? ([
+                          ['Page Locations', formatNumber(node.index.page_locations.length)],
+                      ] as Row[])
+                    : ([['Detail', METADATA_ONLY_NOTE]] as Row[])),
                 ['Purpose', 'Page byte offsets and row ranges for seeking'],
             ],
         },
@@ -568,10 +610,10 @@ export class InfoPanelManager {
     }
 
     /** Render the panel for a segment node (the root node renders the overview). */
-    show(node: SegmentNode, dump: Dump): void {
+    show(node: SegmentNode, dump: AnyDump): void {
         // ponytail: registry keys are correlated with node.kind by construction;
         // the mapped type can't prove that at the call site, so widen once here.
-        const handler = PANELS[node.kind] as (n: SegmentNode, d: Dump) => Section[];
+        const handler = PANELS[node.kind] as (n: SegmentNode, d: AnyDump) => Section[];
         const heading = node.kind === 'file' ? 'File Overview' : describe(node);
         this.infoPanel.style.display = 'block';
         this.infoPanel.innerHTML = `<h3>${heading}</h3><div class="info-sections">${handler(

@@ -12,6 +12,7 @@
  */
 export type {
     ParquetFile as Dump,
+    MetadataExport as MetadataDump,
     FileMetadata,
     PhysicalColumnChunk,
     ColumnMetadata,
@@ -31,10 +32,19 @@ export type {
     KeyValueMetadata1 as KeyValueEntry,
 } from './generated/por-que';
 
-import type { DataPageV1, DataPageV2, SchemaLeaf } from './generated/por-que';
+import type {
+    ParquetFile,
+    MetadataExport,
+    DataPageV1,
+    DataPageV2,
+    SchemaLeaf,
+} from './generated/por-que';
 
 /** A data page is either the v1 or v2 shape. */
 export type DataPage = DataPageV1 | DataPageV2;
+
+/** Either dump root. Discriminate on `_meta.model` ('file' | 'metadata'). */
+export type AnyDump = ParquetFile | MetadataExport;
 
 /** The logical-type info object carried on schema elements (discriminated by `logical_type`). */
 export type LogicalTypeInfo = NonNullable<SchemaLeaf['logical_type']>;

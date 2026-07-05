@@ -51,14 +51,36 @@ class AsdictTarget(StrEnum):
 
 
 class PorQueMeta(BaseModel, frozen=True):
-    # format 1: added `schema_path` reference keys and dropped the nested
-    # PhysicalMetadata layer from the serialized structure. See git
-    # history around this comment for the details of what changed when
-    # bumping the format version again.
-    format_version: Literal[1] = 1
+    """Self-identifying envelope stamped on every exported por-que model.
+
+    Subclasses specialize ``model`` (the root-model discriminator the webapp
+    dispatches on) and ``format_version`` (bumped per model when its serialized
+    shape changes). The shared ``por_que_version`` records the producing tool.
+    """
+
     # default_factory so the volatile vcs version doesn't leak into the
     # emitted JSON schema as a `default`
     por_que_version: str = Field(default_factory=get_version)
+
+
+class FileMeta(PorQueMeta, frozen=True):
+    """Envelope for a full ``ParquetFile`` dump."""
+
+    # format 1: added `schema_path` reference keys and dropped the nested
+    # PhysicalMetadata layer from the serialized structure.
+    # format 2: added the `model` discriminator to the envelope so every export
+    # self-identifies its root model. See git history around this comment for
+    # the details of what changed when bumping the format version again.
+    model: Literal['file'] = 'file'
+    format_version: Literal[2] = 2
+
+
+class MetadataMeta(PorQueMeta, frozen=True):
+    """Envelope for a metadata-only export (:class:`MetadataExport`)."""
+
+    # format 1: initial metadata-only export envelope.
+    model: Literal['metadata'] = 'metadata'
+    format_version: Literal[1] = 1
 
 
 class PhysicalColumnChunk(BaseModel, frozen=True):
@@ -440,8 +462,8 @@ class ParquetFile(
     metadata: FileMetadata
     magic_header: str = PARQUET_MAGIC.decode()
     magic_footer: str = PARQUET_MAGIC.decode()
-    meta_info: PorQueMeta = Field(
-        default_factory=PorQueMeta,
+    meta_info: FileMeta = Field(
+        default_factory=FileMeta,
         alias='_meta',
         description='Metadata about the por-que serialization format',
     )
@@ -694,3 +716,49 @@ class ParquetFile(
             self.metadata.schema_root,
             {path: aiter(iterable) for path, iterable in column_iters.items()},
         )
+
+
+class MetadataExport(BaseModel, frozen=True):
+    """A metadata-only export: the file footer plus enough context to place it.
+
+    This is the ``dump --metadata-only`` payload -- a first-class,
+    app-consumable root model. It carries no page structure (no
+    ``column_chunks``); everything the webapp needs to lay out the file comes
+    from ``filesize`` and the footer ``metadata``.
+    """
+
+    source: str
+    filesize: int
+    metadata: FileMetadata
+    meta_info: MetadataMeta = Field(
+        default_factory=MetadataMeta,
+        alias='_meta',
+        description='Metadata about the por-que serialization format',
+    )
+
+    @classmethod
+    async def from_reader(
+        cls,
+        reader: ReadableSeekable | AsyncReadableSeekable,
+        source: Path | str,
+    ) -> Self:
+        """Parse just the footer metadata, recording source and file size.
+
+        The file size is known the moment we seek to the end to find the
+        footer, so it costs nothing to capture here alongside the metadata.
+        """
+        reader = ensure_async_reader(reader)
+
+        reader.seek(0, SEEK_END)
+        filesize = reader.tell()
+
+        metadata = await FileMetadata.from_reader(reader)
+
+        return cls(
+            source=str(source),
+            filesize=filesize,
+            metadata=metadata,
+        )
+
+    def to_json(self, **kwargs: Any) -> str:
+        return self.model_dump_json(by_alias=True, **kwargs)

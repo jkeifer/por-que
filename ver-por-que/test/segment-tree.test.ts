@@ -1,9 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import validate from '../src/generated/validate.js';
+import { validateFile, validateMetadata } from '../src/generated/validate.js';
 import {
+    project,
     projectDump,
+    projectMetadataExport,
     findNode,
     describe as describeNode,
     KINDS,
@@ -12,14 +14,23 @@ import {
 } from '../src/business/segment-tree';
 import { VisualizationConfig } from '../src/config/visualization-config';
 import { PANEL_KINDS } from '../src/components/info-panel-manager';
-import type { Dump } from '../src/types';
+import type { Dump, MetadataDump } from '../src/types';
 
 const FIXTURES = fileURLToPath(new URL('../../tests/fixtures/metadata/', import.meta.url));
+const METADATA_EXPORT = fileURLToPath(new URL('./fixtures/metadata-export.json', import.meta.url));
 
 function load(name: string): Dump {
     const dump: unknown = JSON.parse(readFileSync(`${FIXTURES}${name}_expected.json`, 'utf8'));
-    if (!validate(dump)) {
+    if (!validateFile(dump)) {
         throw new Error(`fixture ${name} failed schema validation`);
+    }
+    return dump;
+}
+
+function loadMetadataExport(): MetadataDump {
+    const dump: unknown = JSON.parse(readFileSync(METADATA_EXPORT, 'utf8'));
+    if (!validateMetadata(dump)) {
+        throw new Error('metadata-export fixture failed schema validation');
     }
     return dump;
 }
@@ -44,7 +55,7 @@ describe('validator', () => {
     it('accepts real fixtures', () => {
         for (const f of [KV, INDEXED, NESTED]) {
             expect(
-                validate(JSON.parse(readFileSync(`${FIXTURES}${f}_expected.json`, 'utf8')))
+                validateFile(JSON.parse(readFileSync(`${FIXTURES}${f}_expected.json`, 'utf8')))
             ).toBe(true);
         }
     });
@@ -52,8 +63,26 @@ describe('validator', () => {
     it('rejects a mutated copy (required field removed)', () => {
         const dump = JSON.parse(readFileSync(`${FIXTURES}${KV}_expected.json`, 'utf8'));
         delete dump.metadata;
-        expect(validate(dump)).toBe(false);
-        expect(validate.errors?.length).toBeGreaterThan(0);
+        expect(validateFile(dump)).toBe(false);
+        expect(validateFile.errors?.length).toBeGreaterThan(0);
+    });
+
+    it('dispatches each shape to its own root validator', () => {
+        const file = JSON.parse(readFileSync(`${FIXTURES}${KV}_expected.json`, 'utf8'));
+        const metadata = JSON.parse(readFileSync(METADATA_EXPORT, 'utf8'));
+
+        // Each validates under its own root...
+        expect(validateFile(file)).toBe(true);
+        expect(validateMetadata(metadata)).toBe(true);
+
+        // ...and the discriminator values are distinct.
+        expect(file._meta.model).toBe('file');
+        expect(metadata._meta.model).toBe('metadata');
+
+        // A full dump is not a valid metadata export (has extra required-absent
+        // shape) and vice versa: the metadata export lacks column_chunks.
+        expect(validateFile(metadata)).toBe(false);
+        expect(validateMetadata(file)).toBe(false);
     });
 });
 
@@ -188,6 +217,68 @@ describe('projectDump', () => {
         const root = projectDump(load(KV));
         expect(findNode(root, 'schema_root')?.kind).toBe('schema_root');
         expect(findNode(root, 'nope')).toBeNull();
+    });
+});
+
+describe('projectMetadataExport', () => {
+    const PAGE_KINDS: Kind[] = ['dictionary_page', 'data_page', 'index_page'];
+
+    it('project() dispatches a metadata export to the metadata projection', () => {
+        const root = project(loadMetadataExport());
+        expect(root.kind).toBe('file');
+        expect(root.children.map(c => c.kind)).toEqual([
+            'magic_header',
+            'data_region',
+            'metadata_region',
+            'footer',
+            'magic_footer',
+        ]);
+    });
+
+    it('has no page-level nodes', () => {
+        const kinds = kindsIn(projectMetadataExport(loadMetadataExport()));
+        for (const k of PAGE_KINDS) {
+            expect(kinds.has(k), k).toBe(false);
+        }
+    });
+
+    it('projects column chunks with sane contained spans and a null chunk', () => {
+        const dump = loadMetadataExport();
+        const chunks: SegmentNode[] = [];
+        walk(projectMetadataExport(dump), n => {
+            if (n.kind === 'column_chunk') {
+                chunks.push(n);
+            }
+        });
+        expect(chunks.length).toBeGreaterThan(0);
+        for (const c of chunks) {
+            expect(c.kind === 'column_chunk' && c.chunk).toBe(null);
+            expect(c.end).toBeGreaterThan(c.start);
+            expect(c.start).toBeGreaterThanOrEqual(0);
+            expect(c.end).toBeLessThanOrEqual(dump.filesize);
+        }
+    });
+
+    it('keeps column/offset index and bloom filter nodes (footer-derived spans)', () => {
+        const kinds = kindsIn(projectMetadataExport(loadMetadataExport()));
+        expect(kinds.has('column_index')).toBe(true);
+        expect(kinds.has('offset_index')).toBe(true);
+        expect(kinds.has('bloom_filter')).toBe(true);
+    });
+
+    it('keeps the metadata-region drill-down intact', () => {
+        const kinds = kindsIn(projectMetadataExport(loadMetadataExport()));
+        expect(kinds.has('schema_root')).toBe(true);
+        expect(kinds.has('row_groups_meta')).toBe(true);
+        expect(kinds.has('chunk_meta')).toBe(true);
+    });
+
+    it('has finite, ordered offsets everywhere', () => {
+        walk(projectMetadataExport(loadMetadataExport()), n => {
+            expect(Number.isFinite(n.start)).toBe(true);
+            expect(Number.isFinite(n.end)).toBe(true);
+            expect(n.end).toBeGreaterThanOrEqual(n.start);
+        });
     });
 });
 

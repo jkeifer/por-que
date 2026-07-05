@@ -8,10 +8,13 @@
  * node's `kind`, not a re-derivation from id strings or metadata shapes.
  */
 import type {
+    AnyDump,
     Dump,
+    MetadataDump,
     FileMetadata,
     PhysicalColumnChunk,
     ColumnMetadata,
+    ColumnChunk,
     DataPage,
     DictionaryPage,
     IndexPage,
@@ -87,7 +90,7 @@ interface Base {
  * source slice needed to describe it. Narrow on `node.kind` to read the extras.
  */
 export type SegmentNode =
-    | (Base & { kind: 'file'; dump: Dump })
+    | (Base & { kind: 'file'; dump: AnyDump })
     | (Base & { kind: 'magic_header'; text: string })
     | (Base & { kind: 'magic_footer'; text: string })
     | (Base & { kind: 'footer' })
@@ -96,15 +99,19 @@ export type SegmentNode =
     | (Base & { kind: 'row_group'; index: number; group: RowGroup | null })
     | (Base & {
           kind: 'column_chunk';
-          chunk: PhysicalColumnChunk;
+          // null in a metadata-only export: no materialized page structure,
+          // only the footer's ColumnMetadata (`meta`).
+          chunk: PhysicalColumnChunk | null;
           meta: ColumnMetadata | null;
           leaf: SchemaLeaf | null;
       })
     | (Base & { kind: 'dictionary_page'; page: DictionaryPage; path: string })
     | (Base & { kind: 'data_page'; page: DataPage; path: string })
     | (Base & { kind: 'index_page'; page: IndexPage; path: string })
-    | (Base & { kind: 'column_index'; index: ColumnIndex; path: string })
-    | (Base & { kind: 'offset_index'; index: OffsetIndex; path: string })
+    // index is null in a metadata-only export: the byte span comes from the
+    // footer, but the parsed index contents aren't in the dump.
+    | (Base & { kind: 'column_index'; index: ColumnIndex | null; path: string })
+    | (Base & { kind: 'offset_index'; index: OffsetIndex | null; path: string })
     | (Base & { kind: 'bloom_filter'; path: string; rowGroup: number })
     | (Base & { kind: 'schema_root'; node: SchemaRoot })
     | (Base & { kind: 'schema_group'; node: SchemaGroup })
@@ -122,15 +129,38 @@ function isSet<T>(v: T | null | undefined): v is T {
     return v !== null && v !== undefined;
 }
 
-/** Project a validated dump into the physical segment tree. */
+/** Project either dump root into the physical segment tree. */
+export function project(dump: AnyDump): SegmentNode {
+    // ParquetFile carries `column_chunks`; MetadataExport does not. That
+    // structural difference is the reliable discriminator.
+    return 'column_chunks' in dump ? projectDump(dump) : projectMetadataExport(dump);
+}
+
+/** Project a validated full dump into the physical segment tree. */
 export function projectDump(dump: Dump): SegmentNode {
+    return assemble(dump, buildDataRegion(dump, dump.magic_header?.length ?? 4));
+}
+
+/**
+ * Project a metadata-only export. The byte map comes from `filesize`; the data
+ * region's row groups and column chunks are derived from footer metadata ONLY
+ * (real offsets/sizes), with NO page-level nodes -- that data isn't in the
+ * export. Magic/footer/metadata-region segments are identical to the full path.
+ */
+export function projectMetadataExport(dump: MetadataDump): SegmentNode {
+    return assemble(dump, buildMetadataDataRegion(dump.metadata, 4));
+}
+
+/**
+ * Assemble the five top-level file segments around a pre-built data region.
+ * magic_header/magic_footer are optional in the schema (and absent on a
+ * metadata export) but always "PAR1" (4 bytes) in a real parquet file.
+ */
+function assemble(dump: AnyDump, dataRegion: SegmentNode): SegmentNode {
     const meta = dump.metadata;
-    // magic_header/magic_footer are optional in the schema but always "PAR1"
-    // (4 bytes) in a real parquet file; fall back to that when absent.
-    const headerMagic = dump.magic_header ?? 'PAR1';
-    const footerMagic = dump.magic_footer ?? 'PAR1';
+    const headerMagic = ('magic_header' in dump ? dump.magic_header : null) ?? 'PAR1';
+    const footerMagic = ('magic_footer' in dump ? dump.magic_footer : null) ?? 'PAR1';
     const magicLen = headerMagic.length;
-    const metaStart = meta.start_offset;
     const metaEnd = meta.start_offset + meta.total_byte_size;
     const footerMagicLen = footerMagic.length;
 
@@ -144,7 +174,7 @@ export function projectDump(dump: Dump): SegmentNode {
             text: headerMagic,
             children: [],
         },
-        buildDataRegion(dump, magicLen, metaStart),
+        dataRegion,
         buildMetadataRegion(meta),
         {
             kind: 'footer',
@@ -177,7 +207,8 @@ export function projectDump(dump: Dump): SegmentNode {
 }
 
 /** The data portion: everything between the header magic and the footer. */
-function buildDataRegion(dump: Dump, start: number, end: number): SegmentNode {
+function buildDataRegion(dump: Dump, start: number): SegmentNode {
+    const end = dump.metadata.start_offset;
     const byGroup = new Map<number, PhysicalColumnChunk[]>();
     for (const chunk of dump.column_chunks) {
         const list = byGroup.get(chunk.row_group) ?? [];
@@ -357,6 +388,124 @@ function buildBloomFilter(
         rowGroup,
         children: [],
     };
+}
+
+/**
+ * Data region derived from footer metadata only (metadata-only export). Row
+ * groups and column chunks come from real ColumnMetadata offsets/sizes; page
+ * indexes and bloom filters from the footer's ColumnChunk spans. No page-level
+ * nodes -- that data isn't in a metadata export.
+ */
+function buildMetadataDataRegion(meta: FileMetadata, start: number): SegmentNode {
+    const end = meta.start_offset;
+    const children: SegmentNode[] = [];
+
+    meta.row_groups.forEach((group, rgIndex) => {
+        const chunks = Object.entries(group.column_chunks).map(([path, cc]) =>
+            buildMetadataColumnChunk(meta, rgIndex, path, cc)
+        );
+        if (chunks.length === 0) {
+            return;
+        }
+        children.push({
+            kind: 'row_group',
+            id: `rg_${rgIndex}`,
+            name: `RG${rgIndex}`,
+            start: Math.min(...chunks.map(c => c.start)),
+            end: Math.max(...chunks.map(c => c.end)),
+            index: rgIndex,
+            group,
+            children: chunks.sort(byStart),
+        });
+    });
+
+    // Page-index and bloom-filter blocks sit between the chunks and the footer,
+    // hanging directly off the data region (same as the full path). Their byte
+    // spans are all footer metadata, so they survive a metadata-only export.
+    meta.row_groups.forEach((group, rgIndex) => {
+        for (const [path, cc] of Object.entries(group.column_chunks)) {
+            if (isSet(cc.column_index_offset) && isSet(cc.column_index_length)) {
+                children.push(
+                    buildMetadataIndex(
+                        'column_index',
+                        cc.column_index_offset,
+                        cc.column_index_length,
+                        path
+                    )
+                );
+            }
+            if (isSet(cc.offset_index_offset) && isSet(cc.offset_index_length)) {
+                children.push(
+                    buildMetadataIndex(
+                        'offset_index',
+                        cc.offset_index_offset,
+                        cc.offset_index_length,
+                        path
+                    )
+                );
+            }
+            const m = cc.metadata;
+            // Real byte spans only: skip when the length wasn't persisted.
+            if (isSet(m.bloom_filter_offset) && isSet(m.bloom_filter_length)) {
+                children.push(
+                    buildBloomFilter(m.bloom_filter_offset, m.bloom_filter_length, path, rgIndex)
+                );
+            }
+        }
+    });
+
+    return {
+        kind: 'data_region',
+        id: 'data_region',
+        name: 'DATA',
+        start,
+        end,
+        children: children.sort(byStart),
+    };
+}
+
+function buildMetadataColumnChunk(
+    meta: FileMetadata,
+    rgIndex: number,
+    path: string,
+    cc: ColumnChunk
+): SegmentNode {
+    const m = cc.metadata;
+    // Chunk start = first page written; matches PhysicalColumnChunk.start_offset.
+    const start = isSet(m.dictionary_page_offset)
+        ? Math.min(m.data_page_offset, m.dictionary_page_offset)
+        : m.data_page_offset;
+    return {
+        kind: 'column_chunk',
+        id: `rg_${rgIndex}_col_${path}`,
+        name: path,
+        start,
+        end: start + m.total_compressed_size,
+        chunk: null,
+        meta: m,
+        leaf: findSchemaLeaf(meta.schema_root, path),
+        children: [],
+    };
+}
+
+/** Page-index node (metadata mode): real byte span, no parsed contents. */
+function buildMetadataIndex(
+    kind: 'column_index' | 'offset_index',
+    offset: number,
+    length: number,
+    path: string
+): SegmentNode {
+    const isCol = kind === 'column_index';
+    const base = {
+        id: `${isCol ? 'colidx' : 'offidx'}_${path}`,
+        name: `${path} ${isCol ? 'column' : 'offset'} index`,
+        start: offset,
+        end: offset + length,
+        index: null,
+        path,
+        children: [],
+    };
+    return isCol ? { kind: 'column_index', ...base } : { kind: 'offset_index', ...base };
 }
 
 /** The footer thrift metadata: schema, per-row-group metadata, key/value pairs. */

@@ -1,86 +1,6 @@
 {
   "source": "https://raw.githubusercontent.com/apache/parquet-testing/1a2a75127be06fc0123f03ebd36c966f7beda27d/data/data_index_bloom_encoding_with_length.parquet",
   "filesize": 2885,
-  "column_chunks": [
-    {
-      "path_in_schema": "String",
-      "start_offset": 4,
-      "total_byte_size": 199,
-      "codec": "UNCOMPRESSED",
-      "num_values": 14,
-      "data_pages": [
-        {
-          "page_type": "DATA_PAGE",
-          "start_offset": 152,
-          "header_size": 35,
-          "compressed_page_size": 16,
-          "uncompressed_page_size": 16,
-          "crc": null,
-          "num_values": 14,
-          "encoding": "RLE_DICTIONARY",
-          "definition_level_encoding": "RLE",
-          "repetition_level_encoding": "RLE",
-          "statistics": {
-            "min": null,
-            "max": null,
-            "null_count": null,
-            "distinct_count": null,
-            "min_value": "SGVsbG8=",
-            "max_value": "dG9kYXk=",
-            "is_min_value_exact": true,
-            "is_max_value_exact": true,
-            "schema_path": "String"
-          },
-          "schema_path": "String"
-        }
-      ],
-      "index_pages": [],
-      "dictionary_page": {
-        "page_type": "DICTIONARY_PAGE",
-        "start_offset": 4,
-        "header_size": 16,
-        "compressed_page_size": 132,
-        "uncompressed_page_size": 132,
-        "crc": null,
-        "num_values": 14,
-        "encoding": "PLAIN",
-        "is_sorted": false
-      },
-      "column_index": {
-        "start_offset": 2317,
-        "byte_length": 25,
-        "null_pages": [
-          false
-        ],
-        "min_values": [
-          "SGVsbG8="
-        ],
-        "max_values": [
-          "dG9kYXk="
-        ],
-        "boundary_order": "UNORDERED",
-        "null_counts": [
-          0
-        ],
-        "repetition_level_histograms": null,
-        "definition_level_histograms": null,
-        "schema_path": "String"
-      },
-      "offset_index": {
-        "start_offset": 2342,
-        "byte_length": 11,
-        "page_locations": [
-          {
-            "offset": 152,
-            "compressed_page_size": 51,
-            "first_row_index": 0
-          }
-        ],
-        "unencoded_byte_array_data_bytes": null
-      },
-      "row_group": 0
-    }
-  ],
   "metadata": {
     "version": 1,
     "schema_root": {
@@ -215,10 +135,9 @@
     "row_count": 14,
     "row_group_count": 1
   },
-  "magic_header": "PAR1",
-  "magic_footer": "PAR1",
   "_meta": {
-    "model": "file",
-    "format_version": 2
+    "por_que_version": "0.2.5.dev48+g6903859f7.d19800101",
+    "model": "metadata",
+    "format_version": 1
   }
 }

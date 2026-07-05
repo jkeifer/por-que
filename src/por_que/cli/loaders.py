@@ -13,7 +13,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import cast
 
-from por_que import AsyncHttpFile, FileMetadata, ParquetFile
+from por_que import AsyncHttpFile, FileMetadata, MetadataExport, ParquetFile
 from por_que.protocols import ReadableSeekable
 
 
@@ -29,6 +29,23 @@ async def load_metadata(source: str) -> FileMetadata:
 
     with Path(source).open('rb') as handle:
         return await FileMetadata.from_reader(cast('ReadableSeekable', handle))
+
+
+async def load_metadata_export(source: str) -> MetadataExport:
+    """Parse the footer metadata into a self-identifying export envelope.
+
+    Unlike :func:`load_metadata`, this captures ``source`` and ``filesize``
+    so the result is a first-class, app-consumable ``MetadataExport``.
+    """
+    if is_url(source):
+        async with AsyncHttpFile(source) as reader:
+            return await MetadataExport.from_reader(reader, source)
+
+    with Path(source).open('rb') as handle:
+        return await MetadataExport.from_reader(
+            cast('ReadableSeekable', handle),
+            source,
+        )
 
 
 async def load_file(

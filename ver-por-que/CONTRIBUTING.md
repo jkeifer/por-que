@@ -66,12 +66,13 @@ help you get started with development and contributing to the project.
 
 `dev`, `build`, `test`, `typecheck`, and `lint` each run `generate` first (via
 npm pre-hooks), so a fresh clone works without a manual step. `generate` reads
-[`schema/por-que.schema.json`](./schema/por-que.schema.json) — the canonical
-contract for the dump JSON — and emits `src/generated/` (gitignored):
+[`../src/por_que/dump-schema.json`](../src/por_que/dump-schema.json) — the
+canonical contract for the dump JSON (a union of the `file` and `metadata`
+roots) — and emits `src/generated/` (gitignored):
 
 - `por-que.d.ts` — TypeScript types ([json-schema-to-typescript])
-- `validate.js` / `validate.d.ts` — a standalone AJV validator used at the load
-  boundary in `main.ts`
+- `validate.js` / `validate.d.ts` — standalone AJV validators (one per root)
+  used at the load boundary in `main.ts`
 
 Edit the schema, not the generated files. Re-run `npm run generate` after any
 schema change.
@@ -119,7 +120,7 @@ npm run format
 ### Project Structure
 
 ```plaintext
-schema/por-que.schema.json     # Canonical contract for the dump JSON
+../src/por_que/dump-schema.json  # Canonical contract for the dump JSON (in the py package)
 src/
 ├── index.html             # Main HTML entry point (loads main.ts as a module)
 ├── css/                   # Styles
