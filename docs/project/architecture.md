@@ -1,9 +1,9 @@
 # Architecture
 
-This page describes how por-que is actually structured today. It is curated
-from the point-in-time design notes in `arch/` (which are kept as a historical
-record, not published) and reconciled against the current code — several of
-those plans landed differently from how they were first written.
+This page describes how por-que is actually structured today, reconciled
+against the current code. (Earlier point-in-time design notes live in the git
+history; several of those plans landed differently from how they were first
+written.)
 
 ## Guiding principle
 

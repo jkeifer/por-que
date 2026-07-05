@@ -5,7 +5,7 @@ The dump format has two root models: ``ParquetFile`` (a full dump, from
 ``parquet.to_json()`` / ``dump``) and ``MetadataExport`` (``dump
 --metadata-only``). Their serialization-mode schemas *are* the dump contract,
 so the emitted schema is the union of both -- each addressable under ``$defs``
-so the webapp can compile a validator per root. The committed copy lives inside
+so a consumer can compile a validator per root. The committed copy lives inside
 the package at ``src/por_que/dump-schema.json`` and ships in the wheel.
 
 Run with no arguments to (re)write that file. Run with ``--check`` to exit
@@ -30,7 +30,7 @@ SCHEMA_PATH = (
 
 # The union of both export roots. TypeAdapter emits an `anyOf` over `$ref`s to
 # `#/$defs/ParquetFile` and `#/$defs/MetadataExport`, keeping both roots
-# individually addressable for per-root validator compilation in the webapp.
+# individually addressable for per-root validator compilation by a consumer.
 _DUMP_ADAPTER: TypeAdapter[object] = TypeAdapter(ParquetFile | MetadataExport)
 
 

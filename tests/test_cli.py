@@ -7,16 +7,11 @@ paths in ``loaders``, so covering local paths here is sufficient.
 """
 
 import builtins
-import http.client
 import json
-import threading
-import time
 
 from collections.abc import Mapping, Sequence
-from http.server import ThreadingHTTPServer
 from pathlib import Path
 from types import ModuleType
-from typing import Any
 from urllib.request import urlretrieve
 
 import pytest
@@ -25,7 +20,6 @@ from typer.testing import CliRunner
 
 import por_que
 
-from por_que.cli import webapp
 from por_que.cli.app import app
 from por_que.cli.entry import main
 
@@ -215,144 +209,3 @@ def test_missing_extra_message(
 
     assert excinfo.value.code == 1
     assert "pip install 'por-que[cli]'" in capsys.readouterr().err
-
-
-# -- `serve`: asset resolution --------------------------------------------
-
-
-def test_resolve_webapp_dir_override(tmp_path: Path) -> None:
-    (tmp_path / 'index.html').write_text('<html></html>')
-    assert webapp.resolve_webapp_dir(tmp_path) == tmp_path
-
-
-def test_resolve_webapp_dir_override_missing_index(tmp_path: Path) -> None:
-    with pytest.raises(webapp.WebappNotFoundError, match=r'index\.html'):
-        webapp.resolve_webapp_dir(tmp_path)
-
-
-def test_resolve_webapp_dir_nothing_found(
-    monkeypatch: pytest.MonkeyPatch,
-    tmp_path: Path,
-) -> None:
-    """With no override, no packaged assets, and no repo checkout in reach."""
-    monkeypatch.setattr(por_que, '__file__', str(tmp_path / 'pkg' / '__init__.py'))
-    with pytest.raises(webapp.WebappNotFoundError, match='npm run build'):
-        webapp.resolve_webapp_dir(None)
-
-
-def test_serve_missing_webapp_dir(tmp_path: Path) -> None:
-    """The CLI surfaces asset-resolution failures as a clean error."""
-    empty = tmp_path / 'empty'
-    empty.mkdir()
-    result = runner.invoke(
-        app,
-        ['serve', 'unused.parquet', '--webapp-dir', str(empty)],
-    )
-    assert result.exit_code == 1
-    assert 'index.html' in result.output
-
-
-# -- `serve`: request handler -----------------------------------------------
-
-
-def test_webapp_handler(tmp_path: Path) -> None:
-    (tmp_path / 'index.html').write_text('<html>hi</html>')
-    (tmp_path / 'app.js').write_text('console.log(1)')
-    payload = b'{"hello": "world"}'
-
-    handler_cls = webapp.make_handler(tmp_path, payload, verbose=False)
-    httpd = ThreadingHTTPServer(('127.0.0.1', 0), handler_cls)
-    thread = threading.Thread(target=httpd.serve_forever, daemon=True)
-    thread.start()
-    try:
-        port = httpd.server_address[1]
-        conn = http.client.HTTPConnection('127.0.0.1', port)
-
-        conn.request('GET', '/')
-        resp = conn.getresponse()
-        assert resp.status == 200
-        assert b'hi' in resp.read()
-
-        conn.request('GET', '/data.json')
-        resp = conn.getresponse()
-        assert resp.status == 200
-        assert resp.getheader('Content-Type') == 'application/json'
-        assert resp.getheader('Cache-Control') == 'no-store'
-        assert resp.read() == payload
-
-        conn.request('GET', '/nope')
-        resp = conn.getresponse()
-        assert resp.status == 404
-
-        conn.close()
-    finally:
-        httpd.shutdown()
-        httpd.server_close()
-        thread.join()
-
-
-def test_serve_json_dump_end_to_end(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """`serve` on a pre-made ``.json`` dump skips parsing and serves it as-is."""
-    webapp_dir = tmp_path / 'webapp'
-    webapp_dir.mkdir()
-    (webapp_dir / 'index.html').write_text('<html></html>')
-
-    dump_path = tmp_path / 'dump.json'
-    dump_path.write_text('{"hello": "world"}')
-
-    # The real httpd instance never escapes the `serve` command, so capture it
-    # via its constructor -- lets the test call `shutdown()` from here once
-    # the background thread's `serve_forever()` is confirmed running.
-    servers: list[ThreadingHTTPServer] = []
-    orig_init = ThreadingHTTPServer.__init__
-
-    def capturing_init(self: ThreadingHTTPServer, *a: Any, **kw: Any) -> None:
-        orig_init(self, *a, **kw)
-        servers.append(self)
-
-    monkeypatch.setattr(ThreadingHTTPServer, '__init__', capturing_init)
-
-    thread = threading.Thread(
-        target=lambda: runner.invoke(
-            app,
-            [
-                'serve',
-                str(dump_path),
-                '--webapp-dir',
-                str(webapp_dir),
-                '--no-browser',
-            ],
-        ),
-        daemon=True,
-    )
-    thread.start()
-    try:
-        for _ in range(200):
-            if servers:
-                break
-            time.sleep(0.01)
-        assert servers, 'server was never constructed'
-        httpd = servers[0]
-        port = httpd.server_address[1]
-
-        resp = None
-        for _ in range(200):
-            try:
-                conn = http.client.HTTPConnection('127.0.0.1', port, timeout=1)
-                conn.request('GET', '/data.json')
-                resp = conn.getresponse()
-                break
-            except OSError:
-                time.sleep(0.01)
-        assert resp is not None, 'server never came up'
-        assert resp.status == 200
-        assert resp.getheader('Content-Type') == 'application/json'
-        assert resp.read() == b'{"hello": "world"}'
-        conn.close()
-    finally:
-        httpd.shutdown()
-        thread.join(timeout=5)
-        assert not thread.is_alive()

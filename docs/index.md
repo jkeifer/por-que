@@ -74,7 +74,8 @@ json_output = pf.to_json(indent=2)
 
 Those exports feed [**ver-por-que**](https://teotl.dev/ver-por-que), an
 experimental, 100% client-side web UI that visualizes a Parquet file's
-structure. The JSON layout it consumes is a contract; the
+structure ([source](https://github.com/jkeifer/ver-por-que)). The JSON layout
+it consumes is a contract; the
 [serialization guide](guides/serialization.md) documents it.
 
 ## Where to go next

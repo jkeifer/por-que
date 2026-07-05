@@ -88,7 +88,7 @@ the updated fixtures. See `--help` for details.
 
 The serialization-mode JSON Schema of the dump root models (`ParquetFile` and
 `MetadataExport`, emitted as a discriminated union) *is* the dump contract
-consumed by the webapp; the committed copy lives inside the package at
+consumed by external viewers; the committed copy lives inside the package at
 `src/por_que/dump-schema.json` (and ships in the wheel). Regenerate it after
 changing any serialized model:
 
@@ -119,6 +119,6 @@ uv run --group docs zensical serve
 
 ## Webapp (ver-por-que)
 
-The `ver-por-que/` subproject is the client-side web viewer that consumes
-por-que's JSON dumps. It has its own Node-based toolchain and dev workflow —
-see [`ver-por-que/CONTRIBUTING.md`](ver-por-que/CONTRIBUTING.md).
+The client-side web viewer that consumes por-que's JSON dumps lives in its own
+repository at
+[github.com/jkeifer/ver-por-que](https://github.com/jkeifer/ver-por-que).

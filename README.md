@@ -96,7 +96,8 @@ restored = ParquetFile.from_dict(dict_output)
 > [!TIP]
 > Exported json files can be used with
 > [`ver-por-que`](https://teotl.dev/ver-por-que), an experimental 100%
-> client-side web UI for visualization.
+> client-side web UI for visualization (source at
+> [github.com/jkeifer/ver-por-que](https://github.com/jkeifer/ver-por-que)).
 
 ## What You'll Learn
 

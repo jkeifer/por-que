@@ -1348,7 +1348,7 @@
       "type": "object"
     },
     "MetadataExport": {
-      "description": "A metadata-only export: the file footer plus enough context to place it.\n\nThis is the ``dump --metadata-only`` payload -- a first-class,\napp-consumable root model. It carries no page structure (no\n``column_chunks``); everything the webapp needs to lay out the file comes\nfrom ``filesize`` and the footer ``metadata``.",
+      "description": "A metadata-only export: the file footer plus enough context to place it.\n\nThis is the ``dump --metadata-only`` payload -- a first-class,\napp-consumable root model. It carries no page structure (no\n``column_chunks``); everything a consumer needs to lay out the file comes\nfrom ``filesize`` and the footer ``metadata``.",
       "properties": {
         "_meta": {
           "$ref": "#/$defs/MetadataMeta",

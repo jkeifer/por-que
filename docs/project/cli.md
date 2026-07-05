@@ -79,35 +79,7 @@ The output follows the canonical dump schema (see the
 [serialization contract](../guides/serialization.md)); enums are serialized
 by name (`"codec": "SNAPPY"`), so dumps are self-describing.
 
-### `serve`
-
-Serve the bundled [ver-por-que](https://teotl.dev/ver-por-que) webapp locally
-against a freshly generated dump — one command to inspect a file in the
-browser without a network round-trip:
-
-```bash
-por-que serve data.parquet
-```
-
-This starts a local server, opens the webapp pointed at the file's dump, and
-serves until interrupted with `Ctrl-C`. Useful flags:
-
-- `--port` / `-p` and `--host` — bind a specific address instead of an
-  ephemeral local port.
-- `--no-browser` — print the URL instead of opening it automatically.
-- `--metadata-only` — dump only file metadata, mirroring `dump`'s flag.
-- `--webapp-dir` — override the webapp assets location (development).
-
-A path ending in `.json` is served as-is (skipping parquet parsing entirely),
-so you can also point `serve` at a dump produced earlier by `dump`.
-
-In a repository checkout the webapp assets are not bundled; `serve` falls
-back to `ver-por-que/dist/`, which exists after running `npm run build`
-there.
-
-## Design history
-
-The original design notes live under `arch/` (kept as a record, not
-published): `CLI_DESIGN.md`, `CLI_COMMAND_REFERENCE.md`, and
-`CLI_IMPLEMENTATION_PLAN.md`. Interactive visualization was split out of the
-CLI into the ver-por-que web viewer, which consumes por-que's JSON dumps.
+To visualize a dump in the browser, feed it to
+[ver-por-que](https://teotl.dev/ver-por-que), a standalone web viewer
+that consumes por-que's JSON dumps (source at
+[github.com/jkeifer/ver-por-que](https://github.com/jkeifer/ver-por-que)).

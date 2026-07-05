@@ -53,7 +53,7 @@ class AsdictTarget(StrEnum):
 class PorQueMeta(BaseModel, frozen=True):
     """Self-identifying envelope stamped on every exported por-que model.
 
-    Subclasses specialize ``model`` (the root-model discriminator the webapp
+    Subclasses specialize ``model`` (the root-model discriminator a consumer
     dispatches on) and ``format_version`` (bumped per model when its serialized
     shape changes). The shared ``por_que_version`` records the producing tool.
     """
@@ -723,7 +723,7 @@ class MetadataExport(BaseModel, frozen=True):
 
     This is the ``dump --metadata-only`` payload -- a first-class,
     app-consumable root model. It carries no page structure (no
-    ``column_chunks``); everything the webapp needs to lay out the file comes
+    ``column_chunks``); everything a consumer needs to lay out the file comes
     from ``filesize`` and the footer ``metadata``.
     """
 
