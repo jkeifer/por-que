@@ -90,7 +90,7 @@ if you edit the schema, re-run `npm run generate`.
 
 ## License
 
-ISC license.
+Apache License 2.0, same as the por-que repository it lives in (see the root `LICENSE`).
 
 ## Resources
 
