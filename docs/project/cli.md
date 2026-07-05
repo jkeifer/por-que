@@ -1,48 +1,89 @@
 # CLI
 
-!!! info "Status: designed, not yet built"
+por-que ships a command-line interface for inspecting parquet files: a
+"parquet file microscope" that starts at a high-level overview and zooms
+progressively into the physical details — file → row group → column → page.
+Every command accepts a local path or an unauthenticated HTTP(S) URL, and
+remote reads fetch only the bytes each command actually needs.
 
-    por-que has a designed command-line interface but it is **not implemented
-    yet**. This page records the intended shape so the design docs are
-    discoverable; nothing here ships today.
+## Installation
 
-## Intended packaging
-
-When built, the CLI will ship as an optional extra so the core library stays
-dependency-light:
+The CLI is an optional extra so the core library stays dependency-light:
 
 ```bash
 pip install 'por-que[cli]'
 ```
 
-## Vision
+The `por-que` console script is always installed, but without the extra it
+prints a one-line hint instead of a traceback.
 
-A "Parquet file microscope": start with a high-level overview of a file and
-progressively zoom in — file → row group → column → page — with educational
-annotations explaining what you are looking at and why it matters. Commands
-would accept a local path or an unauthenticated HTTP(S) URL, and support
-JSON export for downstream tools.
+## Global options
 
-## Design documents
+- `--verbose` / `-v` — show diagnostic output (e.g. which source is read).
+- `--quiet` / `-q` — suppress non-essential output, including the educational
+  hints some commands print.
 
-The full design lives in the historical design notes under `arch/` (kept as a
-record, not published):
+## Commands
 
-- `arch/CLI_DESIGN.md` — vision, milestones, and command surface.
-- `arch/CLI_COMMAND_REFERENCE.md` — the intended command/flag reference.
-- `arch/CLI_IMPLEMENTATION_PLAN.md` — the phased build plan.
+### `schema`
 
-Interactive exploration and visualization were split out of the CLI into a
-separate web viewer; that work became
-[ver-por-que](https://teotl.dev/ver-por-que), which consumes por-que's JSON
-exports (see the [serialization contract](../guides/serialization.md)).
+Show the schema tree with physical types, repetition, and logical types:
 
-## Local launch of ver-por-que
+```bash
+por-que schema data.parquet
+```
 
-`por-que serve PATH_OR_URL` bundles and launches
-[ver-por-que](https://teotl.dev/ver-por-que) locally against a freshly
-generated export — one command to inspect a file in the browser without a
-network round-trip:
+### `meta`
+
+Show a file-level summary and key-value metadata:
+
+```bash
+por-que meta data.parquet
+por-que meta data.parquet --key pandas   # print one raw key-value entry
+```
+
+`--key` / `-k` prints the raw value of a single key-value metadata entry to
+stdout, handy for piping embedded JSON (like pandas metadata) into `jq`.
+
+### `row-groups`
+
+Show a per-row-group table of row counts and sizes:
+
+```bash
+por-que row-groups data.parquet
+por-que row-groups data.parquet --column trip_distance
+```
+
+`--column` / `-c` adds converted min/max/null statistics for one column path.
+
+### `pages`
+
+Show page-level structure for a single column via selective loading — only
+that column's pages are read, which is the columnar-format punchline:
+
+```bash
+por-que pages data.parquet --column trip_distance
+por-que pages data.parquet --column trip_distance --row-group 0
+```
+
+### `dump`
+
+Dump the full JSON serialization to stdout:
+
+```bash
+por-que dump data.parquet > dump.json
+por-que dump data.parquet --metadata-only   # skip page structure
+```
+
+The output follows the canonical dump schema (see the
+[serialization contract](../guides/serialization.md)); enums are serialized
+by name (`"codec": "SNAPPY"`), so dumps are self-describing.
+
+### `serve`
+
+Serve the bundled [ver-por-que](https://teotl.dev/ver-por-que) webapp locally
+against a freshly generated dump — one command to inspect a file in the
+browser without a network round-trip:
 
 ```bash
 por-que serve data.parquet
@@ -51,10 +92,22 @@ por-que serve data.parquet
 This starts a local server, opens the webapp pointed at the file's dump, and
 serves until interrupted with `Ctrl-C`. Useful flags:
 
-- `--port` / `--host` — bind to a specific address instead of an ephemeral
-  local port.
+- `--port` / `-p` and `--host` — bind a specific address instead of an
+  ephemeral local port.
 - `--no-browser` — print the URL instead of opening it automatically.
 - `--metadata-only` — dump only file metadata, mirroring `dump`'s flag.
+- `--webapp-dir` — override the webapp assets location (development).
 
 A path ending in `.json` is served as-is (skipping parquet parsing entirely),
 so you can also point `serve` at a dump produced earlier by `dump`.
+
+In a repository checkout the webapp assets are not bundled; `serve` falls
+back to `ver-por-que/dist/`, which exists after running `npm run build`
+there.
+
+## Design history
+
+The original design notes live under `arch/` (kept as a record, not
+published): `CLI_DESIGN.md`, `CLI_COMMAND_REFERENCE.md`, and
+`CLI_IMPLEMENTATION_PLAN.md`. Interactive visualization was split out of the
+CLI into the ver-por-que web viewer, which consumes por-que's JSON dumps.
