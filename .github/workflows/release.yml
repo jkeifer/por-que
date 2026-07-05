@@ -17,11 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
-          cache-dependency-path: ver-por-que/package-lock.json
       - name: Build
         run: uv build
       - name: Upload Artifact

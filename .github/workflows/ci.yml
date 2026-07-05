@@ -29,12 +29,8 @@ jobs:
           uv sync \
             --locked \
             --no-editable
-        env:
-          POR_QUE_NO_WEBAPP: "1"
       - name: Lefthook
         run: uv run lefthook run pre-commit --all-files
-        env:
-          LEFTHOOK_EXCLUDE: js
       - name: Test
         run: uv run pytest
       - name: Schema up to date

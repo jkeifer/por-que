@@ -1,7 +1,7 @@
 # Zensical configuration for the por-que documentation site.
 #
 # Zensical is pre-1.0 and evolving quickly; the mkdocstrings integration is
-# preliminary. See arch/DOCS_SITE_SPEC.md for the design and revisit triggers.
+# preliminary.
 # Build with `uv run zensical build`; author with `uv run zensical serve`.
 
 [project]

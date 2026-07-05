@@ -1,10 +1,13 @@
 # The serialization contract
 
 Por Qué can export the entire parsed structure of a file to JSON, and read it
-back. That JSON is a **contract**: the [ver-por-que](https://teotl.dev/ver-por-que)
-web app — and any other external consumer — depends on its shape. This page
-documents that shape and, most importantly, how the JSON stays self-contained:
-every reference in the object graph can be rebuilt from the JSON alone.
+back. That JSON is a **contract** that Por Qué owns: its machine-readable JSON
+Schema ships in the wheel at `por_que/dump-schema.json`. The
+[ver-por-que](https://teotl.dev/ver-por-que) web app — and any other
+external consumer — depends on that shape and pins a por-que version to track
+it. This page documents that shape and, most importantly, how the JSON stays
+self-contained: every reference in the object graph can be rebuilt from the
+JSON alone.
 
 ## Producing and consuming JSON
 

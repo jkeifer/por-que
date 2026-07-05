@@ -1,4 +1,3 @@
-# Python CI sets LEFTHOOK_EXCLUDE=js to skip the node-dependent commands.
 pre-commit:
   parallel: true
   commands:
@@ -37,16 +36,4 @@ pre-commit:
         - tests/fixtures/**
         - "**/*.{png,jpg,jpeg,gif,ico,svg,parquet}"
       run: uv run trailing-whitespace-fixer {staged_files}
-      stage_fixed: true
-    eslint:
-      tags: [js]
-      root: ver-por-que/
-      glob: "*.{js,mjs,ts}"
-      run: npm run lint:fix
-      stage_fixed: true
-    prettier:
-      tags: [js]
-      root: ver-por-que/
-      glob: "*.{js,mjs,ts,json,md,html,css}"
-      run: npm run format
       stage_fixed: true
