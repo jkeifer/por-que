@@ -35,6 +35,10 @@ nav = [
     { "Staged access" = "guides/staged-access.md" },
     { "Serialization contract" = "guides/serialization.md" },
   ] },
+  { "Project" = [
+    { "Architecture" = "project/architecture.md" },
+    { "CLI" = "project/cli.md" },
+  ] },
   { "Reference" = [
     { "Overview" = "reference/index.md" },
     { "por_que" = "reference/por_que.md" },
@@ -44,11 +48,6 @@ nav = [
     { "exceptions" = "reference/exceptions.md" },
     { "protocols" = "reference/protocols.md" },
     { "parsers" = "reference/parsers.md" },
-  ] },
-  { "Project" = [
-    { "Architecture" = "project/architecture.md" },
-    { "CLI" = "project/cli.md" },
-    { "Roadmap" = "project/roadmap.md" },
   ] },
 ]
 

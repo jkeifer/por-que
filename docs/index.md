@@ -81,10 +81,9 @@ structure. The JSON layout it consumes is a contract; the
 
 - **[Learn](learn/anatomy.md)** — the teaching content: how Parquet is laid
   out, why the parsers look the way they do, and how records are reconstructed.
+- **[Project](project/architecture.md)** — architecture notes and the CLI.
 - **[Reference](reference/index.md)** — API documentation generated from the
   source.
-- **[Project](project/architecture.md)** — architecture notes, the CLI, and
-  the roadmap.
 
 There is also a hands-on
 [workshop](https://github.com/jkeifer/cng-vector-formats) that filters a large
