@@ -121,6 +121,39 @@ describe('projectDump', () => {
         expect(kinds.has('offset_index')).toBe(true);
     });
 
+    it('emits bloom filter segments with sane spans when offset and length are both present', () => {
+        const dump = load(INDEXED);
+        const bloomNodes: SegmentNode[] = [];
+        walk(projectDump(dump), n => {
+            if (n.kind === 'bloom_filter') {
+                bloomNodes.push(n);
+            }
+        });
+        expect(bloomNodes.length).toBeGreaterThan(0);
+        for (const n of bloomNodes) {
+            expect(Number.isFinite(n.start)).toBe(true);
+            expect(Number.isFinite(n.end)).toBe(true);
+            expect(n.start).toBeGreaterThanOrEqual(0);
+            expect(n.end).toBeLessThanOrEqual(dump.filesize);
+            expect(n.end).toBeGreaterThan(n.start);
+        }
+    });
+
+    it('omits bloom filter segments when the footer has an offset but no length', () => {
+        // data_index_bloom_encoding_stats has bloom_filter_offset set but no
+        // bloom_filter_length on its column metadata; real byte spans only, so
+        // no node should be projected for it.
+        const dump = load('data_index_bloom_encoding_stats');
+        const meta = dump.metadata.row_groups[0]?.column_chunks['String']?.metadata;
+        expect(meta?.bloom_filter_offset).toBeTruthy();
+        expect(meta?.bloom_filter_length === null || meta?.bloom_filter_length === undefined).toBe(
+            true
+        );
+
+        const kinds = kindsIn(projectDump(dump));
+        expect(kinds.has('bloom_filter')).toBe(false);
+    });
+
     it('emits nested schema groups', () => {
         expect(kindsIn(projectDump(load(NESTED))).has('schema_group')).toBe(true);
     });

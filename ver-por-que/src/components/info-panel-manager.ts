@@ -400,6 +400,18 @@ const PANELS: Registry = {
         },
     ],
 
+    bloom_filter: node => [
+        layout(node),
+        {
+            title: 'Bloom Filter',
+            rows: [
+                ['Column', node.path],
+                ['Row Group', node.rowGroup],
+                ['Purpose', 'Probabilistic membership test to skip row groups on equality lookups'],
+            ],
+        },
+    ],
+
     schema_root: node => [
         layout(node),
         {
