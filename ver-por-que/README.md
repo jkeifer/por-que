@@ -28,11 +28,25 @@ pages.
 
 ## How It Works
 
-1. Use the [por-que Python library](https://github.com/jkeifer/por-que) to
-   analyze a Parquet file and export its structure to JSON
-1. Load the JSON file into this web application (via drag-and-drop, file
-   picker, or URL)
-1. Explore the visual representation of your Parquet file's physical structure
+You can feed the app two things, and it handles both:
+
+- **A raw `.parquet` file** — dropped, picked, or pointed at via `?url=`. The
+  app boots por-que itself in the browser (Python compiled to WebAssembly via
+  [pyodide](https://pyodide.org/), running in a Web Worker) and produces the
+  same structure dump `por-que dump` would, with no server involved.
+- **A por-que dump JSON** — produced by `por-que dump file.parquet`, if you'd
+  rather run the parse yourself.
+
+Either way you then explore the visual representation of the file's physical
+structure. Detection is by magic bytes (`PAR1`), so extension doesn't matter.
+
+### In-browser parsing notes
+
+- The first parquet parse downloads the ~12MB Python runtime from a CDN (cached
+  afterward); the JSON path pays none of that cost.
+- Page **content** decompression is not needed for the structure dump, so the
+  missing wasm build of Snappy doesn't matter — a SNAPPY-compressed file dumps
+  fine. (This only affects future value-reconstruction features, not structure.)
 
 ## Technology Stack
 
