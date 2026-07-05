@@ -69,15 +69,26 @@ features = [
   "search.highlight",
 ]
 
+# Three-way color toggle: system preference -> light -> dark.
+# Media queries are evaluated in definition order on first visit,
+# so the leading (prefers-color-scheme) entry makes "follow the
+# system" the default state.
 [[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
 scheme = "default"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
 
 [[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
 scheme = "slate"
 toggle.icon = "lucide/moon"
-toggle.name = "Switch to light mode"
+toggle.name = "Switch to system preference"
 
 # API reference via mkdocstrings' preliminary Zensical integration.
 # The source IS the teaching material, so we render it with sources shown.
