@@ -7,7 +7,7 @@ help you get started with development and contributing to the project.
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v24 recommended; matches CI)
 - npm
 - Git
 
@@ -51,16 +51,16 @@ help you get started with development and contributing to the project.
 
 ### Available Commands
 
-| Command             | Description                                      |
-| ------------------- | ------------------------------------------------ |
-| `npm run dev`       | Start development server with hot reload        |
-| `npm run build`     | Build for production                             |
-| `npm run build:dev` | Build for development (unminified)               |
-| `npm test`          | Run all tests                                    |
-| `npm run lint`      | Check code style and quality                     |
-| `npm run lint:fix`  | Auto-fix linting issues                          |
-| `npm run format`    | Format code with Prettier                        |
-| `npm run format:check` | Check code formatting                         |
+| Command                | Description                               |
+| ---------------------- | ----------------------------------------- |
+| `npm run dev`          | Start development server with hot reload  |
+| `npm run build`        | Build for production                      |
+| `npm run typecheck`    | Type-check with `tsc --noEmit`            |
+| `npm test`             | Run unit tests with Vitest                |
+| `npm run lint`         | Check code style and quality              |
+| `npm run lint:fix`     | Auto-fix linting issues                   |
+| `npm run format`       | Format code with Prettier                 |
+| `npm run format:check` | Check code formatting                     |
 
 ### Pre-commit Hooks
 
@@ -82,27 +82,27 @@ npm run format
 
 ```plaintext
 src/
-├── index.html             # Main HTML entry point
+├── index.html             # Main HTML entry point (loads main.ts as a module)
 ├── css/                   # Styles
-└── js/
-    ├── app.js             # Application entry point and main controller
-    ├── file-adapter.js    # Handles file/URL loading
-    ├── domain/            # Core domain models and logic
-    │   ├── parquet-constants.js    # Parquet format constants
-    │   ├── parquet-type-resolver.js # Type resolution logic
-    │   └── parquet-segment.js      # Segment domain model
-    ├── business/          # Business logic layer
-    │   ├── segment-hierarchy-builder.js  # Builds segment hierarchy
-    │   └── segment-layout-calculator.js  # Calculates byte positions
-    ├── components/        # UI components
-    │   ├── file-structure-analyzer.js  # Analyzes file structure
-    │   ├── info-panel-manager.js       # Manages info panels
-    │   ├── svg-byte-visualizer.js      # Byte visualization renderer
-    │   ├── schema-tree.js              # Schema tree viewer
-    │   └── column-browser.js           # Column browser component
-    └── config/
-        └── visualization-config.js     # Visualization settings
+├── main.ts                # Application entry point and main controller
+├── format.ts              # Shared byte/number formatting helpers
+├── types.ts               # Interfaces for the por-que JSON dump shapes
+├── domain/                # Core domain models and logic
+│   ├── parquet-constants.ts     # Parquet format constants
+│   ├── parquet-type-resolver.ts # Type resolution logic
+│   └── parquet-segment.ts       # Segment domain model
+├── business/              # Business logic layer
+│   ├── segment-hierarchy-builder.ts  # Builds segment hierarchy
+│   └── segment-layout-calculator.ts  # Calculates byte positions
+├── components/            # UI components
+│   ├── info-panel-manager.ts       # Manages info panels
+│   └── svg-byte-visualizer.ts      # Byte visualization renderer
+└── config/
+    └── visualization-config.ts     # Visualization settings
 ```
+
+Everything is TypeScript ESM using real `import`/`export`; there is no
+global-script sharing. Unit tests live in `test/` and run under Vitest.
 
 ### Key Components
 
@@ -137,8 +137,8 @@ The project uses ESLint and Prettier with the following conventions:
 
 #### Code Conventions
 
-- **Vanilla JavaScript**: No framework dependencies
-- **ES6 modules**: Modern JavaScript features
+- **TypeScript (strict)**: No framework dependencies; `npm run typecheck` must pass
+- **ESM**: Real `import`/`export`, no global-script sharing
 - **Descriptive variable names** over comments
 - **Separation of concerns**: Domain, business, and UI layers
 
@@ -202,8 +202,7 @@ The deployment workflow is in `.github/workflows/deploy.yml`.
 ### Build Process
 
 ```bash
-npm run build              # Production build with git info
-npm run build:dev          # Development build (faster)
+npm run build              # Production build (runs get-git-info.js first)
 ```
 
 Output goes to `dist/` directory with assets at `./` public URL.
@@ -230,7 +229,7 @@ npm run format            # Format code
 
 ```bash
 rm -rf .parcel-cache dist  # Clear caches
-npm run build:dev          # Build without minification for debugging
+npm run build              # Rebuild
 ```
 
 #### JSON File Won't Load
@@ -241,12 +240,13 @@ npm run build:dev          # Build without minification for debugging
 
 ## 🧪 Testing
 
-Currently, the project uses manual testing. We welcome contributions to add
-automated tests!
+Unit tests run under [Vitest](https://vitest.dev/) (`npm test`) and live in
+`test/`. They cover the pure domain/business logic: formatting helpers, the
+segment layout calculator, the `ParquetSegment` model, and the segment
+hierarchy builder. New logic in those layers should come with a focused test.
 
-Potential testing additions:
+Welcome additions:
 
-- Unit tests for business logic (segment hierarchy, layout calculations)
 - Integration tests for file loading and parsing
 - Visual regression tests for the byte visualizer
 

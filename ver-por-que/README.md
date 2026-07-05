@@ -36,9 +36,11 @@ pages.
 
 ## Technology Stack
 
-- **Vanilla JavaScript**: No framework dependencies for maximum compatibility
+- **TypeScript (ESM)**: Strict, framework-free modules bundled natively by
+  Parcel
 - **Parcel**: Fast, zero-configuration bundler for development and production
   builds
+- **Vitest**: Unit tests for the domain/business logic
 - **Modern CSS**: Responsive design for an optimal viewing experience
 
 ## Getting Started
