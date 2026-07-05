@@ -158,7 +158,7 @@ async def test_statistics_linked_at_parse_time(
 
 
 def test_unlinked_statistics_raises() -> None:
-    stats = ColumnStatistics(schema_path='some.column')
+    stats = ColumnStatistics.model_validate({'schema_path': 'some.column'})
 
     with pytest.raises(ValueError, match='not linked'):
         _ = stats.schema_element

@@ -9,7 +9,9 @@ paths in ``loaders``, so covering local paths here is sufficient.
 import builtins
 import json
 
+from collections.abc import Mapping, Sequence
 from pathlib import Path
+from types import ModuleType
 from urllib.request import urlretrieve
 
 import pytest
@@ -165,10 +167,16 @@ def test_missing_extra_message(
     """Without the extra installed, the entry point prints one friendly line."""
     real_import = builtins.__import__
 
-    def fake_import(name: str, *args: object, **kwargs: object) -> object:
+    def fake_import(
+        name: str,
+        globals: Mapping[str, object] | None = None,
+        locals: Mapping[str, object] | None = None,
+        fromlist: Sequence[str] = (),
+        level: int = 0,
+    ) -> ModuleType:
         if name == 'por_que.cli.app':
             raise ImportError('simulated missing cli extra')
-        return real_import(name, *args, **kwargs)
+        return real_import(name, globals, locals, fromlist, level)
 
     monkeypatch.setattr(builtins, '__import__', fake_import)
 
