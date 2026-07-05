@@ -74,6 +74,7 @@ export class VisualizationConfig {
         index_page: '--index-page-medium',
         column_index: '--column-index-medium',
         offset_index: '--column-index-dark',
+        bloom_filter: '--column-index-light',
         schema_root: '--schema-group-dark',
         schema_group: '--schema-group-medium',
         schema_leaf: '--schema-element-medium',

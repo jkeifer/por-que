@@ -35,6 +35,7 @@ export type Kind =
     | 'index_page'
     | 'column_index'
     | 'offset_index'
+    | 'bloom_filter'
     | 'metadata_region'
     | 'schema_root'
     | 'schema_group'
@@ -59,6 +60,7 @@ export const KINDS: Kind[] = [
     'index_page',
     'column_index',
     'offset_index',
+    'bloom_filter',
     'metadata_region',
     'schema_root',
     'schema_group',
@@ -103,6 +105,7 @@ export type SegmentNode =
     | (Base & { kind: 'index_page'; page: IndexPage; path: string })
     | (Base & { kind: 'column_index'; index: ColumnIndex; path: string })
     | (Base & { kind: 'offset_index'; index: OffsetIndex; path: string })
+    | (Base & { kind: 'bloom_filter'; path: string; rowGroup: number })
     | (Base & { kind: 'schema_root'; node: SchemaRoot })
     | (Base & { kind: 'schema_group'; node: SchemaGroup })
     | (Base & { kind: 'schema_leaf'; node: SchemaLeaf })
@@ -113,6 +116,11 @@ export type SegmentNode =
     | (Base & { kind: 'kv_entry'; entry: KeyValueEntry });
 
 const byStart = (a: SegmentNode, b: SegmentNode): number => a.start - b.start;
+
+/** True when a nullable/optional field is actually present. */
+function isSet<T>(v: T | null | undefined): v is T {
+    return v !== null && v !== undefined;
+}
 
 /** Project a validated dump into the physical segment tree. */
 export function projectDump(dump: Dump): SegmentNode {
@@ -183,13 +191,30 @@ function buildDataRegion(dump: Dump, start: number, end: number): SegmentNode {
     }
 
     // Page-index blocks live between the data and the footer, not inside any
-    // row group's byte span, so they hang directly off the data region.
+    // row group's byte span, so they hang directly off the data region. Bloom
+    // filter bitsets sit in that same between-chunks-and-footer territory
+    // (verified against real fixtures), so they follow the same pattern.
     for (const chunk of dump.column_chunks) {
         if (chunk.column_index) {
             children.push(buildColumnIndex(chunk.column_index, chunk.path_in_schema));
         }
         if (chunk.offset_index) {
             children.push(buildOffsetIndex(chunk.offset_index, chunk.path_in_schema));
+        }
+        const meta =
+            dump.metadata.row_groups[chunk.row_group]?.column_chunks[chunk.path_in_schema]
+                ?.metadata;
+        // Real byte spans only: older files may record an offset without a
+        // length (no bitset size persisted), so skip rather than estimate.
+        if (meta && isSet(meta.bloom_filter_offset) && isSet(meta.bloom_filter_length)) {
+            children.push(
+                buildBloomFilter(
+                    meta.bloom_filter_offset,
+                    meta.bloom_filter_length,
+                    chunk.path_in_schema,
+                    chunk.row_group
+                )
+            );
         }
     }
 
@@ -312,6 +337,24 @@ function buildOffsetIndex(index: OffsetIndex, path: string): SegmentNode {
         end: index.start_offset + index.byte_length,
         index,
         path,
+        children: [],
+    };
+}
+
+function buildBloomFilter(
+    offset: number,
+    length: number,
+    path: string,
+    rowGroup: number
+): SegmentNode {
+    return {
+        kind: 'bloom_filter',
+        id: `bloomfilter_rg${rowGroup}_${path}`,
+        name: `${path} bloom filter (RG${rowGroup})`,
+        start: offset,
+        end: offset + length,
+        path,
+        rowGroup,
         children: [],
     };
 }
@@ -502,6 +545,8 @@ export function describe(node: SegmentNode): string {
             return `Column index (${node.path})`;
         case 'offset_index':
             return `Offset index (${node.path})`;
+        case 'bloom_filter':
+            return `Bloom filter (${node.path}, RG${node.rowGroup})`;
         case 'schema_root':
             return 'Schema';
         case 'schema_group':
