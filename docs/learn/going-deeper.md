@@ -1,6 +1,6 @@
 # Going deeper
 
-The [workshop](../workshop/index.md) and the rest of the Learn section cover the
+The rest of the Learn section covers the
 spine of the format: anatomy, Thrift, the schema tree, row groups, pages,
 statistics, and reconstruction. That is enough to read real files and understand
 why they are shaped the way they are. Parquet has more, though, and this page
@@ -45,8 +45,8 @@ When you want the ground truth rather than a narrative, go to the source:
 - **[parquet-testing](https://github.com/apache/parquet-testing)** — the
   community corpus of real and deliberately-weird Parquet files. Por Qué's test
   suite pins a commit of this repository and parses its files as fixtures; see
-  [Updating fixtures](../project/updating-fixtures.md) for how that pin is
-  managed.
+  [CONTRIBUTING.md](https://github.com/jkeifer/por-que/blob/main/CONTRIBUTING.md)
+  for how that pin is managed.
 - **[Dremel paper](https://research.google/pubs/pub36632/)** — the original
   Google paper that introduced the definition/repetition level model Parquet
   uses for nested data. If [record reconstruction](reconstruction.md) left you

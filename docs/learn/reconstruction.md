@@ -80,5 +80,5 @@ If the levels are where nesting is *stored*, reconstruction is where nesting is
 pages to values to records.
 
 Where to go from here is up to your goals — the [Going deeper](going-deeper.md)
-page points past the workshop, and the [Guides](../guides/staged-access.md) turn
-all of this into practical reading strategies.
+page points past the guided path, and the [Guides](../guides/staged-access.md)
+turn all of this into practical reading strategies.
