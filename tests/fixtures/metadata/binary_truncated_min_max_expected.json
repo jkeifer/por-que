@@ -6,20 +6,20 @@
       "path_in_schema": "utf8_full_truncation",
       "start_offset": 4,
       "total_byte_size": 250,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 53,
           "compressed_page_size": 197,
           "uncompressed_page_size": 197,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -48,7 +48,7 @@
         "max_values": [
           "S2V2aW4gQmFjb24="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -76,20 +76,20 @@
       "path_in_schema": "binary_full_truncation",
       "start_offset": 254,
       "total_byte_size": 250,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 254,
           "header_size": 53,
           "compressed_page_size": 197,
           "uncompressed_page_size": 197,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -118,7 +118,7 @@
         "max_values": [
           "S2V2aW4gQmFjb24="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -146,20 +146,20 @@
       "path_in_schema": "utf8_partial_truncation",
       "start_offset": 504,
       "total_byte_size": 258,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 504,
           "header_size": 57,
           "compressed_page_size": 201,
           "uncompressed_page_size": 201,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -188,7 +188,7 @@
         "max_values": [
           "8J-agEtldmluIEJhY29u"
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -216,20 +216,20 @@
       "path_in_schema": "binary_partial_truncation",
       "start_offset": 762,
       "total_byte_size": 236,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 762,
           "header_size": 46,
           "compressed_page_size": 190,
           "uncompressed_page_size": 190,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -258,7 +258,7 @@
         "max_values": [
           "__8BAg=="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -286,20 +286,20 @@
       "path_in_schema": "utf8_no_truncation",
       "start_offset": 998,
       "total_byte_size": 210,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 998,
           "header_size": 33,
           "compressed_page_size": 177,
           "uncompressed_page_size": 177,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -328,7 +328,7 @@
         "max_values": [
           "S2U="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -356,20 +356,20 @@
       "path_in_schema": "binary_no_truncation",
       "start_offset": 1208,
       "total_byte_size": 210,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 1208,
           "header_size": 33,
           "compressed_page_size": 177,
           "uncompressed_page_size": 177,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -398,7 +398,7 @@
         "max_values": [
           "S2U="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -443,15 +443,15 @@
           "byte_length": 33,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 0,
-          "converted_type": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REQUIRED",
+          "converted_type": "UTF8",
           "type_length": null,
           "scale": null,
           "precision": null,
           "field_id": null,
           "logical_type": {
-            "logical_type": 1
+            "logical_type": "STRING"
           },
           "list_semantics": null
         },
@@ -463,8 +463,8 @@
           "byte_length": 29,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -481,15 +481,15 @@
           "byte_length": 36,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 0,
-          "converted_type": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REQUIRED",
+          "converted_type": "UTF8",
           "type_length": null,
           "scale": null,
           "precision": null,
           "field_id": null,
           "logical_type": {
-            "logical_type": 1
+            "logical_type": "STRING"
           },
           "list_semantics": null
         },
@@ -501,8 +501,8 @@
           "byte_length": 32,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -519,15 +519,15 @@
           "byte_length": 31,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 0,
-          "converted_type": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REQUIRED",
+          "converted_type": "UTF8",
           "type_length": null,
           "scale": null,
           "precision": null,
           "field_id": null,
           "logical_type": {
-            "logical_type": 1
+            "logical_type": "STRING"
           },
           "list_semantics": null
         },
@@ -539,8 +539,8 @@
           "byte_length": 27,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -550,7 +550,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -562,13 +562,13 @@
             "metadata": {
               "start_offset": 1922,
               "byte_length": 61,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "utf8_full_truncation",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 250,
               "total_compressed_size": 250,
@@ -607,13 +607,13 @@
             "metadata": {
               "start_offset": 1997,
               "byte_length": 64,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "binary_full_truncation",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 250,
               "total_compressed_size": 250,
@@ -652,13 +652,13 @@
             "metadata": {
               "start_offset": 2075,
               "byte_length": 78,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "utf8_partial_truncation",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 258,
               "total_compressed_size": 258,
@@ -697,13 +697,13 @@
             "metadata": {
               "start_offset": 2167,
               "byte_length": 69,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "binary_partial_truncation",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 236,
               "total_compressed_size": 236,
@@ -742,13 +742,13 @@
             "metadata": {
               "start_offset": 2250,
               "byte_length": 60,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "utf8_no_truncation",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 210,
               "total_compressed_size": 210,
@@ -787,13 +787,13 @@
             "metadata": {
               "start_offset": 2324,
               "byte_length": 62,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "binary_no_truncation",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 210,
               "total_compressed_size": 210,

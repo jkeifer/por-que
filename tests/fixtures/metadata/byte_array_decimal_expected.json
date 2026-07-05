@@ -6,20 +6,20 @@
       "path_in_schema": "value",
       "start_offset": 4,
       "total_byte_size": 168,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 24,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 19,
           "compressed_page_size": 149,
           "uncompressed_page_size": 149,
           "crc": null,
           "num_values": 24,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "value"
         }
@@ -51,9 +51,9 @@
           "byte_length": 20,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 1,
-          "converted_type": 5,
+          "type": "BYTE_ARRAY",
+          "repetition": "OPTIONAL",
+          "converted_type": "DECIMAL",
           "type_length": null,
           "scale": 2,
           "precision": 4,
@@ -62,7 +62,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -74,10 +74,10 @@
             "metadata": {
               "start_offset": 243,
               "byte_length": 25,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [],
               "path_in_schema": "value",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 24,
               "total_uncompressed_size": 168,
               "total_compressed_size": 168,

@@ -6,20 +6,20 @@
       "path_in_schema": "Int32_list",
       "start_offset": 4,
       "total_byte_size": 109,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 10,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 54,
           "header_size": 35,
           "compressed_page_size": 24,
           "uncompressed_page_size": 24,
           "crc": null,
           "num_values": 10,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -36,14 +36,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 14,
         "compressed_page_size": 36,
         "uncompressed_page_size": 36,
         "crc": null,
         "num_values": 9,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": {
@@ -58,7 +58,7 @@
         "max_values": [
           "CAAAAA=="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           1
         ],
@@ -90,20 +90,20 @@
       "path_in_schema": "String_list",
       "start_offset": 113,
       "total_byte_size": 154,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 10,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 208,
           "header_size": 36,
           "compressed_page_size": 23,
           "uncompressed_page_size": 23,
           "crc": null,
           "num_values": 10,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -120,14 +120,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 113,
         "header_size": 16,
         "compressed_page_size": 79,
         "uncompressed_page_size": 79,
         "crc": null,
         "num_values": 10,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": {
@@ -142,7 +142,7 @@
         "max_values": [
           "emVybw=="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -176,20 +176,20 @@
       "path_in_schema": "group_of_lists.Int32_list_in_group",
       "start_offset": 267,
       "total_byte_size": 109,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 10,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 317,
           "header_size": 35,
           "compressed_page_size": 24,
           "uncompressed_page_size": 24,
           "crc": null,
           "num_values": 10,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -206,14 +206,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 267,
         "header_size": 14,
         "compressed_page_size": 36,
         "uncompressed_page_size": 36,
         "crc": null,
         "num_values": 9,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": {
@@ -228,7 +228,7 @@
         "max_values": [
           "CAAAAA=="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           1
         ],
@@ -260,20 +260,20 @@
       "path_in_schema": "group_of_lists.String_list_in_group",
       "start_offset": 376,
       "total_byte_size": 154,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 10,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 471,
           "header_size": 36,
           "compressed_page_size": 23,
           "uncompressed_page_size": 23,
           "crc": null,
           "num_values": 10,
-          "encoding": 8,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "RLE_DICTIONARY",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -290,14 +290,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 376,
         "header_size": 16,
         "compressed_page_size": 79,
         "uncompressed_page_size": 79,
         "crc": null,
         "num_values": 10,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": {
@@ -312,7 +312,7 @@
         "max_values": [
           "emVybw=="
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -363,8 +363,8 @@
           "byte_length": 17,
           "definition_level": 1,
           "repetition_level": 1,
-          "type": 1,
-          "repetition": 2,
+          "type": "INT32",
+          "repetition": "REPEATED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -381,9 +381,9 @@
           "byte_length": 20,
           "definition_level": 1,
           "repetition_level": 1,
-          "type": 6,
-          "repetition": 2,
-          "converted_type": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "REPEATED",
+          "converted_type": "UTF8",
           "type_length": null,
           "scale": null,
           "precision": null,
@@ -409,8 +409,8 @@
               "byte_length": 26,
               "definition_level": 1,
               "repetition_level": 1,
-              "type": 1,
-              "repetition": 2,
+              "type": "INT32",
+              "repetition": "REPEATED",
               "converted_type": null,
               "type_length": null,
               "scale": null,
@@ -427,9 +427,9 @@
               "byte_length": 29,
               "definition_level": 1,
               "repetition_level": 1,
-              "type": 6,
-              "repetition": 2,
-              "converted_type": 0,
+              "type": "BYTE_ARRAY",
+              "repetition": "REPEATED",
+              "converted_type": "UTF8",
               "type_length": null,
               "scale": null,
               "precision": null,
@@ -438,13 +438,13 @@
               "list_semantics": null
             }
           },
-          "repetition": 0,
+          "repetition": "REQUIRED",
           "converted_type": null,
           "field_id": null,
           "logical_type": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -456,14 +456,14 @@
             "metadata": {
               "start_offset": 842,
               "byte_length": 75,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "Int32_list",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 10,
               "total_uncompressed_size": 109,
               "total_compressed_size": 109,
@@ -508,14 +508,14 @@
             "metadata": {
               "start_offset": 931,
               "byte_length": 69,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "String_list",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 10,
               "total_uncompressed_size": 154,
               "total_compressed_size": 154,
@@ -560,14 +560,14 @@
             "metadata": {
               "start_offset": 1014,
               "byte_length": 101,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "group_of_lists.Int32_list_in_group",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 10,
               "total_uncompressed_size": 109,
               "total_compressed_size": 109,
@@ -612,14 +612,14 @@
             "metadata": {
               "start_offset": 1129,
               "byte_length": 93,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "group_of_lists.String_list_in_group",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 10,
               "total_uncompressed_size": 154,
               "total_compressed_size": 154,

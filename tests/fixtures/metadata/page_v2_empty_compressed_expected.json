@@ -6,11 +6,11 @@
       "path_in_schema": "integer_column",
       "start_offset": 4,
       "total_byte_size": 61,
-      "codec": 6,
+      "codec": "ZSTD",
       "num_values": 10,
       "data_pages": [
         {
-          "page_type": 3,
+          "page_type": "DATA_PAGE_V2",
           "start_offset": 27,
           "header_size": 26,
           "compressed_page_size": 12,
@@ -19,7 +19,7 @@
           "num_values": 10,
           "num_nulls": 10,
           "num_rows": 10,
-          "encoding": 8,
+          "encoding": "RLE_DICTIONARY",
           "definition_levels_byte_length": 2,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
@@ -39,14 +39,14 @@
       ],
       "index_pages": [],
       "dictionary_page": {
-        "page_type": 2,
+        "page_type": "DICTIONARY_PAGE",
         "start_offset": 4,
         "header_size": 14,
         "compressed_page_size": 9,
         "uncompressed_page_size": 0,
         "crc": null,
         "num_values": 0,
-        "encoding": 0,
+        "encoding": "PLAIN",
         "is_sorted": false
       },
       "column_index": null,
@@ -74,8 +74,8 @@
           "byte_length": 21,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 1,
-          "repetition": 1,
+          "type": "INT32",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -85,7 +85,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -97,14 +97,14 @@
             "metadata": {
               "start_offset": 175,
               "byte_length": 57,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3,
-                8
+                "PLAIN",
+                "RLE",
+                "RLE_DICTIONARY"
               ],
               "path_in_schema": "integer_column",
-              "codec": 6,
+              "codec": "ZSTD",
               "num_values": 10,
               "total_uncompressed_size": 43,
               "total_compressed_size": 61,
@@ -124,13 +124,13 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 2,
-                  "encoding": 0,
+                  "page_type": "DICTIONARY_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 },
                 {
-                  "page_type": 0,
-                  "encoding": 8,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "RLE_DICTIONARY",
                   "count": 1
                 }
               ],

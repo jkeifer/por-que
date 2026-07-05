@@ -6,20 +6,20 @@
       "path_in_schema": "foo",
       "start_offset": 4,
       "total_byte_size": 95,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 12,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 29,
           "compressed_page_size": 66,
           "uncompressed_page_size": 66,
           "crc": null,
           "num_values": 12,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 4,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "BIT_PACKED",
           "statistics": {
             "min": null,
             "max": null,
@@ -61,8 +61,8 @@
           "byte_length": 12,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 1,
+          "type": "BYTE_ARRAY",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -72,7 +72,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -84,14 +84,14 @@
             "metadata": {
               "start_offset": 138,
               "byte_length": 45,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                3,
-                4,
-                0
+                "RLE",
+                "BIT_PACKED",
+                "PLAIN"
               ],
               "path_in_schema": "foo",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 12,
               "total_uncompressed_size": 95,
               "total_compressed_size": 95,
@@ -111,8 +111,8 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 }
               ],

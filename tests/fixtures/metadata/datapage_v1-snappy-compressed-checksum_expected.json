@@ -6,34 +6,34 @@
       "path_in_schema": "a",
       "start_offset": 4,
       "total_byte_size": 1523,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 5120,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 26,
           "compressed_page_size": 735,
           "uncompressed_page_size": 10240,
           "crc": -42322992,
           "num_values": 2560,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "a"
         },
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 765,
           "header_size": 27,
           "compressed_page_size": 735,
           "uncompressed_page_size": 10240,
           "crc": -924317436,
           "num_values": 2560,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "a"
         }
@@ -55,7 +55,7 @@
           "",
           ""
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           -1,
           -1
@@ -87,34 +87,34 @@
       "path_in_schema": "b",
       "start_offset": 1527,
       "total_byte_size": 1524,
-      "codec": 1,
+      "codec": "SNAPPY",
       "num_values": 5120,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 1527,
           "header_size": 27,
           "compressed_page_size": 735,
           "uncompressed_page_size": 10240,
           "crc": 1381097659,
           "num_values": 2560,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "b"
         },
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 2289,
           "header_size": 27,
           "compressed_page_size": 735,
           "uncompressed_page_size": 10240,
           "crc": -628948462,
           "num_values": 2560,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "b"
         }
@@ -136,7 +136,7 @@
           "",
           ""
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           -1,
           -1
@@ -185,8 +185,8 @@
           "byte_length": 8,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 1,
-          "repetition": 0,
+          "type": "INT32",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -203,8 +203,8 @@
           "byte_length": 8,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 1,
-          "repetition": 0,
+          "type": "INT32",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -214,7 +214,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -226,13 +226,13 @@
             "metadata": {
               "start_offset": 3168,
               "byte_length": 34,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                3,
-                0
+                "RLE",
+                "PLAIN"
               ],
               "path_in_schema": "a",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 5120,
               "total_uncompressed_size": 20533,
               "total_compressed_size": 1523,
@@ -242,8 +242,8 @@
               "statistics": null,
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 2
                 }
               ],
@@ -263,13 +263,13 @@
             "metadata": {
               "start_offset": 3217,
               "byte_length": 35,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                3,
-                0
+                "RLE",
+                "PLAIN"
               ],
               "path_in_schema": "b",
-              "codec": 1,
+              "codec": "SNAPPY",
               "num_values": 5120,
               "total_uncompressed_size": 20534,
               "total_compressed_size": 1524,
@@ -279,8 +279,8 @@
               "statistics": null,
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 2
                 }
               ],

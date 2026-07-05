@@ -1,15 +1,5 @@
 {
   "$defs": {
-    "BoundaryOrder": {
-      "description": "Ordering of min/max values in Page Index.",
-      "enum": [
-        0,
-        1,
-        2
-      ],
-      "title": "BoundaryOrder",
-      "type": "integer"
-    },
     "BoundingBox": {
       "description": "Bounding box for GEOMETRY or GEOGRAPHY types.",
       "properties": {
@@ -91,10 +81,10 @@
       "description": "BSON logical type.",
       "properties": {
         "logical_type": {
-          "const": 13,
-          "default": 13,
+          "const": "BSON",
+          "default": "BSON",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "BsonTypeInfo",
@@ -182,7 +172,12 @@
       "description": "Index containing min/max statistics and null information for pages.",
       "properties": {
         "boundary_order": {
-          "$ref": "#/$defs/BoundaryOrder"
+          "enum": [
+            "UNORDERED",
+            "ASCENDING",
+            "DESCENDING"
+          ],
+          "type": "string"
         },
         "byte_length": {
           "title": "Byte Length",
@@ -256,8 +251,9 @@
           "default": null,
           "title": "Repetition Level Histograms"
         },
-        "schema_element": {
-          "$ref": "#/$defs/SchemaLeaf"
+        "schema_path": {
+          "title": "Schema Path",
+          "type": "string"
         },
         "start_offset": {
           "title": "Start Offset",
@@ -271,7 +267,7 @@
         "min_values",
         "max_values",
         "boundary_order",
-        "schema_element"
+        "schema_path"
       ],
       "title": "ColumnIndex",
       "type": "object"
@@ -308,7 +304,16 @@
           "type": "integer"
         },
         "codec": {
-          "$ref": "#/$defs/Compression"
+          "enum": [
+            "UNCOMPRESSED",
+            "SNAPPY",
+            "GZIP",
+            "LZO",
+            "BROTLI",
+            "LZ4",
+            "ZSTD"
+          ],
+          "type": "string"
         },
         "data_page_offset": {
           "title": "Data Page Offset",
@@ -343,7 +348,18 @@
         },
         "encodings": {
           "items": {
-            "$ref": "#/$defs/Encoding"
+            "enum": [
+              "PLAIN",
+              "PLAIN_DICTIONARY",
+              "RLE",
+              "BIT_PACKED",
+              "DELTA_BINARY_PACKED",
+              "DELTA_LENGTH_BYTE_ARRAY",
+              "DELTA_BYTE_ARRAY",
+              "RLE_DICTIONARY",
+              "BYTE_STREAM_SPLIT"
+            ],
+            "type": "string"
           },
           "title": "Encodings",
           "type": "array"
@@ -378,9 +394,6 @@
         "path_in_schema": {
           "title": "Path In Schema",
           "type": "string"
-        },
-        "schema_element": {
-          "$ref": "#/$defs/SchemaLeaf"
         },
         "size_statistics": {
           "anyOf": [
@@ -417,7 +430,17 @@
           "type": "integer"
         },
         "type": {
-          "$ref": "#/$defs/Type"
+          "enum": [
+            "BOOLEAN",
+            "INT32",
+            "INT64",
+            "INT96",
+            "FLOAT",
+            "DOUBLE",
+            "BYTE_ARRAY",
+            "FIXED_LEN_BYTE_ARRAY"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -426,7 +449,6 @@
         "type",
         "encodings",
         "path_in_schema",
-        "schema_element",
         "codec",
         "num_values",
         "total_uncompressed_size",
@@ -538,58 +560,63 @@
           "default": null,
           "title": "Null Count"
         },
-        "schema_element": {
-          "$ref": "#/$defs/SchemaLeaf"
+        "schema_path": {
+          "title": "Schema Path",
+          "type": "string"
         }
       },
       "required": [
-        "schema_element"
+        "schema_path"
       ],
       "title": "ColumnStatistics",
       "type": "object"
     },
-    "Compression": {
-      "description": "Parquet compression algorithms.",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
+    "CompressionStats": {
+      "description": "Compression statistics for data.",
+      "properties": {
+        "compressed_mb": {
+          "description": "Compressed size in MB.",
+          "readOnly": true,
+          "title": "Compressed Mb",
+          "type": "number"
+        },
+        "ratio": {
+          "description": "Compression ratio (compressed/uncompressed).",
+          "readOnly": true,
+          "title": "Ratio",
+          "type": "number"
+        },
+        "space_saved_percent": {
+          "description": "Percentage of space saved by compression.",
+          "readOnly": true,
+          "title": "Space Saved Percent",
+          "type": "number"
+        },
+        "total_compressed": {
+          "title": "Total Compressed",
+          "type": "integer"
+        },
+        "total_uncompressed": {
+          "title": "Total Uncompressed",
+          "type": "integer"
+        },
+        "uncompressed_mb": {
+          "description": "Uncompressed size in MB.",
+          "readOnly": true,
+          "title": "Uncompressed Mb",
+          "type": "number"
+        }
+      },
+      "required": [
+        "total_compressed",
+        "total_uncompressed",
+        "ratio",
+        "space_saved_percent",
+        "compressed_mb",
+        "uncompressed_mb"
       ],
-      "title": "Compression",
-      "type": "integer"
-    },
-    "ConvertedType": {
-      "description": "Legacy Parquet logical types (converted_type field).",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21
-      ],
-      "title": "ConvertedType",
-      "type": "integer"
+      "title": "CompressionStats",
+      "type": "object"
     },
     "DataPageV1": {
       "description": "A version 1 data page.",
@@ -611,10 +638,32 @@
           "title": "Crc"
         },
         "definition_level_encoding": {
-          "$ref": "#/$defs/Encoding"
+          "enum": [
+            "PLAIN",
+            "PLAIN_DICTIONARY",
+            "RLE",
+            "BIT_PACKED",
+            "DELTA_BINARY_PACKED",
+            "DELTA_LENGTH_BYTE_ARRAY",
+            "DELTA_BYTE_ARRAY",
+            "RLE_DICTIONARY",
+            "BYTE_STREAM_SPLIT"
+          ],
+          "type": "string"
         },
         "encoding": {
-          "$ref": "#/$defs/Encoding"
+          "enum": [
+            "PLAIN",
+            "PLAIN_DICTIONARY",
+            "RLE",
+            "BIT_PACKED",
+            "DELTA_BINARY_PACKED",
+            "DELTA_LENGTH_BYTE_ARRAY",
+            "DELTA_BYTE_ARRAY",
+            "RLE_DICTIONARY",
+            "BYTE_STREAM_SPLIT"
+          ],
+          "type": "string"
         },
         "header_size": {
           "title": "Header Size",
@@ -625,16 +674,28 @@
           "type": "integer"
         },
         "page_type": {
-          "const": 0,
-          "default": 0,
+          "const": "DATA_PAGE",
+          "default": "DATA_PAGE",
           "title": "Page Type",
-          "type": "integer"
+          "type": "string"
         },
         "repetition_level_encoding": {
-          "$ref": "#/$defs/Encoding"
+          "enum": [
+            "PLAIN",
+            "PLAIN_DICTIONARY",
+            "RLE",
+            "BIT_PACKED",
+            "DELTA_BINARY_PACKED",
+            "DELTA_LENGTH_BYTE_ARRAY",
+            "DELTA_BYTE_ARRAY",
+            "RLE_DICTIONARY",
+            "BYTE_STREAM_SPLIT"
+          ],
+          "type": "string"
         },
-        "schema_element": {
-          "$ref": "#/$defs/SchemaLeaf"
+        "schema_path": {
+          "title": "Schema Path",
+          "type": "string"
         },
         "start_offset": {
           "title": "Start Offset",
@@ -665,7 +726,7 @@
         "encoding",
         "definition_level_encoding",
         "repetition_level_encoding",
-        "schema_element"
+        "schema_path"
       ],
       "title": "DataPageV1",
       "type": "object"
@@ -694,7 +755,18 @@
           "type": "integer"
         },
         "encoding": {
-          "$ref": "#/$defs/Encoding"
+          "enum": [
+            "PLAIN",
+            "PLAIN_DICTIONARY",
+            "RLE",
+            "BIT_PACKED",
+            "DELTA_BINARY_PACKED",
+            "DELTA_LENGTH_BYTE_ARRAY",
+            "DELTA_BYTE_ARRAY",
+            "RLE_DICTIONARY",
+            "BYTE_STREAM_SPLIT"
+          ],
+          "type": "string"
         },
         "header_size": {
           "title": "Header Size",
@@ -718,17 +790,18 @@
           "type": "integer"
         },
         "page_type": {
-          "const": 3,
-          "default": 3,
+          "const": "DATA_PAGE_V2",
+          "default": "DATA_PAGE_V2",
           "title": "Page Type",
-          "type": "integer"
+          "type": "string"
         },
         "repetition_levels_byte_length": {
           "title": "Repetition Levels Byte Length",
           "type": "integer"
         },
-        "schema_element": {
-          "$ref": "#/$defs/SchemaLeaf"
+        "schema_path": {
+          "title": "Schema Path",
+          "type": "string"
         },
         "start_offset": {
           "title": "Start Offset",
@@ -761,7 +834,7 @@
         "encoding",
         "definition_levels_byte_length",
         "repetition_levels_byte_length",
-        "schema_element"
+        "schema_path"
       ],
       "title": "DataPageV2",
       "type": "object"
@@ -770,10 +843,10 @@
       "description": "Date logical type.",
       "properties": {
         "logical_type": {
-          "const": 6,
-          "default": 6,
+          "const": "DATE",
+          "default": "DATE",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "DateTypeInfo",
@@ -783,10 +856,10 @@
       "description": "Decimal logical type with scale and precision.",
       "properties": {
         "logical_type": {
-          "const": 5,
-          "default": 5,
+          "const": "DECIMAL",
+          "default": "DECIMAL",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         },
         "precision": {
           "default": 10,
@@ -822,7 +895,18 @@
           "title": "Crc"
         },
         "encoding": {
-          "$ref": "#/$defs/Encoding"
+          "enum": [
+            "PLAIN",
+            "PLAIN_DICTIONARY",
+            "RLE",
+            "BIT_PACKED",
+            "DELTA_BINARY_PACKED",
+            "DELTA_LENGTH_BYTE_ARRAY",
+            "DELTA_BYTE_ARRAY",
+            "RLE_DICTIONARY",
+            "BYTE_STREAM_SPLIT"
+          ],
+          "type": "string"
         },
         "header_size": {
           "title": "Header Size",
@@ -838,10 +922,10 @@
           "type": "integer"
         },
         "page_type": {
-          "const": 2,
-          "default": 2,
+          "const": "DICTIONARY_PAGE",
+          "default": "DICTIONARY_PAGE",
           "title": "Page Type",
-          "type": "integer"
+          "type": "string"
         },
         "start_offset": {
           "title": "Start Offset",
@@ -863,30 +947,14 @@
       "title": "DictionaryPage",
       "type": "object"
     },
-    "Encoding": {
-      "description": "Parquet encoding types.",
-      "enum": [
-        0,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-      ],
-      "title": "Encoding",
-      "type": "integer"
-    },
     "EnumTypeInfo": {
       "description": "Enum logical type.",
       "properties": {
         "logical_type": {
-          "const": 4,
-          "default": 4,
+          "const": "ENUM",
+          "default": "ENUM",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "EnumTypeInfo",
@@ -895,6 +963,16 @@
     "FileMetadata": {
       "description": "Logical representation of file metadata.",
       "properties": {
+        "column_count": {
+          "readOnly": true,
+          "title": "Column Count",
+          "type": "integer"
+        },
+        "compression_stats": {
+          "$ref": "#/$defs/CompressionStats",
+          "description": "Calculate overall file statistics.",
+          "readOnly": true
+        },
         "created_by": {
           "anyOf": [
             {
@@ -913,6 +991,16 @@
           },
           "title": "Key Value Metadata",
           "type": "array"
+        },
+        "row_count": {
+          "readOnly": true,
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "row_group_count": {
+          "readOnly": true,
+          "title": "Row Group Count",
+          "type": "integer"
         },
         "row_groups": {
           "$ref": "#/$defs/RowGroups"
@@ -938,7 +1026,11 @@
         "schema_root",
         "row_groups",
         "start_offset",
-        "total_byte_size"
+        "total_byte_size",
+        "compression_stats",
+        "column_count",
+        "row_count",
+        "row_group_count"
       ],
       "title": "FileMetadata",
       "type": "object"
@@ -947,10 +1039,10 @@
       "description": "Float16 logical type.",
       "properties": {
         "logical_type": {
-          "const": 15,
-          "default": 15,
+          "const": "FLOAT16",
+          "default": "FLOAT16",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "Float16TypeInfo",
@@ -960,10 +1052,10 @@
       "description": "Geography logical type.",
       "properties": {
         "logical_type": {
-          "const": 18,
-          "default": 18,
+          "const": "GEOGRAPHY",
+          "default": "GEOGRAPHY",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "GeographyTypeInfo",
@@ -973,10 +1065,10 @@
       "description": "Geometry logical type.",
       "properties": {
         "logical_type": {
-          "const": 17,
-          "default": 17,
+          "const": "GEOMETRY",
+          "default": "GEOMETRY",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "GeometryTypeInfo",
@@ -1000,7 +1092,77 @@
           "anyOf": [
             {
               "items": {
-                "$ref": "#/$defs/GeospatialType"
+                "enum": [
+                  "GEOMETRY",
+                  "POINT",
+                  "LINESTRING",
+                  "POLYGON",
+                  "MULTIPOINT",
+                  "MULTILINESTRING",
+                  "MULTIPOLYGON",
+                  "GEOMETRYCOLLECTION",
+                  "CIRCULARSTRING",
+                  "COMPOUNDCURVE",
+                  "CURVEPOLYGON",
+                  "MULTICURVE",
+                  "MULTISURFACE",
+                  "CURVE",
+                  "SURFACE",
+                  "POLYHEDRALSURFACE",
+                  "TIN",
+                  "GEOMETRY_Z",
+                  "POINT_Z",
+                  "LINESTRING_Z",
+                  "POLYGON_Z",
+                  "MULTIPOINT_Z",
+                  "MULTILINESTRING_Z",
+                  "MULTIPOLYGON_Z",
+                  "GEOMETRYCOLLECTION_Z",
+                  "CIRCULARSTRING_Z",
+                  "COMPOUNDCURVE_Z",
+                  "CURVEPOLYGON_Z",
+                  "MULTICURVE_Z",
+                  "MULTISURFACE_Z",
+                  "CURVE_Z",
+                  "SURFACE_Z",
+                  "POLYHEDRALSURFACE_Z",
+                  "TIN_Z",
+                  "GEOMETRY_M",
+                  "POINT_M",
+                  "LINESTRING_M",
+                  "POLYGON_M",
+                  "MULTIPOINT_M",
+                  "MULTILINESTRING_M",
+                  "MULTIPOLYGON_M",
+                  "GEOMETRYCOLLECTION_M",
+                  "CIRCULARSTRING_M",
+                  "COMPOUNDCURVE_M",
+                  "CURVEPOLYGON_M",
+                  "MULTICURVE_M",
+                  "MULTISURFACE_M",
+                  "CURVE_M",
+                  "SURFACE_M",
+                  "POLYHEDRALSURFACE_M",
+                  "TIN_M",
+                  "GEOMETRY_ZM",
+                  "POINT_ZM",
+                  "LINESTRING_ZM",
+                  "POLYGON_ZM",
+                  "MULTIPOINT_ZM",
+                  "MULTILINESTRING_ZM",
+                  "MULTIPOLYGON_ZM",
+                  "GEOMETRYCOLLECTION_ZM",
+                  "CIRCULARSTRING_ZM",
+                  "COMPOUNDCURVE_ZM",
+                  "CURVEPOLYGON_ZM",
+                  "MULTICURVE_ZM",
+                  "MULTISURFACE_ZM",
+                  "CURVE_ZM",
+                  "SURFACE_ZM",
+                  "POLYHEDRALSURFACE_ZM",
+                  "TIN_ZM"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
@@ -1014,81 +1176,6 @@
       },
       "title": "GeospatialStatistics",
       "type": "object"
-    },
-    "GeospatialType": {
-      "description": "WKB (Well-Known Binary) type integer IDs for geospatial data.",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        1000,
-        1001,
-        1002,
-        1003,
-        1004,
-        1005,
-        1006,
-        1007,
-        1008,
-        1009,
-        1010,
-        1011,
-        1012,
-        1013,
-        1014,
-        1015,
-        1016,
-        2000,
-        2001,
-        2002,
-        2003,
-        2004,
-        2005,
-        2006,
-        2007,
-        2008,
-        2009,
-        2010,
-        2011,
-        2012,
-        2013,
-        2014,
-        2015,
-        2016,
-        3000,
-        3001,
-        3002,
-        3003,
-        3004,
-        3005,
-        3006,
-        3007,
-        3008,
-        3009,
-        3010,
-        3011,
-        3012,
-        3013,
-        3014,
-        3015,
-        3016
-      ],
-      "title": "GeospatialType",
-      "type": "integer"
     },
     "IndexPage": {
       "description": "A page containing row group and offset statistics.",
@@ -1114,10 +1201,10 @@
           "type": "integer"
         },
         "page_type": {
-          "const": 1,
-          "default": 1,
+          "const": "INDEX_PAGE",
+          "default": "INDEX_PAGE",
           "title": "Page Type",
-          "type": "integer"
+          "type": "string"
         },
         "start_offset": {
           "title": "Start Offset",
@@ -1151,10 +1238,10 @@
           "type": "boolean"
         },
         "logical_type": {
-          "const": 10,
-          "default": 10,
+          "const": "INTEGER",
+          "default": "INTEGER",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "IntTypeInfo",
@@ -1164,10 +1251,10 @@
       "description": "JSON logical type.",
       "properties": {
         "logical_type": {
-          "const": 12,
-          "default": 12,
+          "const": "JSON",
+          "default": "JSON",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "JsonTypeInfo",
@@ -1215,10 +1302,10 @@
       "description": "List logical type.",
       "properties": {
         "logical_type": {
-          "const": 3,
-          "default": 3,
+          "const": "LIST",
+          "default": "LIST",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "ListTypeInfo",
@@ -1228,10 +1315,10 @@
       "description": "Map logical type.",
       "properties": {
         "logical_type": {
-          "const": 2,
-          "default": 2,
+          "const": "MAP",
+          "default": "MAP",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "MapTypeInfo",
@@ -1287,10 +1374,27 @@
           "type": "integer"
         },
         "encoding": {
-          "$ref": "#/$defs/Encoding"
+          "enum": [
+            "PLAIN",
+            "PLAIN_DICTIONARY",
+            "RLE",
+            "BIT_PACKED",
+            "DELTA_BINARY_PACKED",
+            "DELTA_LENGTH_BYTE_ARRAY",
+            "DELTA_BYTE_ARRAY",
+            "RLE_DICTIONARY",
+            "BYTE_STREAM_SPLIT"
+          ],
+          "type": "string"
         },
         "page_type": {
-          "$ref": "#/$defs/PageType"
+          "enum": [
+            "DATA_PAGE",
+            "INDEX_PAGE",
+            "DICTIONARY_PAGE",
+            "DATA_PAGE_V2"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -1325,22 +1429,20 @@
       "title": "PageLocation",
       "type": "object"
     },
-    "PageType": {
-      "description": "Parquet page types.",
-      "enum": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "title": "PageType",
-      "type": "integer"
-    },
     "PhysicalColumnChunk": {
       "description": "A container for all the data for a single column within a row group.",
       "properties": {
         "codec": {
-          "$ref": "#/$defs/Compression"
+          "enum": [
+            "UNCOMPRESSED",
+            "SNAPPY",
+            "GZIP",
+            "LZO",
+            "BROTLI",
+            "LZ4",
+            "ZSTD"
+          ],
+          "type": "string"
         },
         "column_index": {
           "anyOf": [
@@ -1384,9 +1486,6 @@
           "title": "Index Pages",
           "type": "array"
         },
-        "metadata": {
-          "$ref": "#/$defs/ColumnChunk"
-        },
         "num_values": {
           "title": "Num Values",
           "type": "integer"
@@ -1428,7 +1527,6 @@
         "data_pages",
         "index_pages",
         "dictionary_page",
-        "metadata",
         "row_group"
       ],
       "title": "PhysicalColumnChunk",
@@ -1437,29 +1535,19 @@
     "PorQueMeta": {
       "properties": {
         "format_version": {
-          "const": 0,
-          "default": 0,
+          "const": 1,
+          "default": 1,
           "title": "Format Version",
           "type": "integer"
         },
         "por_que_version": {
-          "default": "0.2.1.dev3+g7d17dfc9b.d19800101",
+          "default": "0.2.5.dev38+gbd0dfcbe4.d19800101",
           "title": "Por Que Version",
           "type": "string"
         }
       },
       "title": "PorQueMeta",
       "type": "object"
-    },
-    "Repetition": {
-      "description": "Parquet schema repetition types.",
-      "enum": [
-        0,
-        1,
-        2
-      ],
-      "title": "Repetition",
-      "type": "integer"
     },
     "RowGroup": {
       "description": "Logical representation of row group metadata.",
@@ -1474,6 +1562,10 @@
           },
           "title": "Column Chunks",
           "type": "object"
+        },
+        "compression_stats": {
+          "$ref": "#/$defs/CompressionStats",
+          "readOnly": true
         },
         "file_offset": {
           "anyOf": [
@@ -1544,7 +1636,8 @@
         "byte_length",
         "column_chunks",
         "total_byte_size",
-        "row_count"
+        "row_count",
+        "compression_stats"
       ],
       "title": "RowGroup",
       "type": "object"
@@ -1588,7 +1681,31 @@
         "converted_type": {
           "anyOf": [
             {
-              "$ref": "#/$defs/ConvertedType"
+              "enum": [
+                "UTF8",
+                "MAP",
+                "MAP_KEY_VALUE",
+                "LIST",
+                "ENUM",
+                "DECIMAL",
+                "DATE",
+                "TIME_MILLIS",
+                "TIME_MICROS",
+                "TIMESTAMP_MILLIS",
+                "TIMESTAMP_MICROS",
+                "UINT_8",
+                "UINT_16",
+                "UINT_32",
+                "UINT_64",
+                "INT_8",
+                "INT_16",
+                "INT_32",
+                "INT_64",
+                "JSON",
+                "BSON",
+                "INTERVAL"
+              ],
+              "type": "string"
             },
             {
               "type": "null"
@@ -1689,7 +1806,12 @@
           "type": "integer"
         },
         "repetition": {
-          "$ref": "#/$defs/Repetition"
+          "enum": [
+            "REQUIRED",
+            "OPTIONAL",
+            "REPEATED"
+          ],
+          "type": "string"
         },
         "repetition_level": {
           "default": 0,
@@ -1722,7 +1844,31 @@
         "converted_type": {
           "anyOf": [
             {
-              "$ref": "#/$defs/ConvertedType"
+              "enum": [
+                "UTF8",
+                "MAP",
+                "MAP_KEY_VALUE",
+                "LIST",
+                "ENUM",
+                "DECIMAL",
+                "DATE",
+                "TIME_MILLIS",
+                "TIME_MICROS",
+                "TIMESTAMP_MILLIS",
+                "TIMESTAMP_MICROS",
+                "UINT_8",
+                "UINT_16",
+                "UINT_32",
+                "UINT_64",
+                "INT_8",
+                "INT_16",
+                "INT_32",
+                "INT_64",
+                "JSON",
+                "BSON",
+                "INTERVAL"
+              ],
+              "type": "string"
             },
             {
               "type": "null"
@@ -1842,7 +1988,12 @@
           "title": "Precision"
         },
         "repetition": {
-          "$ref": "#/$defs/Repetition"
+          "enum": [
+            "REQUIRED",
+            "OPTIONAL",
+            "REPEATED"
+          ],
+          "type": "string"
         },
         "repetition_level": {
           "default": 0,
@@ -1866,7 +2017,17 @@
           "type": "integer"
         },
         "type": {
-          "$ref": "#/$defs/Type"
+          "enum": [
+            "BOOLEAN",
+            "INT32",
+            "INT64",
+            "INT96",
+            "FLOAT",
+            "DOUBLE",
+            "BYTE_ARRAY",
+            "FIXED_LEN_BYTE_ARRAY"
+          ],
+          "type": "string"
         },
         "type_length": {
           "anyOf": [
@@ -1935,8 +2096,13 @@
           "type": "integer"
         },
         "repetition": {
-          "$ref": "#/$defs/Repetition",
-          "default": 0
+          "default": "REQUIRED",
+          "enum": [
+            "REQUIRED",
+            "OPTIONAL",
+            "REPEATED"
+          ],
+          "type": "string"
         },
         "repetition_level": {
           "default": 0,
@@ -2034,10 +2200,10 @@
       "description": "String logical type.",
       "properties": {
         "logical_type": {
-          "const": 1,
-          "default": 1,
+          "const": "STRING",
+          "default": "STRING",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "StringTypeInfo",
@@ -2052,28 +2218,23 @@
           "type": "boolean"
         },
         "logical_type": {
-          "const": 7,
-          "default": 7,
+          "const": "TIME",
+          "default": "TIME",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         },
         "unit": {
-          "$ref": "#/$defs/TimeUnit",
-          "default": 1
+          "default": "MILLIS",
+          "enum": [
+            "MILLIS",
+            "MICROS",
+            "NANOS"
+          ],
+          "type": "string"
         }
       },
       "title": "TimeTypeInfo",
       "type": "object"
-    },
-    "TimeUnit": {
-      "description": "Time units for TIME and TIMESTAMP logical types.",
-      "enum": [
-        1,
-        2,
-        3
-      ],
-      "title": "TimeUnit",
-      "type": "integer"
     },
     "TimestampTypeInfo": {
       "description": "Timestamp logical type with unit and UTC adjustment.",
@@ -2084,42 +2245,32 @@
           "type": "boolean"
         },
         "logical_type": {
-          "const": 8,
-          "default": 8,
+          "const": "TIMESTAMP",
+          "default": "TIMESTAMP",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         },
         "unit": {
-          "$ref": "#/$defs/TimeUnit",
-          "default": 1
+          "default": "MILLIS",
+          "enum": [
+            "MILLIS",
+            "MICROS",
+            "NANOS"
+          ],
+          "type": "string"
         }
       },
       "title": "TimestampTypeInfo",
       "type": "object"
     },
-    "Type": {
-      "description": "Parquet data types.",
-      "enum": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ],
-      "title": "Type",
-      "type": "integer"
-    },
     "UnknownTypeInfo": {
       "description": "Unknown logical type.",
       "properties": {
         "logical_type": {
-          "const": 11,
-          "default": 11,
+          "const": "UNKNOWN",
+          "default": "UNKNOWN",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "UnknownTypeInfo",
@@ -2129,10 +2280,10 @@
       "description": "UUID logical type.",
       "properties": {
         "logical_type": {
-          "const": 14,
-          "default": 14,
+          "const": "UUID",
+          "default": "UUID",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "UuidTypeInfo",
@@ -2142,10 +2293,10 @@
       "description": "Variant logical type.",
       "properties": {
         "logical_type": {
-          "const": 16,
-          "default": 16,
+          "const": "VARIANT",
+          "default": "VARIANT",
           "title": "Logical Type",
-          "type": "integer"
+          "type": "string"
         }
       },
       "title": "VariantTypeInfo",

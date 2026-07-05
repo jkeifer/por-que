@@ -1,4 +1,10 @@
+from dataclasses import dataclass
 from enum import IntEnum, StrEnum, auto
+from typing import Annotated
+
+from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
+from pydantic.json_schema import JsonSchemaValue
+from pydantic_core import CoreSchema, core_schema
 
 
 class Type(IntEnum):
@@ -266,3 +272,119 @@ class ListSemantics(StrEnum):
 
     MODERN_LIST = 'modern_list'  # 3-level LIST logical type semantics
     LEGACY_REPEATED = 'legacy_repeated'  # Legacy repeated group semantics
+
+
+# ---------------------------------------------------------------------------
+# Serialize IntEnums by NAME so JSON dumps are self-describing.
+#
+# Parquet's thrift wire format identifies these enums by integer code, so the
+# models still parse and store real IntEnum members. Only the JSON boundary
+# changes: dumps emit the member name (``"SNAPPY"`` not ``1``) and the
+# serialization JSON Schema reports a string enum. Validation stays lenient --
+# an enum member, its name, or its raw int all load -- so old numeric dumps
+# keep working. Python-mode ``model_dump()`` still yields enum members.
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class EnumByName:
+    """Annotation making an IntEnum field (de)serialize by member name."""
+
+    enum: type[IntEnum]
+
+    def __get_pydantic_core_schema__(
+        self,
+        source: type,
+        handler: GetCoreSchemaHandler,
+    ) -> CoreSchema:
+        enum_cls = self.enum
+        members = {member.name: member for member in enum_cls}
+
+        def validate(value: object) -> IntEnum:
+            if isinstance(value, enum_cls):
+                return value
+            if isinstance(value, str):
+                try:
+                    return members[value]
+                except KeyError:
+                    raise ValueError(
+                        f'{value!r} is not a valid {enum_cls.__name__} name',
+                    ) from None
+            if isinstance(value, int):
+                return enum_cls(value)
+            raise ValueError(
+                f'cannot coerce {value!r} to {enum_cls.__name__}',
+            )
+
+        return core_schema.no_info_before_validator_function(
+            validate,
+            handler(source),
+            serialization=core_schema.plain_serializer_function_ser_schema(
+                lambda member: member.name,
+                return_schema=core_schema.str_schema(),
+                when_used='json',
+            ),
+        )
+
+    def __get_pydantic_json_schema__(
+        self,
+        schema: CoreSchema,
+        handler: GetJsonSchemaHandler,
+    ) -> JsonSchemaValue:
+        return {'type': 'string', 'enum': [member.name for member in self.enum]}
+
+
+@dataclass(frozen=True)
+class LiteralEnumByName:
+    """Like :class:`EnumByName`, but for a single-member ``Literal`` field.
+
+    Used on the discriminator fields of the logical-type and page unions, whose
+    per-variant type is ``Literal[SomeEnum.MEMBER]``.
+    """
+
+    member: IntEnum
+
+    def __get_pydantic_core_schema__(
+        self,
+        source: type,
+        handler: GetCoreSchemaHandler,
+    ) -> CoreSchema:
+        enum_cls = type(self.member)
+
+        def validate(value: object) -> object:
+            if isinstance(value, str):
+                try:
+                    return enum_cls[value]
+                except KeyError:
+                    raise ValueError(
+                        f'{value!r} is not a valid {enum_cls.__name__} name',
+                    ) from None
+            return value
+
+        return core_schema.no_info_before_validator_function(
+            validate,
+            handler(source),
+            serialization=core_schema.plain_serializer_function_ser_schema(
+                lambda member: member.name,
+                return_schema=core_schema.str_schema(),
+                when_used='json',
+            ),
+        )
+
+    def __get_pydantic_json_schema__(
+        self,
+        schema: CoreSchema,
+        handler: GetJsonSchemaHandler,
+    ) -> JsonSchemaValue:
+        return {'type': 'string', 'const': self.member.name}
+
+
+TypeName = Annotated[Type, EnumByName(Type)]
+CompressionName = Annotated[Compression, EnumByName(Compression)]
+RepetitionName = Annotated[Repetition, EnumByName(Repetition)]
+EncodingName = Annotated[Encoding, EnumByName(Encoding)]
+ConvertedTypeName = Annotated[ConvertedType, EnumByName(ConvertedType)]
+PageTypeName = Annotated[PageType, EnumByName(PageType)]
+TimeUnitName = Annotated[TimeUnit, EnumByName(TimeUnit)]
+BoundaryOrderName = Annotated[BoundaryOrder, EnumByName(BoundaryOrder)]
+GeospatialTypeName = Annotated[GeospatialType, EnumByName(GeospatialType)]

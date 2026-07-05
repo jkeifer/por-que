@@ -6,20 +6,20 @@
       "path_in_schema": "ID",
       "start_offset": 4,
       "total_byte_size": 49,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 41,
           "compressed_page_size": 8,
           "uncompressed_page_size": 8,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 4,
-          "repetition_level_encoding": 4,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "BIT_PACKED",
+          "repetition_level_encoding": "BIT_PACKED",
           "statistics": {
             "min": "CAAAAAAAAAA=",
             "max": "CAAAAAAAAAA=",
@@ -44,20 +44,20 @@
       "path_in_schema": "Int_Array.list.element",
       "start_offset": 53,
       "total_byte_size": 49,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 53,
           "header_size": 33,
           "compressed_page_size": 16,
           "uncompressed_page_size": 16,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "_____w==",
             "max": "_____w==",
@@ -82,20 +82,20 @@
       "path_in_schema": "int_array_array.list.element.list.element",
       "start_offset": 102,
       "total_byte_size": 55,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 3,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 102,
           "header_size": 33,
           "compressed_page_size": 22,
           "uncompressed_page_size": 22,
           "crc": null,
           "num_values": 3,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "_v___w==",
             "max": "_____w==",
@@ -120,20 +120,20 @@
       "path_in_schema": "Int_Map.map.key",
       "start_offset": 157,
       "total_byte_size": 47,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 157,
           "header_size": 29,
           "compressed_page_size": 18,
           "uncompressed_page_size": 18,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "azE=",
             "max": "azE=",
@@ -158,20 +158,20 @@
       "path_in_schema": "Int_Map.map.value",
       "start_offset": 204,
       "total_byte_size": 49,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 204,
           "header_size": 33,
           "compressed_page_size": 16,
           "uncompressed_page_size": 16,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "_____w==",
             "max": "_____w==",
@@ -196,20 +196,20 @@
       "path_in_schema": "int_map_array.list.element.map.key",
       "start_offset": 253,
       "total_byte_size": 49,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 4,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 253,
           "header_size": 29,
           "compressed_page_size": 20,
           "uncompressed_page_size": 20,
           "crc": null,
           "num_values": 4,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "azE=",
             "max": "azE=",
@@ -234,20 +234,20 @@
       "path_in_schema": "int_map_array.list.element.map.value",
       "start_offset": 302,
       "total_byte_size": 51,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 4,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 302,
           "header_size": 33,
           "compressed_page_size": 18,
           "uncompressed_page_size": 18,
           "crc": null,
           "num_values": 4,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "AQAAAA==",
             "max": "AQAAAA==",
@@ -272,20 +272,20 @@
       "path_in_schema": "nested_Struct.a",
       "start_offset": 353,
       "total_byte_size": 37,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 353,
           "header_size": 33,
           "compressed_page_size": 4,
           "uncompressed_page_size": 4,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 4,
-          "repetition_level_encoding": 4,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "BIT_PACKED",
+          "repetition_level_encoding": "BIT_PACKED",
           "statistics": {
             "min": "_____w==",
             "max": "_____w==",
@@ -310,20 +310,20 @@
       "path_in_schema": "nested_Struct.B.list.element",
       "start_offset": 390,
       "total_byte_size": 49,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 390,
           "header_size": 33,
           "compressed_page_size": 16,
           "uncompressed_page_size": 16,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "_____w==",
             "max": "_____w==",
@@ -348,20 +348,20 @@
       "path_in_schema": "nested_Struct.c.D.list.element.list.element.e",
       "start_offset": 439,
       "total_byte_size": 51,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 439,
           "header_size": 33,
           "compressed_page_size": 18,
           "uncompressed_page_size": 18,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "_____w==",
             "max": "_____w==",
@@ -386,20 +386,20 @@
       "path_in_schema": "nested_Struct.c.D.list.element.list.element.f",
       "start_offset": 490,
       "total_byte_size": 76,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 490,
           "header_size": 47,
           "compressed_page_size": 29,
           "uncompressed_page_size": 29,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": "bm9ubnVsbGFibGU=",
             "max": "bm9ubnVsbGFibGU=",
@@ -424,20 +424,20 @@
       "path_in_schema": "nested_Struct.G.map.key",
       "start_offset": 566,
       "total_byte_size": 33,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 566,
           "header_size": 21,
           "compressed_page_size": 12,
           "uncompressed_page_size": 12,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -462,20 +462,20 @@
       "path_in_schema": "nested_Struct.G.map.value.h.i.list.element",
       "start_offset": 599,
       "total_byte_size": 35,
-      "codec": 0,
+      "codec": "UNCOMPRESSED",
       "num_values": 1,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 599,
           "header_size": 21,
           "compressed_page_size": 14,
           "uncompressed_page_size": 14,
           "crc": null,
           "num_values": 1,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": {
             "min": null,
             "max": null,
@@ -517,8 +517,8 @@
           "byte_length": 9,
           "definition_level": 0,
           "repetition_level": 0,
-          "type": 2,
-          "repetition": 0,
+          "type": "INT64",
+          "repetition": "REQUIRED",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -555,8 +555,8 @@
                   "byte_length": 14,
                   "definition_level": 1,
                   "repetition_level": 1,
-                  "type": 1,
-                  "repetition": 0,
+                  "type": "INT32",
+                  "repetition": "REQUIRED",
                   "converted_type": null,
                   "type_length": null,
                   "scale": null,
@@ -566,14 +566,14 @@
                   "list_semantics": "modern_list"
                 }
               },
-              "repetition": 2,
+              "repetition": "REPEATED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 0,
-          "converted_type": 3,
+          "repetition": "REQUIRED",
+          "converted_type": "LIST",
           "field_id": null,
           "logical_type": null
         },
@@ -625,8 +625,8 @@
                           "byte_length": 14,
                           "definition_level": 2,
                           "repetition_level": 2,
-                          "type": 1,
-                          "repetition": 0,
+                          "type": "INT32",
+                          "repetition": "REQUIRED",
                           "converted_type": null,
                           "type_length": null,
                           "scale": null,
@@ -636,26 +636,26 @@
                           "list_semantics": "modern_list"
                         }
                       },
-                      "repetition": 2,
+                      "repetition": "REPEATED",
                       "converted_type": null,
                       "field_id": null,
                       "logical_type": null
                     }
                   },
-                  "repetition": 0,
-                  "converted_type": 3,
+                  "repetition": "REQUIRED",
+                  "converted_type": "LIST",
                   "field_id": null,
                   "logical_type": null
                 }
               },
-              "repetition": 2,
+              "repetition": "REPEATED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 0,
-          "converted_type": 3,
+          "repetition": "REQUIRED",
+          "converted_type": "LIST",
           "field_id": null,
           "logical_type": null
         },
@@ -687,9 +687,9 @@
                   "byte_length": 12,
                   "definition_level": 1,
                   "repetition_level": 1,
-                  "type": 6,
-                  "repetition": 0,
-                  "converted_type": 0,
+                  "type": "BYTE_ARRAY",
+                  "repetition": "REQUIRED",
+                  "converted_type": "UTF8",
                   "type_length": null,
                   "scale": null,
                   "precision": null,
@@ -705,8 +705,8 @@
                   "byte_length": 12,
                   "definition_level": 1,
                   "repetition_level": 1,
-                  "type": 1,
-                  "repetition": 0,
+                  "type": "INT32",
+                  "repetition": "REQUIRED",
                   "converted_type": null,
                   "type_length": null,
                   "scale": null,
@@ -716,14 +716,14 @@
                   "list_semantics": "legacy_repeated"
                 }
               },
-              "repetition": 2,
-              "converted_type": 2,
+              "repetition": "REPEATED",
+              "converted_type": "MAP_KEY_VALUE",
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 0,
-          "converted_type": 1,
+          "repetition": "REQUIRED",
+          "converted_type": "MAP",
           "field_id": null,
           "logical_type": null
         },
@@ -775,9 +775,9 @@
                           "byte_length": 12,
                           "definition_level": 2,
                           "repetition_level": 2,
-                          "type": 6,
-                          "repetition": 0,
-                          "converted_type": 0,
+                          "type": "BYTE_ARRAY",
+                          "repetition": "REQUIRED",
+                          "converted_type": "UTF8",
                           "type_length": null,
                           "scale": null,
                           "precision": null,
@@ -793,8 +793,8 @@
                           "byte_length": 12,
                           "definition_level": 2,
                           "repetition_level": 2,
-                          "type": 1,
-                          "repetition": 0,
+                          "type": "INT32",
+                          "repetition": "REQUIRED",
                           "converted_type": null,
                           "type_length": null,
                           "scale": null,
@@ -804,26 +804,26 @@
                           "list_semantics": "modern_list"
                         }
                       },
-                      "repetition": 2,
-                      "converted_type": 2,
+                      "repetition": "REPEATED",
+                      "converted_type": "MAP_KEY_VALUE",
                       "field_id": null,
                       "logical_type": null
                     }
                   },
-                  "repetition": 0,
-                  "converted_type": 1,
+                  "repetition": "REQUIRED",
+                  "converted_type": "MAP",
                   "field_id": null,
                   "logical_type": null
                 }
               },
-              "repetition": 2,
+              "repetition": "REPEATED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 0,
-          "converted_type": 3,
+          "repetition": "REQUIRED",
+          "converted_type": "LIST",
           "field_id": null,
           "logical_type": null
         },
@@ -845,8 +845,8 @@
               "byte_length": 8,
               "definition_level": 0,
               "repetition_level": 0,
-              "type": 1,
-              "repetition": 0,
+              "type": "INT32",
+              "repetition": "REQUIRED",
               "converted_type": null,
               "type_length": null,
               "scale": null,
@@ -883,8 +883,8 @@
                       "byte_length": 14,
                       "definition_level": 1,
                       "repetition_level": 1,
-                      "type": 1,
-                      "repetition": 0,
+                      "type": "INT32",
+                      "repetition": "REQUIRED",
                       "converted_type": null,
                       "type_length": null,
                       "scale": null,
@@ -894,14 +894,14 @@
                       "list_semantics": "modern_list"
                     }
                   },
-                  "repetition": 2,
+                  "repetition": "REPEATED",
                   "converted_type": null,
                   "field_id": null,
                   "logical_type": null
                 }
               },
-              "repetition": 0,
-              "converted_type": 3,
+              "repetition": "REQUIRED",
+              "converted_type": "LIST",
               "field_id": null,
               "logical_type": null
             },
@@ -973,8 +973,8 @@
                                       "byte_length": 8,
                                       "definition_level": 2,
                                       "repetition_level": 2,
-                                      "type": 1,
-                                      "repetition": 0,
+                                      "type": "INT32",
+                                      "repetition": "REQUIRED",
                                       "converted_type": null,
                                       "type_length": null,
                                       "scale": null,
@@ -991,9 +991,9 @@
                                       "byte_length": 10,
                                       "definition_level": 2,
                                       "repetition_level": 2,
-                                      "type": 6,
-                                      "repetition": 0,
-                                      "converted_type": 0,
+                                      "type": "BYTE_ARRAY",
+                                      "repetition": "REQUIRED",
+                                      "converted_type": "UTF8",
                                       "type_length": null,
                                       "scale": null,
                                       "precision": null,
@@ -1002,37 +1002,37 @@
                                       "list_semantics": "modern_list"
                                     }
                                   },
-                                  "repetition": 0,
+                                  "repetition": "REQUIRED",
                                   "converted_type": null,
                                   "field_id": null,
                                   "logical_type": null
                                 }
                               },
-                              "repetition": 2,
+                              "repetition": "REPEATED",
                               "converted_type": null,
                               "field_id": null,
                               "logical_type": null
                             }
                           },
-                          "repetition": 0,
-                          "converted_type": 3,
+                          "repetition": "REQUIRED",
+                          "converted_type": "LIST",
                           "field_id": null,
                           "logical_type": null
                         }
                       },
-                      "repetition": 2,
+                      "repetition": "REPEATED",
                       "converted_type": null,
                       "field_id": null,
                       "logical_type": null
                     }
                   },
-                  "repetition": 0,
-                  "converted_type": 3,
+                  "repetition": "REQUIRED",
+                  "converted_type": "LIST",
                   "field_id": null,
                   "logical_type": null
                 }
               },
-              "repetition": 0,
+              "repetition": "REQUIRED",
               "converted_type": null,
               "field_id": null,
               "logical_type": null
@@ -1065,9 +1065,9 @@
                       "byte_length": 12,
                       "definition_level": 1,
                       "repetition_level": 1,
-                      "type": 6,
-                      "repetition": 0,
-                      "converted_type": 0,
+                      "type": "BYTE_ARRAY",
+                      "repetition": "REQUIRED",
+                      "converted_type": "UTF8",
                       "type_length": null,
                       "scale": null,
                       "precision": null,
@@ -1123,8 +1123,8 @@
                                       "byte_length": 14,
                                       "definition_level": 2,
                                       "repetition_level": 2,
-                                      "type": 5,
-                                      "repetition": 0,
+                                      "type": "DOUBLE",
+                                      "repetition": "REQUIRED",
                                       "converted_type": null,
                                       "type_length": null,
                                       "scale": null,
@@ -1134,49 +1134,49 @@
                                       "list_semantics": "modern_list"
                                     }
                                   },
-                                  "repetition": 2,
+                                  "repetition": "REPEATED",
                                   "converted_type": null,
                                   "field_id": null,
                                   "logical_type": null
                                 }
                               },
-                              "repetition": 0,
-                              "converted_type": 3,
+                              "repetition": "REQUIRED",
+                              "converted_type": "LIST",
                               "field_id": null,
                               "logical_type": null
                             }
                           },
-                          "repetition": 0,
+                          "repetition": "REQUIRED",
                           "converted_type": null,
                           "field_id": null,
                           "logical_type": null
                         }
                       },
-                      "repetition": 0,
+                      "repetition": "REQUIRED",
                       "converted_type": null,
                       "field_id": null,
                       "logical_type": null
                     }
                   },
-                  "repetition": 2,
-                  "converted_type": 2,
+                  "repetition": "REPEATED",
+                  "converted_type": "MAP_KEY_VALUE",
                   "field_id": null,
                   "logical_type": null
                 }
               },
-              "repetition": 0,
-              "converted_type": 1,
+              "repetition": "REQUIRED",
+              "converted_type": "MAP",
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 0,
+          "repetition": "REQUIRED",
           "converted_type": null,
           "field_id": null,
           "logical_type": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -1188,13 +1188,13 @@
             "metadata": {
               "start_offset": 1191,
               "byte_length": 46,
-              "type": 2,
+              "type": "INT64",
               "encodings": [
-                0,
-                4
+                "PLAIN",
+                "BIT_PACKED"
               ],
               "path_in_schema": "ID",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 49,
               "total_compressed_size": 49,
@@ -1229,13 +1229,13 @@
             "metadata": {
               "start_offset": 1241,
               "byte_length": 58,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "Int_Array.list.element",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 49,
               "total_compressed_size": 49,
@@ -1270,13 +1270,13 @@
             "metadata": {
               "start_offset": 1304,
               "byte_length": 78,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "int_array_array.list.element.list.element",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 3,
               "total_uncompressed_size": 55,
               "total_compressed_size": 55,
@@ -1311,13 +1311,13 @@
             "metadata": {
               "start_offset": 1387,
               "byte_length": 48,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "Int_Map.map.key",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 47,
               "total_compressed_size": 47,
@@ -1352,13 +1352,13 @@
             "metadata": {
               "start_offset": 1440,
               "byte_length": 54,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "Int_Map.map.value",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 49,
               "total_compressed_size": 49,
@@ -1393,13 +1393,13 @@
             "metadata": {
               "start_offset": 1499,
               "byte_length": 67,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "int_map_array.list.element.map.key",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 4,
               "total_uncompressed_size": 49,
               "total_compressed_size": 49,
@@ -1434,13 +1434,13 @@
             "metadata": {
               "start_offset": 1571,
               "byte_length": 73,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "int_map_array.list.element.map.value",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 4,
               "total_uncompressed_size": 51,
               "total_compressed_size": 51,
@@ -1475,13 +1475,13 @@
             "metadata": {
               "start_offset": 1649,
               "byte_length": 52,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                4
+                "PLAIN",
+                "BIT_PACKED"
               ],
               "path_in_schema": "nested_Struct.a",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 37,
               "total_compressed_size": 37,
@@ -1516,13 +1516,13 @@
             "metadata": {
               "start_offset": 1706,
               "byte_length": 65,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "nested_Struct.B.list.element",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 49,
               "total_compressed_size": 49,
@@ -1557,13 +1557,13 @@
             "metadata": {
               "start_offset": 1776,
               "byte_length": 82,
-              "type": 1,
+              "type": "INT32",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "nested_Struct.c.D.list.element.list.element.e",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 51,
               "total_compressed_size": 51,
@@ -1598,13 +1598,13 @@
             "metadata": {
               "start_offset": 1863,
               "byte_length": 98,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "nested_Struct.c.D.list.element.list.element.f",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 76,
               "total_compressed_size": 76,
@@ -1639,13 +1639,13 @@
             "metadata": {
               "start_offset": 1966,
               "byte_length": 48,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "nested_Struct.G.map.key",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 33,
               "total_compressed_size": 33,
@@ -1680,13 +1680,13 @@
             "metadata": {
               "start_offset": 2019,
               "byte_length": 67,
-              "type": 5,
+              "type": "DOUBLE",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "nested_Struct.G.map.value.h.i.list.element",
-              "codec": 0,
+              "codec": "UNCOMPRESSED",
               "num_values": 1,
               "total_uncompressed_size": 35,
               "total_compressed_size": 35,

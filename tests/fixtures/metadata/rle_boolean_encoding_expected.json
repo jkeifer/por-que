@@ -6,11 +6,11 @@
       "path_in_schema": "datatype_boolean",
       "start_offset": 4,
       "total_byte_size": 69,
-      "codec": 2,
+      "codec": "GZIP",
       "num_values": 68,
       "data_pages": [
         {
-          "page_type": 3,
+          "page_type": "DATA_PAGE_V2",
           "start_offset": 4,
           "header_size": 23,
           "compressed_page_size": 46,
@@ -19,7 +19,7 @@
           "num_values": 68,
           "num_nulls": 6,
           "num_rows": 68,
-          "encoding": 3,
+          "encoding": "RLE",
           "definition_levels_byte_length": 11,
           "repetition_levels_byte_length": 2,
           "is_compressed": true,
@@ -54,8 +54,8 @@
           "byte_length": 25,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 0,
-          "repetition": 1,
+          "type": "BOOLEAN",
+          "repetition": "OPTIONAL",
           "converted_type": null,
           "type_length": null,
           "scale": null,
@@ -65,7 +65,7 @@
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -77,12 +77,12 @@
             "metadata": {
               "start_offset": 122,
               "byte_length": 53,
-              "type": 0,
+              "type": "BOOLEAN",
               "encodings": [
-                3
+                "RLE"
               ],
               "path_in_schema": "datatype_boolean",
-              "codec": 2,
+              "codec": "GZIP",
               "num_values": 68,
               "total_uncompressed_size": 49,
               "total_compressed_size": 69,

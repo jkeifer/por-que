@@ -6,11 +6,11 @@
       "path_in_schema": "FRUIT",
       "start_offset": 4,
       "total_byte_size": 2625,
-      "codec": 6,
+      "codec": "ZSTD",
       "num_values": 1000,
       "data_pages": [
         {
-          "page_type": 3,
+          "page_type": "DATA_PAGE_V2",
           "start_offset": 4,
           "header_size": 33,
           "compressed_page_size": 2592,
@@ -19,7 +19,7 @@
           "num_values": 1000,
           "num_nulls": 0,
           "num_rows": 1000,
-          "encoding": 6,
+          "encoding": "DELTA_LENGTH_BYTE_ARRAY",
           "definition_levels_byte_length": 3,
           "repetition_levels_byte_length": 0,
           "is_compressed": true,
@@ -54,20 +54,20 @@
           "byte_length": 20,
           "definition_level": 1,
           "repetition_level": 0,
-          "type": 6,
-          "repetition": 1,
-          "converted_type": 0,
+          "type": "BYTE_ARRAY",
+          "repetition": "OPTIONAL",
+          "converted_type": "UTF8",
           "type_length": null,
           "scale": null,
           "precision": null,
           "field_id": 1,
           "logical_type": {
-            "logical_type": 1
+            "logical_type": "STRING"
           },
           "list_semantics": null
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -79,13 +79,13 @@
             "metadata": {
               "start_offset": 3009,
               "byte_length": 38,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                3,
-                6
+                "RLE",
+                "DELTA_LENGTH_BYTE_ARRAY"
               ],
               "path_in_schema": "FRUIT",
-              "codec": 6,
+              "codec": "ZSTD",
               "num_values": 1000,
               "total_uncompressed_size": 23747,
               "total_compressed_size": 2625,
@@ -95,8 +95,8 @@
               "statistics": null,
               "encoding_stats": [
                 {
-                  "page_type": 3,
-                  "encoding": 6,
+                  "page_type": "DATA_PAGE_V2",
+                  "encoding": "DELTA_LENGTH_BYTE_ARRAY",
                   "count": 1
                 }
               ],

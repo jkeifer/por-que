@@ -9,7 +9,13 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, Discriminator
 
-from .enums import Compression, Encoding, PageType, Type
+from .enums import (
+    Compression,
+    EncodingName,
+    LiteralEnumByName,
+    PageType,
+    Type,
+)
 from .exceptions import parse_context
 from .parsers.page_content import (
     DataPageV1Parser,
@@ -68,9 +74,12 @@ class Page(BaseModel, frozen=True):
 class DictionaryPage(Page, frozen=True):
     """A page containing dictionary-encoded values."""
 
-    page_type: Literal[PageType.DICTIONARY_PAGE] = PageType.DICTIONARY_PAGE
+    page_type: Annotated[
+        Literal[PageType.DICTIONARY_PAGE],
+        LiteralEnumByName(PageType.DICTIONARY_PAGE),
+    ] = PageType.DICTIONARY_PAGE
     num_values: int
-    encoding: Encoding
+    encoding: EncodingName
     is_sorted: bool = False
 
     async def parse_content(
@@ -104,11 +113,14 @@ class DictionaryPage(Page, frozen=True):
 class DataPageV1(Page, SchemaLinked, frozen=True):
     """A version 1 data page."""
 
-    page_type: Literal[PageType.DATA_PAGE] = PageType.DATA_PAGE
+    page_type: Annotated[
+        Literal[PageType.DATA_PAGE],
+        LiteralEnumByName(PageType.DATA_PAGE),
+    ] = PageType.DATA_PAGE
     num_values: int
-    encoding: Encoding
-    definition_level_encoding: Encoding
-    repetition_level_encoding: Encoding
+    encoding: EncodingName
+    definition_level_encoding: EncodingName
+    repetition_level_encoding: EncodingName
     statistics: ColumnStatistics | None = None
     schema_path: str
 
@@ -146,11 +158,14 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
 class DataPageV2(Page, SchemaLinked, frozen=True):
     """A version 2 data page."""
 
-    page_type: Literal[PageType.DATA_PAGE_V2] = PageType.DATA_PAGE_V2
+    page_type: Annotated[
+        Literal[PageType.DATA_PAGE_V2],
+        LiteralEnumByName(PageType.DATA_PAGE_V2),
+    ] = PageType.DATA_PAGE_V2
     num_values: int
     num_nulls: int
     num_rows: int
-    encoding: Encoding
+    encoding: EncodingName
     definition_levels_byte_length: int
     repetition_levels_byte_length: int
     is_compressed: bool = True
@@ -191,7 +206,10 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
 class IndexPage(Page, frozen=True):
     """A page containing row group and offset statistics."""
 
-    page_type: Literal[PageType.INDEX_PAGE] = PageType.INDEX_PAGE
+    page_type: Annotated[
+        Literal[PageType.INDEX_PAGE],
+        LiteralEnumByName(PageType.INDEX_PAGE),
+    ] = PageType.INDEX_PAGE
 
 
 AnyPage = DictionaryPage | DataPageV1 | DataPageV2 | IndexPage

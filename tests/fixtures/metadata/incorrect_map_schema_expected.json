@@ -6,20 +6,20 @@
       "path_in_schema": "my_map.key_value.key",
       "start_offset": 4,
       "total_byte_size": 69,
-      "codec": 2,
+      "codec": "GZIP",
       "num_values": 2,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 4,
           "header_size": 23,
           "compressed_page_size": 46,
           "uncompressed_page_size": 31,
           "crc": 773816248,
           "num_values": 2,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "my_map.key_value.key"
         }
@@ -38,7 +38,7 @@
         "max_values": [
           "cGFyZW50"
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -64,20 +64,20 @@
       "path_in_schema": "my_map.key_value.value",
       "start_offset": 73,
       "total_byte_size": 72,
-      "codec": 2,
+      "codec": "GZIP",
       "num_values": 2,
       "data_pages": [
         {
-          "page_type": 0,
+          "page_type": "DATA_PAGE",
           "start_offset": 73,
           "header_size": 23,
           "compressed_page_size": 49,
           "uncompressed_page_size": 34,
           "crc": -911700216,
           "num_values": 2,
-          "encoding": 0,
-          "definition_level_encoding": 3,
-          "repetition_level_encoding": 3,
+          "encoding": "PLAIN",
+          "definition_level_encoding": "RLE",
+          "repetition_level_encoding": "RLE",
           "statistics": null,
           "schema_path": "my_map.key_value.value"
         }
@@ -96,7 +96,7 @@
         "max_values": [
           "cmVwb3J0"
         ],
-        "boundary_order": 1,
+        "boundary_order": "ASCENDING",
         "null_counts": [
           0
         ],
@@ -159,15 +159,15 @@
                   "byte_length": 16,
                   "definition_level": 3,
                   "repetition_level": 1,
-                  "type": 6,
-                  "repetition": 1,
-                  "converted_type": 0,
+                  "type": "BYTE_ARRAY",
+                  "repetition": "OPTIONAL",
+                  "converted_type": "UTF8",
                   "type_length": null,
                   "scale": null,
                   "precision": null,
                   "field_id": null,
                   "logical_type": {
-                    "logical_type": 1
+                    "logical_type": "STRING"
                   },
                   "list_semantics": "legacy_repeated"
                 },
@@ -179,34 +179,34 @@
                   "byte_length": 18,
                   "definition_level": 3,
                   "repetition_level": 1,
-                  "type": 6,
-                  "repetition": 1,
-                  "converted_type": 0,
+                  "type": "BYTE_ARRAY",
+                  "repetition": "OPTIONAL",
+                  "converted_type": "UTF8",
                   "type_length": null,
                   "scale": null,
                   "precision": null,
                   "field_id": null,
                   "logical_type": {
-                    "logical_type": 1
+                    "logical_type": "STRING"
                   },
                   "list_semantics": "legacy_repeated"
                 }
               },
-              "repetition": 2,
-              "converted_type": 2,
+              "repetition": "REPEATED",
+              "converted_type": "MAP_KEY_VALUE",
               "field_id": null,
               "logical_type": null
             }
           },
-          "repetition": 1,
-          "converted_type": 1,
+          "repetition": "OPTIONAL",
+          "converted_type": "MAP",
           "field_id": null,
           "logical_type": {
-            "logical_type": 2
+            "logical_type": "MAP"
           }
         }
       },
-      "repetition": 0
+      "repetition": "REQUIRED"
     },
     "row_groups": [
       {
@@ -218,13 +218,13 @@
             "metadata": {
               "start_offset": 321,
               "byte_length": 68,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "my_map.key_value.key",
-              "codec": 2,
+              "codec": "GZIP",
               "num_values": 2,
               "total_uncompressed_size": 54,
               "total_compressed_size": 69,
@@ -244,8 +244,8 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 }
               ],
@@ -265,13 +265,13 @@
             "metadata": {
               "start_offset": 404,
               "byte_length": 74,
-              "type": 6,
+              "type": "BYTE_ARRAY",
               "encodings": [
-                0,
-                3
+                "PLAIN",
+                "RLE"
               ],
               "path_in_schema": "my_map.key_value.value",
-              "codec": 2,
+              "codec": "GZIP",
               "num_values": 2,
               "total_uncompressed_size": 57,
               "total_compressed_size": 72,
@@ -291,8 +291,8 @@
               },
               "encoding_stats": [
                 {
-                  "page_type": 0,
-                  "encoding": 0,
+                  "page_type": "DATA_PAGE",
+                  "encoding": "PLAIN",
                   "count": 1
                 }
               ],
