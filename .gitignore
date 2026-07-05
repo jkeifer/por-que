@@ -163,9 +163,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# Generated workshop notebook (see scripts/render-notebook.py)
-docs/workshop/notebook.md
-
 # Zensical build output
 site/
-docs/workshop/notebook_files/

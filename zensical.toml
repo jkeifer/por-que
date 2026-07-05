@@ -29,10 +29,6 @@ nav = [
     { "Record reconstruction" = "learn/reconstruction.md" },
     { "Going deeper" = "learn/going-deeper.md" },
   ] },
-  { "Workshop" = [
-    { "Overview" = "workshop/index.md" },
-    { "Notebook" = "workshop/notebook.md" },
-  ] },
   { "Guides" = [
     { "Reading remote files" = "guides/reading-remote-files.md" },
     { "Fast metadata" = "guides/fast-metadata.md" },
@@ -51,8 +47,6 @@ nav = [
   ] },
   { "Project" = [
     { "Architecture" = "project/architecture.md" },
-    { "Updating fixtures" = "project/updating-fixtures.md" },
-    { "Notebook authoring" = "project/notebook-authoring.md" },
     { "CLI" = "project/cli.md" },
     { "Roadmap" = "project/roadmap.md" },
   ] },

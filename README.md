@@ -194,19 +194,8 @@ This is primarily an educational project. Feel free to:
 - Add more comprehensive test cases
 - Improve documentation and comments
 
-### Updating test fixtures
-
-Tests download real Parquet files from
-[apache/parquet-testing](https://github.com/apache/parquet-testing), pinned
-to a single commit SHA so upstream changes can't silently break our
-fixtures. To bump the pin and regenerate every fixture in one shot:
-
-```bash
-uv run scripts/update-fixtures.py
-```
-
-Review the resulting diff (`git status --short tests/fixtures`) and commit
-it. See `uv run scripts/update-fixtures.py --help` for details.
+For the developer workflow (setup, hooks, testing, fixtures, docs), see
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
