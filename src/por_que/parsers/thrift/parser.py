@@ -59,7 +59,9 @@ class ThriftCompactParser:
         if end > len(self.data):
             raise BufferExhaustedError(
                 f'Read of {length} bytes at file offset {self.pos} runs past '
-                f'the end of the {len(self.data)}-byte buffer.',
+                f'the end of the {len(self.data)}-byte buffer by '
+                f'{end - len(self.data)} bytes.',
+                needed=end - len(self.data),
             )
         chunk = self.data[self.index : end]
         self.index = end
@@ -161,7 +163,9 @@ class ThriftCompactParser:
         if end > len(self.data):
             raise BufferExhaustedError(
                 f'Skip of {n} bytes at file offset {self.pos} runs past the '
-                f'end of the {len(self.data)}-byte buffer.',
+                f'end of the {len(self.data)}-byte buffer by '
+                f'{end - len(self.data)} bytes.',
+                needed=end - len(self.data),
             )
         self.index = end
 
