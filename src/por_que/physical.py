@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 
-from collections.abc import AsyncIterator, Callable, Iterator, Sequence
+from collections.abc import AsyncIterator, Callable, Coroutine, Iterator, Sequence
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
@@ -671,20 +671,28 @@ class ParquetFile(
         if progress is not None:
             progress(ProgressPhase.COLUMN_CHUNKS, 0, total)
 
-        chunks: list[PhysicalColumnChunk] = []
+        # Tick as each chunk COMPLETES, not as ordered results are collected:
+        # awaiting tasks in list order would freeze the count until the first
+        # task finished even though later ones were already done, then jump.
+        completed = 0
+
+        async def tracked(
+            coro: Coroutine[Any, Any, PhysicalColumnChunk],
+        ) -> PhysicalColumnChunk:
+            nonlocal completed
+            chunk = await coro
+            completed += 1
+            if progress is not None:
+                progress(ProgressPhase.COLUMN_CHUNKS, completed, total)
+            return chunk
+
         if isinstance(reader, AsyncCursableReadableSeekable):
             # run all tasks concurrently, but get results in order
-            for task in [asyncio.create_task(coro) for coro in coroutines]:
-                chunks.append(await task)
-                if progress is not None:
-                    progress(ProgressPhase.COLUMN_CHUNKS, len(chunks), total)
-        else:
-            # run tasks in serial, awaiting each before starting next
-            for coro in coroutines:
-                chunks.append(await asyncio.create_task(coro))
-                if progress is not None:
-                    progress(ProgressPhase.COLUMN_CHUNKS, len(chunks), total)
-        return chunks
+            tasks = [asyncio.create_task(tracked(coro)) for coro in coroutines]
+            return [await task for task in tasks]
+
+        # run tasks in serial, awaiting each before starting next
+        return [await asyncio.create_task(tracked(coro)) for coro in coroutines]
 
     def to_dict(self, target: AsdictTarget = AsdictTarget.DICT) -> dict[str, Any]:
         match target:
