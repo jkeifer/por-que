@@ -315,6 +315,46 @@ async def test_read_data(
     _comparison(parquet_file_name, actual)
 
 
+# Snappy-compressed fixtures, used to exercise the pure-python snappy fallback
+# against real parquet blocks (data pages and dictionary pages).
+SNAPPY_FILES = [f for f in TEST_FILES if 'snappy' in f]
+
+
+@pytest.mark.parametrize('parquet_file_name', SNAPPY_FILES)
+@pytest.mark.asyncio
+async def test_pure_python_snappy_fallback_reads_data(
+    parquet_file_name: str,
+    parquet_url: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The pure-python snappy fallback decodes real parquet snappy blocks.
+
+    We force ``get_snappy`` to return the pure-python decompressor (as happens
+    when python-snappy is not installed, e.g. under pyodide) and confirm the
+    decoded data matches the fixture generated with the C library.
+    """
+    from por_que.parsers.page_content import compressors
+
+    monkeypatch.setattr(
+        compressors,
+        'get_snappy',
+        lambda: compressors._PurePythonSnappy,
+    )
+
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf = await ParquetFile.from_reader(hf, parquet_url)
+        actual = {
+            'source': parquet_url,
+            'data': await pf.read_all_data(
+                hf,
+                excluded_logical_columns=EXCLUDED_LOGICAL_COLUMNS.get(
+                    parquet_file_name,
+                ),
+            ),
+        }
+    _comparison(parquet_file_name, actual)
+
+
 def _comparison(
     file_name: str,
     actual: dict[str, Any],
