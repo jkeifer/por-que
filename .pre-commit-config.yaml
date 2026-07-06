@@ -1,0 +1,59 @@
+# Run with prek (https://prek.j178.dev), a rust reimplementation of
+# pre-commit: `uv run prek install` once, then hooks run on git commit.
+#
+# Every hook is `language: system` running through `uv run`, so prek never
+# builds isolated hook environments -- all tools come from the project's
+# dev dependency group.
+exclude: ^tests/fixtures/
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --force-exclude --fix --exit-non-zero-on-fix
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+      - id: mypy
+        name: mypy
+        entry: uv run mypy
+        language: system
+        types_or: [python, pyi]
+      - id: emit-schema
+        name: schema is current
+        entry: uv run python scripts/emit-schema.py --check
+        language: system
+        files: ^src/por_que/.*\.py$
+        pass_filenames: false
+      - id: check-added-large-files
+        name: check for added large files
+        entry: uv run check-added-large-files
+        language: system
+      - id: check-toml
+        name: check toml
+        entry: uv run check-toml
+        language: system
+        types: [toml]
+      - id: check-yaml
+        name: check yaml
+        entry: uv run check-yaml
+        language: system
+        types: [yaml]
+      - id: end-of-file-fixer
+        name: fix end of files
+        entry: uv run end-of-file-fixer
+        language: system
+        types: [text]
+        exclude_types: [svg]
+        exclude: \.(png|jpg|jpeg|gif|ico|parquet)$
+      - id: trailing-whitespace
+        name: trim trailing whitespace
+        entry: uv run trailing-whitespace-fixer
+        language: system
+        types: [text]
+        exclude_types: [svg]
+        exclude: \.(png|jpg|jpeg|gif|ico|parquet)$

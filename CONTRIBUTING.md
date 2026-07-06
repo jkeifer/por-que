@@ -22,18 +22,21 @@ environment — you do not need to activate a venv manually.
 
 ## Git Hooks
 
-Hooks are managed with [lefthook](https://lefthook.dev). Install them once:
+Hooks are managed with [prek](https://prek.j178.dev), a fast reimplementation
+of pre-commit. Install them once:
 
 ```bash
-uv run lefthook install
+uv run prek install
 ```
 
-On `git commit`, lefthook runs ruff (lint + format), mypy, the schema staleness
-check, and a set of file hygiene checks against your staged files. Run the full
-pre-commit set manually against everything with:
+On `git commit`, prek runs ruff (lint + format), mypy, the schema staleness
+check, and a set of file hygiene checks against your staged files. Every hook
+is `language: system` running through `uv run`, so prek never builds hook
+environments — everything comes from the project's dev dependencies. Run the
+full pre-commit set manually against everything with:
 
 ```bash
-uv run lefthook run pre-commit --all-files
+uv run prek run --all-files
 ```
 
 ## Linting and Type Checking

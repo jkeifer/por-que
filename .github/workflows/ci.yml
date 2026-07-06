@@ -29,8 +29,8 @@ jobs:
           uv sync \
             --locked \
             --no-editable
-      - name: Lefthook
-        run: uv run lefthook run pre-commit --all-files
+      - name: Prek
+        run: uv run prek run --all-files
       - name: Test
         run: uv run pytest
       - name: Schema up to date
