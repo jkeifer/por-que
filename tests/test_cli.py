@@ -145,6 +145,63 @@ def test_dump_discriminator_distinct(local_parquet: str) -> None:
     assert full['_meta']['model'] != meta['_meta']['model']
 
 
+def _write_dump(local_parquet: str, tmp_path: Path, *args: str) -> str:
+    """Dump ``local_parquet`` to a file and return its path."""
+    result = runner.invoke(app, ['dump', local_parquet, *args])
+    assert result.exit_code == 0
+    dest = tmp_path / ('meta.json' if args else 'full.json')
+    dest.write_text(result.output)
+    return str(dest)
+
+
+def test_consume_full_dump(local_parquet: str, tmp_path: Path) -> None:
+    """Every read command works against a full dump, page structure included."""
+    dump = _write_dump(local_parquet, tmp_path)
+
+    assert 'foo' in runner.invoke(app, ['schema', dump]).output
+    assert 'created by' in runner.invoke(app, ['meta', dump]).output
+    assert 'rows' in runner.invoke(app, ['row-groups', dump]).output
+
+    pages = runner.invoke(app, ['pages', dump, '--column', 'foo'])
+    assert pages.exit_code == 0
+    assert 'DATA_PAGE' in pages.output
+
+
+def test_consume_metadata_only_dump(local_parquet: str, tmp_path: Path) -> None:
+    """Metadata commands work against a metadata-only dump; pages error clearly."""
+    dump = _write_dump(local_parquet, tmp_path, '--metadata-only')
+
+    schema = runner.invoke(app, ['schema', dump])
+    assert schema.exit_code == 0
+    assert 'foo' in schema.output
+
+    pages = runner.invoke(app, ['pages', dump, '--column', 'foo'])
+    assert pages.exit_code == 1
+    assert 'metadata-only dump' in pages.output
+
+
+def test_full_dump_down_converts_to_metadata_only(
+    local_parquet: str,
+    tmp_path: Path,
+) -> None:
+    """``dump --metadata-only`` on a full dump strips pages and re-identifies."""
+    full = _write_dump(local_parquet, tmp_path)
+    result = runner.invoke(app, ['dump', full, '--metadata-only'])
+    assert result.exit_code == 0
+    payload = json.loads(result.output)
+    assert payload['_meta']['model'] == 'metadata'
+    assert 'column_chunks' not in payload
+
+
+def test_non_dump_json_is_not_treated_as_dump(tmp_path: Path) -> None:
+    """A JSON file lacking the por-que envelope falls through to parquet parsing."""
+    from por_que.cli import loaders
+
+    plain = tmp_path / 'plain.json'
+    plain.write_text('{"hello": 1}')
+    assert loaders.load_dump(str(plain)) is None
+
+
 def test_url_source_uses_http_reader(monkeypatch: pytest.MonkeyPatch) -> None:
     """A source starting with http(s) routes through AsyncHttpFile, not open()."""
     from por_que.cli import loaders
