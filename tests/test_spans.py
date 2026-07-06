@@ -8,17 +8,17 @@ from por_que.util.spans import read_thrift_span
 class FakeReader:
     """Minimal AsyncReadableSeekable over in-memory bytes.
 
-    Records the size of every read so tests can assert on the speculative
-    span growth behavior.
+    Records the position and size of every read so tests can assert on the
+    speculative span growth behavior.
     """
 
     def __init__(self, data: bytes) -> None:
         self._data = data
         self._pos = 0
-        self.read_sizes: list[int | None] = []
+        self.read_calls: list[tuple[int, int | None]] = []
 
     async def read(self, size: int | None = None, /) -> bytes:
-        self.read_sizes.append(size)
+        self.read_calls.append((self._pos, size))
         start = self._pos
         end = len(self._data) if size is None else min(start + size, len(self._data))
         chunk = self._data[start:end]
@@ -53,6 +53,20 @@ class TestBufferExhausted:
         with pytest.raises(BufferExhaustedError):
             parser.skip(4)
 
+    def test_read_reports_exact_shortfall(self) -> None:
+        parser = ThriftCompactParser(b'abc', 100)
+        parser.read(2)
+        with pytest.raises(BufferExhaustedError) as excinfo:
+            parser.read(5)
+        # Index 2 + read of 5 = 7, buffer holds 3: short by exactly 4.
+        assert excinfo.value.needed == 4
+
+    def test_skip_reports_exact_shortfall(self) -> None:
+        parser = ThriftCompactParser(b'abc', 100)
+        with pytest.raises(BufferExhaustedError) as excinfo:
+            parser.skip(10)
+        assert excinfo.value.needed == 7
+
     def test_exhaustion_does_not_advance_position(self) -> None:
         parser = ThriftCompactParser(b'abc', 100)
         parser.read(2)
@@ -79,24 +93,11 @@ class TestReadThriftSpan:
 
         result = await read_thrift_span(reader, 10, parse, initial_size=16)
         assert result == (10, b'xxxxx')
-        assert reader.read_sizes == [16]
+        # One read, no retries.
+        assert reader.read_calls == [(10, 16)]
 
     @pytest.mark.asyncio
-    async def test_doubles_span_on_buffer_exhaustion(self) -> None:
-        # Structure "needs" 40 bytes; initial span of 16 is too small, so the
-        # helper should retry with 32, then succeed at 64.
-        reader = FakeReader(b'x' * 1000)
-
-        def parse(data: memoryview, offset: int) -> int:
-            parser = ThriftCompactParser(data, offset)
-            return len(parser.read(40))
-
-        result = await read_thrift_span(reader, 0, parse, initial_size=16)
-        assert result == 40
-        assert reader.read_sizes == [16, 32, 64]
-
-    @pytest.mark.asyncio
-    async def test_each_attempt_rereads_from_offset(self) -> None:
+    async def test_retry_fetches_only_the_tail(self) -> None:
         reader = FakeReader(bytes(range(200)))
 
         def parse(data: memoryview, offset: int) -> bytes:
@@ -105,19 +106,41 @@ class TestReadThriftSpan:
 
         result = await read_thrift_span(reader, 100, parse, initial_size=16)
         assert result == bytes(range(100, 120))
+        # The retry starts exactly where the first span ended; the 16-byte
+        # prefix is never re-read.
+        first_call, second_call = reader.read_calls
+        assert first_call == (100, 16)
+        assert second_call[0] == 100 + 16
 
     @pytest.mark.asyncio
-    async def test_reraises_at_max_size(self) -> None:
+    async def test_exact_shortfall_hint_jumps_in_one_retry(self) -> None:
+        # The parser trips on a single 100-byte read, so the exception's
+        # ``needed`` (84) beats the doubling floor (16) and the second span
+        # is exactly big enough: one retry, not a doubling ladder.
         reader = FakeReader(b'x' * 1000)
 
         def parse(data: memoryview, offset: int) -> bytes:
             parser = ThriftCompactParser(data, offset)
             return parser.read(100)
 
-        with pytest.raises(BufferExhaustedError):
-            await read_thrift_span(reader, 0, parse, initial_size=16, max_size=64)
-        # 16, 32, 64: capped at max_size, then the failure propagates.
-        assert reader.read_sizes == [16, 32, 64]
+        result = await read_thrift_span(reader, 0, parse, initial_size=16)
+        assert result == b'x' * 100
+        assert reader.read_calls == [(0, 16), (16, 84)]
+
+    @pytest.mark.asyncio
+    async def test_small_shortfall_still_gets_geometric_floor(self) -> None:
+        # The parser is short by a single byte, but the buffer must at least
+        # double so a struct that keeps tripping one primitive at a time
+        # doesn't degrade into one round trip per field.
+        reader = FakeReader(b'x' * 1000)
+
+        def parse(data: memoryview, offset: int) -> bytes:
+            parser = ThriftCompactParser(data, offset)
+            return parser.read(17)
+
+        result = await read_thrift_span(reader, 0, parse, initial_size=16)
+        assert result == b'x' * 17
+        assert reader.read_calls == [(0, 16), (16, 16)]
 
     @pytest.mark.asyncio
     async def test_reraises_when_file_ends_short(self) -> None:
@@ -131,4 +154,36 @@ class TestReadThriftSpan:
 
         with pytest.raises(BufferExhaustedError):
             await read_thrift_span(reader, 0, parse, initial_size=16)
-        assert reader.read_sizes == [16]
+        assert reader.read_calls == [(0, 16)]
+
+    @pytest.mark.asyncio
+    async def test_reraises_when_growth_hits_end_of_file(self) -> None:
+        # The initial span fills completely, but the retry's fetch comes back
+        # short: the file is exhausted, so the next failure propagates.
+        reader = FakeReader(b'x' * 20)
+
+        def parse(data: memoryview, offset: int) -> bytes:
+            parser = ThriftCompactParser(data, offset)
+            return parser.read(100)
+
+        with pytest.raises(BufferExhaustedError):
+            await read_thrift_span(reader, 0, parse, initial_size=16)
+        assert reader.read_calls == [(0, 16), (16, 84)]
+
+    @pytest.mark.asyncio
+    async def test_no_size_cap_on_growth(self) -> None:
+        # Larger than the 16 MiB cap the old implementation enforced; growth
+        # is now bounded only by end of file.
+        target = 33 * 1024 * 1024
+        reader = FakeReader(b'x' * (target + 10))
+
+        def parse(data: memoryview, offset: int) -> int:
+            if len(data) < target:
+                raise BufferExhaustedError(
+                    'need more',
+                    needed=target - len(data),
+                )
+            return len(data)
+
+        result = await read_thrift_span(reader, 0, parse)
+        assert result >= target

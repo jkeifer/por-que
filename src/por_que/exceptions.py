@@ -37,10 +37,20 @@ class BufferExhaustedError(PorQueError):
 
     The thrift parser works over a fixed byte span. When the span is a
     speculative fetch (we did not know the structure's size up front), a read
-    past its end means "fetch a bigger span and try again" rather than a
-    genuine format error. Callers catch this to grow the span; see
+    past its end means "fetch more bytes and try again" rather than a genuine
+    format error. Callers catch this to grow the span; see
     ``por_que.util.spans.read_thrift_span``.
+
+    Attributes:
+        needed: Exact number of bytes missing beyond the end of the buffer
+            for the read that failed. This is a lower bound on how much more
+            of the file the *whole* structure needs — it only accounts for
+            the one primitive that tripped, not anything after it.
     """
+
+    def __init__(self, message: str, needed: int = 0) -> None:
+        super().__init__(message)
+        self.needed = needed
 
 
 class ParquetNetworkError(PorQueError, IOError):
