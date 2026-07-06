@@ -41,7 +41,6 @@ cli = [
 [dependency-groups]
 dev = [
     "deepdiff>=8.6.1",
-    "lefthook>=1.10",
     "mypy>=1.15.0",
     "pre-commit-hooks>=5.0.0",
     "pytest>=8.3.5",
@@ -51,6 +50,7 @@ dev = [
     # exercise the optional CLI extra in the test suite
     "typer>=0.12",
     "rich>=13.0",
+    "prek>=0.4.8",
 ]
 docs = [
     # Zensical is pre-1.0 and moving fast; pin exactly and bump deliberately.
