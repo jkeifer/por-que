@@ -390,11 +390,11 @@ wheels = [
 
 [[package]]
 name = "hctef"
-version = "0.2.0"
+version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/9f/6f/813c4a5117e827f0b0df54f49ab5904b57929c0ddecf1366dfaafbc72b55/hctef-0.2.0.tar.gz", hash = "sha256:8fd8864b6eda4b7d54a1ed0e6ca671551259ff82c03bd33a2339f494840c756c", size = 80425, upload-time = "2026-07-05T03:11:14.874Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c5/ac/0258c5c704aadd11228dd93f6698da2d1849e4085c5349b53bb94767cdf5/hctef-0.3.0.tar.gz", hash = "sha256:e6af46b07fcc514fa5975b9463bc49d9a24c67f765cc4bc2b16a67cd89a3660d", size = 88158, upload-time = "2026-07-06T02:29:03.461Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/18/48/cde6052d3d7222ffbe7775af969b00c5c6ecda26db0eceba621b38d01efc/hctef-0.2.0-py3-none-any.whl", hash = "sha256:1e58add8786f4eeb560f1cd5bd1b868b47c86cfc63b1642e95ee6d1cfd02d573", size = 16626, upload-time = "2026-07-05T03:11:13.744Z" },
+    { url = "https://files.pythonhosted.org/packages/a1/91/1b1e10bf71f5101a48eec5c1e17e64345bf14999d3c929a0ae9b1e5c4885/hctef-0.3.0-py3-none-any.whl", hash = "sha256:0c86878329821bb440578921325cd3bb01d0644bbe158c5ba171ddcda20b92da", size = 22874, upload-time = "2026-07-06T02:29:02.266Z" },
 ]
 
 [package.optional-dependencies]
@@ -824,7 +824,7 @@ pyarrow = [
 [package.metadata]
 requires-dist = [
     { name = "brotli", specifier = ">=1.1.0" },
-    { name = "hctef", extras = ["async"], specifier = ">=0.2.0" },
+    { name = "hctef", extras = ["async"], specifier = ">=0.3.0" },
     { name = "pydantic", specifier = ">=2.11.7" },
     { name = "python-lzo", marker = "extra == 'lzo'", specifier = ">=1.15" },
     { name = "python-snappy", specifier = ">=0.6.1" },
