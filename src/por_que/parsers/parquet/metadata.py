@@ -11,9 +11,10 @@ Teaching Points:
 import logging
 import warnings
 
-from collections.abc import Iterator, Sequence
+from collections.abc import Callable, Iterator, Sequence
 from typing import Any
 
+from por_que.enums import ProgressPhase
 from por_que.file_metadata import RowGroups
 from por_que.parsers.thrift.parser import ThriftCompactParser
 from por_que.schema import SchemaRoot
@@ -52,6 +53,8 @@ class MetadataParser(BaseParser):
     def parse(
         self,
         columns: Sequence[str] | None = None,
+        *,
+        progress: Callable[[ProgressPhase, int, int], None] | None = None,
     ) -> dict[str, Any]:
         """
         Parse the complete FileMetadata structure using the new generic parser.
@@ -67,6 +70,11 @@ class MetadataParser(BaseParser):
                 When given, each row group's ``column_chunks`` retains only the
                 selected columns; the schema and key-value metadata are still
                 parsed in full.
+            progress: Optional callback fired as row groups are parsed,
+                called as ``progress(ProgressPhase.METADATA_PARSE, done,
+                total)``. It fires once with ``(phase, 0, total)`` before
+                the first row group, then once after each row group with
+                the number parsed so far.
 
         Note:
             Parsing progress can be monitored by enabling debug logging for this module.
@@ -99,6 +107,7 @@ class MetadataParser(BaseParser):
                         value,
                         props['schema_root'],
                         columns,
+                        progress,
                     )
                 case FileMetadataFieldId.KEY_VALUE_METADATA:
                     props['key_value_metadata'] = [
@@ -129,6 +138,7 @@ class MetadataParser(BaseParser):
         list_iter: Iterator,
         schema_root: SchemaRoot | None,
         columns: Sequence[str] | None = None,
+        progress: Callable[[ProgressPhase, int, int], None] | None = None,
     ) -> RowGroups:
         """
         Parse the row_groups field using RowGroupParser.
@@ -145,8 +155,16 @@ class MetadataParser(BaseParser):
 
         row_groups: RowGroups = []
         row_group_parser = RowGroupParser(self.parser, schema_root, columns)
-        for _ in list_iter:
+        # Draining the iterator reads only the thrift list header (which
+        # carries the element count), so the total is known before any row
+        # group is parsed.
+        total = sum(1 for _ in list_iter)
+        if progress is not None:
+            progress(ProgressPhase.METADATA_PARSE, 0, total)
+        for done in range(1, total + 1):
             row_groups.append(row_group_parser.read_row_group())
+            if progress is not None:
+                progress(ProgressPhase.METADATA_PARSE, done, total)
 
         logger.debug('    Parsed %s row groups', len(row_groups))
 

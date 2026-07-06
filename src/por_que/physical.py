@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 
-from collections.abc import AsyncIterator, Iterator, Sequence
+from collections.abc import AsyncIterator, Callable, Iterator, Sequence
 from enum import StrEnum
 from io import SEEK_END
 from pathlib import Path
@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field, model_validator
 
 from ._version import get_version
 from .constants import FOOTER_SIZE, PARQUET_MAGIC
-from .enums import CompressionName
+from .enums import CompressionName, ProgressPhase
 from .exceptions import (
     ParquetCorruptedError,
     ParquetMagicError,
@@ -564,6 +564,8 @@ class ParquetFile(
         source: Path | str,
         columns: Sequence[str] | None = None,
         row_groups: Sequence[int] | None = None,
+        *,
+        progress: Callable[[ProgressPhase, int, int], None] | None = None,
     ) -> Self:
         """Parse a file's structure, optionally materializing a subset.
 
@@ -579,6 +581,15 @@ class ParquetFile(
             row_groups: Row group ordinals to materialize. When ``None`` (the
                 default) every row group is materialized. Chunks in unselected
                 row groups are absent from ``column_chunks``.
+            progress: Optional callback called as
+                ``progress(phase, done, total)`` across three phases:
+                ``ProgressPhase.METADATA_READ`` (bytes of the metadata
+                span fetched), ``ProgressPhase.METADATA_PARSE`` (row
+                groups parsed), and ``ProgressPhase.COLUMN_CHUNKS``
+                (column chunk structures read). Each phase fires once
+                with ``(phase, 0, total)`` before work starts, then once
+                per unit of work completed. Exceptions raised by the
+                callback propagate to the caller.
 
         Selection filters only which page structures are read from the file;
         ``metadata`` is always a full parse.
@@ -606,7 +617,7 @@ class ParquetFile(
                 f'got {header_magic!r}',
             )
 
-        metadata = await FileMetadata.from_reader(reader)
+        metadata = await FileMetadata.from_reader(reader, progress=progress)
 
         with parse_context(f'column chunks of {source}'):
             column_chunks = await cls._parse_column_chunks(
@@ -614,6 +625,7 @@ class ParquetFile(
                 metadata,
                 columns=columns,
                 row_groups=row_groups,
+                progress=progress,
             )
 
         return cls(
@@ -630,6 +642,7 @@ class ParquetFile(
         metadata: FileMetadata,
         columns: Sequence[str] | None = None,
         row_groups: Sequence[int] | None = None,
+        progress: Callable[[ProgressPhase, int, int], None] | None = None,
     ) -> list[PhysicalColumnChunk]:
         column_filter = None if columns is None else set(columns)
         row_group_filter = None if row_groups is None else set(row_groups)
@@ -654,13 +667,24 @@ class ParquetFile(
             if column_filter is None or path in column_filter
         ]
 
+        total = len(coroutines)
+        if progress is not None:
+            progress(ProgressPhase.COLUMN_CHUNKS, 0, total)
+
+        chunks: list[PhysicalColumnChunk] = []
         if isinstance(reader, AsyncCursableReadableSeekable):
             # run all tasks concurrently, but get results in order
-            tasks = [asyncio.create_task(coro) for coro in coroutines]
-            return [await task for task in tasks]
-
-        # run tasks in serial, awaiting each before starting next
-        return [await asyncio.create_task(coro) for coro in coroutines]
+            for task in [asyncio.create_task(coro) for coro in coroutines]:
+                chunks.append(await task)
+                if progress is not None:
+                    progress(ProgressPhase.COLUMN_CHUNKS, len(chunks), total)
+        else:
+            # run tasks in serial, awaiting each before starting next
+            for coro in coroutines:
+                chunks.append(await asyncio.create_task(coro))
+                if progress is not None:
+                    progress(ProgressPhase.COLUMN_CHUNKS, len(chunks), total)
+        return chunks
 
     def to_dict(self, target: AsdictTarget = AsdictTarget.DICT) -> dict[str, Any]:
         match target:
@@ -741,18 +765,29 @@ class MetadataExport(BaseModel, frozen=True):
         cls,
         reader: ReadableSeekable | AsyncReadableSeekable,
         source: Path | str,
+        *,
+        progress: Callable[[ProgressPhase, int, int], None] | None = None,
     ) -> Self:
         """Parse just the footer metadata, recording source and file size.
 
         The file size is known the moment we seek to the end to find the
         footer, so it costs nothing to capture here alongside the metadata.
+
+        Args:
+            reader: File-like object to read from.
+            source: Identifier for the file (path or URL), stored on the model.
+            progress: Optional callback passed through to
+                :meth:`FileMetadata.from_reader`, called as
+                ``progress(phase, done, total)`` for the
+                ``ProgressPhase.METADATA_READ`` and
+                ``ProgressPhase.METADATA_PARSE`` phases.
         """
         reader = ensure_async_reader(reader)
 
         reader.seek(0, SEEK_END)
         filesize = reader.tell()
 
-        metadata = await FileMetadata.from_reader(reader)
+        metadata = await FileMetadata.from_reader(reader, progress=progress)
 
         return cls(
             source=str(source),
