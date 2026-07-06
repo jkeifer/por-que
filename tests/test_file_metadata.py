@@ -4,6 +4,7 @@ from por_que import AsyncHttpFile, FileMetadata
 from por_que.enums import (
     Compression,
     ConvertedType,
+    ProgressPhase,
     Repetition,
     SchemaElementType,
     Type,
@@ -235,6 +236,47 @@ async def test_unknown_column_names_match_nothing(parquet_url: str) -> None:
 
     for row_group in projected.row_groups:
         assert set(row_group.column_chunks.keys()) == {'utf8_no_truncation'}
+
+
+# A file with more than one row group, so the progress callback fires more
+# than once between the leading (0, total) call and completion.
+PROGRESS_FILE = 'sort_columns'
+
+
+@pytest.mark.parametrize('parquet_file_name', [PROGRESS_FILE])
+@pytest.mark.asyncio
+async def test_progress_callback_fires_per_row_group(parquet_url: str) -> None:
+    calls: list[tuple[ProgressPhase, int, int]] = []
+
+    def progress(phase: ProgressPhase, done: int, total: int) -> None:
+        calls.append((phase, done, total))
+
+    async with AsyncHttpFile(parquet_url) as hf:
+        metadata = await FileMetadata.from_reader(hf, progress=progress)
+        baseline = await FileMetadata.from_reader(hf)
+
+    read_calls = [c for c in calls if c[0] is ProgressPhase.METADATA_READ]
+    parse_calls = [c for c in calls if c[0] is ProgressPhase.METADATA_PARSE]
+    # All reads happen before any parsing, and nothing else fires.
+    assert calls == read_calls + parse_calls
+
+    # metadata-read: byte units, (0, size) up front, monotonic to (size, size).
+    size = metadata.total_byte_size
+    assert all(c == (ProgressPhase.METADATA_READ, c[1], size) for c in read_calls)
+    dones = [done for _, done, _ in read_calls]
+    assert dones[0] == 0
+    assert dones[-1] == size
+    assert dones == sorted(dones)
+
+    # metadata-parse: (0, total) up front, then one monotonic tick per
+    # row group.
+    total = len(metadata.row_groups)
+    assert total > 1
+    assert parse_calls == [
+        (ProgressPhase.METADATA_PARSE, done, total) for done in range(total + 1)
+    ]
+    # Omitting the callback parses identically.
+    assert baseline.model_dump() == metadata.model_dump()
 
 
 @pytest.mark.parametrize('parquet_file_name', [PROJECTION_FILE])

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import struct
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from functools import cached_property
 from io import SEEK_END
 from typing import Self
@@ -20,6 +20,7 @@ from .enums import (
     CompressionName,
     Encoding,
     EncodingName,
+    ProgressPhase,
     Type,
     TypeName,
 )
@@ -315,6 +316,8 @@ class FileMetadata(BaseModel, frozen=True):
         cls,
         reader: ReadableSeekable | AsyncReadableSeekable,
         columns: Sequence[str] | None = None,
+        *,
+        progress: Callable[[ProgressPhase, int, int], None] | None = None,
     ) -> Self:
         """Parse file metadata from a reader.
 
@@ -330,6 +333,15 @@ class FileMetadata(BaseModel, frozen=True):
                 error); ``columns=[]`` selects no chunks while ``columns=None``
                 selects all. This gives a large memory and CPU reduction when
                 only a few columns of a wide file are needed.
+            progress: Optional callback called as
+                ``progress(phase, done, total)``. During
+                ``ProgressPhase.METADATA_READ`` the metadata span is
+                fetched in chunks and ``done``/``total`` are bytes read.
+                During ``ProgressPhase.METADATA_PARSE`` they count row
+                groups parsed, with ``total`` taken from the thrift list
+                header. Each phase fires once with ``(phase, 0, total)``
+                before work starts, then once per unit of work completed.
+                Exceptions raised by the callback propagate to the caller.
         """
         from .parsers.parquet.metadata import MetadataParser
 
@@ -378,11 +390,31 @@ class FileMetadata(BaseModel, frozen=True):
         # absolute offset where the span begins, so the recorded teaching
         # fields are identical to a direct parse.
         reader.seek(metadata_start)
-        metadata_bytes = await reader.read(metadata_size)
+        if progress is None:
+            metadata_bytes = await reader.read(metadata_size)
+        else:
+            # Same span, but read in 1 MiB pieces so the callback can
+            # report byte-level progress on large footers.
+            chunk_size = 1024 * 1024
+            progress(ProgressPhase.METADATA_READ, 0, metadata_size)
+            parts: list[bytes] = []
+            bytes_read = 0
+            while bytes_read < metadata_size:
+                part = await reader.read(min(chunk_size, metadata_size - bytes_read))
+                if not part:
+                    raise ParquetCorruptedError(
+                        f'Unexpected EOF while reading metadata: got '
+                        f'{bytes_read} of {metadata_size} bytes',
+                    )
+                parts.append(part)
+                bytes_read += len(part)
+                progress(ProgressPhase.METADATA_READ, bytes_read, metadata_size)
+            metadata_bytes = b''.join(parts)
 
         with parse_context(f'file metadata at offset {metadata_start}'):
             props = MetadataParser(metadata_bytes, metadata_start).parse(
                 columns=columns,
+                progress=progress,
             )
             return cls(
                 start_offset=metadata_start,

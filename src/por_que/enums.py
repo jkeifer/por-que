@@ -267,6 +267,14 @@ class GeospatialType(IntEnum):
     TIN_ZM = 3016
 
 
+class ProgressPhase(StrEnum):
+    """Phases reported by progress callbacks."""
+
+    METADATA_READ = 'metadata-read'
+    METADATA_PARSE = 'metadata-parse'
+    COLUMN_CHUNKS = 'column-chunks'
+
+
 class ListSemantics(StrEnum):
     """Semantic interpretation for repeated field handling."""
 

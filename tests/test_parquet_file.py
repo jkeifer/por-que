@@ -1,3 +1,4 @@
+import itertools
 import json
 import tempfile
 
@@ -10,6 +11,7 @@ import pytest
 from deepdiff import DeepDiff
 
 from por_que import AsyncHttpFile, ParquetFile
+from por_que.enums import ProgressPhase
 from por_que.physical import PhysicalColumnChunk
 
 from .shared import FixtureDecoder, FixtureEncoder
@@ -400,6 +402,48 @@ def test_pyarrow_comparison(
     finally:
         # Clean up the temporary file
         Path(tmp_path).unlink(missing_ok=True)
+
+
+# A file with more than one row group, so every phase ticks more than once.
+@pytest.mark.parametrize('parquet_file_name', ['sort_columns'])
+@pytest.mark.asyncio
+async def test_progress_callback_covers_all_phases(parquet_url: str) -> None:
+    calls: list[tuple[ProgressPhase, int, int]] = []
+
+    def progress(phase: ProgressPhase, done: int, total: int) -> None:
+        calls.append((phase, done, total))
+
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf = await ParquetFile.from_reader(hf, parquet_url, progress=progress)
+        baseline = await ParquetFile.from_reader(hf, parquet_url)
+
+    expected_order = [
+        ProgressPhase.METADATA_READ,
+        ProgressPhase.METADATA_PARSE,
+        ProgressPhase.COLUMN_CHUNKS,
+    ]
+    # All three phases appear, each contiguous, in order.
+    phases = [phase for phase, _, _ in calls]
+    assert [phase for phase, _ in itertools.groupby(phases)] == expected_order
+
+    for phase in expected_order:
+        ticks = [(done, total) for p, done, total in calls if p is phase]
+        totals = {total for _, total in ticks}
+        assert len(totals) == 1, phase
+        total = totals.pop()
+        dones = [done for done, _ in ticks]
+        # Each phase starts at 0, ticks monotonically, and ends complete.
+        assert dones[0] == 0, phase
+        assert dones[-1] == total, phase
+        assert dones == sorted(dones), phase
+        if phase is ProgressPhase.COLUMN_CHUNKS:
+            # Total is the file's column-chunk count: every leaf column of
+            # every row group.
+            assert total == sum(len(rg.column_chunks) for rg in pf.metadata.row_groups)
+            assert total == len(pf.column_chunks)
+
+    # Omitting the callback parses identically.
+    assert baseline.model_dump() == pf.model_dump()
 
 
 @pytest.mark.parametrize(
