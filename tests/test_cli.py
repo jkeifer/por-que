@@ -122,7 +122,7 @@ def test_dump_metadata_only(local_parquet: str) -> None:
 
     # A self-identifying MetadataExport envelope, not a bare FileMetadata.
     assert payload['_meta']['model'] == 'metadata'
-    assert payload['_meta']['format_version'] == 1
+    assert payload['_meta']['format_version'] == 2
     assert payload['source'] == local_parquet
     assert payload['filesize'] > 0
     assert payload['metadata']['version'] == 1

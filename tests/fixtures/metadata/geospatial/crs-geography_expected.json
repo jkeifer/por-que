@@ -147,7 +147,8 @@
           "precision": null,
           "field_id": null,
           "logical_type": {
-            "logical_type": "GEOGRAPHY"
+            "logical_type": "GEOGRAPHY",
+            "algorithm": null
           },
           "list_semantics": null
         }
@@ -306,6 +307,6 @@
   "magic_footer": "PAR1",
   "_meta": {
     "model": "file",
-    "format_version": 2
+    "format_version": 3
   }
 }

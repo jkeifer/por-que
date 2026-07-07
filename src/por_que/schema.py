@@ -16,6 +16,7 @@ from .enums import (
     ColumnLogicalType,
     ConvertedType,
     ConvertedTypeName,
+    EdgeInterpolationAlgorithmName,
     GroupConvertedType,
     GroupLogicalType,
     ListSemantics,
@@ -187,6 +188,8 @@ class GeographyTypeInfo(LogicalTypeInfo, frozen=True):
         Literal[LogicalType.GEOGRAPHY],
         LiteralEnumByName(LogicalType.GEOGRAPHY),
     ] = LogicalType.GEOGRAPHY
+    # Optional in thrift; defaults to SPHERICAL when the writer omits it.
+    algorithm: EdgeInterpolationAlgorithmName | None = None
 
 
 class UnknownTypeInfo(LogicalTypeInfo, frozen=True):

@@ -17,6 +17,7 @@ from typing import Any, assert_never, cast
 
 from por_que.enums import (
     ConvertedType,
+    EdgeInterpolationAlgorithm,
     ListSemantics,
     LogicalType,
     Repetition,
@@ -342,6 +343,8 @@ class SchemaParser(BaseParser):
                     logical_type = self._parse_time_type()
                 case LogicalType.TIMESTAMP:
                     logical_type = self._parse_timestamp_type()
+                case LogicalType.GEOGRAPHY:
+                    logical_type = self._parse_geography_type()
 
             if logical_type:
                 continue
@@ -373,8 +376,6 @@ class SchemaParser(BaseParser):
                     logical_type = VariantTypeInfo()
                 case LogicalType.GEOMETRY:
                     logical_type = GeometryTypeInfo()
-                case LogicalType.GEOGRAPHY:
-                    logical_type = GeographyTypeInfo()
                 case LogicalType.UNKNOWN:
                     logical_type = UnknownTypeInfo()
                 case _:
@@ -460,3 +461,17 @@ class SchemaParser(BaseParser):
                     self.maybe_skip_field(field_type)
 
         return TimestampTypeInfo(**props)
+
+    def _parse_geography_type(self) -> GeographyTypeInfo:
+        """Parse a GeographyType struct (crs is unmodeled and skipped)."""
+        props: dict[str, Any] = {}
+
+        for field_id, field_type, value in self.parse_struct_fields():
+            match field_id:
+                case 2:
+                    props['algorithm'] = EdgeInterpolationAlgorithm(value)
+                case _:
+                    # field 1 is crs (string), which we do not model
+                    self.maybe_skip_field(field_type)
+
+        return GeographyTypeInfo(**props)
