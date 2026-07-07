@@ -311,7 +311,8 @@
             "LZO",
             "BROTLI",
             "LZ4",
-            "ZSTD"
+            "ZSTD",
+            "LZ4_RAW"
           ],
           "type": "string"
         },
@@ -964,8 +965,8 @@
       "description": "Envelope for a full ``ParquetFile`` dump.",
       "properties": {
         "format_version": {
-          "const": 2,
-          "default": 2,
+          "const": 3,
+          "default": 3,
           "title": "Format Version",
           "type": "integer"
         },
@@ -1074,6 +1075,24 @@
     "GeographyTypeInfo": {
       "description": "Geography logical type.",
       "properties": {
+        "algorithm": {
+          "anyOf": [
+            {
+              "enum": [
+                "SPHERICAL",
+                "VINCENTY",
+                "THOMAS",
+                "ANDOYER",
+                "KARNEY"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "logical_type": {
           "const": "GEOGRAPHY",
           "default": "GEOGRAPHY",
@@ -1378,8 +1397,8 @@
       "description": "Envelope for a metadata-only export (:class:`MetadataExport`).",
       "properties": {
         "format_version": {
-          "const": 1,
-          "default": 1,
+          "const": 2,
+          "default": 2,
           "title": "Format Version",
           "type": "integer"
         },
@@ -1558,7 +1577,8 @@
             "LZO",
             "BROTLI",
             "LZ4",
-            "ZSTD"
+            "ZSTD",
+            "LZ4_RAW"
           ],
           "type": "string"
         },

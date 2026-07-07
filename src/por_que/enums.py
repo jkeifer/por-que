@@ -1,3 +1,10 @@
+# The Parquet enums/unions below mirror the upstream Thrift IDL:
+#   apache/parquet-format : src/main/thrift/parquet.thrift
+# Pinned to commit c4b3ef2f79e1c6ae7418f5cb7b17dcc067b1f7ab (2026-06-08).
+# To review upstream changes, diff that path from this commit to master:
+#   https://github.com/apache/parquet-format/commits/master/src/main/thrift/parquet.thrift
+# Note: not everything here comes from the IDL -- the internal/derived enums
+# and the pydantic (de)serialization helpers below have no Thrift counterpart.
 from dataclasses import dataclass
 from enum import IntEnum, StrEnum, auto
 from typing import Annotated
@@ -30,6 +37,7 @@ class Compression(IntEnum):
     BROTLI = 4
     LZ4 = 5
     ZSTD = 6
+    LZ4_RAW = 7  # Added in format 2.9
 
 
 class Repetition(IntEnum):
@@ -169,6 +177,19 @@ class TimeUnit(IntEnum):
     MILLIS = 1
     MICROS = 2
     NANOS = 3
+
+
+class EdgeInterpolationAlgorithm(IntEnum):
+    """Edge interpolation algorithm for the GEOGRAPHY logical type.
+
+    Added in format 2.11 alongside the geospatial (GEOMETRY/GEOGRAPHY) types.
+    """
+
+    SPHERICAL = 0
+    VINCENTY = 1
+    THOMAS = 2
+    ANDOYER = 3
+    KARNEY = 4
 
 
 class BoundaryOrder(IntEnum):
@@ -395,4 +416,8 @@ ConvertedTypeName = Annotated[ConvertedType, EnumByName(ConvertedType)]
 PageTypeName = Annotated[PageType, EnumByName(PageType)]
 TimeUnitName = Annotated[TimeUnit, EnumByName(TimeUnit)]
 BoundaryOrderName = Annotated[BoundaryOrder, EnumByName(BoundaryOrder)]
+EdgeInterpolationAlgorithmName = Annotated[
+    EdgeInterpolationAlgorithm,
+    EnumByName(EdgeInterpolationAlgorithm),
+]
 GeospatialTypeName = Annotated[GeospatialType, EnumByName(GeospatialType)]

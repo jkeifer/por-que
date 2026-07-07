@@ -71,16 +71,20 @@ class FileMeta(PorQueMeta, frozen=True):
     # format 2: added the `model` discriminator to the envelope so every export
     # self-identifies its root model. See git history around this comment for
     # the details of what changed when bumping the format version again.
+    # format 3: added the GEOGRAPHY logical type's `algorithm` field and the
+    # LZ4_RAW compression codec, both new members of the serialized shape.
     model: Literal['file'] = 'file'
-    format_version: Literal[2] = 2
+    format_version: Literal[3] = 3
 
 
 class MetadataMeta(PorQueMeta, frozen=True):
     """Envelope for a metadata-only export (:class:`MetadataExport`)."""
 
     # format 1: initial metadata-only export envelope.
+    # format 2: added the GEOGRAPHY logical type's `algorithm` field and the
+    # LZ4_RAW compression codec, both new members of the serialized shape.
     model: Literal['metadata'] = 'metadata'
-    format_version: Literal[1] = 1
+    format_version: Literal[2] = 2
 
 
 class PhysicalColumnChunk(BaseModel, frozen=True):

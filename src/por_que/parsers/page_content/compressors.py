@@ -49,6 +49,22 @@ def decompress_data(
             input_stream = io.BytesIO(compressed_data)
             reader = dctx.stream_reader(input_stream)
             return reader.readall()
+        case Compression.LZ4_RAW:
+            # Raw LZ4 block, no frame header -- the uncompressed size is not
+            # encoded in the data, so it comes from the page header.
+            return get_lz4().decompress(
+                compressed_data,
+                uncompressed_size=expected_size,
+            )
+        case Compression.LZ4:
+            # ponytail: LZ4 (5) is the deprecated Hadoop-framed variant (length-
+            # prefixed block sequence), distinct from LZ4_RAW (7). Not the same
+            # as a bare LZ4 block, so it needs its own framing loop -- implement
+            # if a real file turns up using it.
+            raise ValueError(
+                "Compression codec 'LZ4' (deprecated Hadoop-framed variant) is "
+                'not implemented; writers should emit LZ4_RAW instead',
+            )
         case _:
             raise ValueError(f"Compression codec '{codec}' is not supported")
 
@@ -170,6 +186,85 @@ class _PurePythonSnappy:
     """Shim exposing the same ``decompress`` entry point as python-snappy."""
 
     decompress = staticmethod(_snappy_decompress)
+
+
+def get_lz4():
+    try:
+        from lz4 import block
+    except ImportError:
+        # Fall back to the pure-python decompressor (slower, but no C library
+        # or wasm-unavailable dependency needed, e.g. under pyodide).
+        return _PurePythonLz4
+    return block
+
+
+def _lz4_raw_decompress(data: bytes, uncompressed_size: int | None = None) -> bytes:
+    """Decompress a raw LZ4 block (LZ4_RAW, no frame/size header).
+
+    Pure-python fallback for python-lz4's ``lz4.block``. Format reference:
+    https://github.com/lz4/lz4/blob/dev/doc/lz4_Block_format.md
+
+    ``uncompressed_size`` is only used to validate the result; a raw block
+    decodes until its input is exhausted, so the size is not required to decode.
+    """
+    out = bytearray()
+    pos = 0
+    n = len(data)
+    while pos < n:
+        token = data[pos]
+        pos += 1
+
+        # Literals: high nibble is the length, extended by 0xFF-continued bytes.
+        lit_len = token >> 4
+        if lit_len == 15:
+            lit_len, pos = _lz4_extend_length(lit_len, data, pos)
+        out += data[pos : pos + lit_len]
+        pos += lit_len
+
+        # The block ends on a literals-only sequence (no trailing match).
+        if pos >= n:
+            break
+
+        # Match: 2-byte little-endian back-offset, then low-nibble length + 4.
+        offset = int.from_bytes(data[pos : pos + 2], 'little')
+        pos += 2
+        match_len = token & 0x0F
+        if match_len == 15:
+            match_len, pos = _lz4_extend_length(match_len, data, pos)
+        match_len += 4  # minmatch
+
+        start = len(out) - offset
+        if offset <= 0 or start < 0:
+            raise ParquetDataError(f'LZ4 block has invalid match offset {offset}')
+        if offset >= match_len:
+            out += out[start : start + match_len]
+        else:
+            # Overlapping copy (RLE-style): must read as we write.
+            for i in range(match_len):
+                out.append(out[start + i])
+
+    if uncompressed_size is not None and len(out) != uncompressed_size:
+        raise ParquetDataError(
+            f'LZ4 decompressed size ({len(out)}) does not match '
+            f'declared size ({uncompressed_size})',
+        )
+    return bytes(out)
+
+
+def _lz4_extend_length(length: int, data: bytes, pos: int) -> tuple[int, int]:
+    """Add 0xFF-continued length bytes to a base LZ4 length. Returns (len, pos)."""
+    while True:
+        b = data[pos]
+        pos += 1
+        length += b
+        if b != 0xFF:
+            return length, pos
+
+
+class _PurePythonLz4:
+    """Shim exposing the same ``decompress`` entry point as ``lz4.block``."""
+
+    decompress = staticmethod(_lz4_raw_decompress)
 
 
 def get_zstd():

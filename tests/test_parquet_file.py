@@ -62,6 +62,8 @@ TEST_FILES = [
     # cannot parse these timestamps with python
     'int96_from_spark',
     'list_columns',
+    'lz4_raw_compressed',
+    'lz4_raw_compressed_larger',
     # pyarrow output is inconsistent with this one
     'map_no_value',
     'nested_lists.snappy',
@@ -339,6 +341,46 @@ async def test_pure_python_snappy_fallback_reads_data(
         compressors,
         'get_snappy',
         lambda: compressors._PurePythonSnappy,
+    )
+
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf = await ParquetFile.from_reader(hf, parquet_url)
+        actual = {
+            'source': parquet_url,
+            'data': await pf.read_all_data(
+                hf,
+                excluded_logical_columns=EXCLUDED_LOGICAL_COLUMNS.get(
+                    parquet_file_name,
+                ),
+            ),
+        }
+    _comparison(parquet_file_name, actual)
+
+
+# LZ4_RAW-compressed fixtures, used to exercise the pure-python lz4 fallback
+# against real parquet blocks (data pages and dictionary pages).
+LZ4_RAW_FILES = ['lz4_raw_compressed', 'lz4_raw_compressed_larger']
+
+
+@pytest.mark.parametrize('parquet_file_name', LZ4_RAW_FILES)
+@pytest.mark.asyncio
+async def test_pure_python_lz4_fallback_reads_data(
+    parquet_file_name: str,
+    parquet_url: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The pure-python lz4 fallback decodes real parquet LZ4_RAW blocks.
+
+    We force ``get_lz4`` to return the pure-python decompressor (as happens
+    when python-lz4 is not installed, e.g. under pyodide) and confirm the
+    decoded data matches the fixture generated with the C library.
+    """
+    from por_que.parsers.page_content import compressors
+
+    monkeypatch.setattr(
+        compressors,
+        'get_lz4',
+        lambda: compressors._PurePythonLz4,
     )
 
     async with AsyncHttpFile(parquet_url) as hf:
