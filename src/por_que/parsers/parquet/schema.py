@@ -423,6 +423,23 @@ class SchemaParser(BaseParser):
 
         return DecimalTypeInfo(**props)
 
+    def _parse_time_unit(self) -> TimeUnit:
+        """Parse a TimeUnit union.
+
+        TimeUnit is a Thrift union whose arms (MILLIS=1, MICROS=2, NANOS=3)
+        are each empty structs, so the set field ID *is* the unit -- it is not
+        an integer value on the parent field.
+        """
+        unit: TimeUnit | None = None
+        for field_id, field_type, _ in self.parse_struct_fields():
+            self.maybe_skip_field(field_type)  # consume the empty arm struct
+            unit = TimeUnit(field_id)
+
+        if unit is None:
+            raise ThriftParsingError('TimeUnit union had no set field')
+
+        return unit
+
     def _parse_time_type(self) -> TimeTypeInfo:
         """Parse a TimeType struct."""
         props: dict[str, Any] = {}
@@ -432,7 +449,7 @@ class SchemaParser(BaseParser):
                 case 1:
                     props['is_adjusted_to_utc'] = value
                 case 2:
-                    props['unit'] = TimeUnit(value)
+                    props['unit'] = self._parse_time_unit()
                 case _:
                     warnings.warn(
                         f'Skipping unknown time type field ID {field_id}',
@@ -451,7 +468,7 @@ class SchemaParser(BaseParser):
                 case 1:
                     props['is_adjusted_to_utc'] = value
                 case 2:
-                    props['unit'] = TimeUnit(value)
+                    props['unit'] = self._parse_time_unit()
                 case _:
                     warnings.warn(
                         f'Skipping unknown timestamp type field ID {field_id}',
