@@ -351,6 +351,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     async def parse_dictionary(
         self,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        *,
         apply_logical_types: bool = True,
     ) -> DictType:
         """Decode this chunk's dictionary page to its distinct values.
@@ -395,6 +396,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         self,
         page_index: int,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        *,
         dictionary_values: DictType | None = None,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
@@ -412,7 +414,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                 type conversion, even when `apply_logical_types` is True.
 
         Returns:
-            List of data values
+            Iterator of PageValue entries.
         """
         reader = ensure_async_reader(reader)
 
@@ -439,6 +441,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
     async def parse_all_data_pages(
         self,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        *,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
     ) -> AsyncIterator[PageValue]:
@@ -477,14 +480,14 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             # run all tasks concurrently, but get results in order
             tasks = [asyncio.create_task(coro) for coro in coroutines]
             for task in tasks:
-                for value_tuple in await task:
-                    yield value_tuple
+                for page_value in await task:
+                    yield page_value
             return
 
         # run tasks in serial, awaiting each before starting next
         for coroutine in coroutines:
-            for value_tuple in await coroutine:
-                yield value_tuple
+            for page_value in await coroutine:
+                yield page_value
 
 
 class ParquetFile(
@@ -757,6 +760,7 @@ class ParquetFile(
     async def read_all_data(
         self,
         reader: AsyncReadableSeekable,
+        *,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
         reconstruct: bool = True,
@@ -766,7 +770,7 @@ class ParquetFile(
         # to get a single iterator per column
         column_iters: dict[str, AsyncChain[PageValue]] = {}
         for cc in self.column_chunks:
-            value_tuples = cc.parse_all_data_pages(
+            page_values = cc.parse_all_data_pages(
                 reader.clone()
                 if isinstance(reader, AsyncCursableReadableSeekable)
                 else reader,
@@ -774,9 +778,9 @@ class ParquetFile(
                 excluded_logical_columns=excluded_logical_columns,
             )
             try:
-                column_iters[cc.path_in_schema].add(value_tuples)
+                column_iters[cc.path_in_schema].add(page_values)
             except KeyError:
-                column_iters[cc.path_in_schema] = AsyncChain(value_tuples)
+                column_iters[cc.path_in_schema] = AsyncChain(page_values)
 
         # When reconstruct=False, return flat data (tuples) for testing
         if not reconstruct:

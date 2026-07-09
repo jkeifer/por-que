@@ -33,16 +33,29 @@ class PageValue(NamedTuple):
     ``.physical``, never positional unpacking.
     """
 
-    value: Any | None
-    """The logical value (or the physical one when conversion is off)."""
+    logical: Any | None
+    """The logical value, populated iff logical-type conversion actually
+    ran for this entry (``None`` for nulls, and when conversion is off or
+    this column is excluded). Provenance travels with the value itself,
+    since the consumer of a stream is not always the code that chose the
+    conversion flag."""
 
     definition_level: int
     repetition_level: int
 
     physical: Any | None = None
-    """The raw physical value the decoder produced, before logical
-    conversion. ``None`` only for null entries (and hand-built test
-    triples, where it defaults)."""
+    """The raw value the decoder produced, before logical conversion.
+    Always populated on real parses; ``None`` only for null entries (and
+    hand-built test triples, where it defaults)."""
+
+    @property
+    def value(self) -> Any | None:
+        """The logical value when set, else the physical one.
+
+        What most consumers want: one field that "just works" regardless
+        of whether conversion ran.
+        """
+        return self.logical if self.logical is not None else self.physical
 
 
 @dataclass(slots=True, frozen=True)
@@ -168,11 +181,11 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
             def_level: int,
             rep_level: int,
         ) -> PageValue:
-            value = physical
+            logical = None
             if apply_logical_types and physical is not None:
-                value = self.schema_element.physical_to_logical_type(physical)
+                logical = self.schema_element.physical_to_logical_type(physical)
             return PageValue(
-                value=value,
+                logical=logical,
                 definition_level=def_level,
                 repetition_level=rep_level,
                 physical=physical,

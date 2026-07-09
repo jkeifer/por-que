@@ -129,6 +129,7 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
+        *,
         dictionary_values: list[Any] | None = None,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
@@ -146,7 +147,7 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
                 type conversion, even when `apply_logical_types` is True.
 
         Returns:
-            List of data values as Python objects
+            Iterator of PageValue entries.
         """
         return await DataPageV1Parser(
             reader=reader,
@@ -183,6 +184,7 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
+        *,
         dictionary_values: list[Any] | None = None,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
@@ -200,7 +202,7 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
                 type conversion, even when `apply_logical_types` is True.
 
         Returns:
-            List of data values as Python objects
+            Iterator of PageValue entries.
         """
         return await DataPageV2Parser(
             reader=reader,

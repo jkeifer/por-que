@@ -1,8 +1,12 @@
-"""PageValue carries the raw physical value alongside the logical one.
+"""PageValue carries physical and logical provenance separately.
 
-The invariants here hold for any column: ``physical`` is what the decoder
-produced before logical conversion, ``value`` is after (or the same object
-when conversion is off), and nulls are ``None`` on both.
+``physical`` is the decoder's raw output, always populated on real parses
+(``None`` only for nulls). ``logical`` is populated iff logical-type
+conversion actually ran for this entry (``None`` for nulls, and when
+conversion is off or the column is excluded) -- provenance travels with the
+value because the consumer of a stream isn't always the code that chose the
+conversion flag. ``.value`` is a convenience property: logical when set,
+else physical.
 """
 
 import pytest
@@ -33,15 +37,19 @@ async def test_page_values_carry_physical(
         assert pv.definition_level == rv.definition_level
         assert pv.repetition_level == rv.repetition_level
 
-        # With conversion off, the logical slot holds the physical value.
+        # With conversion off, logical is never populated; value falls back
+        # to physical via the property.
+        assert rv.logical is None
         assert rv.value is rv.physical
 
         # One decode serves both: physical is the pre-conversion value...
         assert pv.physical == rv.physical
         if pv.physical is None:
+            assert pv.logical is None
             assert pv.value is None
         else:
-            # ...and value is exactly its logical conversion.
+            # ...and logical/value are exactly its logical conversion.
+            assert pv.logical is not None
             assert pv.value == schema_element.physical_to_logical_type(
                 pv.physical,
             )
@@ -49,11 +57,16 @@ async def test_page_values_carry_physical(
 
 def test_page_value_named_fields() -> None:
     pv = PageValue('a', 1, 0, b'a')
-    assert (pv.value, pv.definition_level, pv.repetition_level, pv.physical) == (
+    assert (pv.logical, pv.definition_level, pv.repetition_level, pv.physical) == (
         'a',
         1,
         0,
         b'a',
     )
+    assert pv.value == 'a'
+
+    # value falls back to physical when logical wasn't populated.
+    assert PageValue(None, 1, 0, b'a').value == b'a'
+
     # physical defaults to None so fixtures/tests can build bare triples.
     assert PageValue('a', 1, 0).physical is None

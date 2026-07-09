@@ -34,9 +34,12 @@ internals for (see `docs/superpowers/specs/2026-07-09-public-api-design.md`).
 - Public `chunk.parse_dictionary(reader, apply_logical_types=True)` for
   decoding a column chunk's dictionary page; accepts sync or async readers
   and returns `[]` when the chunk has no dictionary page.
-- Data-page decoding yields `PageValue` named tuples that always carry the
-  raw `physical` value alongside the logical `value` — one decode serves
-  both, no need to re-derive either.
+- Data-page decoding yields `PageValue` named tuples with separate `logical`
+  and `physical` fields: `physical` always carries the decoder's raw value
+  (`None` for nulls), `logical` is populated iff logical-type conversion ran
+  for that entry, and the `.value` property returns `logical` when set, else
+  `physical`. Provenance travels with the value, since a stream's consumer
+  doesn't always know which conversion flag produced it.
 - `apply_logical_types: bool = True` on `chunk.parse_data_page`,
   `chunk.parse_all_data_pages`, and `ParquetFile.read_all_data` to disable
   logical-type conversion for all columns.
@@ -54,6 +57,11 @@ internals for (see `docs/superpowers/specs/2026-07-09-public-api-design.md`).
   `.definition_level`, `.repetition_level`, `.physical`).
 - **Breaking:** `ValueTuple` (the `por_que.parsers.page_content` type alias)
   is replaced by `PageValue`.
+- **Breaking:** `apply_logical_types` and `excluded_logical_columns` (and the
+  matching optional decode parameters on `parse_content`/`parse_data_page`)
+  are now keyword-only across the public decode API. A 0.4.x caller passing
+  `excluded_logical_columns` positionally now raises `TypeError` instead of
+  silently binding it to `apply_logical_types`.
 - `BloomFilter.might_contain()` now delegates to `explain()`; behavior is
   unchanged.
 
@@ -70,5 +78,5 @@ internals for (see `docs/superpowers/specs/2026-07-09-public-api-design.md`).
 First tracked version!
 
 [unreleased]: https://github.com/jkeifer/por-que/compare/v0.5.0...HEAD
-[v0.5.0]: https://github.com/jkeifer/gazebo/releases/tag/v0.5.0
-[v0.4.1]: https://github.com/jkeifer/gazebo/releases/tag/v0.4.1
+[v0.5.0]: https://github.com/jkeifer/por-que/releases/tag/v0.5.0
+[v0.4.1]: https://github.com/jkeifer/por-que/releases/tag/v0.4.1

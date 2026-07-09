@@ -57,25 +57,45 @@ mirroring `parse_data_page`'s ergonomics:
 
 ## 3. Page values — `PageValue` NamedTuple carrying physical
 
+> Revised post-review: the original single `value` field aliased physical and
+> logical, which loses provenance. Provenance now travels with the value
+> itself, as fields, because the consumer of a stream is not always the code
+> that chose the conversion flag.
+
 `ValueTuple` (bare `tuple[Any | None, int, int]` in
 `src/por_que/parsers/page_content/data.py`) is replaced by:
 
 ```python
 class PageValue(NamedTuple):
-    value: Any | None            # logical (or == physical when conversion off)
+    logical: Any | None           # populated iff conversion ran this entry
     definition_level: int
     repetition_level: int
-    physical: Any | None         # raw pre-conversion value
+    physical: Any | None = None   # raw pre-conversion value
+
+    @property
+    def value(self) -> Any | None:
+        return self.logical if self.logical is not None else self.physical
 ```
 
-- `physical` is always populated — it is the decoder's input, one extra
-  reference per tuple. No `include_physical` flag.
+- `physical` is always populated on real parses — it is the decoder's raw
+  output, one extra reference per tuple. `None` only for null entries.
+- `logical` is populated iff logical-type conversion actually ran for that
+  entry: `None` for nulls, and also `None` when conversion is off or the
+  column is excluded. It does **not** alias `physical` — the two fields
+  independently record what the decoder produced and what conversion (if
+  any) produced from it.
+- `value` is a convenience property, not a stored field: `logical` when set,
+  else `physical`. This is what most consumers want and keeps existing
+  `.value` access working unchanged.
 - All internal consumers migrate to named access (notably
   `structuring/primitive.py` which does positional `value, dl, _ = ...`
   unpacking), so tuple arity never matters again.
-- `apply_logical_types: bool = True` is plumbed through
-  `chunk.parse_data_page`, `chunk.parse_all_data_pages`, and the `pages.py`
-  entry points — the name already exists at the page-content layer.
+- `apply_logical_types` and `excluded_logical_columns` are keyword-only on
+  `chunk.parse_data_page`, `chunk.parse_all_data_pages`,
+  `ParquetFile.read_all_data`, `chunk.parse_dictionary`, and the `pages.py`
+  `parse_content` entry points, so a 0.4.x caller passing
+  `excluded_logical_columns` positionally gets a loud `TypeError` instead of
+  silently binding it to `apply_logical_types`.
 - `excluded_logical_columns` **stays**: the original "removed, not deprecated"
   call assumed the worker's repurposing was its only consumer, but the test
   suite uses it for its designed purpose (per-column exclusions for
@@ -105,10 +125,11 @@ read `.codec` instead of sniffing `'requires' in str(e)`.
 - `parse_dictionary` returns logical values by default, physical with
   `apply_logical_types=False`, `[]` for chunks without a dictionary page, and
   accepts a sync reader.
-- `PageValue`: named access; `physical` differs from `value` on a
-  logically-typed column and equals it with `apply_logical_types=False`; the
-  existing reconstruction/structure suite stays green (regression net for the
-  tuple migration).
+- `PageValue`: named access; `logical` is populated (and `value` derives from
+  it) on a logically-typed column with conversion on, `logical` is `None`
+  (and `value` falls back to `physical`) with `apply_logical_types=False`;
+  the existing reconstruction/structure suite stays green (regression net
+  for the tuple migration).
 - `CodecUnavailableError` is raised for a missing codec package and carries
   `.codec`; still catchable as `ParquetDataError`.
 
