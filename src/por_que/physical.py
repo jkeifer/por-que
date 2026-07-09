@@ -348,6 +348,29 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         reader = ensure_async_reader(reader)
         return await BloomFilter.from_reader(reader, self.metadata)
 
+    async def parse_dictionary(
+        self,
+        reader: ReadableSeekable | AsyncReadableSeekable,
+        apply_logical_types: bool = True,
+    ) -> DictType:
+        """Decode this chunk's dictionary page to its distinct values.
+
+        Mirrors :meth:`parse_data_page` ergonomics: accepts a sync or async
+        reader and applies logical types by default. Pass
+        ``apply_logical_types=False`` for the raw physical values (the bytes
+        the bloom filter hashes, for example).
+
+        Returns:
+            The dictionary's values, or ``[]`` if the chunk has no
+            dictionary page.
+        """
+        reader = ensure_async_reader(reader)
+        values = await self._parse_dictionary(reader)
+        if not apply_logical_types:
+            return values
+        schema_element = self.metadata.schema_element
+        return [schema_element.physical_to_logical_type(value) for value in values]
+
     async def _parse_dictionary(self, reader: AsyncReadableSeekable) -> DictType:
         """Parse dictionary content if dictionary page exists.
 
