@@ -32,6 +32,23 @@ class ParquetDataError(ParquetFormatError):
     """Error deserializing Parquet data values."""
 
 
+class CodecUnavailableError(ParquetDataError):
+    """A compression codec's optional dependency is not installed.
+
+    Raised instead of a generic :class:`ParquetDataError` so consumers can
+    distinguish "install the package (or accept the limitation, e.g. under
+    pyodide)" from genuinely corrupt data, without parsing the message.
+
+    Attributes:
+        codec: Name of the affected codec (e.g. ``'BROTLI'``, ``'LZO'``,
+            ``'ZSTD'``).
+    """
+
+    def __init__(self, message: str, codec: str) -> None:
+        super().__init__(message)
+        self.codec = codec
+
+
 class BufferExhaustedError(PorQueError):
     """A synchronous parse ran past the end of its in-memory buffer.
 
