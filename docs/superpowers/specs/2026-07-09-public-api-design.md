@@ -76,9 +76,12 @@ class PageValue(NamedTuple):
 - `apply_logical_types: bool = True` is plumbed through
   `chunk.parse_data_page`, `chunk.parse_all_data_pages`, and the `pages.py`
   entry points — the name already exists at the page-content layer.
-- `excluded_logical_columns` is **removed** (not deprecated): pre-1.0, and its
-  only known external consumer was the worker's repurposing, which the
-  always-present `physical` field retires.
+- `excluded_logical_columns` **stays**: the original "removed, not deprecated"
+  call assumed the worker's repurposing was its only consumer, but the test
+  suite uses it for its designed purpose (per-column exclusions for
+  `nested_structs.rust` / `int96_from_spark` fixture comparisons, which a
+  global flag cannot express). The worker simply stops needing it once
+  `physical` is always present.
 
 ## 4. Codec errors — `CodecUnavailableError`
 
@@ -115,4 +118,3 @@ read `.codec` instead of sniffing `'requires' in str(e)`.
 - hctef wishlist items (`hctef-api-wishlist.md`).
 - `block_bytes()` / `block_popcounts()` accessors — blessed `bitset` covers
   those reads.
-- Deprecation shims for `excluded_logical_columns`.
