@@ -7,6 +7,7 @@ from typing import Any
 import pytest
 
 from por_que.file_metadata import SchemaRoot
+from por_que.parsers.page_content import PageValue
 from por_que.structuring import reconstruct
 
 TESTS_DIR = Path(__file__).parent
@@ -15,10 +16,10 @@ FIXTURES = TESTS_DIR / 'fixtures' / 'reconstruction'
 
 async def tuple_stream(
     data: Sequence[tuple[Any, int, int]],
-) -> AsyncIterator[tuple[Any, int, int]]:
-    """Convert list to async iterator."""
+) -> AsyncIterator[PageValue]:
+    """Convert fixture rows to an async stream of PageValue entries."""
     for tup in data:
-        yield tup
+        yield PageValue(*tup)
 
 
 TEST_CASES = (

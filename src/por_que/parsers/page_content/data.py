@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 from io import BytesIO
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, NamedTuple
 
 from por_que.enums import Compression, Encoding, Type
 from por_que.exceptions import ParquetDataError
@@ -24,7 +24,25 @@ from .dictionary import DictType
 
 logger = logging.getLogger(__name__)
 
-type ValueTuple = tuple[Any | None, int, int]
+
+class PageValue(NamedTuple):
+    """One decoded entry of a data page.
+
+    A NamedTuple so field access survives shape changes: consumers use
+    ``.value`` / ``.definition_level`` / ``.repetition_level`` /
+    ``.physical``, never positional unpacking.
+    """
+
+    value: Any | None
+    """The logical value (or the physical one when conversion is off)."""
+
+    definition_level: int
+    repetition_level: int
+
+    physical: Any | None = None
+    """The raw physical value the decoder produced, before logical
+    conversion. ``None`` only for null entries (and hand-built test
+    triples, where it defaults)."""
 
 
 @dataclass(slots=True, frozen=True)
@@ -61,7 +79,7 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
         self,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> Iterator[ValueTuple]:
+    ) -> Iterator[PageValue]:
         """
         Parse data page content into Python objects. This is the public entry point.
         """
@@ -78,7 +96,7 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
         parse_output: _ParseOutput,
         apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> Iterator[ValueTuple]:
+    ) -> Iterator[PageValue]:
         # Handle REQUIRED columns without definition levels
         # If no definition levels exist for a REQUIRED column, all values are non-null
         if (
@@ -129,14 +147,14 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
         repetition_levels: list[int],
         apply_logical_types: bool,
         excluded_logical_columns: Sequence[str] | None,
-    ) -> Iterator[ValueTuple]:
-        """Yield (value, definition_level, repetition_level) tuples as a stream.
+    ) -> Iterator[PageValue]:
+        """Yield PageValue entries as a stream.
 
         This is used when reconstruct=False to provide raw data for testing the
         reconstruction algorithm. Logical type conversion is applied per-value.
 
         Yields:
-            Tuples of (value, definition_level, repetition_level)
+            PageValue entries.
         """
         # Get logical type info once for all values
         apply_logical_types = apply_logical_types and not (
@@ -144,20 +162,30 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
             and self.schema_element.full_path in excluded_logical_columns
         )
 
-        # Helper to convert value if needed
-        def convert_value(value):
-            if apply_logical_types and value is not None:
-                return self.schema_element.physical_to_logical_type(value)
-            return value
+        # Helper producing the full entry from one decoded physical value
+        def make_page_value(
+            physical: Any | None,
+            def_level: int,
+            rep_level: int,
+        ) -> PageValue:
+            value = physical
+            if apply_logical_types and physical is not None:
+                value = self.schema_element.physical_to_logical_type(physical)
+            return PageValue(
+                value=value,
+                definition_level=def_level,
+                repetition_level=rep_level,
+                physical=physical,
+            )
 
         # If we have no definition levels, all values are non-null
         if not definition_levels:
-            # Yield tuples with DL=0 and RL=0 for all values
+            # Yield entries with DL=0 and RL=0 for all values
             for value in non_null_values:
-                yield (convert_value(value), 0, 0)
+                yield make_page_value(value, 0, 0)
             return
 
-        # Iterate through levels and yield tuples
+        # Iterate through levels and yield entries
         non_null_iter = iter(non_null_values)
 
         # Ensure we have repetition levels for each definition level
@@ -179,13 +207,13 @@ class BaseDataPageParser[P: DataPageV1 | DataPageV2](ABC):
             if is_non_null:
                 try:
                     value = next(non_null_iter)
-                    yield (convert_value(value), def_level, rep_level)
+                    yield make_page_value(value, def_level, rep_level)
                 except StopIteration:
                     raise ParquetDataError(
                         'Fewer non-null values than specified by definition levels.',
                     ) from None
             else:
-                yield (None, def_level, rep_level)
+                yield make_page_value(None, def_level, rep_level)
 
     def _read_values(
         self,

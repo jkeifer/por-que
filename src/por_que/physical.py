@@ -31,7 +31,7 @@ from .pages import (
     IndexPage,
     Page,
 )
-from .parsers.page_content import DictType, ValueTuple
+from .parsers.page_content import DictType, PageValue
 from .protocols import (
     AsyncCursableReadableSeekable,
     AsyncReadableSeekable,
@@ -373,8 +373,9 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         page_index: int,
         reader: ReadableSeekable | AsyncReadableSeekable,
         dictionary_values: DictType | None = None,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> Iterator[ValueTuple]:
+    ) -> Iterator[PageValue]:
         """Parse a data page in this column chunk.
 
         Args:
@@ -382,6 +383,10 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             reader: File-like object to read from
             dictionary_values: List of values from column chunk
                                dictionary page (optional)
+            apply_logical_types: Whether to convert physical values to
+                their logical representation.
+            excluded_logical_columns: Column paths to exclude from logical
+                type conversion, even when `apply_logical_types` is True.
 
         Returns:
             List of data values
@@ -404,21 +409,27 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             physical_type=self.metadata.type,
             compression_codec=self.codec,
             dictionary_values=dictionary_values if dictionary_values else None,
+            apply_logical_types=apply_logical_types,
             excluded_logical_columns=excluded_logical_columns,
         )
 
     async def parse_all_data_pages(
         self,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> AsyncIterator[ValueTuple]:
+    ) -> AsyncIterator[PageValue]:
         """Parse all data from all pages in this column chunk.
 
         Args:
             reader: File-like object to read from
+            apply_logical_types: Whether to convert physical values to
+                their logical representation.
+            excluded_logical_columns: Column paths to exclude from logical
+                type conversion, even when `apply_logical_types` is True.
 
         Yields:
-            Value tuples from all pages in this column
+            PageValue entries from all pages in this column
         """
         reader = ensure_async_reader(reader)
 
@@ -433,6 +444,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                     else reader
                 ),
                 dictionary_values=dictionary_values,
+                apply_logical_types=apply_logical_types,
                 excluded_logical_columns=excluded_logical_columns,
             )
             for page_index in range(len(self.data_pages))
@@ -722,18 +734,20 @@ class ParquetFile(
     async def read_all_data(
         self,
         reader: AsyncReadableSeekable,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
         reconstruct: bool = True,
     ) -> dict[str, Any]:
         # we can have multiple column chunks per column
         # so we need to chain each column chunk iterator together
         # to get a single iterator per column
-        column_iters: dict[str, AsyncChain[ValueTuple]] = {}
+        column_iters: dict[str, AsyncChain[PageValue]] = {}
         for cc in self.column_chunks:
             value_tuples = cc.parse_all_data_pages(
                 reader.clone()
                 if isinstance(reader, AsyncCursableReadableSeekable)
                 else reader,
+                apply_logical_types=apply_logical_types,
                 excluded_logical_columns=excluded_logical_columns,
             )
             try:

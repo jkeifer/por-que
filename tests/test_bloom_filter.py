@@ -39,9 +39,9 @@ ABSENT_PROBES = [
 
 async def _column_values(chunk, reader) -> list:
     values = []
-    async for value, _def_level, _rep_level in chunk.parse_all_data_pages(reader):
-        if value is not None:
-            values.append(value)
+    async for entry in chunk.parse_all_data_pages(reader):
+        if entry.value is not None:
+            values.append(entry.value)
     return values
 
 

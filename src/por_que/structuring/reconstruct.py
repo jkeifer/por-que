@@ -20,7 +20,7 @@ async def reconstruct(
     Args:
         schema_root: The root schema node for the Parquet file.
         tuple_streams: A dictionary mapping the full path of each column to an
-                       async iterator of its (value, dl, rl) tuples.
+                       async iterator of its ``PageValue`` entries.
 
     Returns:
         A list of dictionaries, where each dictionary represents one fully

@@ -77,7 +77,7 @@ class MapAssembler(Assembler):
         if peeked_tuple is None:
             raise StopAsyncIteration
 
-        _, dl, rl = peeked_tuple
+        dl, rl = peeked_tuple.definition_level, peeked_tuple.repetition_level
 
         # Check if this tuple clearly belongs to a parent container
         # This requires BOTH conditions:
@@ -96,7 +96,11 @@ class MapAssembler(Assembler):
             # Also consume from value stream if it exists
             if self.value_assembler and self.value_assembler.leader_stream:
                 value_peek = await self.value_assembler.leader_stream.peek()
-                if value_peek and value_peek[1] == dl and value_peek[2] == rl:
+                if (
+                    value_peek
+                    and value_peek.definition_level == dl
+                    and value_peek.repetition_level == rl
+                ):
                     await anext(self.value_assembler.leader_stream)
             return (None, None)
 
@@ -119,7 +123,11 @@ class MapAssembler(Assembler):
             # Also consume from value stream if it exists
             if self.value_assembler and self.value_assembler.leader_stream:
                 value_peek = await self.value_assembler.leader_stream.peek()
-                if value_peek and value_peek[1] == dl and value_peek[2] == rl:
+                if (
+                    value_peek
+                    and value_peek.definition_level == dl
+                    and value_peek.repetition_level == rl
+                ):
                     await anext(self.value_assembler.leader_stream)
             return ([], None)
 
@@ -133,7 +141,7 @@ class MapAssembler(Assembler):
             if peeked_key_tuple is None:
                 break
 
-            _, _, key_rl = peeked_key_tuple
+            key_rl = peeked_key_tuple.repetition_level
 
             # Stop when RL drops below our repetition level
             # EXCEPT for first entry which can have lower RL
@@ -152,10 +160,10 @@ class MapAssembler(Assembler):
                         raise ParquetDataError(
                             'Map value stream exhausted while key stream has data',
                         )
-                    if val_peek[2] > key_rl:
+                    if val_peek.repetition_level > key_rl:
                         raise ParquetDataError(
                             f'RL mismatch in map: key RL={key_rl}, '
-                            f'value RL={val_peek[2]}',
+                            f'value RL={val_peek.repetition_level}',
                         )
 
             # Build key and value
@@ -209,7 +217,11 @@ class MapAssembler(Assembler):
                     # Consume the boundary marker from all relevant streams
                     for stream in value_streams:
                         peeked = await stream.peek()
-                        if peeked and peeked[1] == dl and peeked[2] == rl:
+                        if (
+                            peeked
+                            and peeked.definition_level == dl
+                            and peeked.repetition_level == rl
+                        ):
                             await anext(stream)
 
                     if dl < self.value_assembler.schema_element.definition_level:
