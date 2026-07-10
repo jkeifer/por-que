@@ -21,9 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v0.5.0] - 2026-07-09
 
-Public APIs for what the ver-por-que worker previously reached por-que
-internals for (see `docs/superpowers/specs/2026-07-09-public-api-design.md`).
-
 ### Added
 
 - `BloomFilter.explain(value)` returning a `BloomProbe` with the full
@@ -64,14 +61,6 @@ internals for (see `docs/superpowers/specs/2026-07-09-public-api-design.md`).
   silently binding it to `apply_logical_types`.
 - `BloomFilter.might_contain()` now delegates to `explain()`; behavior is
   unchanged.
-
-### Fixed
-
-### Deprecated
-
-### Removed
-
-### Security
 
 ## [v0.4.1] - 2026-07-08
 
