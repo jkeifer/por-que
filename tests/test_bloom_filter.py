@@ -39,9 +39,9 @@ ABSENT_PROBES = [
 
 async def _column_values(chunk, reader) -> list:
     values = []
-    async for value, _def_level, _rep_level in chunk.parse_all_data_pages(reader):
-        if value is not None:
-            values.append(value)
+    async for entry in chunk.parse_all_data_pages(reader):
+        if entry.value is not None:
+            values.append(entry.value)
     return values
 
 
@@ -145,3 +145,58 @@ async def test_load_bloom_filter_without_filter_raises(
 
         with pytest.raises(ParquetFormatError, match='no bloom filter'):
             await chunk.load_bloom_filter(hf)
+
+
+@pytest.mark.parametrize('parquet_file_name', BLOOM_FILES)
+@pytest.mark.asyncio
+async def test_explain_matches_might_contain(
+    parquet_file_name: str,
+    parquet_url: str,
+) -> None:
+    """explain() is the same derivation as might_contain, with intermediates."""
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf = await ParquetFile.from_reader(hf, parquet_url)
+        chunk = pf.column_chunks[0]
+        bloom = await chunk.load_bloom_filter(hf)
+        present = await _column_values(chunk, hf)
+
+    for value in [*present, *ABSENT_PROBES]:
+        probe = bloom.explain(value)
+        assert probe.might_contain == bloom.might_contain(value)
+
+
+@pytest.mark.parametrize('parquet_file_name', BLOOM_FILES)
+@pytest.mark.asyncio
+async def test_explain_intermediates_are_consistent(
+    parquet_file_name: str,
+    parquet_url: str,
+) -> None:
+    """The intermediates describe one 256-bit block and its 8 checked bits."""
+    async with AsyncHttpFile(parquet_url) as hf:
+        pf = await ParquetFile.from_reader(hf, parquet_url)
+        chunk = pf.column_chunks[0]
+        bloom = await chunk.load_bloom_filter(hf)
+        present = await _column_values(chunk, hf)
+
+    for value in [present[0], ABSENT_PROBES[0]]:
+        probe = bloom.explain(value)
+
+        assert probe.num_blocks == bloom.num_blocks
+        assert 0 <= probe.block_index < probe.num_blocks
+        assert len(probe.block_bytes) == 32
+        # The block is a verbatim window into the (public) bitset.
+        start = probe.block_index * 32
+        assert probe.block_bytes == bloom.bitset[start : start + 32]
+
+        assert len(probe.bits) == 8
+        for i, check in enumerate(probe.bits):
+            assert check.word_index == i
+            assert 0 <= check.bit_index < 32
+            # Each check must agree with the block bytes it claims to describe.
+            word = int.from_bytes(
+                probe.block_bytes[i * 4 : (i + 1) * 4],
+                'little',
+            )
+            assert check.is_set == bool((word >> check.bit_index) & 1)
+
+        assert probe.might_contain == all(c.is_set for c in probe.bits)

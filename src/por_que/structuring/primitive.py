@@ -36,10 +36,10 @@ class PrimitiveAssembler(Assembler):
         # For a primitive, we always consume one tuple to produce one item.
         # The parent's state machine is responsible for not calling `next_item`
         # if the tuple's RL indicates the primitive is outside the parent's bounds.
-        value, dl, _ = await anext(self.leader_stream)
+        entry = await anext(self.leader_stream)
 
-        if dl >= self.schema_element.definition_level:
-            return (value, None)
+        if entry.definition_level >= self.schema_element.definition_level:
+            return (entry.value, None)
         # Any DL less than the max for a primitive means it's a null
         # at some level of its ancestry. The assembled value is None.
         return (None, None)

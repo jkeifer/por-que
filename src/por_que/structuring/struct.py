@@ -90,7 +90,7 @@ class StructAssembler(Assembler):
         if peeked_tuple is None:
             raise StopAsyncIteration
 
-        _, dl, rl = peeked_tuple
+        dl, rl = peeked_tuple.definition_level, peeked_tuple.repetition_level
 
         # Boundary check for structs
         # When a struct is an element of a list, the first element might have
@@ -109,7 +109,7 @@ class StructAssembler(Assembler):
                 if path in self.streams:
                     stream = self.streams[path]
                     peeked = await stream.peek()
-                    if peeked and peeked[1] < self.definition_level:
+                    if peeked and peeked.definition_level < self.definition_level:
                         await stream.__anext__()
             return (None, None)
 

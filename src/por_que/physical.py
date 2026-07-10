@@ -31,7 +31,7 @@ from .pages import (
     IndexPage,
     Page,
 )
-from .parsers.page_content import DictType, ValueTuple
+from .parsers.page_content import DictType, PageValue
 from .protocols import (
     AsyncCursableReadableSeekable,
     AsyncReadableSeekable,
@@ -348,6 +348,30 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         reader = ensure_async_reader(reader)
         return await BloomFilter.from_reader(reader, self.metadata)
 
+    async def parse_dictionary(
+        self,
+        reader: ReadableSeekable | AsyncReadableSeekable,
+        *,
+        apply_logical_types: bool = True,
+    ) -> DictType:
+        """Decode this chunk's dictionary page to its distinct values.
+
+        Mirrors :meth:`parse_data_page` ergonomics: accepts a sync or async
+        reader and applies logical types by default. Pass
+        ``apply_logical_types=False`` for the raw physical values (the bytes
+        the bloom filter hashes, for example).
+
+        Returns:
+            The dictionary's values, or ``[]`` if the chunk has no
+            dictionary page.
+        """
+        reader = ensure_async_reader(reader)
+        values = await self._parse_dictionary(reader)
+        if not apply_logical_types:
+            return values
+        schema_element = self.metadata.schema_element
+        return [schema_element.physical_to_logical_type(value) for value in values]
+
     async def _parse_dictionary(self, reader: AsyncReadableSeekable) -> DictType:
         """Parse dictionary content if dictionary page exists.
 
@@ -372,9 +396,11 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
         self,
         page_index: int,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        *,
         dictionary_values: DictType | None = None,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> Iterator[ValueTuple]:
+    ) -> Iterator[PageValue]:
         """Parse a data page in this column chunk.
 
         Args:
@@ -382,9 +408,13 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             reader: File-like object to read from
             dictionary_values: List of values from column chunk
                                dictionary page (optional)
+            apply_logical_types: Whether to convert physical values to
+                their logical representation.
+            excluded_logical_columns: Column paths to exclude from logical
+                type conversion, even when `apply_logical_types` is True.
 
         Returns:
-            List of data values
+            Iterator of PageValue entries.
         """
         reader = ensure_async_reader(reader)
 
@@ -404,21 +434,28 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             physical_type=self.metadata.type,
             compression_codec=self.codec,
             dictionary_values=dictionary_values if dictionary_values else None,
+            apply_logical_types=apply_logical_types,
             excluded_logical_columns=excluded_logical_columns,
         )
 
     async def parse_all_data_pages(
         self,
         reader: ReadableSeekable | AsyncReadableSeekable,
+        *,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> AsyncIterator[ValueTuple]:
+    ) -> AsyncIterator[PageValue]:
         """Parse all data from all pages in this column chunk.
 
         Args:
             reader: File-like object to read from
+            apply_logical_types: Whether to convert physical values to
+                their logical representation.
+            excluded_logical_columns: Column paths to exclude from logical
+                type conversion, even when `apply_logical_types` is True.
 
         Yields:
-            Value tuples from all pages in this column
+            PageValue entries from all pages in this column
         """
         reader = ensure_async_reader(reader)
 
@@ -433,6 +470,7 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
                     else reader
                 ),
                 dictionary_values=dictionary_values,
+                apply_logical_types=apply_logical_types,
                 excluded_logical_columns=excluded_logical_columns,
             )
             for page_index in range(len(self.data_pages))
@@ -442,14 +480,14 @@ class PhysicalColumnChunk(BaseModel, frozen=True):
             # run all tasks concurrently, but get results in order
             tasks = [asyncio.create_task(coro) for coro in coroutines]
             for task in tasks:
-                for value_tuple in await task:
-                    yield value_tuple
+                for page_value in await task:
+                    yield page_value
             return
 
         # run tasks in serial, awaiting each before starting next
         for coroutine in coroutines:
-            for value_tuple in await coroutine:
-                yield value_tuple
+            for page_value in await coroutine:
+                yield page_value
 
 
 class ParquetFile(
@@ -722,24 +760,27 @@ class ParquetFile(
     async def read_all_data(
         self,
         reader: AsyncReadableSeekable,
+        *,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
         reconstruct: bool = True,
     ) -> dict[str, Any]:
         # we can have multiple column chunks per column
         # so we need to chain each column chunk iterator together
         # to get a single iterator per column
-        column_iters: dict[str, AsyncChain[ValueTuple]] = {}
+        column_iters: dict[str, AsyncChain[PageValue]] = {}
         for cc in self.column_chunks:
-            value_tuples = cc.parse_all_data_pages(
+            page_values = cc.parse_all_data_pages(
                 reader.clone()
                 if isinstance(reader, AsyncCursableReadableSeekable)
                 else reader,
+                apply_logical_types=apply_logical_types,
                 excluded_logical_columns=excluded_logical_columns,
             )
             try:
-                column_iters[cc.path_in_schema].add(value_tuples)
+                column_iters[cc.path_in_schema].add(page_values)
             except KeyError:
-                column_iters[cc.path_in_schema] = AsyncChain(value_tuples)
+                column_iters[cc.path_in_schema] = AsyncChain(page_values)
 
         # When reconstruct=False, return flat data (tuples) for testing
         if not reconstruct:

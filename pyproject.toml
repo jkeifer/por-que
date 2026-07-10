@@ -13,7 +13,7 @@ requires-python = ">=3.13"
 license = {text = "Apache License 2.0"}
 dependencies = [
     "brotli>=1.1.0",
-    "hctef[async]>=0.3.1",
+    "hctef[async]>=0.4.0",
     "lz4>=4.0.0",
     "pydantic>=2.11.7",
     "python-snappy>=0.6.1",
@@ -121,7 +121,6 @@ disable_error_code = 'prop-decorator'
 
 [tool.pytest.ini_options]
 addopts="--cov=por_que"
-# only collect our own tests (a sibling checkout of hctef may be nested here)
 testpaths = ["tests"]
 
 [tool.coverage.report]

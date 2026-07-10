@@ -62,7 +62,7 @@ class BaseListAssembler[T: SchemaGroup | SchemaLeaf](Assembler, ABC):
         if peeked_tuple is None:
             raise StopAsyncIteration
 
-        _, dl, rl = peeked_tuple
+        dl, rl = peeked_tuple.definition_level, peeked_tuple.repetition_level
 
         # Boundary check: We need to detect when a tuple doesn't belong to us
         # to avoid infinite loops. But we must be careful with the first element.
@@ -79,7 +79,11 @@ class BaseListAssembler[T: SchemaGroup | SchemaLeaf](Assembler, ABC):
             # Otherwise it's a null list marker for us - consume from ALL streams
             for stream in self.streams.values():
                 peeked = await stream.peek()
-                if peeked and peeked[1] == dl and peeked[2] == rl:
+                if (
+                    peeked
+                    and peeked.definition_level == dl
+                    and peeked.repetition_level == rl
+                ):
                     await stream.__anext__()
             return (None, None)
 
@@ -93,7 +97,11 @@ class BaseListAssembler[T: SchemaGroup | SchemaLeaf](Assembler, ABC):
             # For struct elements, the empty marker appears in all field streams
             for stream in self.streams.values():
                 peeked = await stream.peek()
-                if peeked and peeked[1] == dl and peeked[2] == rl:
+                if (
+                    peeked
+                    and peeked.definition_level == dl
+                    and peeked.repetition_level == rl
+                ):
                     await stream.__anext__()
             return ([], None)
 
@@ -107,7 +115,7 @@ class BaseListAssembler[T: SchemaGroup | SchemaLeaf](Assembler, ABC):
             if peeked_tuple is None:
                 break
 
-            _, _, rl = peeked_tuple
+            rl = peeked_tuple.repetition_level
 
             # Stop when RL drops below our repetition level
             # EXCEPT for first element which can have lower RL
@@ -134,7 +142,11 @@ class BaseListAssembler[T: SchemaGroup | SchemaLeaf](Assembler, ABC):
                     # (important for complex elements like structs)
                     for stream in self.streams.values():
                         peeked = await stream.peek()
-                        if peeked and peeked[1] == dl and peeked[2] == rl:
+                        if (
+                            peeked
+                            and peeked.definition_level == dl
+                            and peeked.repetition_level == rl
+                        ):
                             await stream.__anext__()
 
                     # Determine if it's null or empty

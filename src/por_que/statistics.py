@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import struct
 
-from typing import TYPE_CHECKING, Any, Self
+from typing import TYPE_CHECKING, Any, NamedTuple, Self
 
 from pydantic import BaseModel, Field
 
@@ -251,6 +251,47 @@ _SBBF_WORDS_PER_BLOCK = 8
 _U32_MASK = 0xFFFFFFFF
 
 
+class BloomBitCheck(NamedTuple):
+    """One of the eight bit probes a split-block bloom lookup performs."""
+
+    word_index: int
+    """Which 32-bit word of the block this probe reads (0-7)."""
+
+    bit_index: int
+    """Which bit of that word the salt selected (0-31)."""
+
+    is_set: bool
+    """Whether the bit is set. All eight must be set for a maybe."""
+
+
+class BloomProbe(NamedTuple):
+    """The full derivation behind one bloom-filter lookup.
+
+    :meth:`BloomFilter.explain` returns this instead of a bare bool so
+    consumers (teaching UIs, debuggers) can show *why* a value is a maybe
+    or a definite no: the hash, the block it selected, and the eight
+    salt-derived bit probes within it.
+    """
+
+    hash: int
+    """xxHash64 of the PLAIN-encoded value."""
+
+    block_index: int
+    """Index of the 256-bit block the top 32 hash bits selected."""
+
+    num_blocks: int
+    """Total blocks in the filter (same as :attr:`BloomFilter.num_blocks`)."""
+
+    block_bytes: bytes
+    """The selected block, verbatim: ``bitset[block_index*32 : +32]``."""
+
+    bits: tuple[BloomBitCheck, ...]
+    """The eight bit probes, in word order."""
+
+    might_contain: bool
+    """The lookup verdict: true iff every probed bit is set."""
+
+
 class BloomFilter(BaseModel, frozen=True):
     """A split-block bloom filter (SBBF) for one column chunk.
 
@@ -280,6 +321,12 @@ class BloomFilter(BaseModel, frozen=True):
     num_bytes: int
     header_length: int
     bitset: bytes = Field(repr=False)
+    """The raw SBBF bitset: ``num_blocks`` consecutive 256-bit blocks.
+
+    Stable public API: consumers may read this directly (e.g. to render
+    block windows or compute per-block popcounts). Each block is 32 bytes,
+    eight little-endian 32-bit words.
+    """
     physical_type: TypeName
 
     @classmethod
@@ -352,7 +399,7 @@ class BloomFilter(BaseModel, frozen=True):
 
     @property
     def num_blocks(self) -> int:
-        """Number of 256-bit blocks in the bitset."""
+        """Number of 256-bit blocks in the bitset. Stable public API."""
         return self.num_bytes // _SBBF_BLOCK_BYTES
 
     def _plain_encode(self, value: Any) -> bytes:
@@ -389,26 +436,47 @@ class BloomFilter(BaseModel, frozen=True):
         value is probably present but may be a false positive. See the class
         docstring for why this asymmetry is the useful part.
         """
+        return self.explain(value).might_contain
+
+    def explain(self, value: Any) -> BloomProbe:
+        """Perform a lookup for ``value``, returning every intermediate.
+
+        The derivation: PLAIN-encode the physical value, xxHash64 it, let the
+        top 32 hash bits select one 256-bit block (scaled into range so the
+        distribution stays uniform without a modulo), then let the low 32
+        bits pick -- via each of the eight salts -- one bit per 32-bit word
+        of that block. The value might be present only if all eight bits are
+        set.
+
+        Raises:
+            ParquetFormatError: If the column's physical type cannot be
+                bloom-queried.
+        """
         from .util.xxhash import xxh64
 
         hash_ = xxh64(self._plain_encode(value))
-        return self._block_check(hash_)
-
-    def _block_check(self, hash_: int) -> bool:
-        """Check the eight mask bits for ``hash_`` in its selected block.
-
-        The top 32 bits of the hash pick the block (scaled into range so the
-        distribution stays uniform without a modulo); the low 32 bits pick,
-        via each salt, one bit per word. The value might be present only if
-        every one of those eight bits is already set.
-        """
         block_index = ((hash_ >> 32) * self.num_blocks) >> 32
         low = hash_ & _U32_MASK
         base = block_index * _SBBF_BLOCK_BYTES
+        block_bytes = self.bitset[base : base + _SBBF_BLOCK_BYTES]
+
+        bits = []
         for i in range(_SBBF_WORDS_PER_BLOCK):
-            start = base + i * 4
-            word = int.from_bytes(self.bitset[start : start + 4], 'little')
-            bit = ((low * SBBF_SALT[i]) & _U32_MASK) >> 27
-            if not (word >> bit) & 1:
-                return False
-        return True
+            word = int.from_bytes(block_bytes[i * 4 : (i + 1) * 4], 'little')
+            bit_index = ((low * SBBF_SALT[i]) & _U32_MASK) >> 27
+            bits.append(
+                BloomBitCheck(
+                    word_index=i,
+                    bit_index=bit_index,
+                    is_set=bool((word >> bit_index) & 1),
+                ),
+            )
+
+        return BloomProbe(
+            hash=hash_,
+            block_index=block_index,
+            num_blocks=self.num_blocks,
+            block_bytes=block_bytes,
+            bits=tuple(bits),
+            might_contain=all(check.is_set for check in bits),
+        )

@@ -22,7 +22,7 @@ from .parsers.page_content import (
     DataPageV2Parser,
     DictionaryPageParser,
     DictType,
-    ValueTuple,
+    PageValue,
 )
 from .parsers.parquet.page import PageParser
 from .parsers.thrift.parser import ThriftCompactParser
@@ -129,9 +129,11 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
+        *,
         dictionary_values: list[Any] | None = None,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> Iterator[ValueTuple]:
+    ) -> Iterator[PageValue]:
         """Parse the data page content into Python objects.
 
         Args:
@@ -139,9 +141,13 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
             physical_type: Physical type of the data values
             compression_codec: Compression codec used
             dictionary_values: Dictionary values if dictionary-encoded
+            apply_logical_types: Whether to convert physical values to
+                their logical representation.
+            excluded_logical_columns: Column paths to exclude from logical
+                type conversion, even when `apply_logical_types` is True.
 
         Returns:
-            List of data values as Python objects
+            Iterator of PageValue entries.
         """
         return await DataPageV1Parser(
             reader=reader,
@@ -151,6 +157,7 @@ class DataPageV1(Page, SchemaLinked, frozen=True):
             schema_element=self.schema_element,
             dictionary_values=dictionary_values,
         ).parse(
+            apply_logical_types=apply_logical_types,
             excluded_logical_columns=excluded_logical_columns,
         )
 
@@ -177,9 +184,11 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
         reader: AsyncReadableSeekable,
         physical_type: Type,
         compression_codec: Compression,
+        *,
         dictionary_values: list[Any] | None = None,
+        apply_logical_types: bool = True,
         excluded_logical_columns: Sequence[str] | None = None,
-    ) -> Iterator[ValueTuple]:
+    ) -> Iterator[PageValue]:
         """Parse the data page content into Python objects.
 
         Args:
@@ -187,9 +196,13 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
             physical_type: Physical type of the data values
             compression_codec: Compression codec used
             dictionary_values: Dictionary values if dictionary-encoded
+            apply_logical_types: Whether to convert physical values to
+                their logical representation.
+            excluded_logical_columns: Column paths to exclude from logical
+                type conversion, even when `apply_logical_types` is True.
 
         Returns:
-            List of data values as Python objects
+            Iterator of PageValue entries.
         """
         return await DataPageV2Parser(
             reader=reader,
@@ -199,6 +212,7 @@ class DataPageV2(Page, SchemaLinked, frozen=True):
             schema_element=self.schema_element,
             dictionary_values=dictionary_values,
         ).parse(
+            apply_logical_types=apply_logical_types,
             excluded_logical_columns=excluded_logical_columns,
         )
 

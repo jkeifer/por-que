@@ -3,7 +3,7 @@ import io
 from typing import Literal, assert_never, cast
 
 from por_que.enums import Compression
-from por_que.exceptions import ParquetDataError
+from por_que.exceptions import CodecUnavailableError, ParquetDataError
 
 
 def decompress_data(
@@ -73,8 +73,9 @@ def get_brotli():
     try:
         import brotli
     except ImportError:
-        raise ParquetDataError(
+        raise CodecUnavailableError(
             'Brotli compression requires brotli package',
+            codec='BROTLI',
         ) from None
     return brotli
 
@@ -89,8 +90,9 @@ def get_lzo():
     try:
         import lzo
     except ImportError:
-        raise ParquetDataError(
+        raise CodecUnavailableError(
             'LZO compression requires python-lzo package',
+            codec='LZO',
         ) from None
     return lzo
 
@@ -271,7 +273,8 @@ def get_zstd():
     try:
         import zstandard
     except ImportError:
-        raise ParquetDataError(
+        raise CodecUnavailableError(
             'Zstandard compression requires zstandard package',
+            codec='ZSTD',
         ) from None
     return zstandard
